@@ -1,0 +1,53 @@
+Debugging
+  Logging
+  pdb
+  ipdb
+  Pycharm
+
+Testing
+  Coverage
+  Linting
+  Fixtures
+  Mocks
+  Hypothesis
+
+Devops
+  Continuous Integration
+  Deployment
+  Fabric
+
+Relational Databases
+  Postgress
+  Django ORM
+  SqlAlchemy
+
+Non-relational & Document Databases
+  NoSQL
+  Mongo
+  Couch
+
+Advanced OO
+  Metaclasses
+  Design Patterns
+  SOLID
+
+Functional Programming
+
+Performance
+  Profiling
+  PyPy
+  Cython
+
+Analytics
+  Numpy
+  Scipy
+  Pandas
+  Scikit-learn
+
+Packaging
+  Pypi
+
+Gui Development
+
+Embedded systems programming
+  MicroPython

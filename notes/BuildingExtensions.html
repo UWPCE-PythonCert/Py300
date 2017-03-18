@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building Extensions to Python &#8212; Py300 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Py300 3.0 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="building-extensions-to-python">
+<span id="building-extensions"></span><h1>Building Extensions to Python<a class="headerlink" href="#building-extensions-to-python" title="Permalink to this headline">¶</a></h1>
+<p>To build extensions to Python, you need a C (and maybe C++) compiler that is compatible with your Python build.</p>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Linux is pretty straightforward &#8211; most systems are set up to build stuff out of the box. If not, you&#8217;ll need to install the development tools. In Ubuntu, that&#8217;s:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
+</pre></div>
+</div>
+<p>Other systems will have something similar.</p>
+<p>To make sure it&#8217;s working, you can make sure gcc is there with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>at the command line, and make sure you get something!</p>
+<p>To compile Python extensions, you&#8217;ll need the some extra files that come with python. Most distros have an extra package, called something like &#8220;python-dev&#8221; that you&#8217;ll need to get the headers, etc. required to build extensions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>That should do it.</p>
+</div>
+<div class="section" id="windows">
+<h2>Windows:<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way is to use the same MS compiler as the <code class="docutils literal"><span class="pre">python.org</span></code> build.</p>
+<p>With Python2.7, that&#8217;s MS Visual Studio 2008.</p>
+<p>MS has recently started distributing a version of the compiler set up specifically to build Python extensions:</p>
+<p><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=44266">http://www.microsoft.com/en-us/download/details.aspx?id=44266</a></p>
+<p>The trick is that this installs things a bit differently than distutils expects. But newer versions of setuptools do support it. So make sure you have an updated setuptools:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
+</pre></div>
+</div>
+<p>and that the extension you are trying to compile is using setuptools, rather than raw distutils.</p>
+</div>
+<div class="section" id="os-x">
+<h2>OS-X:<a class="headerlink" href="#os-x" title="Permalink to this headline">¶</a></h2>
+<p>Apple provides a free compiler, as part of the &#8220;XCode&#8221; IDE.
+You can get it for free from the App store, but be prepared, it is a big download!</p>
+<p>Just the command line tools:</p>
+<p>It looks like you can just get the command line tools by running this command on the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+</pre></div>
+</div>
+<p>see: <a class="reference external" href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/</a></p>
+<p>for more detail.</p>
+<p>If you opt for the full package, after you install XCode, you STILL need to install the command line tools. To install these tools, go to the Downloads tab within the Xcode Preferences menu and click &#8220;Install&#8221; next to the Command Line Tools entry.</p>
+<p>(<a class="reference external" href="https://developer.apple.com/support/xcode/">https://developer.apple.com/support/xcode/</a>)</p>
+<div class="section" id="macports-homebrew">
+<h3>Macports / Homebrew<a class="headerlink" href="#macports-homebrew" title="Permalink to this headline">¶</a></h3>
+<p>If you installed python with Macports or Homebrew, it should be all set up to compile extensions. If not, then you may need to install a python-dev package, or something like that.</p>
+</div>
+</div>
+<div class="section" id="testing-if-it-works">
+<h2>Testing if it works:<a class="headerlink" href="#testing-if-it-works" title="Permalink to this headline">¶</a></h2>
+<p>In the <code class="docutils literal"><span class="pre">Examples\week-08</span> <span class="pre">class</span></code>, you&#8217;ll find a number of samples.</p>
+<p>Go to the: <code class="docutils literal"><span class="pre">Examples\week-08-extensions/c-api</span></code> dir.</p>
+<p>type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">--</span><span class="n">inplace</span>
+</pre></div>
+</div>
+<p>This should spew out a bunch of stuff while it builds the extension, then hopefully finish without an error. On Linux and the Mac, you should get an add.so file, on Windows, an add.pyd file.</p>
+<p>Try:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">test</span>
+</pre></div>
+</div>
+<p>and hopefully 3 tests will pass.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building Extensions to Python</a><ul>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#windows">Windows:</a></li>
+<li><a class="reference internal" href="#os-x">OS-X:</a><ul>
+<li><a class="reference internal" href="#macports-homebrew">Macports / Homebrew</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#testing-if-it-works">Testing if it works:</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notes/BuildingExtensions.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/notes/BuildingExtensions.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

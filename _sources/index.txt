@@ -3,6 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+================
 Welcome to Py300
 ================
 
@@ -12,12 +13,23 @@ The Third class in the program.
 
 This project contains lecture materials and notes for the class. Any given class may cover some fraction of these topics.
 
+Class info:
+-----------
+
+- :ref:`syllabus`
+
 
 Topics
 ------
 
-- :ref:`debugging`
+:ref:`logging`
+..............
 
+:ref:`debugging`
+................
+
+:ref:`testing`
+..............
 
 
 License

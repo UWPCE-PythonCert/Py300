@@ -6,17 +6,32 @@
 Welcome to Py300
 ================
 
-Modules
+UW Certificate Program in Programming in Python
+
+The Third class in the program.
+
+This project contains lecture materials and notes for the class. Any given class may cover some fraction of these topics.
+
+
+Topics
+------
+
+- :ref:`debugging`
+
+
+
+License
 -------
 
-.. toctree::
-   :maxdepth: 1
+These materials copyright Christopher Barker, Joseph Sheedy and Maria McKinley, and Rick Riehle
 
+Licensed under the Creative Commons Attribution-ShareAlike 4.0 International Public License.
+
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
 
 Indices and tables
 ------------------
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

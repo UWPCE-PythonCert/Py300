@@ -5,6 +5,9 @@
 
 # this version used a separate copy of the repo in a parallel dir
 # to keep the gh-pages branch nicely separate from the main branch.
+# this makes it easier to have the index.html in the root dir
+#  -- to be nicely served by gh-pages
+
 
 GHPAGESDIR=../Py300.gh-pages/
 

@@ -1,0 +1,47 @@
+<address_book>
+  <person>
+    <office_phone>123-456-7890</office_phone>
+    <email>PythonCHB@gmail.com</email>
+    <address>
+      <city>Seattle</city>
+      <line_2 />
+      <state>WA</state>
+      <zip>96543</zip>
+      <line_1>835 NE 33rd St</line_1>
+    </address>
+    <last_name>Barker</last_name>
+    <cell_phone>234-567-8901</cell_phone>
+    <first_name>Chris</first_name>
+    <home_phone>206-555-1234</home_phone>
+  </person>
+  <person>
+    <office_phone>123-765-9877</office_phone>
+    <email>Wilson.Nancy@gmail.com</email>
+    <address>
+      <city>Pasadena</city>
+      <line_2>Suite 567</line_2>
+      <state>CA</state>
+      <zip>12345</zip>
+      <line_1>8654 Walnut St</line_1>
+    </address>
+    <last_name>Wilson</last_name>
+    <cell_phone>432-567-8466</cell_phone>
+    <first_name>Nancy</first_name>
+    <home_phone>423-321-9876</home_phone>
+  </person>
+  <person>
+    <office_phone>564-466-7990</office_phone>
+    <email>FredJones@some_company.com</email>
+    <address>
+      <city>Tacoma</city>
+      <line_2>Apt. 43</line_2>
+      <state>WA</state>
+      <zip>93465</zip>
+      <line_1>123 SE 13th St</line_1>
+    </address>
+    <last_name>Jones</last_name>
+    <cell_phone>403-561-8911</cell_phone>
+    <first_name>Fred</first_name>
+    <home_phone>510-555-1234</home_phone>
+  </person>
+</address_book>

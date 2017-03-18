@@ -1,0 +1,109 @@
+2016-03-29 18:41:29,429 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:29,430 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:41:29,430 DEBUG -   worker - line:45 - work4 called 1 times
+2016-03-29 18:41:29,496 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:29,496 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:41:30,020 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:30,021 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:41:30,021 ERROR -   worker - line:33 - Error in work3: bad input
+2016-03-29 18:41:30,664 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:30,664 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:41:30,664 DEBUG -   worker - line:45 - work4 called 2 times
+2016-03-29 18:41:31,155 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:31,156 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:41:31,610 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:31,610 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:41:32,217 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:32,217 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:41:32,961 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:32,962 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:41:32,962 ERROR -   worker - line:33 - Error in work3: bad input
+2016-03-29 18:41:33,247 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:33,248 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:41:33,867 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:33,868 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:41:34,202 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:34,202 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:41:34,202 DEBUG -   worker - line:45 - work4 called 3 times
+2016-03-29 18:41:34,820 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:34,820 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:41:34,832 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:34,833 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:41:35,528 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:35,528 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:41:35,886 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:35,886 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:41:35,887 ERROR -   worker - line:33 - Error in work3: bad input
+2016-03-29 18:41:35,905 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:35,906 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:41:35,906 DEBUG -   worker - line:45 - work4 called 4 times
+2016-03-29 18:41:36,690 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:41:36,690 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:41:36,691 DEBUG -   worker - line:45 - work4 called 5 times
+2016-03-29 18:41:36,691 CRITICAL -   worker - line:48 - Something went terribly wrong! Aborting!!!
+2016-03-29 18:42:01,767 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:01,768 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:02,340 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:02,340 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:02,340 DEBUG -   worker - line:45 - work4 called 1 times
+2016-03-29 18:42:02,776 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:02,777 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:02,777 DEBUG -   worker - line:45 - work4 called 2 times
+2016-03-29 18:42:03,165 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:03,166 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:04,154 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:04,154 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:04,638 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:04,638 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:04,638 WARNING -   worker - line:24 - something weird happened in work2!
+2016-03-29 18:42:05,500 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:05,501 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:06,176 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:06,177 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:06,984 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:06,985 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:07,259 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:07,260 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:08,259 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:08,260 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:08,260 ERROR -   worker - line:33 - Error in work3: bad input
+2016-03-29 18:42:08,584 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:08,584 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:09,425 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:09,426 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:09,516 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:09,516 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:09,858 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:09,858 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:10,115 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:10,115 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:10,681 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:10,682 INFO -   worker - line:15 - work1 doing a job
+2016-03-29 18:42:11,373 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:11,373 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:12,032 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:12,032 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:12,032 DEBUG -   worker - line:45 - work4 called 3 times
+2016-03-29 18:42:12,518 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:12,518 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:12,983 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:12,984 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:13,569 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:13,569 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:13,570 DEBUG -   worker - line:45 - work4 called 4 times
+2016-03-29 18:42:14,158 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:14,158 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:14,158 WARNING -   worker - line:24 - something weird happened in work2!
+2016-03-29 18:42:15,150 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:15,150 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:15,150 DEBUG -   worker - line:45 - work4 called 5 times
+2016-03-29 18:42:15,671 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:15,671 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:16,076 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:16,076 INFO -   worker - line:31 - work3 doing a job
+2016-03-29 18:42:16,185 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:16,186 INFO -   worker - line:22 - work2 doing a job
+2016-03-29 18:42:16,703 DEBUG -  example - line:49 - calling a random worker
+2016-03-29 18:42:16,703 INFO -   worker - line:43 - work4 doing something
+2016-03-29 18:42:16,703 DEBUG -   worker - line:45 - work4 called 6 times
+2016-03-29 18:42:16,703 CRITICAL -   worker - line:48 - Something went terribly wrong! Aborting!!!

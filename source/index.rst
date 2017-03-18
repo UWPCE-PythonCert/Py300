@@ -31,6 +31,73 @@ Topics
 :ref:`testing`
 ..............
 
+:ref:`serialization`
+....................
+
+:ref:`code_review`
+..................
+
+:ref:`packaging`
+................
+
+:ref:`documentation`
+....................
+
+:ref:`nosql`
+............
+
+:ref:`scipy`
+............
+
+:ref:`advanced_oo`
+................
+
+:ref:`metaclasses`
+................
+
+:ref:`threading`
+................
+
+
+:ref:`datetime`
+...............
+
+:ref:`profiling`
+................
+
+:ref:`wxpython`
+...............
+
+..  - `Working with SQL Databases <html_slides/04-db.html>`_
+.. ......................
+
+:ref:`unicode`
+..............
+
+:ref:`extensions`
+.................
+
+:ref:`weak_references`
+......................
+
+
+Assorted Notes:
+---------------
+
+Not lecture materials per-se, but useful none the less.
+
+:ref:`installing_scipy`
+........................
+
+:ref:`building_extensions`
+..........................
+
+:ref:`installing_wxpython`
+..........................
+
+:ref:`installing_wxpython_demo`
+...............................
+
 
 License
 -------

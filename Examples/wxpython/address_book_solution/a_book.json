@@ -1,0 +1,26 @@
+[
+    {
+        "Phone": "123-456-8888",
+        "First Name": "Chris",
+        "Last Name": "Barker",
+        "email": "PythonCHB@gmail.com"
+    },
+    {
+        "Phone": "510-555-1234",
+        "First Name": "Fred",
+        "Last Name": "Jones",
+        "email": "FredJones@some_company.com"
+    },
+    {
+        "Phone": "423-321-9876",
+        "First Name": "Nancy",
+        "Last Name": "Wilson",
+        "email": "Wilson.Nancy@gmail.com"
+    },
+    {
+        "Phone": "555-555-5555",
+        "First Name": "Charles",
+        "Last Name": "Dickens",
+        "email": "chuck@victorian.england.com"
+    }
+]

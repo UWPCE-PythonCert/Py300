@@ -11,4 +11,4 @@ See the Syllabus for more detail.
 
 Class materials are available in html rendered version here:
 
-https://uwpce-pythoncert.github.io/Py300/build/html/index.html
+https://uwpce-pythoncert.github.io/Py300/index.html

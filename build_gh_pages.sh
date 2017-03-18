@@ -8,14 +8,16 @@
 
 GHPAGESDIR=../Py300.gh-pages/
 
-# make sure dir is there:
+# make sure gh-pages dir is there -- exit if not
 if [ ! -d $GHPAGESDIR ]; then
     echo "To build the gitHub pages, you must first create a parallel repo: $GHPAGESDIR"
     exit
 fi
 
-echo "it kept running"
-# make sure the Gh pages repo is there and in the right branch
+# make sure that the main branch is pushed, so that pages are in sync with master
+git push
+
+# make sure the gh pages repo is there and in the right branch
 pushd $GHPAGESDIR
 git checkout gh-pages
 popd

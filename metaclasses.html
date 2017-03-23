@@ -1,43 +1,154 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Metaclasses &#8212; Py300 3.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Py300 3.0 documentation" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
+  <title>Metaclasses &mdash; Py300 3.0 documentation</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Metaclasses</a><ul>
+<li><a class="reference internal" href="#a-class-is-just-an-object">A class is just an object</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#equivalent-to">Equivalent to:</a></li>
+<li><a class="reference internal" href="#more-on-classes">More on Classes</a></li>
+<li><a class="reference internal" href="#what-is-a-metaclass">What is a metaclass?</a></li>
+<li><a class="reference internal" href="#type"><code class="docutils literal"><span class="pre">type()</span></code></a></li>
+<li><a class="reference internal" href="#using-type-to-build-a-class">using type() to build a class</a></li>
+<li><a class="reference internal" href="#adding-methods-to-a-class-built-with-type">Adding methods to a class built with <code class="docutils literal"><span class="pre">type()</span></code></a></li>
+<li><a class="reference internal" href="#what-type-is-type">What type is type?</a></li>
+<li><a class="reference internal" href="#metaclass"><code class="docutils literal"><span class="pre">metaclass</span></code></a></li>
+<li><a class="reference internal" href="#why-use-metaclasses">Why use metaclasses?</a></li>
+<li><a class="reference internal" href="#new-vs-init-in-metaclasses">__new__  vs  __init__ in Metaclasses</a></li>
+<li><a class="reference internal" href="#metaclass-example">Metaclass example</a></li>
+<li><a class="reference internal" href="#namemangler">NameMangler</a></li>
+<li><a class="reference internal" href="#exercise-working-with-namemangler">Exercise: Working with NameMangler</a></li>
+<li><a class="reference internal" href="#the-singleton">The Singleton</a></li>
+<li><a class="reference internal" href="#reference-reading">Reference reading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Metaclasses</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/metaclasses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="metaclasses">
 <span id="id1"></span><h1>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this headline">¶</a></h1>
@@ -51,10 +162,10 @@
 <p class="left">Assigned to a variable</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">create_a_class</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-<span class="gp">... </span>   <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;CoolClass&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">create_a_class</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;CoolClass&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">))</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cool_class</span> <span class="o">=</span> <span class="n">create_a_class</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s1">&#39;nice&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s1">&#39;sweet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cool_class</span> <span class="o">=</span> <span class="n">create_a_class</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s">&#39;nice&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s">&#39;sweet&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cool_class</span>
 <span class="go">&lt;class &#39;__main__.CoolClass&#39;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cool_object</span> <span class="o">=</span> <span class="n">cool_class</span><span class="p">()</span>
@@ -69,9 +180,9 @@
 </div>
 <div class="section" id="equivalent-to">
 <h3>Equivalent to:<a class="headerlink" href="#equivalent-to" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-   <span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;nice&#39;</span>
-   <span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;sweet&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="n">foo</span> <span class="o">=</span> <span class="s">&#39;nice&#39;</span>
+   <span class="n">bar</span> <span class="o">=</span> <span class="s">&#39;sweet&#39;</span>
 </pre></div>
 </div>
 <p>But it was created at runtime, returned from a function and assigned to a variable.</p>
@@ -103,12 +214,12 @@ dynamically, or even replace the class with something else entirely</li>
 <h3><code class="docutils literal"><span class="pre">type()</span></code><a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
 <p>With one argument, <code class="docutils literal"><span class="pre">type()</span></code> returns the type of the argument</p>
 <p>With 3 arguments, <code class="docutils literal"><span class="pre">type()</span></code> returns a new class</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span>type<span class="o">?</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="nb">type</span><span class="o">?</span>
 <span class="n">Type</span><span class="p">:</span>       <span class="nb">type</span>
-<span class="n">String</span> <span class="n">Form</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="n">String</span> <span class="n">Form</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
 <span class="n">Namespace</span><span class="p">:</span>  <span class="n">Python</span> <span class="n">builtin</span>
 <span class="n">Docstring</span><span class="p">:</span>
-<span class="nb">type</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">the</span> <span class="nb">object</span><span class="s1">&#39;s type</span>
+<span class="nb">type</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">the</span> <span class="nb">object</span><span class="s">&#39;s type</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="n">new</span> <span class="nb">type</span>
 
 <span class="n">name</span><span class="p">:</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="k">class</span>
@@ -121,12 +232,12 @@ dynamically, or even replace the class with something else entirely</li>
 <h3>using type() to build a class<a class="headerlink" href="#using-type-to-build-a-class" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">class</span></code> keyword is syntactic sugar, we can get by without it by
 using type</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;MyClass&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;MyClass&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>(<code class="docutils literal"><span class="pre">object</span></code> is automatically a superclass)</p>
@@ -135,10 +246,10 @@ using type</p>
 <h3>Adding methods to a class built with <code class="docutils literal"><span class="pre">type()</span></code><a class="headerlink" href="#adding-methods-to-a-class-built-with-type" title="Permalink to this headline">¶</a></h3>
 <p>Just define a function with the correct signature and add it to the attr
 dictionary</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;called my_method, x = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;called my_method, x = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;MyClass&#39;</span><span class="p">,(),</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;my_method&#39;</span><span class="p">:</span> <span class="n">my_method</span><span class="p">})</span>
+<span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;MyClass&#39;</span><span class="p">,(),</span> <span class="p">{</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;my_method&#39;</span><span class="p">:</span> <span class="n">my_method</span><span class="p">})</span>
 <span class="n">o</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
 <span class="n">o</span><span class="o">.</span><span class="n">my_method</span><span class="p">()</span>
 </pre></div>
@@ -152,7 +263,7 @@ dictionary</p>
 </div>
 <div class="section" id="what-type-is-type">
 <h3>What type is type?<a class="headerlink" href="#what-type-is-type" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span>
 <span class="gh">Out[30]: </span><span class="go">type</span>
 </pre></div>
 </div>
@@ -160,7 +271,7 @@ dictionary</p>
 <div class="section" id="metaclass">
 <h3><code class="docutils literal"><span class="pre">metaclass</span></code><a class="headerlink" href="#metaclass" title="Permalink to this headline">¶</a></h3>
 <p>Setting a class&#8217; metaclass:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MyMetaClass</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MyMetaClass</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
@@ -170,7 +281,7 @@ dictionary</p>
 same signature as type()</p>
 <p><strong>Python2 NOTE:</strong></p>
 <p>In Python 2, instead of the keyword argument, a special class attribute: <code class="docutils literal"><span class="pre">__metaclass__</span></code> is used:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">MyMetaClass</span>
 </pre></div>
 </div>
@@ -181,11 +292,11 @@ same signature as type()</p>
 <p>Whenever you need to manage object creation for one or more classes</p>
 <p>For example, see <code class="docutils literal"><span class="pre">Examples/metclasses/singleton.py</span></code></p>
 <p>Or consider the Django ORM:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
     <span class="n">age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
 
-<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;bob&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>
 </pre></div>
 </div>
@@ -202,22 +313,22 @@ abstracted from the user of the Model class.</p>
 <p><code class="docutils literal"><span class="pre">__init__</span></code> is used when you want to control the initiation of the class (object)</p>
 <p><code class="docutils literal"><span class="pre">__new__</span></code> and <code class="docutils literal"><span class="pre">__init__</span></code> are both called when the module containing the class is imported for the first time.</p>
 <p><code class="docutils literal"><span class="pre">__call__</span></code> is used when you want to control how a class (object) is called (instantiation)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CoolMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CoolMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Creating class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Creating class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Initializing class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&#39;Initializing class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
   <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Meta has been called&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Meta has been called&#39;</span><span class="p">)</span>
   <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">CoolMeta</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;And now my CoolClass exists&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;And now my CoolClass exists&#39;</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Actually instantiating now&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Actually instantiating now&#39;</span><span class="p">)</span>
 <span class="n">foo</span> <span class="o">=</span> <span class="n">CoolClass</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -226,7 +337,7 @@ abstracted from the user of the Model class.</p>
 <h3>Metaclass example<a class="headerlink" href="#metaclass-example" title="Permalink to this headline">¶</a></h3>
 <p>Consider wanting a metaclass which mangles all attribute names to
 provide uppercase and lower case attributes</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">NameMangler</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">NameMangler</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
@@ -237,12 +348,12 @@ provide uppercase and lower case attributes</p>
 </div>
 <div class="section" id="namemangler">
 <h3>NameMangler<a class="headerlink" href="#namemangler" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NameMangler</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">NameMangler</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
         <span class="n">uppercase_attr</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;__&#39;</span><span class="p">):</span>
                 <span class="n">uppercase_attr</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="o">=</span> <span class="n">val</span>
                 <span class="n">uppercase_attr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
             <span class="k">else</span><span class="p">:</span>
@@ -265,7 +376,7 @@ sets f.xx</p>
 NameMangler and Singleton classes in the <code class="docutils literal"><span class="pre">Examples/metaclasses</span></code> directory.</p>
 <p>Assign it to the <code class="docutils literal"><span class="pre">metaclass</span></code> keyword argument of a new class and verify that it works.</p>
 <p>Your code should look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MangledSingleton</span><span class="p">)</span> <span class="c1"># define this</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MangledSingleton</span><span class="p">)</span> <span class="c"># define this</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="n">o1</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
@@ -299,78 +410,63 @@ NameMangler and Singleton classes in the <code class="docutils literal"><span cl
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Metaclasses</a><ul>
-<li><a class="reference internal" href="#a-class-is-just-an-object">A class is just an object</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
-<li><a class="reference internal" href="#equivalent-to">Equivalent to:</a></li>
-<li><a class="reference internal" href="#more-on-classes">More on Classes</a></li>
-<li><a class="reference internal" href="#what-is-a-metaclass">What is a metaclass?</a></li>
-<li><a class="reference internal" href="#type"><code class="docutils literal"><span class="pre">type()</span></code></a></li>
-<li><a class="reference internal" href="#using-type-to-build-a-class">using type() to build a class</a></li>
-<li><a class="reference internal" href="#adding-methods-to-a-class-built-with-type">Adding methods to a class built with <code class="docutils literal"><span class="pre">type()</span></code></a></li>
-<li><a class="reference internal" href="#what-type-is-type">What type is type?</a></li>
-<li><a class="reference internal" href="#metaclass"><code class="docutils literal"><span class="pre">metaclass</span></code></a></li>
-<li><a class="reference internal" href="#why-use-metaclasses">Why use metaclasses?</a></li>
-<li><a class="reference internal" href="#new-vs-init-in-metaclasses">__new__  vs  __init__ in Metaclasses</a></li>
-<li><a class="reference internal" href="#metaclass-example">Metaclass example</a></li>
-<li><a class="reference internal" href="#namemangler">NameMangler</a></li>
-<li><a class="reference internal" href="#exercise-working-with-namemangler">Exercise: Working with NameMangler</a></li>
-<li><a class="reference internal" href="#the-singleton">The Singleton</a></li>
-<li><a class="reference internal" href="#reference-reading">Reference reading</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/metaclasses.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/metaclasses.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

@@ -1,43 +1,165 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Unicode in Python 2 &#8212; Py300 3.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Py300 3.0 documentation" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
+  <title>Unicode in Python 2 &mdash; Py300 3.0 documentation</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Unicode in Python 2</a><ul>
+<li><a class="reference internal" href="#history">History</a><ul>
+<li><a class="reference internal" href="#what-the-heck-is-unicode-anyway">What the heck is Unicode anyway?</a></li>
+<li><a class="reference internal" href="#enter-unicode">Enter Unicode</a></li>
+<li><a class="reference internal" href="#id1">Unicode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mechanics">Mechanics</a><ul>
+<li><a class="reference internal" href="#what-are-strings">What are strings?</a></li>
+<li><a class="reference internal" href="#strings-vs-unicode">Strings vs unicode</a></li>
+<li><a class="reference internal" href="#id2">Unicode</a></li>
+<li><a class="reference internal" href="#using-unicode-in-py2">Using unicode in Py2</a></li>
+<li><a class="reference internal" href="#encoding-and-decoding">Encoding and Decoding</a></li>
+<li><a class="reference internal" href="#unicode-literals">Unicode Literals</a></li>
+<li><a class="reference internal" href="#using-unicode">Using Unicode</a></li>
+<li><a class="reference internal" href="#using-unicode-everywhere">Using unicode everywhere</a></li>
+<li><a class="reference internal" href="#encodings">Encodings</a></li>
+<li><a class="reference internal" href="#utf-8">UTF-8</a></li>
+<li><a class="reference internal" href="#utf-16">UTF-16</a></li>
+<li><a class="reference internal" href="#utf-16-criticism">UTF-16 criticism</a></li>
+<li><a class="reference internal" href="#latin-1">Latin-1</a></li>
+<li><a class="reference internal" href="#unicode-docs">Unicode Docs</a></li>
+<li><a class="reference internal" href="#gotchas-in-python-2">Gotchas in Python 2</a></li>
+<li><a class="reference internal" href="#unicode-in-python-3">Unicode in Python 3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">Exercises</a><ul>
+<li><a class="reference internal" href="#basic-unicode-lab">Basic Unicode LAB</a></li>
+<li><a class="reference internal" href="#challenge-unicode-lab">Challenge Unicode LAB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Unicode in Python 2</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/unicode.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="unicode-in-python-2">
 <span id="unicode"></span><h1>Unicode in Python 2<a class="headerlink" href="#unicode-in-python-2" title="Permalink to this headline">¶</a></h1>
@@ -134,7 +256,7 @@ with combined characters: accents, etc.</p>
 <li><code class="docutils literal"><span class="pre">bytes()</span></code>  (and <code class="docutils literal"><span class="pre">bytearray</span></code>)</li>
 </ul>
 <p><strong>but:</strong></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [86]: </span><span class="nb">str</span> <span class="ow">is</span> <span class="nb">bytes</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [86]: </span><span class="nb">str</span> <span class="ow">is</span> <span class="nb">bytes</span>
 <span class="gh">Out[86]: </span><span class="go">True</span>
 </pre></div>
 </div>
@@ -153,7 +275,7 @@ intentions clear, too.</p>
 <div class="section" id="using-unicode-in-py2">
 <h3>Using unicode in Py2<a class="headerlink" href="#using-unicode-in-py2" title="Permalink to this headline">¶</a></h3>
 <p>Built in functions</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">ord</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">ord</span><span class="p">()</span>
 <span class="nb">chr</span><span class="p">()</span>
 <span class="nb">unichr</span><span class="p">()</span>
 <span class="nb">str</span><span class="p">()</span>
@@ -161,25 +283,25 @@ intentions clear, too.</p>
 </pre></div>
 </div>
 <p>The codecs module</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">codecs</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">codecs</span>
 <span class="n">codecs</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-<span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="c1"># better to use ``io.open``</span>
+<span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="c"># better to use ``io.open``</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="encoding-and-decoding">
 <h3>Encoding and Decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline">¶</a></h3>
 <p><strong>Encoding:</strong> text to bytes &#8211; you get a bytes (str) object</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="s2">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [17]: </span><span class="s">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="gh">Out[17]: </span><span class="go">&#39;this&#39;</span>
 
-<span class="gp">In [18]: </span><span class="s2">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
+<span class="gp">In [18]: </span><span class="s">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
 <span class="gh">Out[18]: </span><span class="go">&#39;\xff\xfet\x00h\x00i\x00s\x00&#39;</span>
 </pre></div>
 </div>
 <p><strong>Decoding</strong> bytes to text &#8211; you get a unicode object</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">text</span> <span class="o">=</span>  <span class="s1">&#39;</span><span class="se">\xff\xfe</span><span class="s1">.&quot;+&quot;x</span><span class="se">\x00\xb2\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">text</span> <span class="o">=</span>  <span class="s">&#39;</span><span class="se">\xff\xfe</span><span class="s">.&quot;+&quot;x</span><span class="se">\x00\xb2\x00</span><span class="s">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="gh">Out[3]: </span><span class="go">unicode</span>
@@ -194,14 +316,14 @@ intentions clear, too.</p>
 <ol class="arabic simple">
 <li>Use unicode in your source files:</li>
 </ol>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li>escape the unicode characters:</li>
 </ol>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">u&quot;The integral sign: </span><span class="se">\u222B</span><span class="s2">&quot;</span>
-<span class="k">print</span> <span class="s2">u&quot;The integral sign: </span><span class="se">\N{integral}</span><span class="s2">&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">u&quot;The integral sign: </span><span class="se">\u222B</span><span class="s">&quot;</span>
+<span class="k">print</span> <span class="s">u&quot;The integral sign: </span><span class="se">\N{integral}</span><span class="s">&quot;</span>
 </pre></div>
 </div>
 <p>Lots of tables of code points online:</p>
@@ -219,7 +341,7 @@ intentions clear, too.</p>
 <p>Many packages do this for you: <em>XML processing, databases, ...</em></p>
 <p><strong>Gotcha:</strong></p>
 <p>Python has a default encoding (usually ascii)</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
 <span class="gh">Out[2]: </span><span class="go">&#39;ascii&#39;</span>
 </pre></div>
 </div>
@@ -228,16 +350,16 @@ intentions clear, too.</p>
 <div class="section" id="using-unicode-everywhere">
 <h3>Using unicode everywhere<a class="headerlink" href="#using-unicode-everywhere" title="Permalink to this headline">¶</a></h3>
 <p>Python 2.6 and above have a nice feature to make it easier to use unicode everywhere</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 </pre></div>
 </div>
 <p>After running that line, the <code class="docutils literal"><span class="pre">u''</span></code> is assumed</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;this is a regular py2 string&quot;</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;this is a regular py2 string&quot;</span>
 <span class="gp">In [2]: </span><span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="go">&lt;type &#39;str&#39;&gt;</span>
 
 <span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
-<span class="gp">In [4]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;this is now a unicode string&quot;</span>
+<span class="gp">In [4]: </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;this is now a unicode string&quot;</span>
 <span class="gp">In [5]: </span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gh">Out[5]: </span><span class="go">unicode</span>
 </pre></div>
@@ -317,8 +439,8 @@ intentions clear, too.</p>
 <p><a class="reference external" href="http://docs.python.org/howto/unicode.html">http://docs.python.org/howto/unicode.html</a></p>
 <p>&#8220;Reading Unicode from a file is therefore simple&#8221;</p>
 <p>use io.open:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
-<span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;unicode.rst&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
+<span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;unicode.rst&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
@@ -333,10 +455,10 @@ intentions clear, too.</p>
 <h3>Gotchas in Python 2<a class="headerlink" href="#gotchas-in-python-2" title="Permalink to this headline">¶</a></h3>
 <p>file names, etc:</p>
 <p>If you pass in unicode, you get unicode</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;./&#39;</span><span class="p">)</span>
 <span class="gh">Out[9]: </span><span class="go">[&#39;hello_unicode.py&#39;, &#39;text.utf16&#39;, &#39;text.utf32&#39;]</span>
 
-<span class="gp">In [10]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">u&#39;./&#39;</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">u&#39;./&#39;</span><span class="p">)</span>
 <span class="gh">Out[10]: </span><span class="go">[u&#39;hello_unicode.py&#39;, u&#39;text.utf16&#39;, u&#39;text.utf32&#39;]</span>
 </pre></div>
 </div>
@@ -407,18 +529,18 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
 <div class="section" id="challenge-unicode-lab">
 <h3>Challenge Unicode LAB<a class="headerlink" href="#challenge-unicode-lab" title="Permalink to this headline">¶</a></h3>
 <p>We saw this earlier</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [38]: </span><span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [38]: </span><span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">UnicodeEncodeError</span><span class="g g-Whitespace">                        </span>Traceback (most recent call last)
+<span class="ne">UnicodeEncodeError</span><span class="g-Whitespace">                        </span>Traceback (most recent call last)
 <span class="nn">&lt;ipython-input-38-7f87d44dfcfa&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
 
 <span class="nn">/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.pyc</span> in <span class="ni">decode</span><span class="nt">(input, errors)</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span>
+<span class="g-Whitespace">     </span><span class="mi">14</span>
+<span class="g-Whitespace">     </span><span class="mi">15</span> <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">&#39;strict&#39;</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">16</span>     <span class="k">return</span> <span class="n">codecs</span><span class="o">.</span><span class="n">utf_8_decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">class</span> <span class="nc">IncrementalEncoder</span><span class="p">(</span><span class="n">codecs</span><span class="o">.</span><span class="n">IncrementalEncoder</span><span class="p">):</span>
+<span class="g-Whitespace">     </span><span class="mi">17</span>
+<span class="g-Whitespace">     </span><span class="mi">18</span> <span class="k">class</span> <span class="nc">IncrementalEncoder</span><span class="p">(</span><span class="n">codecs</span><span class="o">.</span><span class="n">IncrementalEncoder</span><span class="p">):</span>
 
 <span class="nn">UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode character u&#39;\u221e&#39; in position 3: ordinal not</span> in <span class="ni">range</span><span class="nt">(128)</span>
 </pre></div>
@@ -428,7 +550,7 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
 <p>And why &#8216;ascii&#8217;? I specified &#8216;utf-8&#8217;!</p>
 <p>It&#8217;s there for backward compatibility</p>
 <p>What&#8217;s happening under the hood</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It encodes with the default encoding (ascii), then decodes</p>
@@ -446,89 +568,63 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Unicode in Python 2</a><ul>
-<li><a class="reference internal" href="#history">History</a><ul>
-<li><a class="reference internal" href="#what-the-heck-is-unicode-anyway">What the heck is Unicode anyway?</a></li>
-<li><a class="reference internal" href="#enter-unicode">Enter Unicode</a></li>
-<li><a class="reference internal" href="#id1">Unicode</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mechanics">Mechanics</a><ul>
-<li><a class="reference internal" href="#what-are-strings">What are strings?</a></li>
-<li><a class="reference internal" href="#strings-vs-unicode">Strings vs unicode</a></li>
-<li><a class="reference internal" href="#id2">Unicode</a></li>
-<li><a class="reference internal" href="#using-unicode-in-py2">Using unicode in Py2</a></li>
-<li><a class="reference internal" href="#encoding-and-decoding">Encoding and Decoding</a></li>
-<li><a class="reference internal" href="#unicode-literals">Unicode Literals</a></li>
-<li><a class="reference internal" href="#using-unicode">Using Unicode</a></li>
-<li><a class="reference internal" href="#using-unicode-everywhere">Using unicode everywhere</a></li>
-<li><a class="reference internal" href="#encodings">Encodings</a></li>
-<li><a class="reference internal" href="#utf-8">UTF-8</a></li>
-<li><a class="reference internal" href="#utf-16">UTF-16</a></li>
-<li><a class="reference internal" href="#utf-16-criticism">UTF-16 criticism</a></li>
-<li><a class="reference internal" href="#latin-1">Latin-1</a></li>
-<li><a class="reference internal" href="#unicode-docs">Unicode Docs</a></li>
-<li><a class="reference internal" href="#gotchas-in-python-2">Gotchas in Python 2</a></li>
-<li><a class="reference internal" href="#unicode-in-python-3">Unicode in Python 3</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#exercises">Exercises</a><ul>
-<li><a class="reference internal" href="#basic-unicode-lab">Basic Unicode LAB</a></li>
-<li><a class="reference internal" href="#challenge-unicode-lab">Challenge Unicode LAB</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/unicode.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/unicode.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

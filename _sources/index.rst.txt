@@ -3,100 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-================
-Welcome to Py300
-================
+=============================
+Welcome to Py300: Spring 2017
+=============================
 
 UW Certificate Program in Programming in Python
 
-The Third class in the program.
-
-This project contains lecture materials and notes for the class. Any given class may cover some fraction of these topics.
+The Third class in the program that began in Fall 2016.
 
 Class info:
 -----------
 
 - :ref:`syllabus`
 
-
 Topics
 ------
-
-:ref:`logging`
-..............
-
-:ref:`debugging`
-................
-
-:ref:`testing`
-..............
-
-:ref:`serialization`
-....................
-
-:ref:`code_review`
-..................
-
-:ref:`packaging`
-................
-
-:ref:`documentation`
-....................
-
-:ref:`nosql`
-............
-
-:ref:`scipy`
-............
-
-:ref:`advanced_oo`
-................
-
-:ref:`metaclasses`
-................
-
-:ref:`threading`
-................
-
-
-:ref:`datetime`
-...............
-
-:ref:`profiling`
-................
-
-:ref:`wxpython`
-...............
-
-..  - `Working with SQL Databases <html_slides/04-db.html>`_
-.. ......................
-
-:ref:`unicode`
-..............
-
-:ref:`extensions`
-.................
-
-:ref:`weak_references`
-......................
-
-
-Assorted Notes:
----------------
-
-Not lecture materials per-se, but useful none the less.
-
-:ref:`installing_scipy`
-........................
-
-:ref:`building_extensions`
-..........................
-
-:ref:`installing_wxpython`
-..........................
-
-:ref:`installing_wxpython_demo`
-...............................
 
 
 License

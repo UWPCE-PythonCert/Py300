@@ -107,8 +107,8 @@ not handled by the bottom of the stack, the interpreter will exit the program.
 
 At each level in the stack, a handler can either:
 
--  let it bubble through (the default)
--  swallow the exception
+-  let it bubble through (the default if no handler)
+-  swallow the exception (the default for a handler)
 -  catch the exception and raise it again
 -  catch the exception and raise a new one
 
@@ -140,15 +140,14 @@ The most basic form uses the builtins try and except
         result = x / y
     except (ZeroDivisionError, ValueError) as e:
         print("caught division error or maybe a value error:\n", e)
-    except Exception as e:
+    except Exception as e:  # only do this if absolutely necessary, or if planning to re-raise
         errno, strerror = e.args	
         print("I/O error({0}): {1}".format(errno,strerror))
 	# or you can just print e
-        print("unhandled exception:\n", e)
+        print("unhandled, unexpected exception:\n", e)
         raise
     else:
         print("everything worked great")
-        return result
     finally:
         print("this is executed no matter what")
     print('this is only printed if there is no exception')
@@ -163,7 +162,7 @@ It is even possible to use a try block without the exception clause:
     try:
         5/0
     finally:
-        print('did it work?')
+        print('did it work? why would you do this?')
 
 
 .. nextslide::
@@ -204,9 +203,7 @@ It is possible, but discouraged to catch all exceptions.
 
 
 An exception to this exception rule is when you are running a service that should not ever crash,
-like a web server. 
-
-In this case, it is extremely important to have very good logging so that you 
+like a web server. In this case, it is extremely important to have very good logging so that you 
 have reports of exactly what happened and what exception should have been thrown.
 
 .. nextslide::
@@ -225,8 +222,22 @@ Debugging
 .. rubric:: Python Debugging
    :name: python-debugging
 
-You will spend most of your time as a developer debugging. 
-You will spend more time than you expect on google.
+- You will spend most of your time as a developer debugging. 
+- You will spend more time than you expect on google.
+- Small, tested functions are easier to debug.
+- Find a bug, make a test, so it doesn't come back
+
+.. nextslide::
+
+
+Tools
+
+-  interpreter hints
+-  print()
+-  logging
+-  assert()
+-  tests
+-  debuggers
 
 
 .. nextslide::
@@ -246,33 +257,56 @@ You already know what it looks like. Simple traceback:
                       ^
     SyntaxError: Missing parentheses in call to 'print'
 
-.. nextslide::
 
-But things can quickly get complicated (Here is ~1/3 of a recent traceback I had):
+But things can quickly get complicated, as we all ran into last quarter with web frameworks.
 
-Traceback (most recent call last):
-  File "snapi3/tests/test_proxy_rest.py", line 21, in test_http_get
-    resp = self.app.get(self.TRIVIAL_URL, status=200)
-  File "python3/lib/python3.5/site-packages/webtest/app.py", line 323, in get
-    expect_errors=expect_errors)
-  File "python3/lib/python3.5/site-packages/webtest/app.py", line 606, in do_request
-    res = req.get_response(app, catch_exc_info=True)
-  File "python3/lib/python3.5/site-packages/webob/request.py", line 1313, in send
-    application, catch_exc_info=True)
-  File "python3/lib/python3.5/site-packages/webob/request.py", line 1284, in call_application
-    output.extend(app_iter)
 
 .. nextslide::
 
-Debuggers are code which allows the inspection of state of other code
-during runtime.
 
-Rudimentary tools
+Some helpful hints with stacktraces:
+- May seem obvious, but... Read it carefully!
+- What is the error?
+- The first place to look is the bottom.
+- But, sometimes that error was triggered by something else, and you need to look higher.
+- More than likely the error is in your code, not established packages.
+_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
+- Will show the line number and file.
 
--  print()
--  interpreter hints
--  import logging.debug
--  assert()
+
+.. nextslide::
+
+
+If that fails you...
+
+- Make sure the code you think is executing is really executing.
+- Simiplify your code.
+- Deubgger
+- Boil it down to the simplest version that shows the bug
+  - Often you'll find it in the process
+- Save (and print) intermediate results from long expressions
+- Try out bits of code at the command line
+
+
+.. nextslide::
+
+If all else fails...
+
+Write out an email that describes the problem:
+- include the stacktrace
+- include steps you have taken to find the bug
+- inlude the relative function of your code
+
+Often after writing out this email, you will realize what you forgot to check, and more often than not, after you hit send.
+
+
+.. nextslide::
+
+Print
+
+- print('my_module.py: my_variable: ', my_variable)
+- can use print statements to make sure you are editing a file in the stack
+
 
 .. nextslide::
 

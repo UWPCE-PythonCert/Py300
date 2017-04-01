@@ -22,6 +22,7 @@ class D(B, C):
         print("doing D's stuff")
 
 
+
 if __name__ == '__main__':
     a = A()
     print("\ncalling A's method")

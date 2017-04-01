@@ -126,10 +126,10 @@ A's methods can get called twice.
 The Method Resolution Order
 ----------------------------
 
-Python's The Method Resolution Order ( MRO ) is defined by the C3
+Python's  Method Resolution Order ( MRO ) is defined by the C3
 linearization algorithm:
 
-http://en.wikipedia.org/wiki/C3_linearization.
+http://en.wikipedia.org/wiki/C3_linearization
 
 In C3, only the last occurrence of a given class is retained.
 

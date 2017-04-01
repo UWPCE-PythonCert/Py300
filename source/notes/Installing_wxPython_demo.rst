@@ -1,8 +1,8 @@
 .. _installing_wxpython_demo:
 
-========================
-Installing WXPython Demo
-========================
+============================
+Installing The WxPython Demo
+============================
 
 We are going to download the source for the whole project from the github page, and then extract the demo part.
 
@@ -29,3 +29,4 @@ http://www.blog.pythonlibrary.org/2010/10/15/the-wxpython-demo/
 blog post about converting demo code to production code:
 
 http://wiki.wxpython.org/Using%20wxPython%20Demo%20Code
+

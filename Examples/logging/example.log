@@ -107,3 +107,27 @@
 2016-03-29 18:42:16,703 INFO -   worker - line:43 - work4 doing something
 2016-03-29 18:42:16,703 DEBUG -   worker - line:45 - work4 called 6 times
 2016-03-29 18:42:16,703 CRITICAL -   worker - line:48 - Something went terribly wrong! Aborting!!!
+2017-04-01 20:20:10,153 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:10,155 INFO -   worker - line:22 - work2 doing a job
+2017-04-01 20:20:10,155 WARNING -   worker - line:24 - something weird happened in work2!
+2017-04-01 20:20:10,689 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:10,689 INFO -   worker - line:22 - work2 doing a job
+2017-04-01 20:20:11,183 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:11,184 INFO -   worker - line:15 - work1 doing a job
+2017-04-01 20:20:11,184 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:11,184 INFO -   worker - line:15 - work1 doing a job
+2017-04-01 20:20:11,781 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:11,782 INFO -   worker - line:43 - work4 doing something
+2017-04-01 20:20:11,782 DEBUG -   worker - line:45 - work4 called 1 times
+2017-04-01 20:20:12,576 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:12,577 INFO -   worker - line:22 - work2 doing a job
+2017-04-01 20:20:12,577 WARNING -   worker - line:24 - something weird happened in work2!
+2017-04-01 20:20:13,028 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:13,029 INFO -   worker - line:22 - work2 doing a job
+2017-04-01 20:20:13,471 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:13,471 INFO -   worker - line:15 - work1 doing a job
+2017-04-01 20:20:13,732 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:13,732 INFO -   worker - line:22 - work2 doing a job
+2017-04-01 20:20:13,732 WARNING -   worker - line:24 - something weird happened in work2!
+2017-04-01 20:20:14,634 DEBUG -  example - line:49 - calling a random worker
+2017-04-01 20:20:14,634 INFO -   worker - line:22 - work2 doing a job

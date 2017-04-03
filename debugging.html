@@ -210,7 +210,7 @@ program exits</li>
 <p>When either the interpreter or your own code detects an error condition,
 an exception will be raised</p>
 <p>The exception will bubble up the call stack until it is handled. If it&#8217;s
-not handled by the bottom of the stack, the interpreter will exit the program.</p>
+not handled anywhere in the stack, the interpreter will exit the program.</p>
 <p>At each level in the stack, a handler can either:</p>
 <ul class="simple">
 <li>let it bubble through (the default if no handler)</li>
@@ -315,30 +315,34 @@ SyntaxError: Missing parentheses in call to &#39;print&#39;
 </pre></div>
 </div>
 <p>But things can quickly get complicated, as we all ran into last quarter with web frameworks.</p>
-<p>Some helpful hints with stacktraces:
-- May seem obvious, but... Read it carefully!
-- What is the error?
-- The first place to look is the bottom.
-- But, sometimes that error was triggered by something else, and you need to look higher.
-- More than likely the error is in your code, not established packages.
-_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
+<p>Some helpful hints with stacktraces:</p>
+<ul class="simple">
+<li>May seem obvious, but... Read it carefully!</li>
+<li>What is the error?</li>
+<li>The first place to look is the bottom.</li>
+<li>But, sometimes that error was triggered by something else, and you need to look higher.</li>
+<li>More than likely the error is in your code, not established packages.</li>
+</ul>
+<p>_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
 - Will show the line number and file.</p>
 <p>If that fails you...</p>
 <ul class="simple">
 <li>Make sure the code you think is executing is really executing.</li>
 <li>Simiplify your code.</li>
-<li>Deubgger</li>
+<li>Debugger</li>
 <li>Boil it down to the simplest version that shows the bug
 - Often you&#8217;ll find it in the process</li>
 <li>Save (and print) intermediate results from long expressions</li>
 <li>Try out bits of code at the command line</li>
 </ul>
 <p>If all else fails...</p>
-<p>Write out an email that describes the problem:
-- include the stacktrace
-- include steps you have taken to find the bug
-- inlude the relative function of your code</p>
-<p>Often after writing out this email, you will realize what you forgot to check, and more often than not, after you hit send.</p>
+<p>Write out an email that describes the problem:</p>
+<ul class="simple">
+<li>include the stacktrace</li>
+<li>include steps you have taken to find the bug</li>
+<li>inlude the relative function of your code</li>
+</ul>
+<p>Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send.</p>
 <p>Print</p>
 <ul class="simple">
 <li>print(&#8216;my_module.py: my_variable: &#8216;, my_variable)</li>
@@ -368,6 +372,13 @@ _ So, if error at bottom of stacktrace is not helpful, find trace in the stack t
 </pre></div>
 </div>
 <p>Forces interpreter to remain active, and still in scope</p>
+<p>Useful tools from interpreter:</p>
+<ul class="simple">
+<li>In IPython, &#8216;who&#8217; will list all currently defined variables</li>
+<li>locals()</li>
+<li>globals()</li>
+<li>dir()</li>
+</ul>
 <p class="rubric" id="pdb-the-python-debugger"><a class="reference external" href="http://docs.python.org/2/library/pdb.html">Pdb - The Python
 Debugger</a></p>
 <p>Pros:</p>
@@ -540,6 +551,7 @@ provided you look in the right places!</p>
 </pre></div>
 </div>
 <p><a class="reference external" href="http://winpdb.org/tutorial/WinpdbTutorial.html">http://winpdb.org/tutorial/WinpdbTutorial.html</a></p>
+<p><a class="reference external" href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
 <p class="rubric" id="debugging-exercise">Debugging exercise</p>
 <p>Find the wikidef app in the examples folder</p>
 <p>See if you can find the bug and get the app working. Use whatever debugging

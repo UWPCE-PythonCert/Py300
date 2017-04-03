@@ -148,10 +148,11 @@ The most basic form uses the builtins try and except
         print("unhandled, unexpected exception:\n", e)
         raise
     else:
-        print("everything worked great")
+        print("do this if there is code you want to run only if no exceptions, caught or not")
+	print("errors here will not be caught by above excepts")
     finally:
         print("this is executed no matter what")
-    print('this is only printed if there is no exception')
+    print('this is only printed if there is no uncaught exception')
 
 
 .. nextslide::
@@ -270,10 +271,10 @@ Some helpful hints with stacktraces:
 - May seem obvious, but... Read it carefully!
 - What is the error?
 - The first place to look is the bottom.
-- But, sometimes that error was triggered by something else, and you need to look higher.
 - More than likely the error is in your code, not established packages.
-_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
-- Will show the line number and file.
+- Sometimes that error was triggered by something else, and you need to look higher.
+- If error at bottom of stacktrace is not helpful, look first for other code of yours in stack.
+- Will show the line number and file of exception/calling functions.
 
 
 .. nextslide::
@@ -321,7 +322,7 @@ GUI debuggers
 
 -  Winpdb
 -  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio
-
+   
 .. nextslide::
 
 .. rubric:: help from the interpreter
@@ -366,7 +367,7 @@ Useful tools from interpreter:
 Pros:
 
 -  You have it already, ships with the standard library
--  Easy remote debugging
+-  Easy remote debugging (since works in terminal, see remote-pdb for true remote debugging)
 -  Works with any development environment
 
 Cons:
@@ -404,7 +405,11 @@ For analyzing crashes due to uncaught exceptions
 
           python -i script.py
           import pdb; pdb.pm()
-          
+
+More info on using Postmortem mode:
+
+http://www.almarklein.org/pm-debugging.html
+
 .. nextslide::
 
 .. rubric:: Run mode
@@ -629,6 +634,23 @@ Further reading
 
 http://pydev.org/manual_adv_debugger.html
 
+
+.. nextslide::
+
+.. rubric:: Python IDEs
+   :name: python-ides
+
+.. rubric:: Visual Studio Code
+   :name: Visual Studio Code
+
+
+Visual Studio Code has support for Python
+
+(not the same as the monstrosity that is Visual Studio)
+
+https://code.visualstudio.com/
+
+
 .. nextslide::
 
 .. rubric:: winpdb
@@ -643,22 +665,26 @@ Easier to start up and get debugging
           
           winpdb your_app.py
           
-          
-.. rubric:: Remote debugging with winpdb
-   :name: remote-debugging-with-winpdb
+
+http://winpdb.org/tutorial/WinpdbTutorial.html
+
+
+.. rubric:: Remote debugging
+   :name: remote-debugging
 
 .. nextslide::
 
 To debug an application running a different Python, even remotely:
 
-::
+remote-pdb
 
-          
-          import rpdb2; rpdb2.start_embedded_debugger("password")
-          
-          
+https://pypi.python.org/pypi/remote-pdb          
 
-http://winpdb.org/tutorial/WinpdbTutorial.html
+or older package rpdb
+
+https://pypi.python.org/pypi/rpdb
+
+(only tested to Python 3.1)
 
 .. nextslide::
 

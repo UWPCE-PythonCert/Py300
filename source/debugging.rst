@@ -88,6 +88,7 @@ If we try to put more than sys.getrecursionlimit() frames on the stack, we get a
 
 
 module https://docs.python.org/3/library/inspect.html
+
 more on recursion http://www.mariakathryn.net/Blog/60
 
 .. nextslide::
@@ -101,7 +102,7 @@ When either the interpreter or your own code detects an error condition,
 an exception will be raised
 
 The exception will bubble up the call stack until it is handled. If it's
-not handled by the bottom of the stack, the interpreter will exit the program.
+not handled anywhere in the stack, the interpreter will exit the program.
 
 .. nextslide::
 
@@ -265,6 +266,7 @@ But things can quickly get complicated, as we all ran into last quarter with web
 
 
 Some helpful hints with stacktraces:
+
 - May seem obvious, but... Read it carefully!
 - What is the error?
 - The first place to look is the bottom.
@@ -281,7 +283,7 @@ If that fails you...
 
 - Make sure the code you think is executing is really executing.
 - Simiplify your code.
-- Deubgger
+- Debugger
 - Boil it down to the simplest version that shows the bug
   - Often you'll find it in the process
 - Save (and print) intermediate results from long expressions
@@ -293,11 +295,12 @@ If that fails you...
 If all else fails...
 
 Write out an email that describes the problem:
+
 - include the stacktrace
 - include steps you have taken to find the bug
 - inlude the relative function of your code
 
-Often after writing out this email, you will realize what you forgot to check, and more often than not, after you hit send.
+Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send.
 
 
 .. nextslide::
@@ -342,6 +345,17 @@ Verbose (trace import statements)
 
 
 Forces interpreter to remain active, and still in scope
+
+
+.. nextslide::
+
+
+Useful tools from interpreter:
+
+- In IPython, 'who' will list all currently defined variables
+- locals()
+- globals()
+- dir()
 
 .. nextslide::
 
@@ -645,6 +659,10 @@ To debug an application running a different Python, even remotely:
           
 
 http://winpdb.org/tutorial/WinpdbTutorial.html
+
+.. nextslide::
+
+https://github.com/spiside/pdb-tutorial
 
 .. nextslide::
 

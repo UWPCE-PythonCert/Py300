@@ -60,7 +60,7 @@ Visualize the stack!
     def recurse():
         global i
         i += 1
-        print i
+        print(i)
         recurse()
 
     recurse()
@@ -68,7 +68,7 @@ Visualize the stack!
 
 That value can be changed with sys.setrecursionlimit(N)
 
-If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RuntimeError, which is python's version of StackOverflow
+If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RecursionError (derived from RuntimeError), which is python's version of StackOverflow
 
 .. nextslide::
 
@@ -84,11 +84,11 @@ If we try to put more than sys.getrecursionlimit() frames on the stack, we get a
         recurse(limit - 1)
         return
 
-    if __name__ == '__main__':
-        recurse(3)
+    recurse(3)
 
 
 module https://docs.python.org/3/library/inspect.html
+more on recursion http://www.mariakathryn.net/Blog/60
 
 .. nextslide::
 

@@ -131,7 +131,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/notes/Installing_wxPython.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notes/Installing_wxPython.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -165,18 +165,18 @@
 <p>These are &#8220;binary wheels&#8221; &#8211; i.e. complete, ready to install by pip packages</p>
 <p>You can either:</p>
 <p>Find the one you need (not so easy!), download it, and and then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">wxPython_Phoenix</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mf">3.</span><span class="n">dev2022</span><span class="o">+</span><span class="n">b85bcd3</span><span class="o">-</span><span class="n">cp35</span><span class="o">-</span><span class="n">cp35m</span><span class="o">-</span><span class="n">macosx_10_6_intel</span><span class="o">.</span><span class="n">whl</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">wxPython_Phoenix</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mf">3.</span><span class="n">dev2022</span><span class="o">+</span><span class="n">b85bcd3</span><span class="o">-</span><span class="n">cp35</span><span class="o">-</span><span class="n">cp35m</span><span class="o">-</span><span class="n">macosx_10_6_intel</span><span class="o">.</span><span class="n">whl</span>
 </pre></div>
 </div>
 <p>or:</p>
 <p>point pip to that location:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wxpython</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">Phoenix</span><span class="o">/</span><span class="n">snapshot</span><span class="o">-</span><span class="n">builds</span><span class="o">/</span> <span class="o">--</span><span class="n">trusted</span><span class="o">-</span><span class="n">host</span> <span class="n">wxpython</span><span class="o">.</span><span class="n">org</span> <span class="n">wxPython_Phoenix</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wxpython</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">Phoenix</span><span class="o">/</span><span class="n">snapshot</span><span class="o">-</span><span class="n">builds</span><span class="o">/</span> <span class="o">--</span><span class="n">trusted</span><span class="o">-</span><span class="n">host</span> <span class="n">wxpython</span><span class="o">.</span><span class="n">org</span> <span class="n">wxPython_Phoenix</span>
 </pre></div>
 </div>
 <p>pip should find the one that matches your OS and Python version.</p>
 <p>(and yes, it took me a while to figure out all those flags)</p>
 <p>Once you&#8217;ve done that (hopefully without errors) you should be able to do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">wx</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wx</span>
 </pre></div>
 </div>
 <p>in Python without error.</p>
@@ -262,7 +262,7 @@ You will also see the current version.</li>
 </li>
 </ol>
 <p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre>damien@Ubuntu1204VB:~$ python
+<div class="highlight-default"><div class="highlight"><pre><span></span>damien@Ubuntu1204VB:~$ python
      Python 3.5.4 (default, Jun 22 2015, 19:33:41)
           [GCC 4.6.3] on linux2
      Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
@@ -273,7 +273,7 @@ You will also see the current version.</li>
 </div>
 <p>You should then be able to run the examples in:</p>
 <p><code class="docutils literal"><span class="pre">Examples/wxpython</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python3</span> <span class="n">CalculatorDemo</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">CalculatorDemo</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>Author:</p>
@@ -318,8 +318,7 @@ You will also see the current version.</li>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

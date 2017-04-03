@@ -144,7 +144,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/nosql.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/nosql.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -348,7 +348,7 @@
 <h3>A Data Model<a class="headerlink" href="#a-data-model" title="Permalink to this headline">¶</a></h3>
 <p>An Address Book with a not quite trivial data model.</p>
 <p>There are people:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">first_name</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">first_name</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">last_name</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">middle_name</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">cell_phone</span>
@@ -356,7 +356,7 @@
 </pre></div>
 </div>
 <p>There are households:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">people</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">address</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">phone</span>
@@ -369,12 +369,12 @@
 <h3>Using ZODB<a class="headerlink" href="#using-zodb" title="Permalink to this headline">¶</a></h3>
 <p>ZODB stored Python objects.</p>
 <p>To make an object persistent:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">persistent</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">persistent</span>
 
 <span class="k">class</span> <span class="nc">Something</span><span class="p">(</span><span class="n">persistent</span><span class="o">.</span><span class="n">Persistent</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a_field</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">another_field</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_field</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">another_field</span> <span class="s1">&#39;&#39;</span>
 </pre></div>
 </div>
 <p>When a change is made to the fields, the DB will keep it updated.</p>
@@ -436,29 +436,29 @@
 </div>
 <div class="section" id="creating-a-db">
 <h3>Creating a DB:<a class="headerlink" href="#creating-a-db" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># create the DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># create the DB</span>
 <span class="kn">from</span> <span class="nn">pymongo</span> <span class="k">import</span> <span class="n">MongoClient</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">)</span>
-<span class="n">store</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">store_name</span> <span class="c"># creates a Database</span>
-<span class="n">people</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">people</span> <span class="c"># creates a collection</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">)</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">store_name</span> <span class="c1"># creates a Database</span>
+<span class="n">people</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">people</span> <span class="c1"># creates a collection</span>
 </pre></div>
 </div>
 <p>mongo will link to the given database ans collection, or create new ones if they don&#8217;t exist.</p>
 <p>Adding some stuff:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">people</span><span class="o">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#39;first_name&#39;</span><span class="p">:</span> <span class="s">&#39;Fred&#39;</span><span class="p">,</span>
-             <span class="s">&#39;last_name&#39;</span><span class="p">:</span> <span class="s">&#39;Jones&#39;</span><span class="p">})</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">people</span><span class="o">.</span><span class="n">insert</span><span class="p">({</span><span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fred&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Jones&#39;</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="pulling-stuff-out">
 <h3>Pulling Stuff Out:<a class="headerlink" href="#pulling-stuff-out" title="Permalink to this headline">¶</a></h3>
 <p>And reading it back:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">people</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s">&#39;first_name&#39;</span><span class="p">:</span><span class="s">&quot;Fred&quot;</span><span class="p">})</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">people</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s2">&quot;Fred&quot;</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span>
-  <span class="p">{</span><span class="s">u&#39;_id&#39;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s">&#39;534dcdcb5c84d28b596ad15e&#39;</span><span class="p">),</span>
-   <span class="s">u&#39;first_name&#39;</span><span class="p">:</span> <span class="s">u&#39;Fred&#39;</span><span class="p">,</span>
-   <span class="s">u&#39;last_name&#39;</span><span class="p">:</span> <span class="s">u&#39;Jones&#39;</span><span class="p">}</span>
+  <span class="p">{</span><span class="s1">u&#39;_id&#39;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s1">&#39;534dcdcb5c84d28b596ad15e&#39;</span><span class="p">),</span>
+   <span class="s1">u&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">u&#39;Fred&#39;</span><span class="p">,</span>
+   <span class="s1">u&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">u&#39;Jones&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that it adds an ObjectID for you.</p>
@@ -502,8 +502,7 @@
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

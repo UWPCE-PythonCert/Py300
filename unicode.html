@@ -151,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/unicode.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/unicode.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -256,7 +256,7 @@ with combined characters: accents, etc.</p>
 <li><code class="docutils literal"><span class="pre">bytes()</span></code>  (and <code class="docutils literal"><span class="pre">bytearray</span></code>)</li>
 </ul>
 <p><strong>but:</strong></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [86]: </span><span class="nb">str</span> <span class="ow">is</span> <span class="nb">bytes</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [86]: </span><span class="nb">str</span> <span class="ow">is</span> <span class="nb">bytes</span>
 <span class="gh">Out[86]: </span><span class="go">True</span>
 </pre></div>
 </div>
@@ -275,7 +275,7 @@ intentions clear, too.</p>
 <div class="section" id="using-unicode-in-py2">
 <h3>Using unicode in Py2<a class="headerlink" href="#using-unicode-in-py2" title="Permalink to this headline">¶</a></h3>
 <p>Built in functions</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">ord</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">ord</span><span class="p">()</span>
 <span class="nb">chr</span><span class="p">()</span>
 <span class="nb">unichr</span><span class="p">()</span>
 <span class="nb">str</span><span class="p">()</span>
@@ -283,25 +283,25 @@ intentions clear, too.</p>
 </pre></div>
 </div>
 <p>The codecs module</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">codecs</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">codecs</span>
 <span class="n">codecs</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-<span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="c"># better to use ``io.open``</span>
+<span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="c1"># better to use ``io.open``</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="encoding-and-decoding">
 <h3>Encoding and Decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline">¶</a></h3>
 <p><strong>Encoding:</strong> text to bytes &#8211; you get a bytes (str) object</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [17]: </span><span class="s">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="s2">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="gh">Out[17]: </span><span class="go">&#39;this&#39;</span>
 
-<span class="gp">In [18]: </span><span class="s">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
+<span class="gp">In [18]: </span><span class="s2">u&quot;this&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
 <span class="gh">Out[18]: </span><span class="go">&#39;\xff\xfet\x00h\x00i\x00s\x00&#39;</span>
 </pre></div>
 </div>
 <p><strong>Decoding</strong> bytes to text &#8211; you get a unicode object</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">text</span> <span class="o">=</span>  <span class="s">&#39;</span><span class="se">\xff\xfe</span><span class="s">.&quot;+&quot;x</span><span class="se">\x00\xb2\x00</span><span class="s">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">text</span> <span class="o">=</span>  <span class="s1">&#39;</span><span class="se">\xff\xfe</span><span class="s1">.&quot;+&quot;x</span><span class="se">\x00\xb2\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="gh">Out[3]: </span><span class="go">unicode</span>
@@ -316,14 +316,14 @@ intentions clear, too.</p>
 <ol class="arabic simple">
 <li>Use unicode in your source files:</li>
 </ol>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li>escape the unicode characters:</li>
 </ol>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">u&quot;The integral sign: </span><span class="se">\u222B</span><span class="s">&quot;</span>
-<span class="k">print</span> <span class="s">u&quot;The integral sign: </span><span class="se">\N{integral}</span><span class="s">&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">u&quot;The integral sign: </span><span class="se">\u222B</span><span class="s2">&quot;</span>
+<span class="k">print</span> <span class="s2">u&quot;The integral sign: </span><span class="se">\N{integral}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>Lots of tables of code points online:</p>
@@ -341,7 +341,7 @@ intentions clear, too.</p>
 <p>Many packages do this for you: <em>XML processing, databases, ...</em></p>
 <p><strong>Gotcha:</strong></p>
 <p>Python has a default encoding (usually ascii)</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
 <span class="gh">Out[2]: </span><span class="go">&#39;ascii&#39;</span>
 </pre></div>
 </div>
@@ -350,16 +350,16 @@ intentions clear, too.</p>
 <div class="section" id="using-unicode-everywhere">
 <h3>Using unicode everywhere<a class="headerlink" href="#using-unicode-everywhere" title="Permalink to this headline">¶</a></h3>
 <p>Python 2.6 and above have a nice feature to make it easier to use unicode everywhere</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 </pre></div>
 </div>
 <p>After running that line, the <code class="docutils literal"><span class="pre">u''</span></code> is assumed</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;this is a regular py2 string&quot;</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;this is a regular py2 string&quot;</span>
 <span class="gp">In [2]: </span><span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="go">&lt;type &#39;str&#39;&gt;</span>
 
 <span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
-<span class="gp">In [4]: </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;this is now a unicode string&quot;</span>
+<span class="gp">In [4]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;this is now a unicode string&quot;</span>
 <span class="gp">In [5]: </span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gh">Out[5]: </span><span class="go">unicode</span>
 </pre></div>
@@ -439,8 +439,8 @@ intentions clear, too.</p>
 <p><a class="reference external" href="http://docs.python.org/howto/unicode.html">http://docs.python.org/howto/unicode.html</a></p>
 <p>&#8220;Reading Unicode from a file is therefore simple&#8221;</p>
 <p>use io.open:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
-<span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;unicode.rst&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="nb">open</span>
+<span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;unicode.rst&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
@@ -455,10 +455,10 @@ intentions clear, too.</p>
 <h3>Gotchas in Python 2<a class="headerlink" href="#gotchas-in-python-2" title="Permalink to this headline">¶</a></h3>
 <p>file names, etc:</p>
 <p>If you pass in unicode, you get unicode</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;./&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
 <span class="gh">Out[9]: </span><span class="go">[&#39;hello_unicode.py&#39;, &#39;text.utf16&#39;, &#39;text.utf32&#39;]</span>
 
-<span class="gp">In [10]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">u&#39;./&#39;</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">u&#39;./&#39;</span><span class="p">)</span>
 <span class="gh">Out[10]: </span><span class="go">[u&#39;hello_unicode.py&#39;, u&#39;text.utf16&#39;, u&#39;text.utf32&#39;]</span>
 </pre></div>
 </div>
@@ -529,18 +529,18 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
 <div class="section" id="challenge-unicode-lab">
 <h3>Challenge Unicode LAB<a class="headerlink" href="#challenge-unicode-lab" title="Permalink to this headline">¶</a></h3>
 <p>We saw this earlier</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [38]: </span><span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [38]: </span><span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">UnicodeEncodeError</span><span class="g-Whitespace">                        </span>Traceback (most recent call last)
+<span class="ne">UnicodeEncodeError</span><span class="g g-Whitespace">                        </span>Traceback (most recent call last)
 <span class="nn">&lt;ipython-input-38-7f87d44dfcfa&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 
 <span class="nn">/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.pyc</span> in <span class="ni">decode</span><span class="nt">(input, errors)</span>
-<span class="g-Whitespace">     </span><span class="mi">14</span>
-<span class="g-Whitespace">     </span><span class="mi">15</span> <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">&#39;strict&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;strict&#39;</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">16</span>     <span class="k">return</span> <span class="n">codecs</span><span class="o">.</span><span class="n">utf_8_decode</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-<span class="g-Whitespace">     </span><span class="mi">17</span>
-<span class="g-Whitespace">     </span><span class="mi">18</span> <span class="k">class</span> <span class="nc">IncrementalEncoder</span><span class="p">(</span><span class="n">codecs</span><span class="o">.</span><span class="n">IncrementalEncoder</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">class</span> <span class="nc">IncrementalEncoder</span><span class="p">(</span><span class="n">codecs</span><span class="o">.</span><span class="n">IncrementalEncoder</span><span class="p">):</span>
 
 <span class="nn">UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode character u&#39;\u221e&#39; in position 3: ordinal not</span> in <span class="ni">range</span><span class="nt">(128)</span>
 </pre></div>
@@ -550,7 +550,7 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
 <p>And why &#8216;ascii&#8217;? I specified &#8216;utf-8&#8217;!</p>
 <p>It&#8217;s there for backward compatibility</p>
 <p>What&#8217;s happening under the hood</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s"> and beyond!&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">u&#39;to </span><span class="se">\N{INFINITY}</span><span class="s1"> and beyond!&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It encodes with the default encoding (ascii), then decodes</p>
@@ -602,8 +602,7 @@ to print. Try a different terminal or IDE, or google for a solution.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

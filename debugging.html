@@ -128,7 +128,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/debugging.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/debugging.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,34 +175,34 @@ program exits</li>
 <h3>Visualize the stack!<a class="headerlink" href="#visualize-the-stack" title="Permalink to this headline">¶</a></h3>
 <a class="reference internal image-reference" href="_images/program_callstack.png"><img alt="_images/program_callstack.png" src="_images/program_callstack.png" style="height: 580px;" /></a>
 <p class="rubric" id="how-deep-can-that-stack-be">How deep can that stack be?</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">def</span> <span class="nf">recurse</span><span class="p">():</span>
     <span class="k">global</span> <span class="n">i</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="nb">print</span> <span class="n">i</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">recurse</span><span class="p">()</span>
 
 <span class="n">recurse</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>That value can be changed with sys.setrecursionlimit(N)</p>
-<p>If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RuntimeError, which is python&#8217;s version of StackOverflow</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">inspect</span>
+<p>If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RecursionError (derived from RuntimeError), which is python&#8217;s version of StackOverflow</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
 
 <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
-    <span class="n">local_variable</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span> <span class="o">*</span> <span class="n">limit</span>
+    <span class="n">local_variable</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span> <span class="o">*</span> <span class="n">limit</span>
     <span class="k">print</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargvalues</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))</span>
     <span class="k">if</span> <span class="n">limit</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">recurse</span><span class="p">(</span><span class="n">limit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">recurse</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">recurse</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>module <a class="reference external" href="https://docs.python.org/3/library/inspect.html">https://docs.python.org/3/library/inspect.html</a></p>
+<p>module <a class="reference external" href="https://docs.python.org/3/library/inspect.html">https://docs.python.org/3/library/inspect.html</a>
+more on recursion <a class="reference external" href="http://www.mariakathryn.net/Blog/60">http://www.mariakathryn.net/Blog/60</a></p>
 </div>
 <div class="section" id="exceptions">
 <h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
@@ -213,72 +213,70 @@ an exception will be raised</p>
 not handled by the bottom of the stack, the interpreter will exit the program.</p>
 <p>At each level in the stack, a handler can either:</p>
 <ul class="simple">
-<li>let it bubble through (the default)</li>
-<li>swallow the exception</li>
+<li>let it bubble through (the default if no handler)</li>
+<li>swallow the exception (the default for a handler)</li>
 <li>catch the exception and raise it again</li>
 <li>catch the exception and raise a new one</li>
 </ul>
 <p class="rubric" id="handling-exceptions">Handling exceptions</p>
 <p>The most basic form uses the builtins try and except</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">temp_f_to_c</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">temp_f_to_c</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span><span class="o">/</span><span class="mf">1.8000</span>
     <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;The argument does not contain numbers</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The argument does not contain numbers</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric" id="a-few-more-builtins-for-exception-handling-finally-else-and-raise">A few more builtins for exception handling: finally, else,
 and raise</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;caught division error or maybe a value error:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;caught division error or maybe a value error:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># only do this if absolutely necessary, or if planning to re-raise</span>
     <span class="n">errno</span><span class="p">,</span> <span class="n">strerror</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;I/O error({0}): {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errno</span><span class="p">,</span><span class="n">strerror</span><span class="p">))</span>
-    <span class="c"># or you can just print e</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;unhandled exception:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I/O error(</span><span class="si">{0}</span><span class="s2">): </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errno</span><span class="p">,</span><span class="n">strerror</span><span class="p">))</span>
+    <span class="c1"># or you can just print e</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unhandled, unexpected exception:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
     <span class="k">raise</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;everything worked great&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;everything worked great&quot;</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;this is executed no matter what&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&#39;this is only printed if there is no exception&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;this is executed no matter what&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;this is only printed if there is no exception&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It is even possible to use a try block without the exception clause:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="mi">5</span><span class="o">/</span><span class="mi">0</span>
 <span class="k">finally</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;did it work?&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;did it work? why would you do this?&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric" id="built-in-exceptions">Built-in exceptions</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">__builtin__</span><span class="p">)</span> <span class="k">if</span> <span class="s">&quot;Error&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">__builtin__</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;Error&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>If one of these meets your needs, by all means use it. You can add messages:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">&quot;That was a mispelling&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;That was a mispelling&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If no builtin exceptions work, define a new exception type by subclassing Exception.</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
 
-<span class="k">raise</span> <span class="n">MyException</span><span class="p">(</span><span class="s">&quot;An exception doesn&#39;t always prove the rule!&quot;</span><span class="p">)</span>
+<span class="k">raise</span> <span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;An exception doesn&#39;t always prove the rule!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It is possible, but discouraged to catch all exceptions.</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">my_cool_code</span><span class="p">()</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;no idea what the exceptions is, but I caught it&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no idea what the exceptions is, but I caught it&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>An exception to this exception rule is when you are running a service that should not ever crash,
-like a web server.</p>
-<p>In this case, it is extremely important to have very good logging so that you
+like a web server. In this case, it is extremely important to have very good logging so that you
 have reports of exactly what happened and what exception should have been thrown.</p>
 <p class="rubric" id="further-reading">Further reading</p>
 <ul class="simple">
@@ -289,11 +287,24 @@ have reports of exactly what happened and what exception should have been thrown
 <div class="section" id="id2">
 <h3>Debugging<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p class="rubric" id="python-debugging">Python Debugging</p>
-<p>You will spend most of your time as a developer debugging.
-You will spend more time than you expect on google.</p>
+<ul class="simple">
+<li>You will spend most of your time as a developer debugging.</li>
+<li>You will spend more time than you expect on google.</li>
+<li>Small, tested functions are easier to debug.</li>
+<li>Find a bug, make a test, so it doesn&#8217;t come back</li>
+</ul>
+<p>Tools</p>
+<ul class="simple">
+<li>interpreter hints</li>
+<li>print()</li>
+<li>logging</li>
+<li>assert()</li>
+<li>tests</li>
+<li>debuggers</li>
+</ul>
 <p>The Stack Trace</p>
 <p>You already know what it looks like. Simple traceback:</p>
-<div class="highlight-default"><div class="highlight"><pre>$ python3 test_trie.py
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 test_trie.py
 Traceback (most recent call last):
    File &quot;test_trie.py&quot;, line 3, in &lt;module&gt;
      from trie import Trie
@@ -303,31 +314,35 @@ Traceback (most recent call last):
 SyntaxError: Missing parentheses in call to &#39;print&#39;
 </pre></div>
 </div>
-<p>But things can quickly get complicated (Here is ~1/3 of a recent traceback I had):</p>
-<dl class="docutils">
-<dt>Traceback (most recent call last):</dt>
-<dd><dl class="first last docutils">
-<dt>File &#8220;snapi3/tests/test_proxy_rest.py&#8221;, line 21, in test_http_get</dt>
-<dd>resp = self.app.get(self.TRIVIAL_URL, status=200)</dd>
-<dt>File &#8220;python3/lib/python3.5/site-packages/webtest/app.py&#8221;, line 323, in get</dt>
-<dd>expect_errors=expect_errors)</dd>
-<dt>File &#8220;python3/lib/python3.5/site-packages/webtest/app.py&#8221;, line 606, in do_request</dt>
-<dd>res = req.get_response(app, catch_exc_info=True)</dd>
-<dt>File &#8220;python3/lib/python3.5/site-packages/webob/request.py&#8221;, line 1313, in send</dt>
-<dd>application, catch_exc_info=True)</dd>
-<dt>File &#8220;python3/lib/python3.5/site-packages/webob/request.py&#8221;, line 1284, in call_application</dt>
-<dd>output.extend(app_iter)</dd>
-</dl>
-</dd>
-</dl>
-<p>Debuggers are code which allows the inspection of state of other code
-during runtime.</p>
-<p>Rudimentary tools</p>
+<p>But things can quickly get complicated, as we all ran into last quarter with web frameworks.</p>
+<p>Some helpful hints with stacktraces:
+- May seem obvious, but... Read it carefully!
+- What is the error?
+- The first place to look is the bottom.
+- But, sometimes that error was triggered by something else, and you need to look higher.
+- More than likely the error is in your code, not established packages.
+_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
+- Will show the line number and file.</p>
+<p>If that fails you...</p>
 <ul class="simple">
-<li>print()</li>
-<li>interpreter hints</li>
-<li>import logging.debug</li>
-<li>assert()</li>
+<li>Make sure the code you think is executing is really executing.</li>
+<li>Simiplify your code.</li>
+<li>Deubgger</li>
+<li>Boil it down to the simplest version that shows the bug
+- Often you&#8217;ll find it in the process</li>
+<li>Save (and print) intermediate results from long expressions</li>
+<li>Try out bits of code at the command line</li>
+</ul>
+<p>If all else fails...</p>
+<p>Write out an email that describes the problem:
+- include the stacktrace
+- include steps you have taken to find the bug
+- inlude the relative function of your code</p>
+<p>Often after writing out this email, you will realize what you forgot to check, and more often than not, after you hit send.</p>
+<p>Print</p>
+<ul class="simple">
+<li>print(&#8216;my_module.py: my_variable: &#8216;, my_variable)</li>
+<li>can use print statements to make sure you are editing a file in the stack</li>
 </ul>
 <p>Console debuggers</p>
 <ul class="simple">
@@ -342,14 +357,14 @@ during runtime.</p>
 <ol class="arabic simple">
 <li>investigate import issues with -v:</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">v</span> <span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">v</span> <span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>Verbose (trace import statements)</p>
 <ol class="arabic simple" start="2">
 <li>inspect environment after running script with -i</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">i</span> <span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">i</span> <span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>Forces interpreter to remain active, and still in scope</p>
@@ -382,34 +397,34 @@ which is mostly compatible, and generally easier to work with. But it
 doesn&#8217;t ship with Python.</p>
 <p class="rubric" id="postmortem-mode">Postmortem mode</p>
 <p>For analyzing crashes due to uncaught exceptions</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">i</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">i</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">pm</span><span class="p">()</span>
 </pre></div>
 </div>
 <p class="rubric" id="run-mode">Run mode</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pdb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;some.expression()&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;some.expression()&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric" id="script-mode">Script mode</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>&#8220;-m [module]&#8221; finds [module] in sys.path and executes it as a script</p>
 <p class="rubric" id="trace-mode">Trace mode</p>
 <p>Insert the following line into your code where you want execution to
 halt:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It&#8217;s not always OK/possible to modify your code in order to debug it,
 but this is often the quickest way to begin inspecting state</p>
 <p class="rubric" id="pdb-in-ipython">pdb in ipython</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pdb</span>
 <span class="n">Automatic</span> <span class="n">pdb</span> <span class="n">calling</span> <span class="n">has</span> <span class="n">been</span> <span class="n">turned</span> <span class="n">ON</span>
 
 <span class="o">%</span><span class="n">run</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
 
-<span class="c"># now halts execution on uncaught exception</span>
+<span class="c1"># now halts execution on uncaught exception</span>
 </pre></div>
 </div>
 <p>If you forget to turn on pdb, the magic command %debug will activate the
@@ -418,34 +433,34 @@ debugger (in &#8216;post-mortem mode&#8217;).</p>
 <p>The goal of each of the preceding techniques was to get to the pdb
 prompt and get to work inspecting state. Most commands can be short-cutted
 to the first letter.</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">%</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">args</span>  <span class="c"># print arguments and values to current function</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">pp</span> <span class="n">a_variable</span>  <span class="c"># pretty-print a_variable</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">where</span>  <span class="c"># print stack trace, bottom is most recent command</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="nb">list</span>  <span class="c"># list the code including and surrounding the current running code</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">args</span>  <span class="c1"># print arguments and values to current function</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">pp</span> <span class="n">a_variable</span>  <span class="c1"># pretty-print a_variable</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">where</span>  <span class="c1"># print stack trace, bottom is most recent command</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="nb">list</span>  <span class="c1"># list the code including and surrounding the current running code</span>
 </pre></div>
 </div>
 <p>To repeat the current command, press only the Enter key</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># execute until current function returns</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># execute until current function returns</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="k">return</span>
-<span class="c"># Execute the current line, stop at the first possible occasion</span>
+<span class="c1"># Execute the current line, stop at the first possible occasion</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="n">step</span>
-<span class="c"># Continue execution until the next line in the current function is reached or it returns.</span>
+<span class="c1"># Continue execution until the next line in the current function is reached or it returns.</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="nb">next</span>
-<span class="c"># Continue execution until the line with a number greater than the current one is reached</span>
+<span class="c1"># Continue execution until the line with a number greater than the current one is reached</span>
   <span class="ow">or</span> <span class="n">until</span> <span class="n">the</span> <span class="n">current</span> <span class="n">frame</span> <span class="n">returns</span><span class="o">.</span>  <span class="n">Good</span> <span class="k">for</span> <span class="n">exiting</span> <span class="n">loops</span><span class="o">.</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="n">until</span>
-<span class="c"># move one level up the stack</span>
+<span class="c1"># move one level up the stack</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="n">up</span>
-<span class="c"># move one level down the stack</span>
+<span class="c1"># move one level down the stack</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="n">down</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">continue</span>  <span class="c"># goes until next breakpoint or end of program</span>
-<span class="c"># advanced: create commands to be executed on a breakpoint</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">continue</span>  <span class="c1"># goes until next breakpoint or end of program</span>
+<span class="c1"># advanced: create commands to be executed on a breakpoint</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="n">commands</span>
 </pre></div>
 </div>
 <p class="rubric" id="breakpoints">Breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pdb</span><span class="o">&gt;</span> <span class="n">help</span> <span class="k">break</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">&gt;</span> <span class="n">help</span> <span class="k">break</span>
   <span class="n">b</span><span class="p">(</span><span class="n">reak</span><span class="p">)</span> <span class="p">([</span><span class="n">file</span><span class="p">:]</span><span class="n">lineno</span> <span class="o">|</span> <span class="n">function</span><span class="p">)</span> <span class="p">[,</span> <span class="n">condition</span><span class="p">]</span>
   <span class="n">With</span> <span class="n">a</span> <span class="n">line</span> <span class="n">number</span> <span class="n">argument</span><span class="p">,</span> <span class="nb">set</span> <span class="n">a</span> <span class="k">break</span> <span class="n">there</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span>
   <span class="n">file</span><span class="o">.</span>  <span class="n">With</span> <span class="n">a</span> <span class="n">function</span> <span class="n">name</span><span class="p">,</span> <span class="nb">set</span> <span class="n">a</span> <span class="k">break</span> <span class="n">at</span> <span class="n">first</span> <span class="n">executable</span> <span class="n">line</span>
@@ -455,34 +470,34 @@ to the first letter.</p>
 
   <span class="n">The</span> <span class="n">line</span> <span class="n">number</span> <span class="n">may</span> <span class="n">be</span> <span class="n">prefixed</span> <span class="k">with</span> <span class="n">a</span> <span class="n">filename</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">colon</span><span class="p">,</span>
   <span class="n">to</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">breakpoint</span> <span class="ow">in</span> <span class="n">another</span> <span class="n">file</span> <span class="p">(</span><span class="n">probably</span> <span class="n">one</span> <span class="n">that</span>
-  <span class="n">hasn</span><span class="s">&#39;t been loaded yet).  The file is searched for on sys.path;</span>
+  <span class="n">hasn</span><span class="s1">&#39;t been loaded yet).  The file is searched for on sys.path;</span>
   <span class="n">the</span> <span class="o">.</span><span class="n">py</span> <span class="n">suffix</span> <span class="n">may</span> <span class="n">be</span> <span class="n">omitted</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>Can use up, down, where and list to evalutate where you are, and use that to
 set a new breakpoint in code coming up. Useful for getting out of rabbit holes.</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span> <span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span> <span class="nb">set</span> <span class="n">a</span> <span class="n">breakpoint</span> <span class="n">file</span><span class="p">:</span><span class="n">line</span> <span class="c">#</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span>  <span class="c"># list breakpoints</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">clear</span> <span class="mi">1</span>  <span class="c"># get rid of first breakpoint</span>
-<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span> <span class="mi">35</span>  <span class="c"># set a breakpoint in current file at line 35</span>
-<span class="c"># print lines in range</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span> <span class="n">api</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span> <span class="nb">set</span> <span class="n">a</span> <span class="n">breakpoint</span> <span class="n">file</span><span class="p">:</span><span class="n">line</span> <span class="c1">#</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span>  <span class="c1"># list breakpoints</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="n">clear</span> <span class="mi">1</span>  <span class="c1"># get rid of first breakpoint</span>
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span> <span class="mi">35</span>  <span class="c1"># set a breakpoint in current file at line 35</span>
+<span class="c1"># print lines in range</span>
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="nb">list</span> <span class="mi">1</span><span class="p">,</span><span class="mi">28</span>
 </pre></div>
 </div>
 <p>Clear (delete) breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">clear</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clear</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p>disable breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">disable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">disable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p>enable breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">enable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p class="rubric" id="conditional-breakpoints">Conditional Breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pdb</span><span class="o">&gt;</span> <span class="n">help</span> <span class="n">condition</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">&gt;</span> <span class="n">help</span> <span class="n">condition</span>
 <span class="n">condition</span> <span class="n">bpnumber</span> <span class="n">str_condition</span>
 <span class="n">str_condition</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">string</span> <span class="n">specifying</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">which</span>
 <span class="n">must</span> <span class="n">evaluate</span> <span class="n">to</span> <span class="n">true</span> <span class="n">before</span> <span class="n">the</span> <span class="n">breakpoint</span> <span class="ow">is</span> <span class="n">honored</span><span class="o">.</span>
@@ -492,11 +507,11 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.<
 </div>
 <p class="rubric" id="invoking-pdb-with-nose">Invoking pdb with nose</p>
 <p>On error condition, drop to pdb</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span>
 </pre></div>
 </div>
 <p>On test failure, drop to pdb:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span><span class="o">-</span><span class="n">failures</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span><span class="o">-</span><span class="n">failures</span>
 </pre></div>
 </div>
 <p class="rubric" id="python-ides">Python IDEs</p>
@@ -516,12 +531,12 @@ provided you look in the right places!</p>
 <p class="rubric" id="winpdb">winpdb</p>
 <p>A multi platform Python debugger with threading support</p>
 <p>Easier to start up and get debugging</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">winpdb</span> <span class="n">your_app</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">winpdb</span> <span class="n">your_app</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p class="rubric" id="remote-debugging-with-winpdb">Remote debugging with winpdb</p>
 <p>To debug an application running a different Python, even remotely:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">rpdb2</span><span class="p">;</span> <span class="n">rpdb2</span><span class="o">.</span><span class="n">start_embedded_debugger</span><span class="p">(</span><span class="s">&quot;password&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rpdb2</span><span class="p">;</span> <span class="n">rpdb2</span><span class="o">.</span><span class="n">start_embedded_debugger</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="http://winpdb.org/tutorial/WinpdbTutorial.html">http://winpdb.org/tutorial/WinpdbTutorial.html</a></p>
@@ -530,7 +545,7 @@ provided you look in the right places!</p>
 <p>See if you can find the bug and get the app working. Use whatever debugging
 technique(s) you prefer.</p>
 <p>To run the app:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">interesting_topic</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">interesting_topic</span>
 </pre></div>
 </div>
 <p>where interesting_topic is a topic of interest. ;-)</p>
@@ -539,7 +554,7 @@ Using (i)pdb in module mode (python -m pdb ) to find the server type that
 wikipedia is using by looking at
 response.headers.headers in Wikipedia.article</p>
 <p>You can enter the debugger by running</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">robot</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">robot</span>
 </pre></div>
 </div>
 <p>(define.py takes the first sys arg and finds articles on wikipedia on that topic)</p>
@@ -586,8 +601,7 @@ response.headers.headers in Wikipedia.article</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

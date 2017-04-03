@@ -138,7 +138,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/packaging.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/packaging.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,7 +175,7 @@ structured package eases development.</p>
 <div class="section" id="python-packaging-tools">
 <h3>Python packaging tools:<a class="headerlink" href="#python-packaging-tools" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">distutils</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
 <p>Getting klunky, hard to extend, maybe destined for deprication...</p>
@@ -196,7 +196,7 @@ structured package eases development.</p>
 </div>
 <div class="section" id="basic-package-structure">
 <h3>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">package_name</span><span class="o">/</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package_name</span><span class="o">/</span>
     <span class="nb">bin</span><span class="o">/</span>
     <span class="n">CHANGES</span><span class="o">.</span><span class="n">txt</span>
     <span class="n">docs</span><span class="o">/</span>
@@ -227,7 +227,7 @@ structured package eases development.</p>
 <p><code class="docutils literal"><span class="pre">package_name/</span></code>: The main pacakge &#8211; this is where the code goes.</p>
 <p><code class="docutils literal"><span class="pre">test/</span></code>: your unit tests. Options here:</p>
 <p>Put it inside the package &#8211; supports</p>
-<div class="highlight-default"><div class="highlight"><pre>$ pip install package_name
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install package_name
 &gt;&gt; import package_name.test
 &gt;&gt; package_name.test.runall()
 </pre></div>
@@ -240,22 +240,22 @@ structured package eases development.</p>
 <p>It is python code, so you can add anything custom you need to it</p>
 <p>But in the simple case, it is essentially declarative.</p>
 <p><code class="docutils literal"><span class="pre">http://docs.python.org/3/distutils/</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
 
  <span class="n">setup</span><span class="p">(</span>
-   <span class="n">name</span><span class="o">=</span><span class="s">&#39;PackageName&#39;</span><span class="p">,</span>
-   <span class="n">version</span><span class="o">=</span><span class="s">&#39;0.1.0&#39;</span><span class="p">,</span>
-   <span class="n">author</span><span class="o">=</span><span class="s">&#39;An Awesome Coder&#39;</span><span class="p">,</span>
-   <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;aac@example.com&#39;</span><span class="p">,</span>
-   <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;package_name&#39;</span><span class="p">,</span> <span class="s">&#39;package_name.test&#39;</span><span class="p">],</span>
-   <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;bin/script1&#39;</span><span class="p">,</span><span class="s">&#39;bin/script2&#39;</span><span class="p">],</span>
-   <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://pypi.python.org/pypi/PackageName/&#39;</span><span class="p">,</span>
-   <span class="n">license</span><span class="o">=</span><span class="s">&#39;LICENSE.txt&#39;</span><span class="p">,</span>
-   <span class="n">description</span><span class="o">=</span><span class="s">&#39;An awesome package that does something&#39;</span><span class="p">,</span>
-   <span class="n">long_description</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PackageName&#39;</span><span class="p">,</span>
+   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.1.0&#39;</span><span class="p">,</span>
+   <span class="n">author</span><span class="o">=</span><span class="s1">&#39;An Awesome Coder&#39;</span><span class="p">,</span>
+   <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;aac@example.com&#39;</span><span class="p">,</span>
+   <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;package_name&#39;</span><span class="p">,</span> <span class="s1">&#39;package_name.test&#39;</span><span class="p">],</span>
+   <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bin/script1&#39;</span><span class="p">,</span><span class="s1">&#39;bin/script2&#39;</span><span class="p">],</span>
+   <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://pypi.python.org/pypi/PackageName/&#39;</span><span class="p">,</span>
+   <span class="n">license</span><span class="o">=</span><span class="s1">&#39;LICENSE.txt&#39;</span><span class="p">,</span>
+   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;An awesome package that does something&#39;</span><span class="p">,</span>
+   <span class="n">long_description</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;README.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
-       <span class="s">&quot;Django &gt;= 1.1.1&quot;</span><span class="p">,</span>
-       <span class="s">&quot;pytest&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;Django &gt;= 1.1.1&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;pytest&quot;</span><span class="p">,</span>
    <span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -265,7 +265,7 @@ structured package eases development.</p>
 <h3><code class="docutils literal"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">setup.cfg</span></code> provides a way to give the end user some ability to customise the install</p>
 <p>It&#8217;s an <code class="docutils literal"><span class="pre">ini</span></code> style file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="p">[</span><span class="n">command</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
 <span class="n">option</span><span class="o">=</span><span class="n">value</span>
 <span class="o">...</span>
 </pre></div>
@@ -280,13 +280,13 @@ structured package eases development.</p>
 <p>With a <code class="docutils literal"><span class="pre">setup.py</span></code> script defined, the distutils can do a lot:</p>
 <ul>
 <li><p class="first">builds a source distribution (defaults to tar file):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="nb">zip</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">builds binary distributions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wininst</span>
 </pre></div>
 </div>
@@ -296,12 +296,12 @@ structured package eases development.</p>
 <p>But you probably want to use wheel for binary disributions now.</p>
 <ul>
 <li><p class="first">build from source:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">and install:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </li>
@@ -310,7 +310,7 @@ structured package eases development.</p>
 <div class="section" id="setuptools">
 <h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">setuptools</span></code> is an extension to <code class="docutils literal"><span class="pre">distutils</span></code> that provides a number of extensions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
 <p>superset of the <code class="docutils literal"><span class="pre">distutils</span> <span class="pre">setup</span></code></p>
@@ -336,14 +336,14 @@ in</p>
 <p>Can be just pure python or binary with compiled extensions</p>
 <p>Compatible with virtualenv.</p>
 <p>Building a wheel:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wheel</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wheel</span>
 </pre></div>
 </div>
 <p>Create a set of wheels (a wheelhouse):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># Build a directory of wheels for pyramid and all its dependencies</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Build a directory of wheels for pyramid and all its dependencies</span>
 <span class="n">pip</span> <span class="n">wheel</span> <span class="o">--</span><span class="n">wheel</span><span class="o">-</span><span class="nb">dir</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">wheelhouse</span> <span class="n">pyramid</span>
 
-<span class="c"># Install from cached wheels</span>
+<span class="c1"># Install from cached wheels</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">wheel</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">wheelhouse</span> <span class="n">pyramid</span>
 </pre></div>
 </div>
@@ -356,7 +356,7 @@ in</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi">https://pypi.python.org/pypi</a></p>
 <p>You&#8217;ve all used this &#8211; <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> searches it.</p>
 <p>To upload your package to PyPi:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span>
 
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="n">bdist_wheel</span> <span class="n">upload</span>
 </pre></div>
@@ -366,11 +366,11 @@ in</p>
 <div class="section" id="under-development">
 <h3>Under Development<a class="headerlink" href="#under-development" title="Permalink to this headline">¶</a></h3>
 <p>Develop mode is <em>really</em> <em>really</em> nice:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">./</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">./</span>
 </pre></div>
 </div>
 <p>It puts links into the python installation to your code, so that your package is installed, but any changes will immediately take effect.</p>
@@ -383,35 +383,35 @@ in</p>
 <h3>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
 <p>It can be a good idea to set up yoru tests to be run from <code class="docutils literal"><span class="pre">setup.py</span></code></p>
 <p>So that you (or your users) can:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install .
-<span class="nv">$ </span>python setup.py <span class="nb">test</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install .
+$ python setup.py <span class="nb">test</span>
 </pre></div>
 </div>
 <p>Do do this, you need to add a <code class="docutils literal"><span class="pre">test_suite</span></code> stanza in setup.py.</p>
 <p><strong>nose</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">setup</span> <span class="p">(</span>
-    <span class="c"># ...</span>
-    <span class="n">test_suite</span> <span class="o">=</span> <span class="s">&#39;nose.collector&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span> <span class="p">(</span>
+    <span class="c1"># ...</span>
+    <span class="n">test_suite</span> <span class="o">=</span> <span class="s1">&#39;nose.collector&#39;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>pytest</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">setup</span><span class="p">(</span>
-  <span class="c">#...,</span>
-  <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;pytest-runner&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-  <span class="n">tests_require</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;pytest&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-  <span class="c">#...,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+  <span class="c1">#...,</span>
+  <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pytest-runner&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="n">tests_require</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pytest&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="c1">#...,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>And create an alias into setup.cfg file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="p">[</span><span class="n">aliases</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">aliases</span><span class="p">]</span>
 <span class="n">test</span><span class="o">=</span><span class="n">pytest</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner">https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner</a></p>
 <p><strong>unittest</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">test_suite</span><span class="o">=</span><span class="s">&quot;tests&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">test_suite</span><span class="o">=</span><span class="s2">&quot;tests&quot;</span>
 </pre></div>
 </div>
 <p>(does py3 unittest have this??)</p>
@@ -479,8 +479,7 @@ in</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

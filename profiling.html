@@ -157,7 +157,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/profiling.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/profiling.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -280,7 +280,7 @@ disk</p>
 <p>Precision is system dependent</p>
 <p>Quite course, but can capture the big picture</p>
 <p>See <code class="docutils literal"><span class="pre">Examples/profiling/timer/timer_test.py</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 
 <span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -288,7 +288,7 @@ disk</p>
         <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">t2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;-- executed </span><span class="si">%s</span><span class="s"> in </span><span class="si">%.4f</span><span class="s"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-- executed </span><span class="si">%s</span><span class="s2"> in </span><span class="si">%.4f</span><span class="s2"> seconds&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">result</span>
     <span class="k">return</span> <span class="n">timer</span>
 
@@ -312,7 +312,7 @@ disk</p>
 <p>Will run the given statement many times and calculate the average
 execution time</p>
 <p>Can be run from the command line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="s">&#39;&quot;-&quot;.join(str(n) for n in range(100))&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="s1">&#39;&quot;-&quot;.join(str(n) for n in range(100))&#39;</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/timeit.html">https://docs.python.org/3.5/library/timeit.html</a></p>
@@ -335,22 +335,22 @@ instead and returns the CPU user time.</li>
 <li><code class="docutils literal"><span class="pre">-pP</span></code>: use a precision of P digits to display the timing result.
 Default: 3</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python -m timeit -n <span class="m">1000</span> -t <span class="s2">&quot;len([x**2 for x in range(1000)])&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m timeit -n <span class="m">1000</span> -t <span class="s2">&quot;len([x**2 for x in range(1000)])&quot;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">timeit</span></code> can also be imported as a module</p>
 <p><a class="reference external" href="http://docs.python.org/3/library/timeit.html#timeit.timeit">http://docs.python.org/3/library/timeit.html#timeit.timeit</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span>
-              <span class="n">setup</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span>
+              <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span><span class="p">,</span>
               <span class="n">timer</span><span class="o">=&lt;</span><span class="n">default</span> <span class="n">timer</span><span class="o">&gt;</span><span class="p">,</span>
               <span class="n">number</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The setup kwarg contains a string of Python code to execute before the
 loops start, so that code is not part of the test</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">timeit</span>
-<span class="n">statement</span> <span class="o">=</span> <span class="s">&quot;char in text&quot;</span>
-<span class="n">setup_code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;text = &quot;sample string&quot;;char = &quot;g&quot; &quot;&quot;&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">timeit</span>
+<span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;char in text&quot;</span>
+<span class="n">setup_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;text = &quot;sample string&quot;;char = &quot;g&quot; &quot;&quot;&quot;</span>
 <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="n">setup_code</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -359,7 +359,7 @@ loops start, so that code is not part of the test</p>
 <h3><code class="docutils literal"><span class="pre">timeit</span></code> via iPython magic<a class="headerlink" href="#timeit-via-ipython-magic" title="Permalink to this headline">¶</a></h3>
 <p>Note that all that setup_code stuff is kind of a pain.</p>
 <p>iPython has your back (again)</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="o">%</span><span class="k">timeit</span> pass
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> pass
 
 <span class="n">u</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="o">%</span><span class="k">timeit</span> u is None
@@ -377,12 +377,12 @@ loops start, so that code is not part of the test</p>
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>We just tried determining if a character exists in a string:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">statement</span> <span class="o">=</span> <span class="s">&quot;&#39;f&#39; in &#39;food&#39;&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&#39;f&#39; in &#39;food&#39;&quot;</span>
 <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Run timeit with an alternative statement:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">statement2</span> <span class="o">=</span> <span class="s">&quot;&#39;food&#39;.find(&#39;f&#39;) &gt;= 0&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">statement2</span> <span class="o">=</span> <span class="s2">&quot;&#39;food&#39;.find(&#39;f&#39;) &gt;= 0&quot;</span>
 <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">statement2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -420,7 +420,7 @@ this might be good. Otherwise, it&#8217;s slow.</li>
 <div class="section" id="cprofile">
 <h3>cProfile<a class="headerlink" href="#cprofile" title="Permalink to this headline">¶</a></h3>
 <p>Can be run as a module on an entire application</p>
-<div class="highlight-bash"><div class="highlight"><pre>python -m cProfile <span class="o">[</span>-o output_file<span class="o">]</span> <span class="o">[</span>-s sort_order<span class="o">]</span> read_bna.py
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -m cProfile <span class="o">[</span>-o output_file<span class="o">]</span> <span class="o">[</span>-s sort_order<span class="o">]</span> read_bna.py
 <span class="m">11111128</span> <span class="k">function</span> calls in 8.283 seconds
 Ordered by: standard name
 
@@ -445,7 +445,7 @@ ncalls  tottime  percall  cumtime  percall filename:lineno<span class="o">(</spa
 <p>While doing performance work, save your profiles for comparison later</p>
 <p>This helps ensure that any changes do actually increase performance</p>
 <p>A profile dump file can be read with <code class="docutils literal"><span class="pre">pstats</span></code></p>
-<div class="highlight-bash"><div class="highlight"><pre>python -m pstats
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -m pstats
 </pre></div>
 </div>
 <p>Gives you a command line interface</p>
@@ -453,46 +453,46 @@ ncalls  tottime  percall  cumtime  percall filename:lineno<span class="o">(</spa
 </div>
 <div class="section" id="pstats">
 <h3><code class="docutils literal"><span class="pre">pstats</span></code><a class="headerlink" href="#pstats" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cProfile</span> <span class="o">-</span><span class="n">o</span> <span class="n">prof_dump</span>  <span class="o">./</span><span class="n">read_bna</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cProfile</span> <span class="o">-</span><span class="n">o</span> <span class="n">prof_dump</span>  <span class="o">./</span><span class="n">read_bna</span><span class="o">.</span><span class="n">py</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pstats</span>
 <span class="o">%</span> <span class="n">read</span> <span class="n">prof_dump</span>
 
-<span class="c"># show stats:</span>
+<span class="c1"># show stats:</span>
 <span class="n">prof_dump</span><span class="o">%</span> <span class="n">stats</span>
 
-<span class="c"># only the top 5 results:</span>
+<span class="c1"># only the top 5 results:</span>
 <span class="n">prof_dump</span><span class="o">%</span> <span class="n">stats</span> <span class="mi">5</span>
 
-<span class="c"># sort by cumulative time:</span>
+<span class="c1"># sort by cumulative time:</span>
 <span class="n">prof_dump</span><span class="o">%</span> <span class="n">sort</span> <span class="n">cumulative</span>
 
-<span class="c"># shorten long filenames for display:</span>
+<span class="c1"># shorten long filenames for display:</span>
 <span class="n">prof_dump</span><span class="o">%</span> <span class="n">strip</span>
-<span class="c"># show results again:</span>
+<span class="c1"># show results again:</span>
 <span class="n">prof_dump</span><span class="o">%</span> <span class="n">stats</span> <span class="mi">5</span>
 </pre></div>
 </div>
 <p>pstats also has method calls:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pstats</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s">&#39;prof_dump&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s">&#39;calls&#39;</span><span class="p">,</span> <span class="s">&#39;cumulative&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s1">&#39;prof_dump&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">&#39;calls&#39;</span><span class="p">,</span> <span class="s1">&#39;cumulative&#39;</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
 
-<span class="c"># Output can be restricted via arguments to print_stats().</span>
-<span class="c"># Each restriction is either an integer (to select a count of lines),</span>
-<span class="c"># a decimal fraction between 0.0 and 1.0 inclusive (to select a percentage of lines),</span>
-<span class="c"># or a regular expression (to pattern match the standard name that is printed.</span>
-<span class="c"># If several restrictions are provided, then they are applied sequentially.</span>
+<span class="c1"># Output can be restricted via arguments to print_stats().</span>
+<span class="c1"># Each restriction is either an integer (to select a count of lines),</span>
+<span class="c1"># a decimal fraction between 0.0 and 1.0 inclusive (to select a percentage of lines),</span>
+<span class="c1"># or a regular expression (to pattern match the standard name that is printed.</span>
+<span class="c1"># If several restrictions are provided, then they are applied sequentially.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id1">
 <h3>Analyzing profile data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Inspect only your local code with regular expression syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pstats</span>
-<span class="n">prof</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s">&#39;prof_dump&#39;</span><span class="p">)</span>
-<span class="n">prof</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s">&#39;cumulative&#39;</span><span class="p">)</span>
-<span class="n">prof</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="s">&#39;^./[a-z]*.py:&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>
+<span class="n">prof</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s1">&#39;prof_dump&#39;</span><span class="p">)</span>
+<span class="n">prof</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">&#39;cumulative&#39;</span><span class="p">)</span>
+<span class="n">prof</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="s1">&#39;^./[a-z]*.py:&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>I tend to write little scripts like this so I don&#8217;t have to remember the commands.</p>
@@ -522,7 +522,7 @@ ncalls  tottime  percall  cumtime  percall filename:lineno<span class="o">(</spa
 <h3>SNAKEVIZ<a class="headerlink" href="#snakeviz" title="Permalink to this headline">¶</a></h3>
 <p>A graphical profile viewer for Python</p>
 <p><a class="reference external" href="https://jiffyclub.github.io/snakeviz/">https://jiffyclub.github.io/snakeviz/</a></p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">snakeviz</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">snakeviz</span>
 </pre></div>
 </div>
 <p>Inspired by &#8220;Run Snake Run&#8221;: <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">http://www.vrplumber.com/programming/runsnakerun/</a></p>
@@ -537,12 +537,12 @@ as atomic units</p>
 <p><code class="docutils literal"><span class="pre">line_profiler</span></code> ships with its own profiler, <code class="docutils literal"><span class="pre">kernprof.py</span></code>.</p>
 <p>Enable line-by-line profiling with -l</p>
 <p>Decorate the function you want to profile with <code class="docutils literal"><span class="pre">&#64;profile</span></code> and run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># the -v option will display the profile data immediately, instead</span>
-<span class="c"># of just writing it to &lt;filename.py&gt;.lprof</span>
-<span class="nv">$ </span>kernprof -l -v integrate_main.py
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># the -v option will display the profile data immediately, instead</span>
+<span class="c1"># of just writing it to &lt;filename.py&gt;.lprof</span>
+$ kernprof -l -v integrate_main.py
 
-<span class="c"># load the output with</span>
-<span class="nv">$ </span>python -m line_profiler integrate_main.py.lprof
+<span class="c1"># load the output with</span>
+$ python -m line_profiler integrate_main.py.lprof
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/rkern/line_profiler">https://github.com/rkern/line_profiler</a></p>
@@ -555,7 +555,7 @@ as atomic units</p>
 <p>Can be used with Python profile data with a profile format conversion</p>
 <p>Doesn&#8217;t give all the information that a native valgrind run would
 provide</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># convert python profile to calltree format</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># convert python profile to calltree format</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">pyprof2calltree</span>
 
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cProfile</span> <span class="o">-</span><span class="n">o</span> <span class="n">dump</span><span class="o">.</span><span class="n">profile</span> <span class="n">integrate_main</span><span class="o">.</span><span class="n">py</span>
@@ -571,19 +571,19 @@ provide</p>
 <p>can be used to profile C extensions</p>
 <p>Just call ProfilerStart and ProfilerStop with ctypes around the code you
 want to profile</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ctypes</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ctypes</span>
 
-<span class="n">libprof</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="s">&#39;/usr/local/lib/libprofiler.0.dylib&#39;</span><span class="p">)</span>
-<span class="n">libprof</span><span class="o">.</span><span class="n">ProfilerStart</span><span class="p">(</span><span class="s">&#39;/tmp/out.prof&#39;</span><span class="p">)</span>
+<span class="n">libprof</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="s1">&#39;/usr/local/lib/libprofiler.0.dylib&#39;</span><span class="p">)</span>
+<span class="n">libprof</span><span class="o">.</span><span class="n">ProfilerStart</span><span class="p">(</span><span class="s1">&#39;/tmp/out.prof&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="n">a</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">a</span><span class="o">*=</span><span class="mi">32432432</span>
-<span class="n">libprof</span><span class="o">.</span><span class="n">ProfilerStop</span><span class="p">(</span><span class="s">&#39;/tmp/out.prof&#39;</span><span class="p">)</span>
+<span class="n">libprof</span><span class="o">.</span><span class="n">ProfilerStop</span><span class="p">(</span><span class="s1">&#39;/tmp/out.prof&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># convert the profile to qcachegrind&#39;s format with google&#39;s pprof tool</span>
-<span class="nv">$ </span>pprof --callgrind  ~/virtualenvs/uwpce/lib/python2.7/site-packages/numpy/core/multiarray.so out.prof &gt; output.callgrind
-<span class="nv">$ </span>qcachegrind output.callgrind
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># convert the profile to qcachegrind&#39;s format with google&#39;s pprof tool</span>
+$ pprof --callgrind  ~/virtualenvs/uwpce/lib/python2.7/site-packages/numpy/core/multiarray.so out.prof &gt; output.callgrind
+$ qcachegrind output.callgrind
 </pre></div>
 </div>
 </div>
@@ -592,7 +592,7 @@ want to profile</p>
 <p>There aren&#8217;t any great ones</p>
 <p>One option is heapy, which comes with Guppy, a Python environment for
 memory profiling</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">guppy</span> <span class="kn">import</span> <span class="n">hpy</span><span class="p">;</span> <span class="n">hp</span><span class="o">=</span><span class="n">hpy</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">guppy</span> <span class="kn">import</span> <span class="n">hpy</span><span class="p">;</span> <span class="n">hp</span><span class="o">=</span><span class="n">hpy</span><span class="p">()</span>
 <span class="n">hp</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">heap</span>
 <span class="n">hp</span><span class="o">.</span><span class="n">heap</span><span class="p">()</span>
 <span class="o">%</span><span class="n">run</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">Robot</span>
@@ -665,7 +665,7 @@ screen</p>
 <p>Our goal is to figure out whether the major bottleneck is in our own
 logic or in the pygame operations</p>
 <p>A simple way to get data for our own code is</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cProfile</span> <span class="n">swarm</span><span class="o">.</span><span class="n">py</span>  <span class="o">&amp;&gt;</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">output</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">cProfile</span> <span class="n">swarm</span><span class="o">.</span><span class="n">py</span>  <span class="o">&amp;&gt;</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">output</span><span class="o">.</span><span class="n">txt</span>
 <span class="n">grep</span> <span class="n">swarm</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">output</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
@@ -711,8 +711,7 @@ logic or in the pygame operations</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

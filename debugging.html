@@ -206,7 +206,7 @@ program exits</li>
 </div>
 <div class="section" id="exceptions">
 <h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
-<p>It&#8217;s easier to ask for forgiveness than permission</p>
+<p>It&#8217;s easier to ask for forgiveness than permission (Grace Hopper)</p>
 <p>When either the interpreter or your own code detects an error condition,
 an exception will be raised</p>
 <p>The exception will bubble up the call stack until it is handled. If it&#8217;s
@@ -240,10 +240,11 @@ and raise</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unhandled, unexpected exception:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
     <span class="k">raise</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;everything worked great&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;do this if there is code you want to run only if no exceptions, caught or not&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;errors here will not be caught by above excepts&quot;</span><span class="p">)</span>
 <span class="k">finally</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;this is executed no matter what&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;this is only printed if there is no exception&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;this is only printed if there is no uncaught exception&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It is even possible to use a try block without the exception clause:</p>
@@ -277,7 +278,7 @@ and raise</p>
 </div>
 <p>An exception to this exception rule is when you are running a service that should not ever crash,
 like a web server. In this case, it is extremely important to have very good logging so that you
-have reports of exactly what happened and what exception should have been thrown.</p>
+have reports of exactly what happened and what exception would have been thrown.</p>
 <p class="rubric" id="further-reading">Further reading</p>
 <ul class="simple">
 <li><a class="reference external" href="http://docs.python.org/3/library/exceptions.html">http://docs.python.org/3/library/exceptions.html</a></li>
@@ -304,34 +305,33 @@ have reports of exactly what happened and what exception should have been thrown
 </ul>
 <p>The Stack Trace</p>
 <p>You already know what it looks like. Simple traceback:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 test_trie.py
+<div class="highlight-default"><div class="highlight"><pre><span></span>maria$ python3 define.py python
 Traceback (most recent call last):
-   File &quot;test_trie.py&quot;, line 3, in &lt;module&gt;
-     from trie import Trie
-   File &quot;/Users/maria/python/trie/trie.py&quot;, line 144
-     print &quot;end of word&quot;, node.value
-                  ^
-SyntaxError: Missing parentheses in call to &#39;print&#39;
+  File &quot;define.py&quot;, line 15, in &lt;module&gt;
+    definition = Definitions.article(title)
+  File &quot;/Users/maria/python/300/Py300/Examples/debugging/wikidef/definitions.py&quot;, line 7, in article
+    return Wikipedia.article(title)
+  File &quot;/Users/maria/python/300/Py300/Examples/debugging/wikidef/api.py&quot;, line 26, in article
+    contents = json_response[&#39;parse&#39;][&#39;text&#39;][&#39;*&#39;]
+TypeError: &#39;method&#39; object is not subscriptable
 </pre></div>
 </div>
 <p>But things can quickly get complicated, as we all ran into last quarter with web frameworks.</p>
 <p>Some helpful hints with stacktraces:</p>
 <ul class="simple">
 <li>May seem obvious, but... Read it carefully!</li>
-<li>What is the error?</li>
+<li>What is the error? Try reading it aloud.</li>
 <li>The first place to look is the bottom.</li>
-<li>But, sometimes that error was triggered by something else, and you need to look higher.</li>
 <li>More than likely the error is in your code, not established packages.</li>
+<li>Sometimes that error was triggered by something else, and you need to look higher.</li>
+<li>If error at bottom of stacktrace is not helpful, look first for other code of yours in stack.</li>
+<li>Will show the line number and file of exception/calling functions.</li>
 </ul>
-<p>_ So, if error at bottom of stacktrace is not helpful, find trace in the stack that comes from your code.
-- Will show the line number and file.</p>
 <p>If that fails you...</p>
 <ul class="simple">
 <li>Make sure the code you think is executing is really executing.</li>
-<li>Simiplify your code.</li>
+<li>Simplify your code (smallest code that causes bug).</li>
 <li>Debugger</li>
-<li>Boil it down to the simplest version that shows the bug
-- Often you&#8217;ll find it in the process</li>
 <li>Save (and print) intermediate results from long expressions</li>
 <li>Try out bits of code at the command line</li>
 </ul>
@@ -342,20 +342,20 @@ SyntaxError: Missing parentheses in call to &#39;print&#39;
 <li>include steps you have taken to find the bug</li>
 <li>inlude the relative function of your code</li>
 </ul>
-<p>Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send.</p>
+<p>Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send. Good places to send these emails are other people on same project and mailing list for software package.</p>
 <p>Print</p>
 <ul class="simple">
-<li>print(&#8216;my_module.py: my_variable: &#8216;, my_variable)</li>
+<li>print(&#8220;my_module.py: my_variable: &#8221;, my_variable)</li>
 <li>can use print statements to make sure you are editing a file in the stack</li>
 </ul>
 <p>Console debuggers</p>
 <ul class="simple">
 <li>pdb/ipdb</li>
 </ul>
-<p>GUI debuggers</p>
+<p>GUI debuggers (more about these below)</p>
 <ul class="simple">
 <li>Winpdb</li>
-<li>IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio</li>
+<li>IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio Code</li>
 </ul>
 <p class="rubric" id="help-from-the-interpreter">help from the interpreter</p>
 <ol class="arabic simple">
@@ -384,7 +384,7 @@ Debugger</a></p>
 <p>Pros:</p>
 <ul class="simple">
 <li>You have it already, ships with the standard library</li>
-<li>Easy remote debugging</li>
+<li>Easy remote debugging (since it is non-graphical, see remote-pdb for true remote debugging)</li>
 <li>Works with any development environment</li>
 </ul>
 <p>Cons:</p>
@@ -412,6 +412,8 @@ doesn&#8217;t ship with Python.</p>
 <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">pm</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>More info on using Postmortem mode:</p>
+<p><a class="reference external" href="http://www.almarklein.org/pm-debugging.html">http://www.almarklein.org/pm-debugging.html</a></p>
 <p class="rubric" id="run-mode">Run mode</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;some.expression()&#39;</span><span class="p">)</span>
 </pre></div>
@@ -525,6 +527,8 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.<
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span><span class="o">-</span><span class="n">failures</span>
 </pre></div>
 </div>
+<p>Let&#8217;s try some debugging!</p>
+<p><a class="reference external" href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
 <p class="rubric" id="python-ides">Python IDEs</p>
 <p class="rubric" id="pycharm">PyCharm</p>
 <p>From JetBrains, and integrates some of their vast array of development
@@ -539,19 +543,25 @@ tools</p>
 provided you look in the right places!</p>
 <p>Further reading</p>
 <p><a class="reference external" href="http://pydev.org/manual_adv_debugger.html">http://pydev.org/manual_adv_debugger.html</a></p>
+<p class="rubric" id="id3">Python IDEs</p>
+<p class="rubric" id="visual-studio-code">Visual Studio Code</p>
+<p>Visual Studio Code has support for Python</p>
+<p>(not the same as the monstrosity that is Visual Studio)</p>
+<p><a class="reference external" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
 <p class="rubric" id="winpdb">winpdb</p>
 <p>A multi platform Python debugger with threading support</p>
 <p>Easier to start up and get debugging</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">winpdb</span> <span class="n">your_app</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p class="rubric" id="remote-debugging-with-winpdb">Remote debugging with winpdb</p>
-<p>To debug an application running a different Python, even remotely:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rpdb2</span><span class="p">;</span> <span class="n">rpdb2</span><span class="o">.</span><span class="n">start_embedded_debugger</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
 <p><a class="reference external" href="http://winpdb.org/tutorial/WinpdbTutorial.html">http://winpdb.org/tutorial/WinpdbTutorial.html</a></p>
-<p><a class="reference external" href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
+<p class="rubric" id="remote-debugging">Remote debugging</p>
+<p>To debug an application running a different Python, even remotely:</p>
+<p>remote-pdb</p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/remote-pdb">https://pypi.python.org/pypi/remote-pdb</a></p>
+<p>or older package rpdb</p>
+<p><a class="reference external" href="https://pypi.python.org/pypi/rpdb">https://pypi.python.org/pypi/rpdb</a></p>
+<p>(only tested to Python 3.1)</p>
 <p class="rubric" id="debugging-exercise">Debugging exercise</p>
 <p>Find the wikidef app in the examples folder</p>
 <p>See if you can find the bug and get the app working. Use whatever debugging
@@ -560,11 +570,10 @@ technique(s) you prefer.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">interesting_topic</span>
 </pre></div>
 </div>
-<p>where interesting_topic is a topic of interest. ;-)</p>
+<p>where interesting_topic is a topic of interest, like python. ;-)</p>
 <p>Once it is working again:
-Using (i)pdb in module mode (python -m pdb ) to find the server type that
-wikipedia is using by looking at
-response.headers.headers in Wikipedia.article</p>
+Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that
+wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?</p>
 <p>You can enter the debugger by running</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">robot</span>
 </pre></div>

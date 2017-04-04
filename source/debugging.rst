@@ -96,7 +96,7 @@ more on recursion http://www.mariakathryn.net/Blog/60
 Exceptions
 ----------
 
-It's easier to ask for forgiveness than permission
+It's easier to ask for forgiveness than permission (Grace Hopper)
 
 When either the interpreter or your own code detects an error condition,
 an exception will be raised
@@ -206,7 +206,7 @@ It is possible, but discouraged to catch all exceptions.
 
 An exception to this exception rule is when you are running a service that should not ever crash,
 like a web server. In this case, it is extremely important to have very good logging so that you 
-have reports of exactly what happened and what exception should have been thrown.
+have reports of exactly what happened and what exception would have been thrown.
 
 .. nextslide::
 
@@ -250,15 +250,15 @@ You already know what it looks like. Simple traceback:
 
 ::
 
-    $ python3 test_trie.py
+    maria$ python3 define.py python
     Traceback (most recent call last):
-       File "test_trie.py", line 3, in <module>
-         from trie import Trie
-       File "/Users/maria/python/trie/trie.py", line 144
-         print "end of word", node.value
-                      ^
-    SyntaxError: Missing parentheses in call to 'print'
-
+      File "define.py", line 15, in <module>
+        definition = Definitions.article(title)
+      File "/Users/maria/python/300/Py300/Examples/debugging/wikidef/definitions.py", line 7, in article
+        return Wikipedia.article(title)
+      File "/Users/maria/python/300/Py300/Examples/debugging/wikidef/api.py", line 26, in article
+        contents = json_response['parse']['text']['*']
+    TypeError: 'method' object is not subscriptable
 
 But things can quickly get complicated, as we all ran into last quarter with web frameworks.
 
@@ -269,7 +269,7 @@ But things can quickly get complicated, as we all ran into last quarter with web
 Some helpful hints with stacktraces:
 
 - May seem obvious, but... Read it carefully!
-- What is the error?
+- What is the error? Try reading it aloud.
 - The first place to look is the bottom.
 - More than likely the error is in your code, not established packages.
 - Sometimes that error was triggered by something else, and you need to look higher.
@@ -283,10 +283,8 @@ Some helpful hints with stacktraces:
 If that fails you...
 
 - Make sure the code you think is executing is really executing.
-- Simiplify your code.
+- Simplify your code (smallest code that causes bug).
 - Debugger
-- Boil it down to the simplest version that shows the bug
-  - Often you'll find it in the process
 - Save (and print) intermediate results from long expressions
 - Try out bits of code at the command line
 
@@ -301,14 +299,14 @@ Write out an email that describes the problem:
 - include steps you have taken to find the bug
 - inlude the relative function of your code
 
-Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send.
+Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send. Good places to send these emails are other people on same project and mailing list for software package.
 
 
 .. nextslide::
 
 Print
 
-- print('my_module.py: my_variable: ', my_variable)
+- print("my_module.py: my_variable: ", my_variable)
 - can use print statements to make sure you are editing a file in the stack
 
 
@@ -318,10 +316,10 @@ Console debuggers
 
 -  pdb/ipdb
 
-GUI debuggers
+GUI debuggers (more about these below)
 
 -  Winpdb
--  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio
+-  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio Code
    
 .. nextslide::
 
@@ -367,7 +365,7 @@ Useful tools from interpreter:
 Pros:
 
 -  You have it already, ships with the standard library
--  Easy remote debugging (since works in terminal, see remote-pdb for true remote debugging)
+-  Easy remote debugging (since it is non-graphical, see remote-pdb for true remote debugging)
 -  Works with any development environment
 
 Cons:
@@ -603,6 +601,12 @@ On test failure, drop to pdb:
 
 .. nextslide::
 
+Let's try some debugging!
+
+https://github.com/spiside/pdb-tutorial
+
+.. nextslide::
+
 .. rubric:: Python IDEs
    :name: python-ides
 
@@ -688,10 +692,6 @@ https://pypi.python.org/pypi/rpdb
 
 .. nextslide::
 
-https://github.com/spiside/pdb-tutorial
-
-.. nextslide::
-
 .. rubric:: Debugging exercise
    :name: debugging-exercise
 
@@ -705,14 +705,13 @@ To run the app:
 
     python define.py interesting_topic
 
-where interesting_topic is a topic of interest. ;-)
+where interesting_topic is a topic of interest, like python. ;-)
 
 .. nextslide::
 
 Once it is working again:
-Using (i)pdb in module mode (python -m pdb ) to find the server type that 
-wikipedia is using by looking at
-response.headers.headers in Wikipedia.article
+Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that 
+wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?
 
 You can enter the debugger by running
 

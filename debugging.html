@@ -497,27 +497,25 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.<
 <span class="n">pdb</span><span class="o">&gt;</span> <span class="nb">list</span> <span class="mi">1</span><span class="p">,</span><span class="mi">28</span>
 </pre></div>
 </div>
-<p>Clear (delete) breakpoints</p>
+<p>You can also delete(clear), disable and enable breakpoints</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clear</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
-</pre></div>
-</div>
-<p>disable breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">disable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
-</pre></div>
-</div>
-<p>enable breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">enable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
+
+<span class="n">disable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
+
+<span class="n">enable</span> <span class="p">[</span><span class="n">bpnumber</span> <span class="p">[</span><span class="n">bpnumber</span><span class="o">...</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p class="rubric" id="conditional-breakpoints">Conditional Breakpoints</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">&gt;</span> <span class="n">help</span> <span class="n">condition</span>
-<span class="n">condition</span> <span class="n">bpnumber</span> <span class="n">str_condition</span>
-<span class="n">str_condition</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">string</span> <span class="n">specifying</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">which</span>
-<span class="n">must</span> <span class="n">evaluate</span> <span class="n">to</span> <span class="n">true</span> <span class="n">before</span> <span class="n">the</span> <span class="n">breakpoint</span> <span class="ow">is</span> <span class="n">honored</span><span class="o">.</span>
-<span class="n">If</span> <span class="n">str_condition</span> <span class="ow">is</span> <span class="n">absent</span><span class="p">,</span> <span class="nb">any</span> <span class="n">existing</span> <span class="n">condition</span> <span class="ow">is</span> <span class="n">removed</span><span class="p">;</span>
-<span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="p">,</span> <span class="n">the</span> <span class="n">breakpoint</span> <span class="ow">is</span> <span class="n">made</span> <span class="n">unconditional</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span> <span class="mi">9</span><span class="p">,</span> <span class="n">j</span><span class="o">&gt;</span><span class="mi">3</span>
+<span class="n">Breakpoint</span> <span class="mi">1</span> <span class="n">at</span> <span class="o">.../</span><span class="n">pdb_break</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+
+<span class="n">pdb</span><span class="o">&gt;</span> <span class="k">break</span>
+<span class="n">Num</span> <span class="n">Type</span>         <span class="n">Disp</span> <span class="n">Enb</span>   <span class="n">Where</span>
+<span class="mi">1</span>   <span class="n">breakpoint</span>   <span class="n">keep</span> <span class="n">yes</span>   <span class="n">at</span> <span class="o">.../</span><span class="n">pdb_break</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+        <span class="n">stop</span> <span class="n">only</span> <span class="k">if</span> <span class="n">j</span><span class="o">&gt;</span><span class="mi">3</span>
 </pre></div>
 </div>
+<p>Condition can be used to add a conditional to and existing breakpoint</p>
 <p class="rubric" id="invoking-pdb-with-nose">Invoking pdb with nose</p>
 <p>On error condition, drop to pdb</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span>
@@ -582,6 +580,7 @@ wikipedia is using by looking at response.headers in Wikipedia.article. What typ
 <p>You can get to the code by walking through each line with &#8216;s&#8217;tep and
 &#8216;n&#8217;ext commands, or by setting a breakpoint and &#8216;c&#8217;ontinuing.</p>
 <p>What&#8217;s the result?</p>
+<p>You may also want to take a look at long_loop.py and see if you can answer the questions there.</p>
 <p class="rubric" id="questions">Questions?</p>
 </div>
 </div>

@@ -726,6 +726,9 @@ You can get to the code by walking through each line with 's'tep and
 
 What's the result?
 
+
+You may also want to take a look at long_loop.py and see if you can answer the questions there.
+
 .. nextslide::
 
 .. rubric:: Questions?

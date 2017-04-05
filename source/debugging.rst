@@ -544,24 +544,16 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.
 
 .. nextslide::
 
-Clear (delete) breakpoints
+
+You can also delete(clear), disable and enable breakpoints
+      
 
 ::
 
           clear [bpnumber [bpnumber...]]
-          
-
-disable breakpoints
-
-::
 
           disable [bpnumber [bpnumber...]]
           
-
-enable breakpoints
-
-::
-
           enable [bpnumber [bpnumber...]]
           
 
@@ -572,12 +564,16 @@ enable breakpoints
 
 ::
 
-          pdb> help condition
-          condition bpnumber str_condition
-          str_condition is a string specifying an expression which
-          must evaluate to true before the breakpoint is honored.
-          If str_condition is absent, any existing condition is removed;
-          i.e., the breakpoint is made unconditional.
+          pdb> break 9, j>3
+          Breakpoint 1 at .../pdb_break.py:9
+
+          pdb> break
+          Num Type         Disp Enb   Where
+          1   breakpoint   keep yes   at .../pdb_break.py:9
+                  stop only if j>3
+
+Condition can be used to add a conditional to and existing breakpoint
+
           
 
 .. nextslide::

@@ -58,6 +58,8 @@ Topics
 :ref:`threading`
 ................
 
+:ref:`async`
+............
 
 :ref:`datetime`
 ...............
@@ -79,6 +81,10 @@ Topics
 
 :ref:`weak_references`
 ......................
+
+
+:ref:`pep8`
+...........
 
 
 Assorted Notes:

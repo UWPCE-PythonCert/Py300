@@ -1,43 +1,153 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Logging and the logging module &#8212; Py300 3.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Py300 3.0 documentation" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
+  <title>Logging and the logging module &mdash; Py300 3.0 documentation</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Logging and the logging module</a><ul>
+<li><a class="reference internal" href="#what-is-logging">What is Logging?</a><ul>
+<li><a class="reference internal" href="#what-to-log">what to log?</a></li>
+<li><a class="reference internal" href="#the-logging-module">The logging module</a></li>
+<li><a class="reference internal" href="#why-not-print">Why not <code class="docutils literal"><span class="pre">print()</span></code>?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#background">Background</a><ul>
+<li><a class="reference internal" href="#id1">The <code class="docutils literal"><span class="pre">logging</span></code> module</a></li>
+<li><a class="reference internal" href="#logging-levels">Logging &#8220;levels&#8221;</a></li>
+<li><a class="reference internal" href="#the-logging-classes">The logging classes</a></li>
+<li><a class="reference internal" href="#the-logger-class">The <code class="docutils literal"><span class="pre">Logger</span></code> class</a></li>
+<li><a class="reference internal" href="#logging-get-logger"><code class="docutils literal"><span class="pre">logging.get_logger()</span></code></a></li>
+<li><a class="reference internal" href="#the-handler-classes">The <code class="docutils literal"><span class="pre">Handler</span></code> classes</a></li>
+<li><a class="reference internal" href="#the-formatter-classes">The <code class="docutils literal"><span class="pre">Formatter</span></code> classes</a></li>
+<li><a class="reference internal" href="#the-filter-classes">The Filter classes</a></li>
+<li><a class="reference internal" href="#basic-logging-usage">Basic logging usage</a></li>
+<li><a class="reference internal" href="#what-does-basicconfig-do-for-you">What does <code class="docutils literal"><span class="pre">basicConfig</span></code> do for you?</a></li>
+<li><a class="reference internal" href="#a-more-complex-logging-setup">A more complex logging setup</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Logging and the logging module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/logging.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="logging-and-the-logging-module">
 <span id="logging"></span><h1>Logging and the logging module<a class="headerlink" href="#logging-and-the-logging-module" title="Permalink to this headline">¶</a></h1>
@@ -65,8 +175,7 @@ as your code.</p>
 <p>Resources for learning more:</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/howto/logging.html">https://docs.python.org/3.5/howto/logging.html</a></p>
 <p><a class="reference external" href="http://docs.python-guide.org/en/latest/writing/logging/">http://docs.python-guide.org/en/latest/writing/logging/</a></p>
-<p><a class="reference external" href="https://pymotw.com/2/logging/">https://pymotw.com/2/logging/</a></p>
-<p>NOTE: the last one hasn&#8217;t been updated for py3 &#8211; but not much (anything?) has changed.</p>
+<p><a class="reference external" href="https://pymotw.com/3/logging/">https://pymotw.com/3/logging/</a></p>
 </div>
 <div class="section" id="why-not-print">
 <h3>Why not <code class="docutils literal"><span class="pre">print()</span></code>?<a class="headerlink" href="#why-not-print" title="Permalink to this headline">¶</a></h3>
@@ -108,10 +217,20 @@ as your code.</p>
 </div>
 <p>so DEBUG provides the most detail, and CRITICAL you&#8217;d pretty much always want to see.</p>
 <p>The logging API provides easy ways to send messages with these levels:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is a debuggin message&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is a debugging message&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://docs.python.org/3/library/logging.html#levels">https://docs.python.org/3/library/logging.html#levels</a></p>
+<p>similarly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;this is a critical message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;this is a error message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;this is a warning message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;this is a information message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is a debug message&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that if you have not configured the logger, a default configuration will automatically be set up &#8211; so you can alwlays call these in yoru code, and it won&#8217;t fail.</p>
+<p>This is actually particularly nice &#8211; you can add logging messages to your code, and they will &#8220;do the right thing&#8221; when run inside any application, whether it&#8217;s been spcifically configured or not.</p>
 </div>
 <div class="section" id="the-logging-classes">
 <h3>The logging classes<a class="headerlink" href="#the-logging-classes" title="Permalink to this headline">¶</a></h3>
@@ -172,7 +291,7 @@ as your code.</p>
 <p><code class="docutils literal"><span class="pre">Formatters</span></code> are responsible for formatting the log message.</p>
 <p>Each log message is stored in a <code class="docutils literal"><span class="pre">LogRecord</span></code> object, which has a lot of data about the message and where it came from.</p>
 <p>So you can use a formatter to add the data you want to your log entry.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(levelname)9s</span><span class="s1"> - </span><span class="si">%(module)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(module)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">levelname</span></code> is the &#8220;level&#8221; of the log message: debug, warning, etc. <code class="docutils literal"><span class="pre">module</span></code> is the name of the module the message came from. <code class="docutils literal"><span class="pre">message</span></code> is the message itself.</p>
@@ -183,7 +302,7 @@ as your code.</p>
 <div class="section" id="the-filter-classes">
 <h3>The Filter classes<a class="headerlink" href="#the-filter-classes" title="Permalink to this headline">¶</a></h3>
 <p>Each <code class="docutils literal"><span class="pre">Logger</span></code> can have a <code class="docutils literal"><span class="pre">Filter</span></code> object.</p>
-<p><code class="docutils literal"><span class="pre">Filters</span></code> determine lwhich messages will be handled by a given logger, and which pass on to other loggers up the hierarchy.</p>
+<p><code class="docutils literal"><span class="pre">Filters</span></code> determine which messages will be handled by a given logger, and which pass on to other loggers up the hierarchy.</p>
 <p>They can do very flexible filtering based on where the message came from, etc.</p>
 <p>But only really needed for complex systems:</p>
 <p>Loggers filter by &#8220;level&#8221; by default &#8211; which is enough for most uses.</p>
@@ -213,7 +332,7 @@ as your code.</p>
 </li>
 <li><p class="first">sets up the handler to use the provided format string</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">asctime</span></code> provides a datetime stamp (you can spcify a format for that, too)</li>
+<li><code class="docutils literal"><span class="pre">asctime</span></code> provides a datetime stamp (you can specify a format for that, too)</li>
 </ul>
 </li>
 <li><p class="first">sets the level to debug &#8211; so all messages will get logged.</p>
@@ -259,80 +378,62 @@ as your code.</p>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Logging and the logging module</a><ul>
-<li><a class="reference internal" href="#what-is-logging">What is Logging?</a><ul>
-<li><a class="reference internal" href="#what-to-log">what to log?</a></li>
-<li><a class="reference internal" href="#the-logging-module">The logging module</a></li>
-<li><a class="reference internal" href="#why-not-print">Why not <code class="docutils literal"><span class="pre">print()</span></code>?</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#background">Background</a><ul>
-<li><a class="reference internal" href="#id1">The <code class="docutils literal"><span class="pre">logging</span></code> module</a></li>
-<li><a class="reference internal" href="#logging-levels">Logging &#8220;levels&#8221;</a></li>
-<li><a class="reference internal" href="#the-logging-classes">The logging classes</a></li>
-<li><a class="reference internal" href="#the-logger-class">The <code class="docutils literal"><span class="pre">Logger</span></code> class</a></li>
-<li><a class="reference internal" href="#logging-get-logger"><code class="docutils literal"><span class="pre">logging.get_logger()</span></code></a></li>
-<li><a class="reference internal" href="#the-handler-classes">The <code class="docutils literal"><span class="pre">Handler</span></code> classes</a></li>
-<li><a class="reference internal" href="#the-formatter-classes">The <code class="docutils literal"><span class="pre">Formatter</span></code> classes</a></li>
-<li><a class="reference internal" href="#the-filter-classes">The Filter classes</a></li>
-<li><a class="reference internal" href="#basic-logging-usage">Basic logging usage</a></li>
-<li><a class="reference internal" href="#what-does-basicconfig-do-for-you">What does <code class="docutils literal"><span class="pre">basicConfig</span></code> do for you?</a></li>
-<li><a class="reference internal" href="#a-more-complex-logging-setup">A more complex logging setup</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/logging.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/logging.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

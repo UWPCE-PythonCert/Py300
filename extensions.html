@@ -1,43 +1,183 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Extending Python with Complied Code &#8212; Py300 3.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Py300 3.0 documentation" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
+  <title>Extending Python with Complied Code &mdash; Py300 3.0 documentation</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Extending Python with Complied Code</a><ul>
+<li><a class="reference internal" href="#topics">Topics</a><ul>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#example-case">Example Case</a></li>
+<li><a class="reference internal" href="#the-c-api">The C API</a></li>
+<li><a class="reference internal" href="#intro-to-the-c-api">Intro to the C API</a></li>
+<li><a class="reference internal" href="#passing-data-in-and-out-of-your-function">Passing Data in and out of your function</a></li>
+<li><a class="reference internal" href="#registering-your-functions">Registering your functions</a></li>
+<li><a class="reference internal" href="#initializing-the-module">Initializing the module</a></li>
+<li><a class="reference internal" href="#the-whole-thing">The whole thing:</a></li>
+<li><a class="reference internal" href="#building-your-extension">Building your extension</a></li>
+<li><a class="reference internal" href="#run-the-tests">Run the tests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#subtleties-we-avoided">Subtleties we avoided:</a><ul>
+<li><a class="reference internal" href="#exception-handling">Exception handling</a></li>
+<li><a class="reference internal" href="#referencecounting">ReferenceCounting</a></li>
+<li><a class="reference internal" href="#lab">LAB</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ctypes">ctypes</a><ul>
+<li><a class="reference internal" href="#what-is-ctypes">What is ctypes?</a></li>
+<li><a class="reference internal" href="#calling-functions-with-ctypes">Calling functions with ctypes</a></li>
+<li><a class="reference internal" href="#ctypes-data-types">ctypes Data Types</a></li>
+<li><a class="reference internal" href="#some-more-features">Some more features</a></li>
+<li><a class="reference internal" href="#summary">Summary:</a></li>
+<li><a class="reference internal" href="#id1">LAB</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cython">Cython</a><ul>
+<li><a class="reference internal" href="#id2">Cython</a></li>
+<li><a class="reference internal" href="#developing-with-cython">Developing with Cython</a></li>
+<li><a class="reference internal" href="#building-a-module">Building a module</a></li>
+<li><a class="reference internal" href="#basic-cython">Basic Cython</a></li>
+<li><a class="reference internal" href="#calling-a-c-function-from-cython">Calling a C function from Cython</a></li>
+<li><a class="reference internal" href="#a-pure-cython-solution">A pure Cython solution</a></li>
+<li><a class="reference internal" href="#a-real-example-the-cython-process">A real Example: the Cython process</a></li>
+<li><a class="reference internal" href="#cython-from-pure-python-to-c">Cython from pure Python to C</a></li>
+<li><a class="reference internal" href="#agc-example">AGC Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#auto-generated-wrappers">Auto-generated wrappers</a><ul>
+<li><a class="reference internal" href="#swig">SWIG</a></li>
+<li><a class="reference internal" href="#swigifying-add">SWIGifying add()</a></li>
+<li><a class="reference internal" href="#creating-a-wrapper">Creating a wrapper:</a></li>
+<li><a class="reference internal" href="#installing-swig">Installing SWIG</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#decisions-decisions">Decisions, Decisions...</a><ul>
+<li><a class="reference internal" href="#my-decision-tree">My decision tree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Extending Python with Complied Code</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/extensions.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="extending-python-with-complied-code">
 <span id="extensions"></span><h1>Extending Python with Complied Code<a class="headerlink" href="#extending-python-with-complied-code" title="Permalink to this headline">¶</a></h1>
@@ -885,110 +1025,62 @@ Which you can get from:</p>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Extending Python with Complied Code</a><ul>
-<li><a class="reference internal" href="#topics">Topics</a><ul>
-<li><a class="reference internal" href="#motivation">Motivation</a></li>
-<li><a class="reference internal" href="#example-case">Example Case</a></li>
-<li><a class="reference internal" href="#the-c-api">The C API</a></li>
-<li><a class="reference internal" href="#intro-to-the-c-api">Intro to the C API</a></li>
-<li><a class="reference internal" href="#passing-data-in-and-out-of-your-function">Passing Data in and out of your function</a></li>
-<li><a class="reference internal" href="#registering-your-functions">Registering your functions</a></li>
-<li><a class="reference internal" href="#initializing-the-module">Initializing the module</a></li>
-<li><a class="reference internal" href="#the-whole-thing">The whole thing:</a></li>
-<li><a class="reference internal" href="#building-your-extension">Building your extension</a></li>
-<li><a class="reference internal" href="#run-the-tests">Run the tests</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#subtleties-we-avoided">Subtleties we avoided:</a><ul>
-<li><a class="reference internal" href="#exception-handling">Exception handling</a></li>
-<li><a class="reference internal" href="#referencecounting">ReferenceCounting</a></li>
-<li><a class="reference internal" href="#lab">LAB</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#ctypes">ctypes</a><ul>
-<li><a class="reference internal" href="#what-is-ctypes">What is ctypes?</a></li>
-<li><a class="reference internal" href="#calling-functions-with-ctypes">Calling functions with ctypes</a></li>
-<li><a class="reference internal" href="#ctypes-data-types">ctypes Data Types</a></li>
-<li><a class="reference internal" href="#some-more-features">Some more features</a></li>
-<li><a class="reference internal" href="#summary">Summary:</a></li>
-<li><a class="reference internal" href="#id1">LAB</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#cython">Cython</a><ul>
-<li><a class="reference internal" href="#id2">Cython</a></li>
-<li><a class="reference internal" href="#developing-with-cython">Developing with Cython</a></li>
-<li><a class="reference internal" href="#building-a-module">Building a module</a></li>
-<li><a class="reference internal" href="#basic-cython">Basic Cython</a></li>
-<li><a class="reference internal" href="#calling-a-c-function-from-cython">Calling a C function from Cython</a></li>
-<li><a class="reference internal" href="#a-pure-cython-solution">A pure Cython solution</a></li>
-<li><a class="reference internal" href="#a-real-example-the-cython-process">A real Example: the Cython process</a></li>
-<li><a class="reference internal" href="#cython-from-pure-python-to-c">Cython from pure Python to C</a></li>
-<li><a class="reference internal" href="#agc-example">AGC Example</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#auto-generated-wrappers">Auto-generated wrappers</a><ul>
-<li><a class="reference internal" href="#swig">SWIG</a></li>
-<li><a class="reference internal" href="#swigifying-add">SWIGifying add()</a></li>
-<li><a class="reference internal" href="#creating-a-wrapper">Creating a wrapper:</a></li>
-<li><a class="reference internal" href="#installing-swig">Installing SWIG</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#decisions-decisions">Decisions, Decisions...</a><ul>
-<li><a class="reference internal" href="#my-decision-tree">My decision tree</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/extensions.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/extensions.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

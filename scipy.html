@@ -1,43 +1,174 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Intro to Numpy / Scipy &#8212; Py300 3.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Py300 3.0 documentation" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
+  <title>Intro to Numpy / Scipy &mdash; Py300 3.0 documentation</title>
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Intro to Numpy / Scipy</a><ul>
+<li><a class="reference internal" href="#id1">Scipy</a><ul>
+<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What&#8217;s in the scipy stack?</a></li>
+<li><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
+<li><a class="reference internal" href="#the-jupyter-notebook">The Jupyter &#8220;notebook&#8221;</a></li>
+<li><a class="reference internal" href="#jupyter">Jupyter</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#numpy">numpy</a><ul>
+<li><a class="reference internal" href="#so-what-is-numpy">So what is numpy?</a></li>
+<li><a class="reference internal" href="#why-numpy">Why numpy?</a></li>
+<li><a class="reference internal" href="#id2">Why numpy?</a></li>
+<li><a class="reference internal" href="#this-talk">This Talk</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li><a class="reference internal" href="#array-constructors">Array Constructors:</a></li>
+<li><a class="reference internal" href="#indexing-and-slicing">Indexing and slicing</a></li>
+<li><a class="reference internal" href="#reshaping">Reshaping:</a></li>
+<li><a class="reference internal" href="#broadcasting">Broadcasting:</a></li>
+<li><a class="reference internal" href="#fancy-indexing">Fancy Indexing</a></li>
+<li><a class="reference internal" href="#what-is-an-nd-array-under-the-hood">What is an nd array under the hood?</a></li>
+<li><a class="reference internal" href="#built-in-data-types">Built-in Data Types</a></li>
+<li><a class="reference internal" href="#text-file-i-o">Text File I/O</a></li>
+<li><a class="reference internal" href="#compound-dtypes">Compound dtypes</a></li>
+<li><a class="reference internal" href="#numpy-persistence">Numpy Persistence:</a></li>
+<li><a class="reference internal" href="#stride-tricks">Stride Tricks</a></li>
+<li><a class="reference internal" href="#working-with-compiled-code">Working with compiled code</a></li>
+<li><a class="reference internal" href="#other-stuff">Other stuff:</a></li>
+<li><a class="reference internal" href="#numpy-docs">numpy docs:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#matplotlib">matplotlib</a><ul>
+<li><a class="reference internal" href="#matplotlib-apis">matplotlib APIs</a></li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#using-numpy-arrays-when-computation-isn-t-critical">Using numpy arrays when computation isn&#8217;t critical</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pandas">Pandas</a><ul>
+<li><a class="reference internal" href="#learning-pandas">Learning Pandas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">Scipy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Intro to Numpy / Scipy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/scipy.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="intro-to-numpy-scipy">
 <span id="scipy"></span><h1>Intro to Numpy / Scipy<a class="headerlink" href="#intro-to-numpy-scipy" title="Permalink to this headline">¶</a></h1>
@@ -513,101 +644,62 @@ values in it.</p>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Intro to Numpy / Scipy</a><ul>
-<li><a class="reference internal" href="#id1">Scipy</a><ul>
-<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What&#8217;s in the scipy stack?</a></li>
-<li><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
-<li><a class="reference internal" href="#the-jupyter-notebook">The Jupyter &#8220;notebook&#8221;</a></li>
-<li><a class="reference internal" href="#jupyter">Jupyter</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#numpy">numpy</a><ul>
-<li><a class="reference internal" href="#so-what-is-numpy">So what is numpy?</a></li>
-<li><a class="reference internal" href="#why-numpy">Why numpy?</a></li>
-<li><a class="reference internal" href="#id2">Why numpy?</a></li>
-<li><a class="reference internal" href="#this-talk">This Talk</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#getting-started">Getting started</a><ul>
-<li><a class="reference internal" href="#array-constructors">Array Constructors:</a></li>
-<li><a class="reference internal" href="#indexing-and-slicing">Indexing and slicing</a></li>
-<li><a class="reference internal" href="#reshaping">Reshaping:</a></li>
-<li><a class="reference internal" href="#broadcasting">Broadcasting:</a></li>
-<li><a class="reference internal" href="#fancy-indexing">Fancy Indexing</a></li>
-<li><a class="reference internal" href="#what-is-an-nd-array-under-the-hood">What is an nd array under the hood?</a></li>
-<li><a class="reference internal" href="#built-in-data-types">Built-in Data Types</a></li>
-<li><a class="reference internal" href="#text-file-i-o">Text File I/O</a></li>
-<li><a class="reference internal" href="#compound-dtypes">Compound dtypes</a></li>
-<li><a class="reference internal" href="#numpy-persistence">Numpy Persistence:</a></li>
-<li><a class="reference internal" href="#stride-tricks">Stride Tricks</a></li>
-<li><a class="reference internal" href="#working-with-compiled-code">Working with compiled code</a></li>
-<li><a class="reference internal" href="#other-stuff">Other stuff:</a></li>
-<li><a class="reference internal" href="#numpy-docs">numpy docs:</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#matplotlib">matplotlib</a><ul>
-<li><a class="reference internal" href="#matplotlib-apis">matplotlib APIs</a></li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
-<li><a class="reference internal" href="#using-numpy-arrays-when-computation-isn-t-critical">Using numpy arrays when computation isn&#8217;t critical</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#pandas">Pandas</a><ul>
-<li><a class="reference internal" href="#learning-pandas">Learning Pandas</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id3">Scipy</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/scipy.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/scipy.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

@@ -142,7 +142,7 @@ The most basic form uses the builtins try and except
     except (ZeroDivisionError, ValueError) as e:
         print("caught division error or maybe a value error:\n", e)
     except Exception as e:  # only do this if absolutely necessary, or if planning to re-raise
-        errno, strerror = e.args	
+        errno, strerror = e.args
         print("I/O error({0}): {1}".format(errno,strerror))
 	# or you can just print e
         print("unhandled, unexpected exception:\n", e)
@@ -205,7 +205,7 @@ It is possible, but discouraged to catch all exceptions.
 
 
 An exception to this exception rule is when you are running a service that should not ever crash,
-like a web server. In this case, it is extremely important to have very good logging so that you 
+like a web server. In this case, it is extremely important to have very good logging so that you
 have reports of exactly what happened and what exception would have been thrown.
 
 .. nextslide::
@@ -224,7 +224,7 @@ Debugging
 .. rubric:: Python Debugging
    :name: python-debugging
 
-- You will spend most of your time as a developer debugging. 
+- You will spend most of your time as a developer debugging.
 - You will spend more time than you expect on google.
 - Small, tested functions are easier to debug.
 - Find a bug, make a test, so it doesn't come back
@@ -320,7 +320,7 @@ GUI debuggers (more about these below)
 
 -  Winpdb
 -  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio Code
-   
+
 .. nextslide::
 
 .. rubric:: help from the interpreter
@@ -546,14 +546,14 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.
 
 
 You can also delete(clear), disable and enable breakpoints
-      
+
 
 ::
 
           clear [bpnumber [bpnumber...]]
 
           disable [bpnumber [bpnumber...]]
-          
+
           enable [bpnumber [bpnumber...]]
 
 
@@ -574,7 +574,7 @@ You can also delete(clear), disable and enable breakpoints
 
 Condition can be used to add a conditional to and existing breakpoint
 
-          
+
 
 .. nextslide::
 
@@ -678,7 +678,7 @@ Easier to start up and get debugging
 
 
           winpdb your_app.py
-          
+
 
 http://winpdb.org/tutorial/WinpdbTutorial.html
 
@@ -692,7 +692,7 @@ To debug an application running a different Python, even remotely:
 
 remote-pdb
 
-https://pypi.python.org/pypi/remote-pdb          
+https://pypi.python.org/pypi/remote-pdb
 
 or older package rpdb
 
@@ -720,7 +720,7 @@ where interesting_topic is a topic of interest, like python. ;-)
 .. nextslide::
 
 Once it is working again:
-Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that 
+Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that
 wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?
 
 You can enter the debugger by running

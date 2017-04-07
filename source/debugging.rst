@@ -30,7 +30,7 @@ The Call Stack
 -  The objects in the stack are known as "stack frames". Each frame
    contains the arguments passed to the function, space for local
    variables, and the return address
--  It is usually (unintuitively) displayed like an upside-down stack of 
+-  It is usually (unintuitively) displayed like an upside-down stack of
    plates, with most recent frame on the bottom.
 -  When a function is called, a stack frame is created for it and pushed
    onto the stack
@@ -64,7 +64,7 @@ Visualize the stack!
         recurse()
 
     recurse()
-      
+
 
 That value can be changed with sys.setrecursionlimit(N)
 
@@ -141,7 +141,7 @@ The most basic form uses the builtins try and except
     except (ZeroDivisionError, ValueError) as e:
         print("caught division error or maybe a value error:\n", e)
     except Exception as e:
-        errno, strerror = e.args	
+        errno, strerror = e.args
         print("I/O error({0}): {1}".format(errno,strerror))
 	# or you can just print e
         print("unhandled exception:\n", e)
@@ -176,7 +176,7 @@ It is even possible to use a try block without the exception clause:
     [name for name in dir(__builtin__) if "Error" in name]
 
 
-If one of these meets your needs, by all means use it. You can add messages: 
+If one of these meets your needs, by all means use it. You can add messages:
 
 ::
 
@@ -193,7 +193,7 @@ If no builtin exceptions work, define a new exception type by subclassing Except
 
 .. nextslide::
 
-It is possible, but discouraged to catch all exceptions. 
+It is possible, but discouraged to catch all exceptions.
 
 ::
 
@@ -204,9 +204,9 @@ It is possible, but discouraged to catch all exceptions.
 
 
 An exception to this exception rule is when you are running a service that should not ever crash,
-like a web server. 
+like a web server.
 
-In this case, it is extremely important to have very good logging so that you 
+In this case, it is extremely important to have very good logging so that you
 have reports of exactly what happened and what exception should have been thrown.
 
 .. nextslide::
@@ -225,7 +225,7 @@ Debugging
 .. rubric:: Python Debugging
    :name: python-debugging
 
-You will spend most of your time as a developer debugging. 
+You will spend most of your time as a developer debugging.
 You will spend more time than you expect on google.
 
 
@@ -302,7 +302,7 @@ Verbose (trace import statements)
 
 2. inspect environment after running script with -i
 
-:: 
+::
 
     python -i myscript.py
 
@@ -356,7 +356,7 @@ For analyzing crashes due to uncaught exceptions
 
           python -i script.py
           import pdb; pdb.pm()
-          
+
 .. nextslide::
 
 .. rubric:: Run mode
@@ -365,7 +365,7 @@ For analyzing crashes due to uncaught exceptions
 ::
 
           pdb.run('some.expression()')
-          
+
 .. nextslide::
 
 .. rubric:: Script mode
@@ -374,7 +374,7 @@ For analyzing crashes due to uncaught exceptions
 ::
 
           python -m pdb script.py
-          
+
 
 "-m [module]" finds [module] in sys.path and executes it as a script
 
@@ -390,7 +390,7 @@ halt:
 ::
 
           import pdb; pdb.set_trace()
-          
+
 
 It's not always OK/possible to modify your code in order to debug it,
 but this is often the quickest way to begin inspecting state
@@ -402,7 +402,7 @@ but this is often the quickest way to begin inspecting state
 
 ::
 
-          
+
           In [2]: pdb
           Automatic pdb calling has been turned ON
 
@@ -419,8 +419,8 @@ debugger (in 'post-mortem mode').
    :name: navigating-pdb
 
 The goal of each of the preceding techniques was to get to the pdb
-prompt and get to work inspecting state. Most commands can be short-cutted 
-to the first letter. 
+prompt and get to work inspecting state. Most commands can be short-cutted
+to the first letter.
 
 ::
 
@@ -429,7 +429,7 @@ to the first letter.
     pdb> pp a_variable  # pretty-print a_variable
     pdb> where  # print stack trace, bottom is most recent command
     pdb> list  # list the code including and surrounding the current running code
-     
+
 
 .. nextslide::
 
@@ -443,10 +443,10 @@ To repeat the current command, press only the Enter key
       pdb> step
       # Continue execution until the next line in the current function is reached or it returns.
       pdb> next
-      # Continue execution until the line with a number greater than the current one is reached 
+      # Continue execution until the line with a number greater than the current one is reached
         or until the current frame returns.  Good for exiting loops.
       pdb> until
-      # move one level up the stack 
+      # move one level up the stack
       pdb> up
       # move one level down the stack
       pdb> down
@@ -478,7 +478,7 @@ To repeat the current command, press only the Enter key
 
 .. nextslide::
 
-Can use up, down, where and list to evalutate where you are, and use that to 
+Can use up, down, where and list to evalutate where you are, and use that to
 set a new breakpoint in code coming up. Useful for getting out of rabbit holes.
 
 ::
@@ -498,21 +498,21 @@ Clear (delete) breakpoints
 ::
 
           clear [bpnumber [bpnumber...]]
-          
+
 
 disable breakpoints
 
 ::
 
           disable [bpnumber [bpnumber...]]
-          
+
 
 enable breakpoints
 
 ::
 
           enable [bpnumber [bpnumber...]]
-          
+
 
 .. nextslide::
 
@@ -527,7 +527,7 @@ enable breakpoints
           must evaluate to true before the breakpoint is honored.
           If str_condition is absent, any existing condition is removed;
           i.e., the breakpoint is made unconditional.
-          
+
 
 .. nextslide::
 
@@ -539,14 +539,28 @@ On error condition, drop to pdb
 ::
 
     nosetests --pdb
-      
+
 
 On test failure, drop to pdb:
 
 ::
 
     nosetests --pdb-failures
-      
+
+
+..nextslide::
+
+pytest allows one to drop into the PDB prompt via a command line option::
+
+  pytest --pdb
+
+This will invoke the Python debugger on every failure.
+Often you might only want to do this for the first failing
+test to understand a certain failure situation::
+
+  pytest -x --pdb   # drop to PDB on first failure, then end test session
+  pytest --pdb --maxfail=3  # drop to PDB for first three failures
+
 
 .. nextslide::
 
@@ -592,10 +606,10 @@ Easier to start up and get debugging
 
 ::
 
-          
+
           winpdb your_app.py
-          
-          
+
+
 .. rubric:: Remote debugging with winpdb
    :name: remote-debugging-with-winpdb
 
@@ -605,10 +619,10 @@ To debug an application running a different Python, even remotely:
 
 ::
 
-          
+
           import rpdb2; rpdb2.start_embedded_debugger("password")
-          
-          
+
+
 
 http://winpdb.org/tutorial/WinpdbTutorial.html
 
@@ -619,7 +633,7 @@ http://winpdb.org/tutorial/WinpdbTutorial.html
 
 Find the wikidef app in the examples folder
 
-See if you can find the bug and get the app working. Use whatever debugging 
+See if you can find the bug and get the app working. Use whatever debugging
 technique(s) you prefer.
 
 To run the app:
@@ -632,7 +646,7 @@ where interesting_topic is a topic of interest. ;-)
 .. nextslide::
 
 Once it is working again:
-Using (i)pdb in module mode (python -m pdb ) to find the server type that 
+Using (i)pdb in module mode (python -m pdb ) to find the server type that
 wikipedia is using by looking at
 response.headers.headers in Wikipedia.article
 

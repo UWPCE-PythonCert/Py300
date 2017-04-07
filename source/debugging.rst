@@ -60,7 +60,7 @@ Visualize the stack!
     def recurse():
         global i
         i += 1
-        print i
+        print(i)
         recurse()
 
     recurse()
@@ -68,7 +68,7 @@ Visualize the stack!
 
 That value can be changed with sys.setrecursionlimit(N)
 
-If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RuntimeError, which is python's version of StackOverflow
+If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RecursionError (derived from RuntimeError), which is python's version of StackOverflow
 
 .. nextslide::
 
@@ -84,31 +84,32 @@ If we try to put more than sys.getrecursionlimit() frames on the stack, we get a
         recurse(limit - 1)
         return
 
-    if __name__ == '__main__':
-        recurse(3)
+    recurse(3)
 
 
 module https://docs.python.org/3/library/inspect.html
+
+more on recursion http://www.mariakathryn.net/Blog/60
 
 .. nextslide::
 
 Exceptions
 ----------
 
-It's easier to ask for forgiveness than permission
+It's easier to ask for forgiveness than permission (Grace Hopper)
 
 When either the interpreter or your own code detects an error condition,
 an exception will be raised
 
 The exception will bubble up the call stack until it is handled. If it's
-not handled by the bottom of the stack, the interpreter will exit the program.
+not handled anywhere in the stack, the interpreter will exit the program.
 
 .. nextslide::
 
 At each level in the stack, a handler can either:
 
--  let it bubble through (the default)
--  swallow the exception
+-  let it bubble through (the default if no handler)
+-  swallow the exception (the default for a handler)
 -  catch the exception and raise it again
 -  catch the exception and raise a new one
 
@@ -140,18 +141,18 @@ The most basic form uses the builtins try and except
         result = x / y
     except (ZeroDivisionError, ValueError) as e:
         print("caught division error or maybe a value error:\n", e)
-    except Exception as e:
-        errno, strerror = e.args
+    except Exception as e:  # only do this if absolutely necessary, or if planning to re-raise
+        errno, strerror = e.args	
         print("I/O error({0}): {1}".format(errno,strerror))
 	# or you can just print e
-        print("unhandled exception:\n", e)
+        print("unhandled, unexpected exception:\n", e)
         raise
     else:
-        print("everything worked great")
-        return result
+        print("do this if there is code you want to run only if no exceptions, caught or not")
+	print("errors here will not be caught by above excepts")
     finally:
         print("this is executed no matter what")
-    print('this is only printed if there is no exception')
+    print('this is only printed if there is no uncaught exception')
 
 
 .. nextslide::
@@ -163,7 +164,7 @@ It is even possible to use a try block without the exception clause:
     try:
         5/0
     finally:
-        print('did it work?')
+        print('did it work? why would you do this?')
 
 
 .. nextslide::
@@ -204,10 +205,8 @@ It is possible, but discouraged to catch all exceptions.
 
 
 An exception to this exception rule is when you are running a service that should not ever crash,
-like a web server.
-
-In this case, it is extremely important to have very good logging so that you
-have reports of exactly what happened and what exception should have been thrown.
+like a web server. In this case, it is extremely important to have very good logging so that you 
+have reports of exactly what happened and what exception would have been thrown.
 
 .. nextslide::
 
@@ -225,8 +224,22 @@ Debugging
 .. rubric:: Python Debugging
    :name: python-debugging
 
-You will spend most of your time as a developer debugging.
-You will spend more time than you expect on google.
+- You will spend most of your time as a developer debugging. 
+- You will spend more time than you expect on google.
+- Small, tested functions are easier to debug.
+- Find a bug, make a test, so it doesn't come back
+
+.. nextslide::
+
+
+Tools
+
+-  interpreter hints
+-  print()
+-  logging
+-  assert()
+-  tests
+-  debuggers
 
 
 .. nextslide::
@@ -237,42 +250,65 @@ You already know what it looks like. Simple traceback:
 
 ::
 
-    $ python3 test_trie.py
+    maria$ python3 define.py python
     Traceback (most recent call last):
-       File "test_trie.py", line 3, in <module>
-         from trie import Trie
-       File "/Users/maria/python/trie/trie.py", line 144
-         print "end of word", node.value
-                      ^
-    SyntaxError: Missing parentheses in call to 'print'
+      File "define.py", line 15, in <module>
+        definition = Definitions.article(title)
+      File "/Users/maria/python/300/Py300/Examples/debugging/wikidef/definitions.py", line 7, in article
+        return Wikipedia.article(title)
+      File "/Users/maria/python/300/Py300/Examples/debugging/wikidef/api.py", line 26, in article
+        contents = json_response['parse']['text']['*']
+    TypeError: 'method' object is not subscriptable
+
+But things can quickly get complicated, as we all ran into last quarter with web frameworks.
+
 
 .. nextslide::
 
-But things can quickly get complicated (Here is ~1/3 of a recent traceback I had):
 
-Traceback (most recent call last):
-  File "snapi3/tests/test_proxy_rest.py", line 21, in test_http_get
-    resp = self.app.get(self.TRIVIAL_URL, status=200)
-  File "python3/lib/python3.5/site-packages/webtest/app.py", line 323, in get
-    expect_errors=expect_errors)
-  File "python3/lib/python3.5/site-packages/webtest/app.py", line 606, in do_request
-    res = req.get_response(app, catch_exc_info=True)
-  File "python3/lib/python3.5/site-packages/webob/request.py", line 1313, in send
-    application, catch_exc_info=True)
-  File "python3/lib/python3.5/site-packages/webob/request.py", line 1284, in call_application
-    output.extend(app_iter)
+Some helpful hints with stacktraces:
+
+- May seem obvious, but... Read it carefully!
+- What is the error? Try reading it aloud.
+- The first place to look is the bottom.
+- More than likely the error is in your code, not established packages.
+- Sometimes that error was triggered by something else, and you need to look higher.
+- If error at bottom of stacktrace is not helpful, look first for other code of yours in stack.
+- Will show the line number and file of exception/calling functions.
+
 
 .. nextslide::
 
-Debuggers are code which allows the inspection of state of other code
-during runtime.
 
-Rudimentary tools
+If that fails you...
 
--  print()
--  interpreter hints
--  import logging.debug
--  assert()
+- Make sure the code you think is executing is really executing.
+- Simplify your code (smallest code that causes bug).
+- Debugger
+- Save (and print) intermediate results from long expressions
+- Try out bits of code at the command line
+
+
+.. nextslide::
+
+If all else fails...
+
+Write out an email that describes the problem:
+
+- include the stacktrace
+- include steps you have taken to find the bug
+- inlude the relative function of your code
+
+Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send. Good places to send these emails are other people on same project and mailing list for software package.
+
+
+.. nextslide::
+
+Print
+
+- print("my_module.py: my_variable: ", my_variable)
+- can use print statements to make sure you are editing a file in the stack
+
 
 .. nextslide::
 
@@ -280,11 +316,11 @@ Console debuggers
 
 -  pdb/ipdb
 
-GUI debuggers
+GUI debuggers (more about these below)
 
 -  Winpdb
--  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio
-
+-  IDEs: Eclipse, Wing IDE, PyCharm, Visual Studio Code
+   
 .. nextslide::
 
 .. rubric:: help from the interpreter
@@ -309,6 +345,17 @@ Verbose (trace import statements)
 
 Forces interpreter to remain active, and still in scope
 
+
+.. nextslide::
+
+
+Useful tools from interpreter:
+
+- In IPython, 'who' will list all currently defined variables
+- locals()
+- globals()
+- dir()
+
 .. nextslide::
 
 .. rubric:: `Pdb - The Python
@@ -318,7 +365,7 @@ Forces interpreter to remain active, and still in scope
 Pros:
 
 -  You have it already, ships with the standard library
--  Easy remote debugging
+-  Easy remote debugging (since it is non-graphical, see remote-pdb for true remote debugging)
 -  Works with any development environment
 
 Cons:
@@ -356,6 +403,10 @@ For analyzing crashes due to uncaught exceptions
 
           python -i script.py
           import pdb; pdb.pm()
+
+More info on using Postmortem mode:
+
+http://www.almarklein.org/pm-debugging.html
 
 .. nextslide::
 
@@ -493,24 +544,16 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.
 
 .. nextslide::
 
-Clear (delete) breakpoints
+
+You can also delete(clear), disable and enable breakpoints
+      
 
 ::
 
           clear [bpnumber [bpnumber...]]
 
-
-disable breakpoints
-
-::
-
           disable [bpnumber [bpnumber...]]
-
-
-enable breakpoints
-
-::
-
+          
           enable [bpnumber [bpnumber...]]
 
 
@@ -521,13 +564,17 @@ enable breakpoints
 
 ::
 
-          pdb> help condition
-          condition bpnumber str_condition
-          str_condition is a string specifying an expression which
-          must evaluate to true before the breakpoint is honored.
-          If str_condition is absent, any existing condition is removed;
-          i.e., the breakpoint is made unconditional.
+          pdb> break 9, j>3
+          Breakpoint 1 at .../pdb_break.py:9
 
+          pdb> break
+          Num Type         Disp Enb   Where
+          1   breakpoint   keep yes   at .../pdb_break.py:9
+                  stop only if j>3
+
+Condition can be used to add a conditional to and existing breakpoint
+
+          
 
 .. nextslide::
 
@@ -564,6 +611,12 @@ test to understand a certain failure situation::
 
 .. nextslide::
 
+Let's try some debugging!
+
+https://github.com/spiside/pdb-tutorial
+
+.. nextslide::
+
 .. rubric:: Python IDEs
    :name: python-ides
 
@@ -595,6 +648,23 @@ Further reading
 
 http://pydev.org/manual_adv_debugger.html
 
+
+.. nextslide::
+
+.. rubric:: Python IDEs
+   :name: python-ides
+
+.. rubric:: Visual Studio Code
+   :name: Visual Studio Code
+
+
+Visual Studio Code has support for Python
+
+(not the same as the monstrosity that is Visual Studio)
+
+https://code.visualstudio.com/
+
+
 .. nextslide::
 
 .. rubric:: winpdb
@@ -608,23 +678,27 @@ Easier to start up and get debugging
 
 
           winpdb your_app.py
+          
+
+http://winpdb.org/tutorial/WinpdbTutorial.html
 
 
-.. rubric:: Remote debugging with winpdb
-   :name: remote-debugging-with-winpdb
+.. rubric:: Remote debugging
+   :name: remote-debugging
 
 .. nextslide::
 
 To debug an application running a different Python, even remotely:
 
-::
+remote-pdb
 
+https://pypi.python.org/pypi/remote-pdb          
 
-          import rpdb2; rpdb2.start_embedded_debugger("password")
+or older package rpdb
 
+https://pypi.python.org/pypi/rpdb
 
-
-http://winpdb.org/tutorial/WinpdbTutorial.html
+(only tested to Python 3.1)
 
 .. nextslide::
 
@@ -641,14 +715,13 @@ To run the app:
 
     python define.py interesting_topic
 
-where interesting_topic is a topic of interest. ;-)
+where interesting_topic is a topic of interest, like python. ;-)
 
 .. nextslide::
 
 Once it is working again:
-Using (i)pdb in module mode (python -m pdb ) to find the server type that
-wikipedia is using by looking at
-response.headers.headers in Wikipedia.article
+Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that 
+wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?
 
 You can enter the debugger by running
 
@@ -662,6 +735,9 @@ You can get to the code by walking through each line with 's'tep and
 'n'ext commands, or by setting a breakpoint and 'c'ontinuing.
 
 What's the result?
+
+
+You may also want to take a look at long_loop.py and see if you can answer the questions there.
 
 .. nextslide::
 

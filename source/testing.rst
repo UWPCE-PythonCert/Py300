@@ -781,7 +781,7 @@ http://www.voidspace.org.uk/python/mock
 Mocks
 -----
 
-The MagickMock class will keep track of calls to it so we can verify
+The MagicMock class will keep track of calls to it so we can verify
 that the class is being called correctly, without having to execute the
 code underneath
 

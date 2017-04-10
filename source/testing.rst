@@ -148,15 +148,17 @@ unittest.TestCase anatomy
 Assert Methods
 ---------------
 
-TestCase contains a number of methods named assert\* which can be used
-for validation, here are a few common ones::
+TestCase contains a number of methods named ``assert*`` which can be used
+for validation, here are a few common ones:
+
+.. code-block:: python
 
     assertEqual(first, second, msg=None)
     assertNotEqual(first, second, msg=None)
     assertTrue(expr, msg=None)
     assertFalse(expr, msg=None)
     assertIn(first, second)
-    assertRaises(exc, fun, msg=None, \*args, \*\*kwargs)
+    assertRaises(exc, fun, msg=None, *args, **kwargs)
 
 See a full list at:
 
@@ -185,7 +187,7 @@ unittest provides fixture support via these methods:
 -  setUp / tearDown - these are run before and after each test method
 -  setUpClass / tearDownClass - these are run before/after each TestCase
 -  setUpModule / tearDownModule - run before/after each TestSuite
--  (new in Python 2.7) addCleanup / doCleanups - called after tearDown,
+-  addCleanup / doCleanups - called after tearDown,
    in case a test throws an exception
 
 =============================
@@ -243,8 +245,7 @@ assertAlmostEqual
 -----------------
 
 Verifies that two floating point values are close enough to each other.
-Add a places keyword argument to specify the number of significant
-digits.
+Add a places keyword argument to specify the number of decimal places.
 
 .. code-block:: python
 
@@ -328,7 +329,7 @@ So this works for any magnitude number.
 
 .. nextslide::
 
-::
+.. code-block:: python
 
     is_close(a, b, *, rel_tol=1e-09, abs_tol=0.0) -> bool
 
@@ -367,6 +368,34 @@ But you can use:
 
         def test_almost_equal(self):
             self.assertTrue( isclose( 3*.15, .45, rel_tol=7) )
+
+**NOTE** This is one of the key flaws with the unittest module: while
+it can test anything with ``assertTrue`` and the like -- if there is no
+nifty ``assert*`` method for your use-case, you lose the advantages of
+the ``assert*`` methods.
+
+What are those advantages? -- mostly a prettier printing of information
+in the error::
+
+  FAIL: test_floating_point (__main__.TestAlmostEqual)
+  ----------------------------------------------------------------------
+  Traceback (most recent call last):
+    File "/Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/testing/test_floats.py", line 17, in test_floating_point
+      self.assertEqual(3 * .15, .45)
+  AssertionError: 0.44999999999999996 != 0.45
+
+But when you use assertTrue::
+
+  FAIL: test_isclose_tiny (__main__.TestAlmostEqual)
+  ----------------------------------------------------------------------
+  Traceback (most recent call last):
+    File "/Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/testing/test_floats.py", line 32, in test_isclose_tiny
+      self.assertTrue(math.isclose(4 * .15e-30, .45e-30))
+  AssertionError: False is not true
+
+Not that helpful -- is it?
+
+``pytest`` give you nice informative messages when tests fail -- without special asserts.
 
 ==================
 Running your tests
@@ -419,54 +448,58 @@ Tests can also be organized into suites in the
 block
 
 
-nose2
------
+pytest and Nose2
+----------------
 
-Nose2 is the new nose. Nose is barely being maintained, and directs users to nose2.
+Nose2 is the new nose. Nose no longer maintained, and directs users to nose2.
+But Nose2 is not all that well maintained either.
 
-A test runner which autodiscovers test cases
+Both pytest and Nose2 are test runners: they autodiscover test cases
 
-Nose2 will find tests for you so you can focus on writing tests, not
+They will find tests for you so you can focus on writing tests, not
 maintaining test suites
 
-To find tests, nose2 looks for modules (such as python files) whose names start with ‘test’. In those modules, nose2 will load tests from all unittest.TestCase subclasses, as well as functions whose names start with ‘test’.
+To find tests, pytest and nose look for modules (such as python files)
+whose names start with ‘test’. In those modules, they will load tests
+from all unittest.TestCase subclasses, as well as functions whose names
+start with ‘test’.
 
-Running your tests is as easy as
+So running your tests is as easy as
 
 ::
 
-        $ nose2
+    $ pytest
+    or
+    $ nose2
 
 
 http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests
 
+https://docs.pytest.org/en/latest/index.html
 
-nose2 plugins
--------------
+A number of projects use nose -- so you may encounter it, but we'll focus
+on pytest for now.
 
-Many plugins exist for nose2, such as code coverage:
+pytest plugins
+--------------
+
+Many plugins exist for pytest (and nose2), such as code coverage:
+
 Some plugins, such as coverage, must be additionally installed
 ::
 
-    $ pip install cov-core
+    $ pip install pip install pytest-cov
     # now it can be used
-    $ nose2 --with-coverage
+    $ py.test --cov=myproj
 
-.. nextslide::
+https://pypi.python.org/pypi/pytest-cov
 
-Some of many useful plugins installed by default:
 
-- Test Generators
+Parameterized Tests
+--------------------
 
-  http://nose2.readthedocs.org/en/latest/plugins/generators.html
+https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics
 
-- Parameterized Tests
-
-  http://nose2.readthedocs.org/en/latest/plugins/parameters.html
-
-- Stop after first error or failure -F
-
-- Drop in to the debugger on failure -D
 
 
 running coverage
@@ -576,22 +609,22 @@ exists.
 Once the collection of tests passes, the requirement is considered met.
 
 We don't always want to run the entire test suite. In order to run a
-single test with nose:
+single test with pytest:
 
 ::
 
-	nose2 test_calculator.TestCalculatorFunctions.test_add
+    pytest -k "test_divide"
 
 
 Exercises
 ---------
 
--  Add unit tests for each method in calculator\_functions.py
+-  Add unit tests for each method in calculator_functions.py
 -  Add fixtures via setUp/tearDown methods and setUpClass/tearDownClass
    class methods. Are they behaving how you expect?
 -  Add additional unit tests for floating point calculations
 -  Fix any failures in the code
--  Add doctests to calculator\_functions.py
+-  Add doctests to calculator_functions.py
 
 
 ================

@@ -26,7 +26,7 @@ The Call Stack
 
 -  A stack is a Last-In-First-Out (LIFO) data structure (stack of plates)
 -  The call stack is a stack data structure that stores information
-   about the current active function call
+   about the current active function calls
 -  The objects in the stack are known as "stack frames". Each frame
    contains the arguments passed to the function, space for local
    variables, and the return address

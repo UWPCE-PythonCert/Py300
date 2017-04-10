@@ -1,14 +1,14 @@
+:orphan:
+
 .. _testing:
 
 *******
 Testing
 *******
 
-System Development with Python
+Testing in Python
 
-Git repository:
-
-https://github.com/UWPCE-PythonCert/SystemDevelopment
+UWPCE Python certificate third quarter.
 
 ================
 What is testing?
@@ -55,13 +55,17 @@ coverage.
 100% coverage is an ideal to strive for. But the decision on when and
 what to test should take into account the volatility of the project.
 
+**NOTE** Even if every line of code is run during tests (100% coverage),
+they may not be comprehensive! It is very hard to anticipate every wierd
+input some code may get.
+
 
 .. nextslide::
 
 Unit-testing tools
 ------------------
 
--  unittest, the test framework that ships with Python. Started life as PyUnit.
+-  unittest, the test framework that ships with Python. Port of Java jUnit
 
    http://docs.python.org/3/library/unittest.html
 
@@ -69,13 +73,15 @@ Unit-testing tools
 
    http://nose2.readthedocs.org/en/latest/
 
--  mock, an object mocking library. Ships with Python 3.3+
-
-   https://docs.python.org/dev/library/unittest.mock.html
+   NOTE: it's not clear how well maintained nose2 is...
 
 -  pytest, an alternative to unittest, which you should be pretty familiar with now
 
    http://pytest.org/latest/
+
+-  mock, an object mocking library. Ships with Python 3.3+
+
+   https://docs.python.org/dev/library/unittest.mock.html
 
 
 About Unit-testing
@@ -87,14 +93,41 @@ About Unit-testing
 4. Test behavior not implementation
 5. Mocking is available to fake stuff you may not want to run in your tests.
 
+This all applies regardless of yoru test framework
+
+unittest
+--------
+
+The unittest framework comes with the standard library
+
+Unittest is ported from Java's jUnit -- it is therefor OO-heavy, and
+requires a lot of boilerplate code.
+
+Many projects built custom testing Frameworks on top of it -- e.g. Django
+
+Therefor you will encounter it
+
+So it's good to be familiar with it.
+
+Key missing features:
+
+ * A test runner
+
+   - many people use nose or pytest to run unittest tests.
+
+ * Parameterized tests
+
+   - there are kludges and some third-party tools for this.
+
+
 unittest.TestCase anatomy
 -------------------------
 
-* create a new subclass of unittest.TestCase
-* name test methods test\_foo so the test runner finds them
-* make calls to the self.assert\* family of methods to validate results
+* create a new subclass of ``unittest.TestCase``
+* name test methods ``test_foo`` so the test runner finds them
+* make calls to the ``self.assert*`` family of methods to validate results
 
-::
+.. code-block:: python
 
     import unittest
     class TestTest(unittest.TestCase):

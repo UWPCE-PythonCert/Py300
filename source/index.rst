@@ -81,7 +81,6 @@ Topics
 :ref:`weak_references`
 ......................
 
-
 :ref:`pep8`
 ...........
 

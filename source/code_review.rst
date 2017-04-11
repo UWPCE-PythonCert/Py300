@@ -1,3 +1,5 @@
+:orphan:
+
 .. _code_review:
 
 ############
@@ -7,7 +9,7 @@ Code Reviews
 
 Why code review
 ===============
-As professional developers, we need to always be learning and improving. 
+As professional developers, we need to always be learning and improving.
 
 Code review is one of the best tools for this.
 
@@ -42,10 +44,10 @@ Types of code review
 - using tools https://en.wikipedia.org/wiki/List_of_tools_for_code_review
 
 
-When refactoring or doing code reviews in person 
+When refactoring or doing code reviews in person
 ------------------------------------------------
 If code is unclear:
- 
+
 - write a comment explaining what the code is doing
 - work on making the code clearer
 - goal to make it clear enough to get rid of the comment(s)

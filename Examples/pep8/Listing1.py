@@ -34,7 +34,7 @@ class my_class(object):
 
     def method2(self):
         return
-        print 'How did we get here?'
+        print('How did we get here?')
     
     def method1(self):
         return self.value + 1
@@ -60,9 +60,9 @@ class Pizza(Food):
 food = Food()
 pizza = Pizza()
 
-print type(food) == type(pizza)
-print isinstance(food, Food)
-print isinstance(pizza, Food)
+print(type(food) == type(pizza))
+print(isinstance(food, Food))
+print(isinstance(pizza, Food))
 
 # create a larger Cyclomatic complexity, error triggered with
 # flake8 --max-complexity=5
@@ -78,4 +78,4 @@ def f(x):
     elif x is 5:
         return x
 
-print f(5)
+print(f(5))

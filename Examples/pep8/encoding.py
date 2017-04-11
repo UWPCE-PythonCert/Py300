@@ -1,6 +1,6 @@
 
-x = "🐳"
+x = '🐳'
 
-print "whale: " + x
+print("whale: " + x)
 
 # coding: utf-8

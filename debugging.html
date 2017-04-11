@@ -157,7 +157,7 @@
 <ul class="simple">
 <li>A stack is a Last-In-First-Out (LIFO) data structure (stack of plates)</li>
 <li>The call stack is a stack data structure that stores information
-about the current active function call</li>
+about the current active function calls</li>
 <li>The objects in the stack are known as &#8220;stack frames&#8221;. Each frame
 contains the arguments passed to the function, space for local
 variables, and the return address</li>
@@ -523,6 +523,18 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.<
 </div>
 <p>On test failure, drop to pdb:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span><span class="o">-</span><span class="n">failures</span>
+</pre></div>
+</div>
+<p>..nextslide:</p>
+<p>pytest allows one to drop into the PDB prompt via a command line option:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">pdb</span>
+</pre></div>
+</div>
+<p>This will invoke the Python debugger on every failure.
+Often you might only want to do this for the first failing
+test to understand a certain failure situation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">x</span> <span class="o">--</span><span class="n">pdb</span>   <span class="c1"># drop to PDB on first failure, then end test session</span>
+<span class="n">pytest</span> <span class="o">--</span><span class="n">pdb</span> <span class="o">--</span><span class="n">maxfail</span><span class="o">=</span><span class="mi">3</span>  <span class="c1"># drop to PDB for first three failures</span>
 </pre></div>
 </div>
 <p>Let&#8217;s try some debugging!</p>

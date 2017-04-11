@@ -62,6 +62,9 @@ pep-8-recommendations-continued
    near the top of the file (see examples/encoding.py)
 
 
+-  When comparing with singletons such as None, use "x is None", not "x == None".
+`Why? <http://jaredgrubb.blogspot.com/2009/04/python-is-none-vs-none.html>`__
+
 
 naming-conventions
 ------------------
@@ -98,14 +101,18 @@ imports
 public and non-public class members
 -----------------------------------
 
-When in doubt make an attribute non-public
+Python does not have a mechanism for restricting access to a variable or method, but it does have culture and convention.
+
+The default is public. This works for most things.
+
+If you do not want people to change your attribute or method, and especially if you do not want people to depend on this attribute or method always remaining the same, make it private by using a single underscore in front.
+
+_my_private_method
+
+If you are particularly paranoid:
 A non-public attribute has two leading underscores and no trailing
-underscores, which triggers Python's name mangling
-property access should be cheap
-add public names in a module to \_\_all\_\_
-When comparing with singletons such as None, use "x is None", not "x ==
-None".
-`why? <http://jaredgrubb.blogspot.com/2009/04/python-is-none-vs-none.html>`__
+underscores triggers Python's name mangling.
+
 
 tools-to-help
 -------------

@@ -1,3 +1,5 @@
+:orphan:
+
 .. _datetime:
 
 ########
@@ -60,10 +62,10 @@ It is similar to, but not the same as, Greenwich Mean Time (GMT). UTC is
 more precisely defined
 
 .. nextslide::
-   
+
 .. image:: /_static/Greenwich_clock.jpg
    :height: 500px
-	   
+
 `UNIX time <http://en.wikipedia.org/wiki/Unix_time>`__
 ------------------------------------------------------
 

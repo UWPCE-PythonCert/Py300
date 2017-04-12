@@ -90,7 +90,6 @@
 <li><a class="reference internal" href="#imports">imports</a></li>
 <li><a class="reference internal" href="#public-and-non-public-class-members">public and non-public class members</a></li>
 <li><a class="reference internal" href="#tools-to-help">tools-to-help</a></li>
-<li><a class="reference internal" href="#pychecker">PyChecker</a></li>
 <li><a class="reference internal" href="#pylint">pylint</a></li>
 <li><a class="reference internal" href="#pyflakes">pyflakes</a></li>
 <li><a class="reference internal" href="#pycodestyle">pycodestyle</a></li>
@@ -197,6 +196,8 @@ interpreter will throw a SyntaxError when it reaches it.</p>
 </div>
 <p>near the top of the file (see examples/encoding.py)</p>
 </li>
+<li><p class="first">When comparing with singletons such as None, use &#8220;x is None&#8221;, not &#8220;x == None&#8221;. <a class="reference external" href="http://jaredgrubb.blogspot.com/2009/04/python-is-none-vs-none.html">Why?</a></p>
+</li>
 </ul>
 </div>
 <div class="section" id="naming-conventions">
@@ -235,35 +236,26 @@ and automated tools</li>
 </div>
 <div class="section" id="public-and-non-public-class-members">
 <h2>public and non-public class members<a class="headerlink" href="#public-and-non-public-class-members" title="Permalink to this headline">¶</a></h2>
-<p>When in doubt make an attribute non-public
+<p>Python does not have a mechanism for restricting access to a variable or method, but it does have culture and convention.</p>
+<p>The default is public. This works for most things.</p>
+<p>If you do not want people to change your attribute or method, and especially if you do not want people to depend on this attribute or method always remaining the same, make it private by using a single underscore in front.</p>
+<p>_my_private_method</p>
+<p>If you are particularly paranoid:
 A non-public attribute has two leading underscores and no trailing
-underscores, which triggers Python&#8217;s name mangling
-property access should be cheap
-add public names in a module to __all__
-When comparing with singletons such as None, use &#8220;x is None&#8221;, not &#8220;x ==
-None&#8221;.
-<a class="reference external" href="http://jaredgrubb.blogspot.com/2009/04/python-is-none-vs-none.html">why?</a></p>
+underscores and triggers Python&#8217;s name mangling.</p>
+<p>__my_paranoid_method</p>
 </div>
 <div class="section" id="tools-to-help">
 <h2>tools-to-help<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="http://pychecker.sourceforge.net/">PyChecker</a> - searches for bugs
-and style issues. Not currently in PyPI, install from sourceforge</li>
 <li><a class="reference external" href="https://pypi.python.org/pypi/pyflakes">pyflakes</a> - searches for
 bugs, but without importing modules</li>
 <li><a class="reference external" href="http://www.pylint.org/">Pylint</a> - style guide, searches for bugs</li>
-<li><a class="reference external" href="https://pypi.python.org/pypi/pep8">pep8</a> - tests conformance to
+<li><a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a> - tests conformance to
 PEP-8</li>
 <li><a class="reference external" href="https://pypi.python.org/pypi/flake8">flake8</a> combines pyflakes,
-pep8, and mccabe, a code complexity analyzer</li>
+pycodestyle, and mccabe, a code complexity analyzer</li>
 </ul>
-</div>
-<div class="section" id="pychecker">
-<h2>PyChecker<a class="headerlink" href="#pychecker" title="Permalink to this headline">¶</a></h2>
-<p>Poor code example examples/Listing1.py was adapted from <a class="reference external" href="http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html">Doug
-Hellman</a></p>
-<p>What can you spot as an error, bad practice, or poor style?</p>
-<p>Now let&#8217;s see what pychecker Listing1.py has to say about it</p>
 </div>
 <div class="section" id="pylint">
 <h2>pylint<a class="headerlink" href="#pylint" title="Permalink to this headline">¶</a></h2>
@@ -272,6 +264,9 @@ Hellman</a></p>
 <span class="o">--</span><span class="n">generate</span><span class="o">-</span><span class="n">rcfile</span><span class="o">/--</span><span class="n">rcfile</span>             <span class="n">Saves</span><span class="o">/</span><span class="n">restores</span> <span class="n">a</span> <span class="n">configuration</span>
 </pre></div>
 </div>
+<p>Poor code example examples/Listing1.py was adapted from <a class="reference external" href="http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html">Doug
+Hellman</a></p>
+<p>What can you spot as an error, bad practice, or poor style?</p>
 <p>Now let&#8217;s see what pylint Listing1.py has to say</p>
 <p>Note the more verbose output, but did pychecker have any information not
 contained in pylint?</p>
@@ -279,10 +274,9 @@ contained in pylint?</p>
 </div>
 <div class="section" id="pyflakes">
 <h2>pyflakes<a class="headerlink" href="#pyflakes" title="Permalink to this headline">¶</a></h2>
-<p>Doesn&#8217;t check style, just checks for functional errors</p>
-<p>Similar to pychecker, but does not execute code</p>
+<p>Doesn&#8217;t check style, just checks for functional errors, but does not run code.</p>
 <p>Now let&#8217;s see what pyflakes Listing1.py has to say</p>
-<p>What&#8217;s the overlap in pyflakes&#8217; output versus the other two tools?</p>
+<p>How much overlap with pylint?</p>
 </div>
 <div class="section" id="pycodestyle">
 <h2>pycodestyle<a class="headerlink" href="#pycodestyle" title="Permalink to this headline">¶</a></h2>
@@ -294,11 +288,11 @@ contained in pylint?</p>
 </pre></div>
 </div>
 <p>Now let&#8217;s see what pycodestyle Listing1.py has to say</p>
-<p>What&#8217;s the overlap in pep8&#8217;s output versus the other two tools?</p>
+<p>What&#8217;s the overlap in pycodestyle&#8217;s output versus the other two tools?</p>
 </div>
 <div class="section" id="flake8">
 <h2>flake8<a class="headerlink" href="#flake8" title="Permalink to this headline">¶</a></h2>
-<p>A tool which wraps pep8, pyflakes, and mccabe</p>
+<p>A tool which wraps pycodestyle, pyflakes, and mccabe</p>
 <p><a class="reference external" href="http://nedbatchelder.com/blog/200803/python_code_complexity_microtool.html">mccabe</a>
 is a &#8220;microtool&#8221; written by Ned Batchelder (author of coverage) for
 assessing <a class="reference external" href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">Cyclomatic
@@ -308,11 +302,11 @@ Complexity</a></p>
 </pre></div>
 </div>
 <p>Now let&#8217;s see what flake8 Listing1.py has to say</p>
-<p>What&#8217;s the overlap in flake8 output versus the other two tools?</p>
+<p>What&#8217;s the overlap in flake8 output versus the other tools?</p>
 </div>
 <div class="section" id="analyzing-a-larger-codebase-in-the-wild">
 <h2>analyzing-a-larger-codebase-in-the-wild<a class="headerlink" href="#analyzing-a-larger-codebase-in-the-wild" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>pushd $HOME/virtualenvs/uwpce/lib/python2.7/site-packages
+<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/virtualenvs/uwpce/lib/python3.5/site-packages
 
 flake8 django
 
@@ -322,14 +316,8 @@ pylint django
 </div>
 <div class="section" id="code-analysis-tool-battle-royale">
 <h2>code-analysis-tool-battle-royale<a class="headerlink" href="#code-analysis-tool-battle-royale" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>pychecker pylint
-pychecker flake8
-
-pylint pychecker
-pylint flake8
-
-flake8 $HOME/virtualenvs/uwpce/lib/python2.7/site-packages/pychecker/checker.py
-flake8 pylint
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pylint</span> <span class="n">flake8</span>
+<span class="n">flake8</span> <span class="n">pylint</span>
 </pre></div>
 </div>
 </div>

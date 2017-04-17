@@ -170,15 +170,32 @@ Which is the same as:
 
 So, more or less, when you import a module, the interpreter:
 
-* Looks to see if the module has already been imported
+* Looks to see if the module is already in ``sys.modules``.
 
-* If it has, it adds the module to the current module's namespace
+* If it is, it binds a name to the existing module in the current
+  module's namespace.
 
-* If it isn't in sys.modules:
- - a module object is created
- - the code in the file is run
- - the module is added to sys.modules
- - the module is added to the current namespace.
+* If it isn't:
+ - A module object is created
+ - The code in the file is run
+ - The module is added to sys.modules
+ - The module is added to the current namespace.
+
+Implications of module import process:
+--------------------------------------
+
+* The code in a module only runs once per program run.
+* Importing a module again is cheap and fast.
+* Every place your code imports a module it gets the *same* object
+  - You can use this to share "global" state where you want to.
+
+* If you change the code in a module while the program is running -- the
+  change will **not** show up, even if re-imported.
+   - That's what ``reload()`` is for.
+
+
+
+
 
 
 Basic Package Structure:
@@ -487,19 +504,67 @@ To return the version string -- something like:
 
 "1.2.3"
 
-But you also need to specify it in the setup.py:
+But you also need to specify it in the ``setup.py``:
 
 .. code-block:: python
 
-  setup(name=)
+  setup(name='package_name',
+        version="1.2.3",
+        ...
+        )
+
+Not Good.
+
+My solution:
+
+Put the version in the package __init__
+
+__version__ = "1.2.3"
+
+In the setup.py, you could import the package to get the version number
+... but it not a safe practice to import you package when installing
+it (or building it, or...)
+
+So: read the __version__ string yourself::
+
+.. code-block:: python
+
+  def get_version():
+      """
+      Reads the version string from the package __init__ and returns it
+      """
+      with open(os.path.join("capitalize", "__init__.py")) as init_file:
+          for line in init_file:
+              parts = line.strip().partition("=")
+              if parts[0].strip() == "__version__":
+                  return parts[2].strip().strip("'").strip('"')
+      return None
 
 
 
-Symantic Versioning
+
+
+Semantic Versioning
 -------------------
 
-Antoher note on version
+Another note on version numbers.
 
+The software development world (at least the open-source one...) has
+established a standard for what version numbers mean, known as semantic
+versioning. This is helpful to users, as they can know what to expect
+they upgrade.
+
+In short, with a x.y.z version number:
+
+x is the major version -- it could mean changes in API, major features, etc.
+
+  - Likely to to be incompatible with previous versions
+
+y is the minor version -- added features, etc, but backwards compatible.
+
+z is the "bugfix" version -- fixed bugs, should be compatible.
+
+FIXME: link to good semantic versioning reference.
 
 
 Tools to help:

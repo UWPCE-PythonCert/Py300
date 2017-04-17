@@ -93,7 +93,7 @@ About Unit-testing
 4. Test behavior not implementation
 5. Mocking is available to fake stuff you may not want to run in your tests.
 
-This all applies regardless of yoru test framework
+This all applies regardless of your test framework
 
 unittest
 --------
@@ -171,16 +171,104 @@ http://docs.python.org/3/library/unittest.html#assert-methods or
     [print(i) for i in dir(unittest.TestCase) if i.startswith('assert')]
 
 
+==================
+Running your tests
+==================
+
+.. rst-class:: medium
+
+    How do you actually run your tests?
+
+
+running tests in a single module
+--------------------------------
+
+Call unittest.main() right in your module
+
+::
+
+        if __name__ == "__main__":
+            unittest.main()
+
+  # or from the command line:
+  python -m unittest test_my_module  # with or without .py on end
+  python -m unittest test_my_module.TestClass  # particular class in a module
+  python -m unittest test_my_module.TestClass.test_method  # particular test
+
+
+If it gets cumbersome with many TestCases, organize the tests into a
+test suite
+
+Test Suites
+-----------
+
+Test suites group test cases into a single testable unit
+
+::
+
+    import unittest
+
+    from calculator_test import TestCalculatorFunctions
+
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculatorFunctions)
+
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+
+Tests can also be organized into suites in the
+
+``if __name__ == "__main__":``
+
+block
+
+
+pytest and Nose2
+----------------
+
+Nose2 is the new nose. Nose no longer maintained, and directs users to nose2.
+But Nose2 is not all that well maintained either.
+
+Both pytest and Nose2 are test runners: they autodiscover test cases
+
+They will find tests for you so you can focus on writing tests, not
+maintaining test suites
+
+To find tests, pytest and nose look for modules (such as python files)
+whose names start with ‘test’. In those modules, they will load tests
+from all unittest.TestCase subclasses, as well as functions whose names
+start with ‘test’.
+
+So running your tests is as easy as
+
+::
+
+    $ pytest
+    or
+    $ nose2
+
+
+http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests
+
+https://docs.pytest.org/en/latest/index.html
+
+A number of projects use nose -- so you may encounter it, but we'll focus
+on pytest for now.
+
+
+
 Fixtures: Setting up your tests for success
 -------------------------------------------
 
 (or failure!)
 
 Test fixtures are a fixed baseline for tests to run from consistently,
-also known as test context
+also known as test context.
 
 Fixtures can be set up fresh before each test, once before each test
-case, or before an entire test suite
+case, or before an entire test suite.
+
+Fixtures in unittest
+--------------------
 
 unittest provides fixture support via these methods:
 
@@ -189,6 +277,68 @@ unittest provides fixture support via these methods:
 -  setUpModule / tearDownModule - run before/after each TestSuite
 -  addCleanup / doCleanups - called after tearDown,
    in case a test throws an exception
+
+Fixtures in pytest
+------------------
+
+pytest provides a fixture system that is powerful and flexible:
+
+https://docs.pytest.org/en/latest/fixture.html#fixture
+
+You use a decorator to create a fixture:
+
+.. code-block:: python
+
+    import pytest
+
+    @pytest.fixture
+    def smtp():
+        import smtplib
+        return smtplib.SMTP("smtp.gmail.com")
+
+A fixture is simply a function that will get run when it it used, and
+returns *something* that your tests need:
+
+To use a fixture, you add it as a parameter to your test function:
+
+.. code-block:: python
+
+    def test_ehlo(smtp):
+        response, msg = smtp.ehlo()
+        assert response == 250
+        assert 0 # for demo purposes
+
+the parameter gets set to the value returned by the fixture function.
+The fixture function is automatically run before each test.
+
+Let's see this in action:
+
+in: ``Examples\testing``::
+
+    py.test -s -v pytest_fixtures.py
+
+The ``-s`` tells pytest not to capture stdout -- so we can see print statements)
+
+The ``-v`` is verbose mode -- so we can see a bit more what is going on.
+
+"teardown"
+----------
+
+If your fixture needs to clean itself up after its done, this is known as
+"teardown"
+
+to accomplish this in pytest, you use "yield", rather than "return".
+
+The teardowncode will run after the yield
+
+@pytest.fixture()
+def smtp(request):
+    smtp = smtplib.SMTP("smtp.gmail.com")
+    yield smtp  # provide the fixture value
+    print("teardown smtp")
+    smtp.close()
+
+See the example again for this...
 
 =============================
 Testing floating point values
@@ -397,115 +547,106 @@ Not that helpful -- is it?
 
 ``pytest`` give you nice informative messages when tests fail -- without special asserts.
 
-==================
-Running your tests
-==================
-
-.. rst-class:: medium
-
-    How do you actually run your tests?
-
-
-running tests in a single module
---------------------------------
-
-Call unittest.main() right in your module
-
-::
-
-        if __name__ == "__main__":
-            unittest.main()
-
-	# or from the command line:
-	python -m unittest test_my_module  # with or without .py on end
-	python -m unittest test_my_module.TestClass  # particular class in a module
-	python -m unittest test_my_module.TestClass.test_method  # particular test
-
-
-If it gets cumbersome with many TestCases, organize the tests into a
-test suite
-
-Test Suites
------------
-
-Test suites group test cases into a single testable unit
-
-::
-
-    import unittest
-
-    from calculator_test import TestCalculatorFunctions
-
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculatorFunctions)
-
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
-
-Tests can also be organized into suites in the
-
-``if __name__ == "__main__":``
-
-block
-
-
-pytest and Nose2
-----------------
-
-Nose2 is the new nose. Nose no longer maintained, and directs users to nose2.
-But Nose2 is not all that well maintained either.
-
-Both pytest and Nose2 are test runners: they autodiscover test cases
-
-They will find tests for you so you can focus on writing tests, not
-maintaining test suites
-
-To find tests, pytest and nose look for modules (such as python files)
-whose names start with ‘test’. In those modules, they will load tests
-from all unittest.TestCase subclasses, as well as functions whose names
-start with ‘test’.
-
-So running your tests is as easy as
-
-::
-
-    $ pytest
-    or
-    $ nose2
-
-
-http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests
-
-https://docs.pytest.org/en/latest/index.html
-
-A number of projects use nose -- so you may encounter it, but we'll focus
-on pytest for now.
-
-pytest plugins
---------------
-
-Many plugins exist for pytest (and nose2), such as code coverage:
-
-Some plugins, such as coverage, must be additionally installed
-::
-
-    $ pip install pip install pytest-cov
-    # now it can be used
-    $ py.test --cov=myproj
-
-https://pypi.python.org/pypi/pytest-cov
-
 
 Parameterized Tests
 --------------------
 
+Often you want to run exactly the same tests, but with different outputs and inputs.
+
+You can do this a really naive way, but putting multiple asserts into one test:
+
+.. code-block:: python
+
+  def test_multiply():
+      assert multiply(2, 2) == 4
+      assert multiply(2, -1) == -4
+      assert multiply(-2, -3) == 6
+      assert multiply(3, 0) == 0
+      assert multiply(0, 3) == 0
+
+If they all pass, fine, but if not, it will fail on the first one,
+and you'll have no idea if the others pass.
+
+Plus, it gets a bit tedious to write, particularly if the code is more
+complex than a single function call.
+
+You can write a separate test for each case:
+
+.. code-block:: python
+
+  def test_multiply_both_posative():
+      assert multiply(2, 2) == 4
+
+  def test_multiply_one_negative):
+      assert multiply(2, -1) == -4
+
+  def test_multiply_both_negative():
+      assert multiply(-2, -3) == 6
+
+  def test_multiply_second_zero():
+      assert multiply(3, 0) == 0
+
+  def test_multiply_first_zero():
+      assert multiply(0, 3) == 0
+
+But talk about tedious!!!
+
+Unfortunately, ``unittest`` does not have a built-in way to solve this
+problem. There are hacks to do it -- google them to find out how. Here is one:
+
+http://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases
+
+``pytest.mark.parametrize``
+---------------------------
+
+Pytest does provide a nifty way to do it:
+
 https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics
 
+.. code-block:: python
 
+  param_names = "arg1, arg2, result"
+  params = [(2, 2, 4),
+            (2, -1, -2),
+            (-2, -2, 4),
+            ]
+  @pytest.mark.parametrize(param_names, params)
+  def test_multiply(arg1, arg2, result):
+      assert multiply(arg1, arg2) == result
 
-running coverage
-----------------
+I find this very, very, useful.
 
-Install with ``pip``. Written by Ned Batchelder
+See ``Examples/teseting/calculator/test_calculator_pytest.py``
+
+Code Coverage
+-------------
+
+"Coverage" is the fraction of your code that is run by your tests.
+That is, how much code is "covered" by the tests.
+
+It's usually reorted as a percentage of lines of code that were run.
+
+If a line of code is *not* run in your tests -- you can be pretty
+sure it hasn't been tested -- so how do you know it works?
+
+So 100% coverage is a good goal (though harder to achieve than you might think!)
+
+Keep in mind that 100% coverage does **NOT** mean that you code is fuly tested
+-- you have no idea how many corner cases may not have been checked.
+
+But it's a good start.
+
+The coverage tool
+-----------------
+
+"Coverage.py" is a tool (written by Ned Batchelder) for checking code testing
+coverage in python:
+
+https://coverage.readthedocs.io/en/coverage-4.3.4/
+
+It can be installed with ``pip``::
+
+  python -m pip install coverage
 
 To run coverage on your test suite:
 
@@ -557,13 +698,33 @@ option to run
 
 http://nedbatchelder.com/code/coverage/branch.html
 
+Using coverage with pytest
+--------------------------
+
+There is a plug-in for pytest that will run coverage for you when you run your tests:
+
+::
+
+    $ pip install pytest-cov
+    # now it can be used
+    $ py.test --cov test_file.py
+
+https://pypi.python.org/pypi/pytest-cov
+
+There are a number of ways to invoke it and get different reports:
+
+To get a nifty html report::
+
+  pytest --cov --cov-report html test_calculator_pytest.py
+
+
 Doctests
 --------
 
 Tests placed in docstrings to demonstrate usage of a component to a
 human in a machine testable way
 
-::
+.. code-block:: python
 
     def square(x):
         """
@@ -622,130 +783,13 @@ Exercises
 -  Add unit tests for each method in calculator_functions.py
 -  Add fixtures via setUp/tearDown methods and setUpClass/tearDownClass
    class methods. Are they behaving how you expect?
+or
+
+-  Use pytest fixtures instead.
 -  Add additional unit tests for floating point calculations
 -  Fix any failures in the code
 -  Add doctests to calculator_functions.py
 
-
-================
-Context managers
-================
-
-.. rst-class:: medium
-
-    One more Python feature before getting back to testing...
-
-    the ``with`` statement
-
-
-Context managers via the "with" statement
------------------------------------------
-
-If you've been opening files using "with" (and you probably should be),
-you have been using context managers:
-
-::
-
-    with open("file.txt", "w") as f:
-        f.write("foo")
-
-
-A context manager is just a class with \_\_enter\_\_ and \_\_exit\_\_
-methods defined to handle setting up and tearing down the context
-
-Provides generalizable execution contexts in which setup and teardown of
-context are executed no matter what happens
-
-This allows us to do things like setup/teardown and separate out
-exception handling code
-
-
-Writing a context manager
--------------------------
-
-Define \_\_enter\_\_(self) and \_\_exit\_\_(self, type, value,
-traceback) on a class
-
-If \_\_exit\_\_ returns a true value, a caught exception is not
-re-raised
-
-For example:
-
-.. nextslide::
-
-::
-
-        import os, random, shutil, time
-
-        class TemporaryDirectory(object):
-            """A context manager for creating a temporary directory
-	       which gets destroyed on context exit"""
-            def __init__(self,directory):
-                self.base_directory = directory
-
-            def __enter__(self):
-                self.directory = os.path.join(self.base_directory, str(random.random()))
-                return os.makedirs(self.directory)
-
-            def __exit__(self, type, value, traceback):
-                shutil.rmtree(self.directory)
-
-        with TemporaryDirectory("/tmp/foo") as dir:
-            with open(os.path.join(dir, "foo.txt"), 'wb') as f:
-                f.write("foo")
-            time.sleep(5)
-
-
-http://www.python.org/dev/peps/pep-0343/
-
-Context Manager exercise
-------------------------
-
-Create a context manager which prints information on all exceptions
-which occur in the context and continues execution
-
-::
-
-        with YourExceptionHandler():
-            print("do some stuff here")
-            1/0
-
-        print("should still reach this point")
-
-
-Also see the `contextlib
-module <http://docs.python.org/3/library/contextlib.html>`__
-
-Why might using a context manager be better than implementing this with
-try..except..finally ?
-
-
-.. nextslide::
-
-For entire code block, see https://www.python.org/dev/peps/pep-0343/ (Specification)
-::
-
-   with EXPR as VAR:
-       BLOCK
-   # vs.
-   mgr = (EXPR)
-   exit = type(mgr).__exit__  # Not calling it yet
-   value = type(mgr).__enter__(mgr)
-   exc = True
-   try:
-       try:
-           VAR = value  # Only if "as VAR" is present
-	   BLOCK
-       except:
-           # The exceptional case is handled here
-	   exc = False
-	   if not exit(mgr, *sys.exc_info()):
-	       raise
-	   # The exception is swallowed if exit() returns true
-   finally:
-       # The normal and non-local-goto cases are handled here
-       if exc:
-           exit(mgr, None, None, None)
 
 
 Now we've got the tools to really test
@@ -831,13 +875,14 @@ Using patch
 http://www.voidspace.org.uk/python/mock/patch.html
 
 
-Exercises
----------
+Exercise
+--------
 
-When define.py is given the name of a non-existant article, an exception
+When define.py is given the name of a non-existent article, an exception
 is thrown. This exception causes another exception to occur, and the whole thing
 is not very readable. Why does this happen?
 
-Use what you learned last week about exceptions to throw a better exception, and
+Use what you know about exceptions to throw a better exception, and
 then add a new test that confirms this behavior. Use mock for your test, so you
 are not hammering Wikipedia.
+

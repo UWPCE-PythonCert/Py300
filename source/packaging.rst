@@ -72,6 +72,114 @@ https://github.com/pypa/sampleproject
 
 (this has all the complexity you might need...)
 
+And a couple good references:
+
+https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+
+This is a python package that helps you build a python package:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+https://cookiecutter.readthedocs.io/en/latest/
+https://github.com/audreyr/cookiecutter
+
+
+Packages, modules, imports, oh my!
+----------------------------------
+
+Before we get started on making your own package -- let's remind
+ourselves about packages and modules, and importing....
+
+**Modules**
+
+A python "module" is a siingle namespace, with a collection of values:
+
+  * functions
+  * constants
+  * class definitions
+  * really any old value.
+
+A module usually coresponds to a single file: ``something.py``
+
+
+**Packages**
+
+**Importing**
+
+You usually import a module like this:
+
+.. code-block:: python
+
+  import something
+
+
+
+**``import *``**
+
+``_all__``
+
+import as
+
+``relative imports``
+
+
+sys.modules
+-----------
+
+.. code-block:: ipython
+
+  In [4]: type(sys.modules)
+  Out[4]: dict
+
+  In [6]: sys.modules['textwrap']
+  Out[6]: <module 'textwrap' from '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'>
+
+  In [10]: [var for var in vars(sys.modules['textwrap']) if var.startswith("__")]
+  Out[10]:
+  ['__spec__',
+   '__package__',
+   '__loader__',
+   '__doc__',
+   '__cached__',
+   '__name__',
+   '__all__',
+   '__file__',
+   '__builtins__']
+
+you can access the module through the modules dict:
+
+In [12]: sys.modules['textwrap'].__file__
+Out[12]: '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'
+
+Which is the same as:
+
+.. code-block:: ipython
+
+  In [13]: import textwrap
+
+  In [14]: textwrap.__file__
+  Out[14]: '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'
+
+  In [15]: type(textwrap)
+  Out[15]: module
+
+  In [16]: textwrap is sys.modules['textwrap']
+  Out[16]: True
+
+So, more or less, when you import a module, the interpreter:
+
+* Looks to see if the module has already been imported
+
+* If it has, it adds the module to the current module's namespace
+
+* If it isn't in sys.modules:
+ - a module object is created
+ - the code in the file is run
+ - the module is added to sys.modules
+ - the module is added to the current namespace.
+
 
 Basic Package Structure:
 ------------------------
@@ -358,6 +466,52 @@ https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-
   test_suite="tests"
 
 (does py3 unittest have this??)
+
+
+Handling the version number:
+----------------------------
+
+One key rule in software (and ANY computer use!):
+
+Never put the same information in more than one place!
+
+With a python package, you want:
+
+.. code-block:: python
+
+  import the_package
+
+  the_package.__version__
+
+To return the version string -- something like:
+
+"1.2.3"
+
+But you also need to specify it in the setup.py:
+
+.. code-block:: python
+
+  setup(name=)
+
+
+
+Symantic Versioning
+-------------------
+
+Antoher note on version
+
+
+
+Tools to help:
+--------------
+
+Tox:
+
+https://tox.readthedocs.io/en/latest/
+
+Versioneer:
+
+https://github.com/warner/python-versioneer
 
 
 Getting Started

@@ -4,4 +4,4 @@ class Definitions(object):
 
     @classmethod
     def article(cls, title):
-        return Wikipedia.article(title)
+        return Wikipedia.get_article(title)

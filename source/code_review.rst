@@ -34,6 +34,7 @@ what to look for
 - tests
 - short functions/methods
 - anything not clear
+- logic issues
 
 
 Types of code review
@@ -46,8 +47,11 @@ Types of code review
 
 When refactoring or doing code reviews in person
 ------------------------------------------------
-If code is unclear:
+if told code is unclear:
+- write a comment explaining what the code is doing and/or questions about the code
 
-- write a comment explaining what the code is doing
+Then, if time permits you can jointly:
 - work on making the code clearer
-- goal to make it clear enough to get rid of the comment(s)
+- goal to make it clear enough to get rid of the comment(s) that were added
+
+Or do this yourself afterwards, as you would for written code reviews

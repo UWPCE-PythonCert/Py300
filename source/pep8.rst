@@ -143,10 +143,6 @@ What can you spot as an error, bad practice, or poor style?
 
 Now let's see what pylint Listing1.py has to say
 
-Note the more verbose output, but did pychecker have any information not
-contained in pylint?
-
-pychecker identifies the incorrect use of self in a function
 
 pyflakes
 --------

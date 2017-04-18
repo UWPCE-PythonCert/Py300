@@ -34,10 +34,6 @@ def get_datafile_name():
 ## load up the special words on import
 special_words = load_special_words(get_datafile_name())
 
-print(special_words)
-
-
-
 def capitalize_line(instr, special_words=special_words):
     """
     capitalizes the input string

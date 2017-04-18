@@ -15,23 +15,27 @@ Code review is one of the best tools for this.
 
 Code review is like having a personal tutor.
 
+Code review helps more people to become familiar with the code.
+
+Code review squishes bugs.
+
 
 Getting code ready for review
 -----------------------------
 
-- Write tests
-- First draft is messy, refactor
-- To get the most out of it, correct all that you can first
+- Write tests - if there are tests, much easier to make changes on the fly during review
+- First draft is messy, refactor before code review
+- To get the most out of it, correct all that you can before review
 - Expect advice and corrections, and learn from them!
-
+- For this class, messy is okay. :-)
 
 Size of code
 ------------
 
 - Code to review should be between 200 and 400 lines of code
 - Code can, and often will, be part of a bigger project
-- Code should be modular, so can look at one smallish piece:
-   - and still be able to explain how it fits in the bigger project
+- Code should be modular, so can examine one smallish piece during review:
+   - and be able to explain how it fits in the bigger project
    - and be able to explain what the smallish piece is doing in a few sentences
 
 

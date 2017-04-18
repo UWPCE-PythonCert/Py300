@@ -90,6 +90,7 @@
 <li><a class="reference internal" href="#python-packaging-tools">Python packaging tools:</a></li>
 <li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
 <li><a class="reference internal" href="#packages-modules-imports-oh-my">Packages, modules, imports, oh my!</a></li>
+<li><a class="reference internal" href="#relative-imports">relative imports</a></li>
 <li><a class="reference internal" href="#sys-modules">sys.modules</a></li>
 <li><a class="reference internal" href="#implications-of-module-import-process">Implications of module import process:</a></li>
 <li><a class="reference internal" href="#basic-package-structure">Basic Package Structure:</a></li>
@@ -231,7 +232,65 @@ ourselves about packages and modules, and importing....</p>
 <p><strong>``import *``</strong></p>
 <p><code class="docutils literal"><span class="pre">_all__</span></code></p>
 <p>import as</p>
-<p><code class="docutils literal"><span class="pre">relative</span> <span class="pre">imports</span></code></p>
+</div>
+<div class="section" id="relative-imports">
+<h3>relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h3>
+<p>Relative imports were added with PEP 328:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">https://www.python.org/dev/peps/pep-0328/</a></p>
+<p>The final version is described here:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/#guido-s-decision">https://www.python.org/dev/peps/pep-0328/#guido-s-decision</a></p>
+<p>This gets confusing! There is a good discussion on Stack Overflow here:</p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time">http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time</a></p>
+<p>Relative imports allow you to refer to other modules relative to where the existing module is in the package hierachy, rather than in the while thing. For instance, with the following pacakge structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package</span><span class="o">/</span>
+    <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">subpackage1</span><span class="o">/</span>
+        <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleX</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleY</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">subpackage2</span><span class="o">/</span>
+        <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleZ</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">moduleA</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>You can do (in <code class="docutils literal"><span class="pre">moduleX.py</span></code>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.moduleY</span> <span class="kn">import</span> <span class="n">spam</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">moduleY</span>
+<span class="kn">from</span> <span class="nn">..subpackage1</span> <span class="kn">import</span> <span class="n">moduleY</span>
+<span class="kn">from</span> <span class="nn">..subpackage2.moduleZ</span> <span class="kn">import</span> <span class="n">eggs</span>
+<span class="kn">from</span> <span class="nn">..moduleA</span> <span class="kn">import</span> <span class="n">foo</span>
+<span class="kn">from</span> <span class="nn">...package</span> <span class="kn">import</span> <span class="n">bar</span>
+<span class="kn">from</span> <span class="nn">...sys</span> <span class="kn">import</span> <span class="n">path</span>
+</pre></div>
+</div>
+<p>Similarly to <a href="#id1"><span class="problematic" id="id2">*</span></a>nix shells:</p>
+<p>&#8221;.&#8221; means &#8220;the current package&#8221;</p>
+<p>&#8221;..&#8221; means &#8220;the package above this one&#8221;</p>
+<p>Note that you have to use the &#8220;from&#8221; form when using relative imports.</p>
+<p><strong>Caveats:</strong></p>
+<ul class="simple">
+<li>you can only use relative imports from within a package</li>
+<li>you can not use relative imports from the interpreter</li>
+<li>you can not use reltaive imports from a top-level script</li>
+</ul>
+<p>The alternative is to always use absolute imports:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">package.subpackage</span> <span class="kn">import</span> <span class="n">moduleX</span>
+<span class="kn">from</span> <span class="nn">package.moduleA</span> <span class="kn">import</span> <span class="n">foo</span>
+</pre></div>
+</div>
+<p>Advantages of relative imports:</p>
+<ul class="simple">
+<li>Package does not have to be installed</li>
+<li>You can move things around, and not much has to change</li>
+</ul>
+<p>Advantages of absolute imports:</p>
+<ul class="simple">
+<li>explicit is better than implicit</li>
+<li>imports are the same regardless of where you put the package</li>
+<li>imports are the same in package code, command line, tests, scripts, etc.</li>
+</ul>
+<p>There is debate about which is the &#8220;one way to do it&#8221; &#8211; a bit unpythonic, but you&#8217;ll need to make your own decision.</p>
 </div>
 <div class="section" id="sys-modules">
 <h3>sys.modules<a class="headerlink" href="#sys-modules" title="Permalink to this headline">¶</a></h3>

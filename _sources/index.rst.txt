@@ -18,7 +18,6 @@ Class info:
 
 - :ref:`syllabus`
 
-
 Topics
 ------
 
@@ -50,10 +49,10 @@ Topics
 ............
 
 :ref:`advanced_oo`
-................
+..................
 
 :ref:`metaclasses`
-................
+..................
 
 :ref:`threading`
 ................
@@ -81,6 +80,9 @@ Topics
 
 :ref:`weak_references`
 ......................
+
+:ref:`pep8`
+...........
 
 
 Assorted Notes:

@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coding Style and Linting &mdash; Py300 3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Coding Style and Linting</a><ul>
+<li><a class="reference internal" href="#pep-8">pep-8</a></li>
+<li><a class="reference internal" href="#important-pep-8-recommendations">important-pep-8-recommendations</a></li>
+<li><a class="reference internal" href="#pep-8-recommendations-continued">pep-8-recommendations-continued</a></li>
+<li><a class="reference internal" href="#naming-conventions">naming-conventions</a></li>
+<li><a class="reference internal" href="#argument-conventions">argument-conventions</a></li>
+<li><a class="reference internal" href="#imports">imports</a></li>
+<li><a class="reference internal" href="#public-and-non-public-class-members">public and non-public class members</a></li>
+<li><a class="reference internal" href="#tools-to-help">tools-to-help</a></li>
+<li><a class="reference internal" href="#pylint">pylint</a></li>
+<li><a class="reference internal" href="#pyflakes">pyflakes</a></li>
+<li><a class="reference internal" href="#pycodestyle">pycodestyle</a></li>
+<li><a class="reference internal" href="#flake8">flake8</a></li>
+<li><a class="reference internal" href="#analyzing-a-larger-codebase-in-the-wild">analyzing-a-larger-codebase-in-the-wild</a></li>
+<li><a class="reference internal" href="#code-analysis-tool-battle-royale">code-analysis-tool-battle-royale</a></li>
+<li><a class="reference internal" href="#analysis-tool-summary">analysis-tool-summary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Coding Style and Linting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pep8.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="coding-style-and-linting">
+<span id="pep8"></span><h1>Coding Style and Linting<a class="headerlink" href="#coding-style-and-linting" title="Permalink to this headline">¶</a></h1>
+<p>System Development with Python</p>
+<ul class="simple">
+<li>Maria McKinley</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">mariak&#64;mariakathryn.net</span></code></p>
+<div class="section" id="pep-8">
+<h2>pep-8<a class="headerlink" href="#pep-8" title="Permalink to this headline">¶</a></h2>
+<p>Style Guide for Python</p>
+<p>Defines a good baseline for your own local style guide</p>
+<p>The &#8216;rules&#8217; are just suggestions. From the document:</p>
+<blockquote>
+<div>most importantly: know when to be inconsistent &#8211; sometimes the
+style guide just doesn&#8217;t apply</div></blockquote>
+</div>
+<div class="section" id="important-pep-8-recommendations">
+<h2>important-pep-8-recommendations<a class="headerlink" href="#important-pep-8-recommendations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/#tabs-or-spaces">http://legacy.python.org/dev/peps/pep-0008/#tabs-or-spaces</a></li>
+<li>Use 4 space indents. The tabs vs. spaces wars will likely never
+completely come to peaceful conclusion. But the Python community has
+standardized on 4 space indents. Unless you have compelling reasons
+not to, you should too.</li>
+<li>Python 3 disallows mixing of tabs and spaces. With Python 2, you can
+run with the -tt flag which will force errors on mixed use of tabs
+and spaces.</li>
+<li>Let your editor help you by having it insert 4 spaces for the tab
+key, turning on visible whitespace markers, and/or integrating a
+PEP-8 plugin</li>
+<li><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/#maximum-line-length">http://legacy.python.org/dev/peps/pep-0008/#maximum-line-length</a></li>
+<li>Maximum line length of 79 characters</li>
+<li>This is an easy one to let run away early. If 79 characters is too
+short, find a line length your team can agree on and stick to it as
+specified in PEP-8</li>
+</ul>
+</div>
+<div class="section" id="pep-8-recommendations-continued">
+<h2>pep-8-recommendations-continued<a class="headerlink" href="#pep-8-recommendations-continued" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/#source-file-encoding">http://legacy.python.org/dev/peps/pep-0008/#source-file-encoding</a></p>
+</li>
+<li><p class="first">The default encoding in Python 2 is ASCII, in Python 3 it is UTF-8.</p>
+</li>
+<li><p class="first">If you insert a non encodable character in a string literal, the
+interpreter will throw a SyntaxError when it reaches it.</p>
+</li>
+<li><p class="first">To change the file encoding to UTF-8 for example, insert</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># coding: utf-8</span>
+</pre></div>
+</div>
+<p>near the top of the file (see examples/encoding.py)</p>
+</li>
+<li><p class="first">When comparing with singletons such as None, use &#8220;x is None&#8221;, not &#8220;x == None&#8221;. <a class="reference external" href="http://jaredgrubb.blogspot.com/2009/04/python-is-none-vs-none.html">Why?</a></p>
+</li>
+</ul>
+</div>
+<div class="section" id="naming-conventions">
+<h2>naming-conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>variables, attributes, and modules names should be lowercase, with
+words separated by underscores</li>
+<li>class names should be CamelCase, aka StudlyCaps</li>
+<li>constants should be ALL CAPS</li>
+</ul>
+</div>
+<div class="section" id="argument-conventions">
+<h2>argument-conventions<a class="headerlink" href="#argument-conventions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>instance methods should have a first argument called self</li>
+<li>class methods should have a first argument called cls</li>
+<li>There&#8217;s nothing magic about these names. You don&#8217;t have to use this
+convention, but not adopting it will likely confuse future readers</li>
+</ul>
+</div>
+<div class="section" id="imports">
+<h2>imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/#imports">imports</a>
+should be near the top of the file</li>
+<li>imports should be grouped in the following order, separated by a
+blank line:<ol class="arabic">
+<li>standard library imports</li>
+<li>related third party imports</li>
+<li>local application/library specific imports</li>
+</ol>
+</li>
+<li>avoid wildcard imports to keep the namespace clean for both humans
+and automated tools</li>
+</ul>
+</div>
+<div class="section" id="public-and-non-public-class-members">
+<h2>public and non-public class members<a class="headerlink" href="#public-and-non-public-class-members" title="Permalink to this headline">¶</a></h2>
+<p>Python does not have a mechanism for restricting access to a variable or method, but it does have culture and convention.</p>
+<p>The default is public. This works for most things.</p>
+<p>If you do not want people to change your attribute or method, and especially if you do not want people to depend on this attribute or method always remaining the same, make it private by using a single underscore in front.</p>
+<p>_my_private_method</p>
+<p>If you are particularly paranoid:
+A non-public attribute has two leading underscores and no trailing
+underscores and triggers Python&#8217;s name mangling.</p>
+<p>__my_paranoid_method</p>
+</div>
+<div class="section" id="tools-to-help">
+<h2>tools-to-help<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://pypi.python.org/pypi/pyflakes">pyflakes</a> - searches for
+bugs, but without importing modules</li>
+<li><a class="reference external" href="http://www.pylint.org/">Pylint</a> - style guide, searches for bugs</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/pycodestyle">pycodestyle</a> - tests conformance to
+PEP-8</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/flake8">flake8</a> combines pyflakes,
+pycodestyle, and mccabe, a code complexity analyzer</li>
+</ul>
+</div>
+<div class="section" id="pylint">
+<h2>pylint<a class="headerlink" href="#pylint" title="Permalink to this headline">¶</a></h2>
+<p>Interesting options:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">d</span> <span class="p">(</span><span class="n">msg</span> <span class="n">ids</span><span class="p">),</span> <span class="o">--</span><span class="n">disable</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span> <span class="n">ids</span><span class="p">)</span>      <span class="n">Disable</span> <span class="n">the</span> <span class="n">messages</span> <span class="n">identified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">messages</span> <span class="n">table</span>
+<span class="o">--</span><span class="n">generate</span><span class="o">-</span><span class="n">rcfile</span><span class="o">/--</span><span class="n">rcfile</span>             <span class="n">Saves</span><span class="o">/</span><span class="n">restores</span> <span class="n">a</span> <span class="n">configuration</span>
+</pre></div>
+</div>
+<p>Poor code example examples/Listing1.py was adapted from <a class="reference external" href="http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html">Doug
+Hellman</a></p>
+<p>What can you spot as an error, bad practice, or poor style?</p>
+<p>Now let&#8217;s see what pylint Listing1.py has to say</p>
+<p>Note the more verbose output, but did pychecker have any information not
+contained in pylint?</p>
+<p>pychecker identifies the incorrect use of self in a function</p>
+</div>
+<div class="section" id="pyflakes">
+<h2>pyflakes<a class="headerlink" href="#pyflakes" title="Permalink to this headline">¶</a></h2>
+<p>Doesn&#8217;t check style, just checks for functional errors, but does not run code.</p>
+<p>Now let&#8217;s see what pyflakes Listing1.py has to say</p>
+<p>How much overlap with pylint?</p>
+</div>
+<div class="section" id="pycodestyle">
+<h2>pycodestyle<a class="headerlink" href="#pycodestyle" title="Permalink to this headline">¶</a></h2>
+<p>used to be called &#8220;pep8&#8221;</p>
+<p>Only checks style</p>
+<p>Interesting options:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">statistics</span>         <span class="n">count</span> <span class="n">errors</span> <span class="ow">and</span> <span class="n">warnings</span>
+<span class="o">--</span><span class="n">count</span>              <span class="nb">print</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">errors</span> <span class="ow">and</span> <span class="n">warnings</span> <span class="n">to</span> <span class="n">standard</span> <span class="n">error</span> <span class="ow">and</span> <span class="nb">set</span> <span class="n">exit</span> <span class="n">code</span> <span class="n">to</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">total</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">null</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s see what pycodestyle Listing1.py has to say</p>
+<p>What&#8217;s the overlap in pycodestyle&#8217;s output versus the other two tools?</p>
+</div>
+<div class="section" id="flake8">
+<h2>flake8<a class="headerlink" href="#flake8" title="Permalink to this headline">¶</a></h2>
+<p>A tool which wraps pycodestyle, pyflakes, and mccabe</p>
+<p><a class="reference external" href="http://nedbatchelder.com/blog/200803/python_code_complexity_microtool.html">mccabe</a>
+is a &#8220;microtool&#8221; written by Ned Batchelder (author of coverage) for
+assessing <a class="reference external" href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">Cyclomatic
+Complexity</a></p>
+<p>Interesting options:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">complexity</span><span class="o">=</span><span class="n">N</span>    <span class="n">McCabe</span> <span class="n">complexity</span> <span class="n">threshold</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s see what flake8 Listing1.py has to say</p>
+<p>What&#8217;s the overlap in flake8 output versus the other tools?</p>
+</div>
+<div class="section" id="analyzing-a-larger-codebase-in-the-wild">
+<h2>analyzing-a-larger-codebase-in-the-wild<a class="headerlink" href="#analyzing-a-larger-codebase-in-the-wild" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/virtualenvs/uwpce/lib/python3.5/site-packages
+
+flake8 django
+
+pylint django
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-analysis-tool-battle-royale">
+<h2>code-analysis-tool-battle-royale<a class="headerlink" href="#code-analysis-tool-battle-royale" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pylint</span> <span class="n">flake8</span>
+<span class="n">flake8</span> <span class="n">pylint</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="analysis-tool-summary">
+<h2>analysis-tool-summary<a class="headerlink" href="#analysis-tool-summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>There is no magic bullet that guarantees functional, beautiful code</li>
+<li>Some classes of programming errors can be found before runtime</li>
+<li>With the PEP-8 tools, it is easy to let rules such as line length
+slip by</li>
+<li>It&#8217;s up to you to determine your thresholds</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

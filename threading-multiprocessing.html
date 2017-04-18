@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Threading and multiprocessing</a><ul>
 <li><a class="reference internal" href="#threading-multiprocessing">Threading / multiprocessing</a><ul>
 <li><a class="reference internal" href="#motivations-for-parallel-execution">Motivations for parallel execution</a></li>
@@ -139,8 +145,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -149,23 +157,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Threading and multiprocessing</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Threading and multiprocessing</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/threading-multiprocessing.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -297,7 +322,7 @@ have no GIL</p>
 <div class="section" id="parallel-execution-example">
 <h3>Parallel execution example<a class="headerlink" href="#parallel-execution-example" title="Permalink to this headline">¶</a></h3>
 <p>Consider the following code from: <code class="docutils literal"><span class="pre">Examples/integrate/integrate.py</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
 
 <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
@@ -315,13 +340,13 @@ together:</p>
 <div class="section" id="the-threading-module">
 <h3>The threading module<a class="headerlink" href="#the-threading-module" title="Permalink to this headline">¶</a></h3>
 <p>Starting threads doesn&#8217;t take much:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;hello from thread </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;hello from thread </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
@@ -345,12 +370,12 @@ things like garbage collection, network keepalives, ..</li>
 <h3>Subclassing Thread<a class="headerlink" href="#subclassing-thread" title="Permalink to this headline">¶</a></h3>
 <p>You can adding threading capability to your own classes</p>
 <p>Subclass Thread and implement the run method</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">threading</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
 
 <span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;hello from </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;hello from </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <span class="n">thread</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">()</span>
 <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -506,14 +531,14 @@ themselves by calling its <code class="docutils literal"><span class="pre">.acqu
 <p>If a Lock is locked, .acquire will block until it becomes unlocked</p>
 <p>These threads will wait in line politely for access to the statements in
 f()</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">threading</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
     <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> got lock&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> got lock&quot;</span> <span class="o">%</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
@@ -528,14 +553,14 @@ f()</p>
 <p><code class="docutils literal"><span class="pre">.acquire()</span></code> will return True if it successfully acquires a lock</p>
 <p>Its first argument is a boolean which specifies whether a lock should
 block or not. The default is <code class="docutils literal"><span class="pre">True</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">threading</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
 <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;couldn&#39;t get lock&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;couldn&#39;t get lock&quot;</span><span class="p">)</span>
 <span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;got lock&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;got lock&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -579,7 +604,7 @@ safely</p>
 <p>Size of the queue is managed with the maxsize kwarg</p>
 <p>It will block consumers if empty and block producers if full</p>
 <p>If maxsize is less than or equal to zero, the queue size is infinite</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">Queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Queue</span> <span class="kn">import</span> <span class="n">Queue</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="mi">37337</span><span class="p">)</span>
 <span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
@@ -613,7 +638,7 @@ inserting the tuple:</p>
 <div class="section" id="threading-example">
 <h3>Threading example<a class="headerlink" href="#threading-example" title="Permalink to this headline">¶</a></h3>
 <p>See Examples/threading/integrate_main.py</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -621,12 +646,12 @@ inserting the tuple:</p>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">Queue</span>
 
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&quot;..&quot;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">integrate.integrate</span> <span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">f</span>
 <span class="kn">from</span> <span class="nn">decorators.decorators</span> <span class="kn">import</span> <span class="n">timer</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@timer</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@timer</span>
 <span class="k">def</span> <span class="nf">threading_integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">thread_count</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;break work into two chunks&quot;&quot;&quot;</span>
     <span class="n">N_chunk</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">/</span> <span class="n">thread_count</span><span class="p">)</span>
@@ -643,17 +668,17 @@ inserting the tuple:</p>
         <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">dx</span>
         <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">N_chunk</span><span class="p">))</span>
         <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="k">print</span> <span class="s">&quot;Thread </span><span class="si">%s</span><span class="s"> started&quot;</span> <span class="o">%</span> <span class="n">thread</span><span class="o">.</span><span class="n">name</span>
-        <span class="c"># thread1.join()</span>
+        <span class="k">print</span> <span class="s2">&quot;Thread </span><span class="si">%s</span><span class="s2"> started&quot;</span> <span class="o">%</span> <span class="n">thread</span><span class="o">.</span><span class="n">name</span>
+        <span class="c1"># thread1.join()</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">thread_count</span><span class="p">)</span> <span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;integrator&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;N&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;thread_count&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;integrator&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;thread_count&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">a</span>
@@ -661,8 +686,8 @@ inserting the tuple:</p>
     <span class="n">N</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">N</span>
     <span class="n">thread_count</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">thread_count</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Numerical solution with N=</span><span class="si">%(N)d</span><span class="s"> : </span><span class="si">%(x)f</span><span class="s">&quot;</span> <span class="o">%</span> \
-            <span class="p">{</span><span class="s">&#39;N&#39;</span><span class="p">:</span> <span class="n">N</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="n">threading_integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">thread_count</span><span class="o">=</span><span class="n">thread_count</span><span class="p">)})</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Numerical solution with N=</span><span class="si">%(N)d</span><span class="s2"> : </span><span class="si">%(x)f</span><span class="s2">&quot;</span> <span class="o">%</span> \
+            <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="n">N</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">threading_integrate</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">thread_count</span><span class="o">=</span><span class="n">thread_count</span><span class="p">)})</span>
 </pre></div>
 </div>
 </div>
@@ -679,12 +704,12 @@ the maximum speed?</p>
 <p>multiprocessing provides an API very similar to threading, so the
 transition is easy</p>
 <p>use <code class="docutils literal"><span class="pre">multiprocessing.Process</span></code> instead of <code class="docutils literal"><span class="pre">threading.Thread</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">multiprocessing</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
-    <span class="k">print</span> <span class="s">&quot;hello from process </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s2">&quot;hello from process </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">proc</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
@@ -699,13 +724,13 @@ transition is easy</p>
 <p>Multiprocessing has its own <code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code> which handles
 interprocess communication</p>
 <p>Also has its own versions of <code class="docutils literal"><span class="pre">Lock</span></code>, <code class="docutils literal"><span class="pre">RLock</span></code>, <code class="docutils literal"><span class="pre">Semaphore</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">Lock</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">Lock</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">multiprocessing.Pipe</span></code> for 2-way process communication:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pipe</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pipe</span>
 <span class="n">parent_conn</span><span class="p">,</span> <span class="n">child_conn</span> <span class="o">=</span> <span class="n">Pipe</span><span class="p">()</span>
-<span class="n">child_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<span class="n">child_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">parent_conn</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -714,7 +739,7 @@ interprocess communication</p>
 <h3>Pooling<a class="headerlink" href="#pooling" title="Permalink to this headline">¶</a></h3>
 <p>A processing pool contains worker processes with only a configured
 number running at one time</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -724,10 +749,10 @@ number running at one time</p>
 </div>
 <div class="section" id="pooling-example">
 <h3>Pooling example<a class="headerlink" href="#pooling-example" title="Permalink to this headline">¶</a></h3>
-<div class="small highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<div class="small highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,))</span>
@@ -750,7 +775,7 @@ number running at one time</p>
 <h3>ThreadPool<a class="headerlink" href="#threadpool" title="Permalink to this headline">¶</a></h3>
 <p>Threading also has a pool</p>
 <p>Confusingly, it lives in the multiprocessing module</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing.pool</span> <span class="k">import</span> <span class="n">ThreadPool</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing.pool</span> <span class="k">import</span> <span class="n">ThreadPool</span>
 <span class="n">pool</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -791,7 +816,7 @@ model: <a class="reference external" href="http://en.wikipedia.org/wiki/Computer
 </div>
 <div class="section" id="with-send-a-generator-becomes-a-coroutine">
 <h3>With send(), a generator becomes a coroutine<a class="headerlink" href="#with-send-a-generator-becomes-a-coroutine" title="Permalink to this headline">¶</a></h3>
-<div class="small highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">coroutine</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="small highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">coroutine</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="k">yield</span><span class="p">)</span>
@@ -876,11 +901,11 @@ farms jobs out to them:</p>
 </div>
 <div class="section" id="celery-in-one-minute">
 <h3>Celery in one minute<a class="headerlink" href="#celery-in-one-minute" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># tasks.py</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># tasks.py</span>
 
 <span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
 
-<span class="n">celery</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s">&#39;tasks&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s">&quot;amqp&quot;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s">&#39;amqp://guest@localhost//&#39;</span><span class="p">)</span>
+<span class="n">celery</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;amqp&quot;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s1">&#39;amqp://guest@localhost//&#39;</span><span class="p">)</span>
 
 <span class="nd">@celery.task</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -902,6 +927,9 @@ farms jobs out to them:</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>

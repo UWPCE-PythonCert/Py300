@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,13 +85,20 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Building Your Own Package</a><ul>
 <li><a class="reference internal" href="#why-build-a-package">Why Build a Package?</a><ul>
 <li><a class="reference internal" href="#what-is-a-package">What is a Package?</a></li>
 <li><a class="reference internal" href="#python-packaging-tools">Python packaging tools:</a></li>
 <li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
+<li><a class="reference internal" href="#packages-modules-imports-oh-my">Packages, modules, imports, oh my!</a></li>
+<li><a class="reference internal" href="#relative-imports">relative imports</a></li>
+<li><a class="reference internal" href="#sys-modules">sys.modules</a></li>
+<li><a class="reference internal" href="#implications-of-module-import-process">Implications of module import process:</a></li>
 <li><a class="reference internal" href="#basic-package-structure">Basic Package Structure:</a></li>
 <li><a class="reference internal" href="#the-setup-py-file">The <code class="docutils literal"><span class="pre">setup.py</span></code> File</a></li>
 <li><a class="reference internal" href="#setup-cfg"><code class="docutils literal"><span class="pre">setup.cfg</span></code></a></li>
@@ -98,6 +108,9 @@
 <li><a class="reference internal" href="#pypi">PyPi</a></li>
 <li><a class="reference internal" href="#under-development">Under Development</a></li>
 <li><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li><a class="reference internal" href="#handling-the-version-number">Handling the version number:</a></li>
+<li><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a></li>
+<li><a class="reference internal" href="#tools-to-help">Tools to help:</a></li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#lab">LAB</a></li>
 </ul>
@@ -116,8 +129,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -126,23 +141,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Building Your Own Package</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Building Your Own Package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/packaging.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -175,7 +207,7 @@ structured package eases development.</p>
 <div class="section" id="python-packaging-tools">
 <h3>Python packaging tools:<a class="headerlink" href="#python-packaging-tools" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">distutils</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
 <p>Getting klunky, hard to extend, maybe destined for deprication...</p>
@@ -193,10 +225,174 @@ structured package eases development.</p>
 <p>And a sample project here:</p>
 <p><a class="reference external" href="https://github.com/pypa/sampleproject">https://github.com/pypa/sampleproject</a></p>
 <p>(this has all the complexity you might need...)</p>
+<p>And a couple good references:</p>
+<p><a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
+<p>This is a python package that helps you build a python package:</p>
+<p><a class="reference external" href="https://github.com/ionelmc/cookiecutter-pylibrary">https://github.com/ionelmc/cookiecutter-pylibrary</a>
+<a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
+<p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a>
+<a class="reference external" href="https://github.com/audreyr/cookiecutter">https://github.com/audreyr/cookiecutter</a></p>
+</div>
+<div class="section" id="packages-modules-imports-oh-my">
+<h3>Packages, modules, imports, oh my!<a class="headerlink" href="#packages-modules-imports-oh-my" title="Permalink to this headline">¶</a></h3>
+<p>Before we get started on making your own package &#8211; let&#8217;s remind
+ourselves about packages and modules, and importing....</p>
+<p><strong>Modules</strong></p>
+<p>A python &#8220;module&#8221; is a siingle namespace, with a collection of values:</p>
+<blockquote>
+<div><ul class="simple">
+<li>functions</li>
+<li>constants</li>
+<li>class definitions</li>
+<li>really any old value.</li>
+</ul>
+</div></blockquote>
+<p>A module usually coresponds to a single file: <code class="docutils literal"><span class="pre">something.py</span></code></p>
+<p><strong>Packages</strong></p>
+<p><strong>Importing</strong></p>
+<p>You usually import a module like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">something</span>
+</pre></div>
+</div>
+<p><strong>``import *``</strong></p>
+<p><code class="docutils literal"><span class="pre">_all__</span></code></p>
+<p>import as</p>
+</div>
+<div class="section" id="relative-imports">
+<h3>relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h3>
+<p>Relative imports were added with PEP 328:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">https://www.python.org/dev/peps/pep-0328/</a></p>
+<p>The final version is described here:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/#guido-s-decision">https://www.python.org/dev/peps/pep-0328/#guido-s-decision</a></p>
+<p>This gets confusing! There is a good discussion on Stack Overflow here:</p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time">http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time</a></p>
+<p>Relative imports allow you to refer to other modules relative to where the existing module is in the package hierachy, rather than in the while thing. For instance, with the following pacakge structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package</span><span class="o">/</span>
+    <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">subpackage1</span><span class="o">/</span>
+        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleX</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleY</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">subpackage2</span><span class="o">/</span>
+        <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">moduleZ</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">moduleA</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>You can do (in <code class="docutils literal"><span class="pre">moduleX.py</span></code>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.moduleY</span> <span class="kn">import</span> <span class="n">spam</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">moduleY</span>
+<span class="kn">from</span> <span class="nn">..subpackage1</span> <span class="kn">import</span> <span class="n">moduleY</span>
+<span class="kn">from</span> <span class="nn">..subpackage2.moduleZ</span> <span class="kn">import</span> <span class="n">eggs</span>
+<span class="kn">from</span> <span class="nn">..moduleA</span> <span class="kn">import</span> <span class="n">foo</span>
+<span class="kn">from</span> <span class="nn">...package</span> <span class="kn">import</span> <span class="n">bar</span>
+<span class="kn">from</span> <span class="nn">...sys</span> <span class="kn">import</span> <span class="n">path</span>
+</pre></div>
+</div>
+<p>Similarly to <a href="#id1"><span class="problematic" id="id2">*</span></a>nix shells:</p>
+<p>&#8221;.&#8221; means &#8220;the current package&#8221;</p>
+<p>&#8221;..&#8221; means &#8220;the package above this one&#8221;</p>
+<p>Note that you have to use the &#8220;from&#8221; form when using relative imports.</p>
+<p><strong>Caveats:</strong></p>
+<ul class="simple">
+<li>you can only use relative imports from within a package</li>
+<li>you can not use relative imports from the interpreter</li>
+<li>you can not use reltaive imports from a top-level script</li>
+</ul>
+<p>The alternative is to always use absolute imports:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">package.subpackage</span> <span class="kn">import</span> <span class="n">moduleX</span>
+<span class="kn">from</span> <span class="nn">package.moduleA</span> <span class="kn">import</span> <span class="n">foo</span>
+</pre></div>
+</div>
+<p>Advantages of relative imports:</p>
+<ul class="simple">
+<li>Package does not have to be installed</li>
+<li>You can move things around, and not much has to change</li>
+</ul>
+<p>Advantages of absolute imports:</p>
+<ul class="simple">
+<li>explicit is better than implicit</li>
+<li>imports are the same regardless of where you put the package</li>
+<li>imports are the same in package code, command line, tests, scripts, etc.</li>
+</ul>
+<p>There is debate about which is the &#8220;one way to do it&#8221; &#8211; a bit unpythonic, but you&#8217;ll need to make your own decision.</p>
+</div>
+<div class="section" id="sys-modules">
+<h3>sys.modules<a class="headerlink" href="#sys-modules" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="nb">type</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">dict</span>
+
+<span class="gp">In [6]: </span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">]</span>
+<span class="gh">Out[6]: </span><span class="go">&lt;module &#39;textwrap&#39; from &#39;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#39;&gt;</span>
+
+<span class="gp">In [10]: </span><span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span>
+<span class="gh">Out[10]:</span>
+<span class="go">[&#39;__spec__&#39;,</span>
+<span class="go"> &#39;__package__&#39;,</span>
+<span class="go"> &#39;__loader__&#39;,</span>
+<span class="go"> &#39;__doc__&#39;,</span>
+<span class="go"> &#39;__cached__&#39;,</span>
+<span class="go"> &#39;__name__&#39;,</span>
+<span class="go"> &#39;__all__&#39;,</span>
+<span class="go"> &#39;__file__&#39;,</span>
+<span class="go"> &#39;__builtins__&#39;]</span>
+</pre></div>
+</div>
+<p>you can access the module through the modules dict:</p>
+<p>In [12]: sys.modules[&#8216;textwrap&#8217;].__file__
+Out[12]: &#8216;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#8217;</p>
+<p>Which is the same as:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="kn">import</span> <span class="nn">textwrap</span>
+
+<span class="gp">In [14]: </span><span class="n">textwrap</span><span class="o">.</span><span class="vm">__file__</span>
+<span class="gh">Out[14]: </span><span class="go">&#39;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#39;</span>
+
+<span class="gp">In [15]: </span><span class="nb">type</span><span class="p">(</span><span class="n">textwrap</span><span class="p">)</span>
+<span class="gh">Out[15]: </span><span class="go">module</span>
+
+<span class="gp">In [16]: </span><span class="n">textwrap</span> <span class="ow">is</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">]</span>
+<span class="gh">Out[16]: </span><span class="go">True</span>
+</pre></div>
+</div>
+<p>So, more or less, when you import a module, the interpreter:</p>
+<ul class="simple">
+<li>Looks to see if the module is already in <code class="docutils literal"><span class="pre">sys.modules</span></code>.</li>
+<li>If it is, it binds a name to the existing module in the current
+module&#8217;s namespace.</li>
+<li>If it isn&#8217;t:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>A module object is created</li>
+<li>The code in the file is run</li>
+<li>The module is added to sys.modules</li>
+<li>The module is added to the current namespace.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="implications-of-module-import-process">
+<h3>Implications of module import process:<a class="headerlink" href="#implications-of-module-import-process" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">The code in a module only runs once per program run.</p>
+</li>
+<li><p class="first">Importing a module again is cheap and fast.</p>
+</li>
+<li><p class="first">Every place your code imports a module it gets the <em>same</em> object
+- You can use this to share &#8220;global&#8221; state where you want to.</p>
+</li>
+<li><p class="first">If you change the code in a module while the program is running &#8211; the
+change will <strong>not</strong> show up, even if re-imported.</p>
+<blockquote>
+<div><ul class="simple">
+<li>That&#8217;s what <code class="docutils literal"><span class="pre">reload()</span></code> is for.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="basic-package-structure">
 <h3>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">package_name</span><span class="o">/</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package_name</span><span class="o">/</span>
     <span class="nb">bin</span><span class="o">/</span>
     <span class="n">CHANGES</span><span class="o">.</span><span class="n">txt</span>
     <span class="n">docs</span><span class="o">/</span>
@@ -205,11 +401,11 @@ structured package eases development.</p>
     <span class="n">README</span><span class="o">.</span><span class="n">txt</span>
     <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
     <span class="n">package_name</span><span class="o">/</span>
-          <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+          <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
           <span class="n">module1</span><span class="o">.</span><span class="n">py</span>
           <span class="n">module2</span><span class="o">.</span><span class="n">py</span>
           <span class="n">test</span><span class="o">/</span>
-              <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+              <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
               <span class="n">test_module1</span><span class="o">.</span><span class="n">py</span>
               <span class="n">test_module2</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -227,7 +423,7 @@ structured package eases development.</p>
 <p><code class="docutils literal"><span class="pre">package_name/</span></code>: The main pacakge &#8211; this is where the code goes.</p>
 <p><code class="docutils literal"><span class="pre">test/</span></code>: your unit tests. Options here:</p>
 <p>Put it inside the package &#8211; supports</p>
-<div class="highlight-default"><div class="highlight"><pre>$ pip install package_name
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install package_name
 &gt;&gt; import package_name.test
 &gt;&gt; package_name.test.runall()
 </pre></div>
@@ -240,22 +436,22 @@ structured package eases development.</p>
 <p>It is python code, so you can add anything custom you need to it</p>
 <p>But in the simple case, it is essentially declarative.</p>
 <p><code class="docutils literal"><span class="pre">http://docs.python.org/3/distutils/</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
 
  <span class="n">setup</span><span class="p">(</span>
-   <span class="n">name</span><span class="o">=</span><span class="s">&#39;PackageName&#39;</span><span class="p">,</span>
-   <span class="n">version</span><span class="o">=</span><span class="s">&#39;0.1.0&#39;</span><span class="p">,</span>
-   <span class="n">author</span><span class="o">=</span><span class="s">&#39;An Awesome Coder&#39;</span><span class="p">,</span>
-   <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;aac@example.com&#39;</span><span class="p">,</span>
-   <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;package_name&#39;</span><span class="p">,</span> <span class="s">&#39;package_name.test&#39;</span><span class="p">],</span>
-   <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;bin/script1&#39;</span><span class="p">,</span><span class="s">&#39;bin/script2&#39;</span><span class="p">],</span>
-   <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://pypi.python.org/pypi/PackageName/&#39;</span><span class="p">,</span>
-   <span class="n">license</span><span class="o">=</span><span class="s">&#39;LICENSE.txt&#39;</span><span class="p">,</span>
-   <span class="n">description</span><span class="o">=</span><span class="s">&#39;An awesome package that does something&#39;</span><span class="p">,</span>
-   <span class="n">long_description</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PackageName&#39;</span><span class="p">,</span>
+   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.1.0&#39;</span><span class="p">,</span>
+   <span class="n">author</span><span class="o">=</span><span class="s1">&#39;An Awesome Coder&#39;</span><span class="p">,</span>
+   <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;aac@example.com&#39;</span><span class="p">,</span>
+   <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;package_name&#39;</span><span class="p">,</span> <span class="s1">&#39;package_name.test&#39;</span><span class="p">],</span>
+   <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bin/script1&#39;</span><span class="p">,</span><span class="s1">&#39;bin/script2&#39;</span><span class="p">],</span>
+   <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://pypi.python.org/pypi/PackageName/&#39;</span><span class="p">,</span>
+   <span class="n">license</span><span class="o">=</span><span class="s1">&#39;LICENSE.txt&#39;</span><span class="p">,</span>
+   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;An awesome package that does something&#39;</span><span class="p">,</span>
+   <span class="n">long_description</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;README.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
-       <span class="s">&quot;Django &gt;= 1.1.1&quot;</span><span class="p">,</span>
-       <span class="s">&quot;pytest&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;Django &gt;= 1.1.1&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;pytest&quot;</span><span class="p">,</span>
    <span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -265,7 +461,7 @@ structured package eases development.</p>
 <h3><code class="docutils literal"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">setup.cfg</span></code> provides a way to give the end user some ability to customise the install</p>
 <p>It&#8217;s an <code class="docutils literal"><span class="pre">ini</span></code> style file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="p">[</span><span class="n">command</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
 <span class="n">option</span><span class="o">=</span><span class="n">value</span>
 <span class="o">...</span>
 </pre></div>
@@ -280,13 +476,13 @@ structured package eases development.</p>
 <p>With a <code class="docutils literal"><span class="pre">setup.py</span></code> script defined, the distutils can do a lot:</p>
 <ul>
 <li><p class="first">builds a source distribution (defaults to tar file):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="nb">zip</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">builds binary distributions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wininst</span>
 </pre></div>
 </div>
@@ -296,12 +492,12 @@ structured package eases development.</p>
 <p>But you probably want to use wheel for binary disributions now.</p>
 <ul>
 <li><p class="first">build from source:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">and install:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </li>
@@ -310,7 +506,7 @@ structured package eases development.</p>
 <div class="section" id="setuptools">
 <h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">setuptools</span></code> is an extension to <code class="docutils literal"><span class="pre">distutils</span></code> that provides a number of extensions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
 </div>
 <p>superset of the <code class="docutils literal"><span class="pre">distutils</span> <span class="pre">setup</span></code></p>
@@ -336,14 +532,14 @@ in</p>
 <p>Can be just pure python or binary with compiled extensions</p>
 <p>Compatible with virtualenv.</p>
 <p>Building a wheel:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wheel</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wheel</span>
 </pre></div>
 </div>
 <p>Create a set of wheels (a wheelhouse):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># Build a directory of wheels for pyramid and all its dependencies</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Build a directory of wheels for pyramid and all its dependencies</span>
 <span class="n">pip</span> <span class="n">wheel</span> <span class="o">--</span><span class="n">wheel</span><span class="o">-</span><span class="nb">dir</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">wheelhouse</span> <span class="n">pyramid</span>
 
-<span class="c"># Install from cached wheels</span>
+<span class="c1"># Install from cached wheels</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">wheel</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">wheelhouse</span> <span class="n">pyramid</span>
 </pre></div>
 </div>
@@ -356,7 +552,7 @@ in</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi">https://pypi.python.org/pypi</a></p>
 <p>You&#8217;ve all used this &#8211; <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> searches it.</p>
 <p>To upload your package to PyPi:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">register</span>
 
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="n">bdist_wheel</span> <span class="n">upload</span>
 </pre></div>
@@ -366,11 +562,11 @@ in</p>
 <div class="section" id="under-development">
 <h3>Under Development<a class="headerlink" href="#under-development" title="Permalink to this headline">¶</a></h3>
 <p>Develop mode is <em>really</em> <em>really</em> nice:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">./</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">./</span>
 </pre></div>
 </div>
 <p>It puts links into the python installation to your code, so that your package is installed, but any changes will immediately take effect.</p>
@@ -383,38 +579,115 @@ in</p>
 <h3>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
 <p>It can be a good idea to set up yoru tests to be run from <code class="docutils literal"><span class="pre">setup.py</span></code></p>
 <p>So that you (or your users) can:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install .
-<span class="nv">$ </span>python setup.py <span class="nb">test</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install .
+$ python setup.py <span class="nb">test</span>
 </pre></div>
 </div>
 <p>Do do this, you need to add a <code class="docutils literal"><span class="pre">test_suite</span></code> stanza in setup.py.</p>
 <p><strong>nose</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">setup</span> <span class="p">(</span>
-    <span class="c"># ...</span>
-    <span class="n">test_suite</span> <span class="o">=</span> <span class="s">&#39;nose.collector&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span> <span class="p">(</span>
+    <span class="c1"># ...</span>
+    <span class="n">test_suite</span> <span class="o">=</span> <span class="s1">&#39;nose.collector&#39;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>pytest</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">setup</span><span class="p">(</span>
-  <span class="c">#...,</span>
-  <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;pytest-runner&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-  <span class="n">tests_require</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;pytest&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-  <span class="c">#...,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+  <span class="c1">#...,</span>
+  <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pytest-runner&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="n">tests_require</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pytest&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="c1">#...,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>And create an alias into setup.cfg file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="p">[</span><span class="n">aliases</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">aliases</span><span class="p">]</span>
 <span class="n">test</span><span class="o">=</span><span class="n">pytest</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner">https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner</a></p>
 <p><strong>unittest</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">test_suite</span><span class="o">=</span><span class="s">&quot;tests&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">test_suite</span><span class="o">=</span><span class="s2">&quot;tests&quot;</span>
 </pre></div>
 </div>
 <p>(does py3 unittest have this??)</p>
+</div>
+<div class="section" id="handling-the-version-number">
+<h3>Handling the version number:<a class="headerlink" href="#handling-the-version-number" title="Permalink to this headline">¶</a></h3>
+<p>One key rule in software (and ANY computer use!):</p>
+<p>Never put the same information in more than one place!</p>
+<p>With a python package, you want:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">the_package</span>
+
+<span class="n">the_package</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+<p>To return the version string &#8211; something like:</p>
+<p>&#8220;1.2.3&#8221;</p>
+<p>But you also need to specify it in the <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;package_name&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
+      <span class="o">...</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>Not Good.</p>
+<p>My solution:</p>
+<p>Put the version in the package __init__</p>
+<p>__version__ = &#8220;1.2.3&#8221;</p>
+<p>In the setup.py, you could import the package to get the version number
+... but it not a safe practice to import you package when installing
+it (or building it, or...)</p>
+<p>So: read the __version__ string yourself:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="docutils">
+<dt>def get_version():</dt>
+<dd><p class="first">&#8220;&#8221;&#8221;
+Reads the version string from the package __init__ and returns it
+&#8220;&#8221;&#8221;
+with open(os.path.join(&#8220;capitalize&#8221;, &#8220;__init__.py&#8221;)) as init_file:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>for line in init_file:</dt>
+<dd><p class="first">parts = line.strip().partition(&#8220;=&#8221;)
+if parts[0].strip() == &#8220;__version__&#8221;:</p>
+<blockquote class="last">
+<div>return parts[2].strip().strip(&#8220;&#8217;&#8221;).strip(&#8216;&#8221;&#8217;)</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<p class="last">return None</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="semantic-versioning">
+<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
+<p>Another note on version numbers.</p>
+<p>The software development world (at least the open-source one...) has
+established a standard for what version numbers mean, known as semantic
+versioning. This is helpful to users, as they can know what to expect
+they upgrade.</p>
+<p>In short, with a x.y.z version number:</p>
+<p>x is the major version &#8211; it could mean changes in API, major features, etc.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Likely to to be incompatible with previous versions</li>
+</ul>
+</div></blockquote>
+<p>y is the minor version &#8211; added features, etc, but backwards compatible.</p>
+<p>z is the &#8220;bugfix&#8221; version &#8211; fixed bugs, should be compatible.</p>
+<p>FIXME: link to good semantic versioning reference.</p>
+</div>
+<div class="section" id="tools-to-help">
+<h3>Tools to help:<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h3>
+<p>Tox:</p>
+<p><a class="reference external" href="https://tox.readthedocs.io/en/latest/">https://tox.readthedocs.io/en/latest/</a></p>
+<p>Versioneer:</p>
+<p><a class="reference external" href="https://github.com/warner/python-versioneer">https://github.com/warner/python-versioneer</a></p>
 </div>
 <div class="section" id="getting-started">
 <h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
@@ -445,6 +718,9 @@ in</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>

@@ -1,3 +1,5 @@
+:orphan:
+
 .. _logging:
 
 ###############################
@@ -49,9 +51,8 @@ https://docs.python.org/3.5/howto/logging.html
 
 http://docs.python-guide.org/en/latest/writing/logging/
 
-https://pymotw.com/2/logging/
+https://pymotw.com/3/logging/
 
-NOTE: the last one hasn't been updated for py3 -- but not much (anything?) has changed.
 
 Why not ``print()``?
 --------------------
@@ -120,11 +121,24 @@ The logging API provides easy ways to send messages with these levels:
 
 .. code-block:: python
 
-    logging.debug('this is a debuggin message')
+    logging.debug('this is a debugging message')
 
 
 https://docs.python.org/3/library/logging.html#levels
 
+similarly:
+
+.. code-block:: python
+
+    logging.critical('this is a critical message')
+    logging.error('this is a error message')
+    logging.warning('this is a warning message')
+    logging.info('this is a information message')
+    logging.debug('this is a debug message')
+
+Note that if you have not configured the logger, a default configuration will automatically be set up -- so you can alwlays call these in yoru code, and it won't fail.
+
+This is actually particularly nice -- you can add logging messages to your code, and they will "do the right thing" when run inside any application, whether it's been spcifically configured or not.
 
 The logging classes
 -------------------
@@ -213,7 +227,7 @@ So you can use a formatter to add the data you want to your log entry.
 
 .. code-block:: python
 
-   formatter = logging.Formatter('%(levelname)9s - %(module)s - %(message)s')
+   formatter = logging.Formatter('%(levelname)s - %(module)s - %(message)s')
 
 ``levelname`` is the "level" of the log message: debug, warning, etc. ``module`` is the name of the module the message came from. ``message`` is the message itself.
 
@@ -228,7 +242,7 @@ The Filter classes
 
 Each ``Logger`` can have a ``Filter`` object.
 
-``Filters`` determine lwhich messages will be handled by a given logger, and which pass on to other loggers up the hierarchy.
+``Filters`` determine which messages will be handled by a given logger, and which pass on to other loggers up the hierarchy.
 
 They can do very flexible filtering based on where the message came from, etc.
 
@@ -267,7 +281,7 @@ This creates a "root" logger, and sets it up with:
 
 * sets up the handler to use the provided format string
 
-  -  ``asctime`` provides a datetime stamp (you can spcify a format for that, too)
+  -  ``asctime`` provides a datetime stamp (you can specify a format for that, too)
 
 * sets the level to debug -- so all messages will get logged.
 
@@ -304,6 +318,7 @@ In there, a logging system is set up that logs to a file, and also the console.
 It calls a fake "application" that does things in random order, logging as it goes...
 
 Let's go check it out!
+
 
 References
 ----------

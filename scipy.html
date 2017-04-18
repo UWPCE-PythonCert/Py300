@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Intro to Numpy / Scipy</a><ul>
 <li><a class="reference internal" href="#id1">Scipy</a><ul>
 <li><a class="reference internal" href="#what-s-in-the-scipy-stack">What&#8217;s in the scipy stack?</a></li>
@@ -141,8 +147,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -151,23 +159,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Intro to Numpy / Scipy</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Intro to Numpy / Scipy</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/scipy.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -219,7 +244,7 @@ Python code.</p>
 <p>It turns out it has antoher interface: the &#8220;notebook&#8221;</p>
 <p>The notebook provides a way to intersperse little chunks of code, and text, and images, etc...</p>
 <p>It runs in a browser, you start it up with:</p>
-<div class="highlight-bash"><div class="highlight"><pre>jupyter notebook
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter notebook
 </pre></div>
 </div>
 <p>It should start your browser, and show you the notebooks in the dir you started it up in.</p>
@@ -229,12 +254,12 @@ Python code.</p>
 <h3>Jupyter<a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s get the Jupyter notebook installed and running.</p>
 <p>Hopefully:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyter</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyter</span>
 </pre></div>
 </div>
 <p>Will do it.</p>
 <p>Then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">jupyter</span> <span class="n">notebook</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
 </pre></div>
 </div>
 <p>Should start it up.</p>
@@ -350,7 +375,7 @@ numpy is really the core of everything.</p>
 <p>Element-wise operations among two different rank arrays:</p>
 <p>This is the key power of numpy!</p>
 <p>Simple case: scalar and array:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [37]: </span><span class="n">a</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [37]: </span><span class="n">a</span>
 <span class="gh">Out[37]: </span><span class="go">array([1, 2, 3])</span>
 <span class="gp">In [38]: </span><span class="n">a</span><span class="o">*</span><span class="mi">3</span>
 <span class="gh">Out[38]: </span><span class="go">array([3, 6, 9])</span>
@@ -647,6 +672,9 @@ values in it.</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>

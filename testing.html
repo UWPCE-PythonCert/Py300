@@ -95,7 +95,16 @@
 <li><a class="reference internal" href="#unittest">unittest</a></li>
 <li><a class="reference internal" href="#unittest-testcase-anatomy">unittest.TestCase anatomy</a></li>
 <li><a class="reference internal" href="#assert-methods">Assert Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-your-tests">Running your tests</a><ul>
+<li><a class="reference internal" href="#running-tests-in-a-single-module">running tests in a single module</a></li>
+<li><a class="reference internal" href="#test-suites">Test Suites</a></li>
+<li><a class="reference internal" href="#pytest-and-nose2">pytest and Nose2</a></li>
 <li><a class="reference internal" href="#fixtures-setting-up-your-tests-for-success">Fixtures: Setting up your tests for success</a></li>
+<li><a class="reference internal" href="#fixtures-in-unittest">Fixtures in unittest</a></li>
+<li><a class="reference internal" href="#fixtures-in-pytest">Fixtures in pytest</a></li>
+<li><a class="reference internal" href="#teardown">&#8220;teardown&#8221;</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#testing-floating-point-values">Testing floating point values</a><ul>
@@ -104,31 +113,21 @@
 <li><a class="reference internal" href="#what-is-close">What is close?</a></li>
 <li><a class="reference internal" href="#isclose"><code class="docutils literal"><span class="pre">isclose()</span></code></a></li>
 <li><a class="reference internal" href="#using-isclose-with-unittest">Using <code class="docutils literal"><span class="pre">isclose()</span></code> with <code class="docutils literal"><span class="pre">unittest</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#running-your-tests">Running your tests</a><ul>
-<li><a class="reference internal" href="#running-tests-in-a-single-module">running tests in a single module</a></li>
-<li><a class="reference internal" href="#test-suites">Test Suites</a></li>
-<li><a class="reference internal" href="#pytest-and-nose2">pytest and Nose2</a></li>
-<li><a class="reference internal" href="#pytest-plugins">pytest plugins</a></li>
 <li><a class="reference internal" href="#parameterized-tests">Parameterized Tests</a></li>
-<li><a class="reference internal" href="#running-coverage">running coverage</a></li>
+<li><a class="reference internal" href="#pytest-mark-parametrize"><code class="docutils literal"><span class="pre">pytest.mark.parametrize</span></code></a></li>
+<li><a class="reference internal" href="#code-coverage">Code Coverage</a></li>
+<li><a class="reference internal" href="#the-coverage-tool">The coverage tool</a></li>
 <li><a class="reference internal" href="#branch-coverage">branch coverage</a></li>
+<li><a class="reference internal" href="#using-coverage-with-pytest">Using coverage with pytest</a></li>
 <li><a class="reference internal" href="#doctests">Doctests</a></li>
 <li><a class="reference internal" href="#test-driven-development-tdd">Test Driven Development (TDD)</a></li>
 <li><a class="reference internal" href="#exercises">Exercises</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#context-managers">Context managers</a><ul>
-<li><a class="reference internal" href="#context-managers-via-the-with-statement">Context managers via the &#8220;with&#8221; statement</a></li>
-<li><a class="reference internal" href="#writing-a-context-manager">Writing a context manager</a></li>
-<li><a class="reference internal" href="#context-manager-exercise">Context Manager exercise</a></li>
 <li><a class="reference internal" href="#now-we-ve-got-the-tools-to-really-test">Now we&#8217;ve got the tools to really test</a></li>
 <li><a class="reference internal" href="#using-mock-objects">Using Mock objects</a></li>
 <li><a class="reference internal" href="#mocks">Mocks</a></li>
 <li><a class="reference internal" href="#easy-mocking-with-mock-patch">Easy mocking with mock.patch</a></li>
 <li><a class="reference internal" href="#using-patch">Using patch</a></li>
-<li><a class="reference internal" href="#id2">Exercises</a></li>
+<li><a class="reference internal" href="#exercise">Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +246,7 @@ input some code may get.</p>
 <li>Test behavior not implementation</li>
 <li>Mocking is available to fake stuff you may not want to run in your tests.</li>
 </ol>
-<p>This all applies regardless of yoru test framework</p>
+<p>This all applies regardless of your test framework</p>
 </div>
 <div class="section" id="unittest">
 <h3>unittest<a class="headerlink" href="#unittest" title="Permalink to this headline">¶</a></h3>
@@ -314,13 +313,73 @@ for validation, here are a few common ones:</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="running-your-tests">
+<h2>Running your tests<a class="headerlink" href="#running-your-tests" title="Permalink to this headline">¶</a></h2>
+<p class="medium">How do you actually run your tests?</p>
+<div class="section" id="running-tests-in-a-single-module">
+<h3>running tests in a single module<a class="headerlink" href="#running-tests-in-a-single-module" title="Permalink to this headline">¶</a></h3>
+<p>Call unittest.main() right in your module</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+          <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+<span class="c1"># or from the command line:</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span>  <span class="c1"># with or without .py on end</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span><span class="o">.</span><span class="n">TestClass</span>  <span class="c1"># particular class in a module</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span><span class="o">.</span><span class="n">TestClass</span><span class="o">.</span><span class="n">test_method</span>  <span class="c1"># particular test</span>
+</pre></div>
+</div>
+<p>If it gets cumbersome with many TestCases, organize the tests into a
+test suite</p>
+</div>
+<div class="section" id="test-suites">
+<h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
+<p>Test suites group test cases into a single testable unit</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">calculator_test</span> <span class="k">import</span> <span class="n">TestCalculatorFunctions</span>
+
+<span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestCalculatorFunctions</span><span class="p">)</span>
+
+<span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tests can also be organized into suites in the</p>
+<p><code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code></p>
+<p>block</p>
+</div>
+<div class="section" id="pytest-and-nose2">
+<h3>pytest and Nose2<a class="headerlink" href="#pytest-and-nose2" title="Permalink to this headline">¶</a></h3>
+<p>Nose2 is the new nose. Nose no longer maintained, and directs users to nose2.
+But Nose2 is not all that well maintained either.</p>
+<p>Both pytest and Nose2 are test runners: they autodiscover test cases</p>
+<p>They will find tests for you so you can focus on writing tests, not
+maintaining test suites</p>
+<p>To find tests, pytest and nose look for modules (such as python files)
+whose names start with ‘test’. In those modules, they will load tests
+from all unittest.TestCase subclasses, as well as functions whose names
+start with ‘test’.</p>
+<p>So running your tests is as easy as</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pytest
+or
+$ nose2
+</pre></div>
+</div>
+<p><a class="reference external" href="http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests">http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests</a></p>
+<p><a class="reference external" href="https://docs.pytest.org/en/latest/index.html">https://docs.pytest.org/en/latest/index.html</a></p>
+<p>A number of projects use nose &#8211; so you may encounter it, but we&#8217;ll focus
+on pytest for now.</p>
+</div>
 <div class="section" id="fixtures-setting-up-your-tests-for-success">
 <h3>Fixtures: Setting up your tests for success<a class="headerlink" href="#fixtures-setting-up-your-tests-for-success" title="Permalink to this headline">¶</a></h3>
 <p>(or failure!)</p>
 <p>Test fixtures are a fixed baseline for tests to run from consistently,
-also known as test context</p>
+also known as test context.</p>
 <p>Fixtures can be set up fresh before each test, once before each test
-case, or before an entire test suite</p>
+case, or before an entire test suite.</p>
+</div>
+<div class="section" id="fixtures-in-unittest">
+<h3>Fixtures in unittest<a class="headerlink" href="#fixtures-in-unittest" title="Permalink to this headline">¶</a></h3>
 <p>unittest provides fixture support via these methods:</p>
 <ul class="simple">
 <li>setUp / tearDown - these are run before and after each test method</li>
@@ -329,6 +388,53 @@ case, or before an entire test suite</p>
 <li>addCleanup / doCleanups - called after tearDown,
 in case a test throws an exception</li>
 </ul>
+</div>
+<div class="section" id="fixtures-in-pytest">
+<h3>Fixtures in pytest<a class="headerlink" href="#fixtures-in-pytest" title="Permalink to this headline">¶</a></h3>
+<p>pytest provides a fixture system that is powerful and flexible:</p>
+<p><a class="reference external" href="https://docs.pytest.org/en/latest/fixture.html#fixture">https://docs.pytest.org/en/latest/fixture.html#fixture</a></p>
+<p>You use a decorator to create a fixture:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="nd">@pytest.fixture</span>
+<span class="k">def</span> <span class="nf">smtp</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">smtplib</span>
+    <span class="k">return</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s2">&quot;smtp.gmail.com&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A fixture is simply a function that will get run when it it used, and
+returns <em>something</em> that your tests need:</p>
+<p>To use a fixture, you add it as a parameter to your test function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_ehlo</span><span class="p">(</span><span class="n">smtp</span><span class="p">):</span>
+    <span class="n">response</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">smtp</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">response</span> <span class="o">==</span> <span class="mi">250</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="c1"># for demo purposes</span>
+</pre></div>
+</div>
+<p>the parameter gets set to the value returned by the fixture function.
+The fixture function is automatically run before each test.</p>
+<p>Let&#8217;s see this in action:</p>
+<p>in: <code class="docutils literal"><span class="pre">Examples\testing</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">v</span> <span class="n">pytest_fixtures</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">-s</span></code> tells pytest not to capture stdout &#8211; so we can see print statements)</p>
+<p>The <code class="docutils literal"><span class="pre">-v</span></code> is verbose mode &#8211; so we can see a bit more what is going on.</p>
+</div>
+<div class="section" id="teardown">
+<h3>&#8220;teardown&#8221;<a class="headerlink" href="#teardown" title="Permalink to this headline">¶</a></h3>
+<p>If your fixture needs to clean itself up after its done, this is known as
+&#8220;teardown&#8221;</p>
+<p>to accomplish this in pytest, you use &#8220;yield&#8221;, rather than &#8220;return&#8221;.</p>
+<p>The teardowncode will run after the yield</p>
+<p>&#64;pytest.fixture()
+def smtp(request):</p>
+<blockquote>
+<div>smtp = smtplib.SMTP(&#8220;smtp.gmail.com&#8221;)
+yield smtp  # provide the fixture value
+print(&#8220;teardown smtp&#8221;)
+smtp.close()</div></blockquote>
+<p>See the example again for this...</p>
 </div>
 </div>
 <div class="section" id="testing-floating-point-values">
@@ -498,81 +604,82 @@ in the error:</p>
 <p>Not that helpful &#8211; is it?</p>
 <p><code class="docutils literal"><span class="pre">pytest</span></code> give you nice informative messages when tests fail &#8211; without special asserts.</p>
 </div>
-</div>
-<div class="section" id="running-your-tests">
-<h2>Running your tests<a class="headerlink" href="#running-your-tests" title="Permalink to this headline">¶</a></h2>
-<p class="medium">How do you actually run your tests?</p>
-<div class="section" id="running-tests-in-a-single-module">
-<h3>running tests in a single module<a class="headerlink" href="#running-tests-in-a-single-module" title="Permalink to this headline">¶</a></h3>
-<p>Call unittest.main() right in your module</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
-
-<span class="c1"># or from the command line:</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span>  <span class="c1"># with or without .py on end</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span><span class="o">.</span><span class="n">TestClass</span>  <span class="c1"># particular class in a module</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">test_my_module</span><span class="o">.</span><span class="n">TestClass</span><span class="o">.</span><span class="n">test_method</span>  <span class="c1"># particular test</span>
-</pre></div>
-</div>
-<p>If it gets cumbersome with many TestCases, organize the tests into a
-test suite</p>
-</div>
-<div class="section" id="test-suites">
-<h3>Test Suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
-<p>Test suites group test cases into a single testable unit</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
-
-<span class="kn">from</span> <span class="nn">calculator_test</span> <span class="k">import</span> <span class="n">TestCalculatorFunctions</span>
-
-<span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestCalculatorFunctions</span><span class="p">)</span>
-
-<span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Tests can also be organized into suites in the</p>
-<p><code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code></p>
-<p>block</p>
-</div>
-<div class="section" id="pytest-and-nose2">
-<h3>pytest and Nose2<a class="headerlink" href="#pytest-and-nose2" title="Permalink to this headline">¶</a></h3>
-<p>Nose2 is the new nose. Nose no longer maintained, and directs users to nose2.
-But Nose2 is not all that well maintained either.</p>
-<p>Both pytest and Nose2 are test runners: they autodiscover test cases</p>
-<p>They will find tests for you so you can focus on writing tests, not
-maintaining test suites</p>
-<p>To find tests, pytest and nose look for modules (such as python files)
-whose names start with ‘test’. In those modules, they will load tests
-from all unittest.TestCase subclasses, as well as functions whose names
-start with ‘test’.</p>
-<p>So running your tests is as easy as</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pytest
-or
-$ nose2
-</pre></div>
-</div>
-<p><a class="reference external" href="http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests">http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests</a></p>
-<p><a class="reference external" href="https://docs.pytest.org/en/latest/index.html">https://docs.pytest.org/en/latest/index.html</a></p>
-<p>A number of projects use nose &#8211; so you may encounter it, but we&#8217;ll focus
-on pytest for now.</p>
-</div>
-<div class="section" id="pytest-plugins">
-<h3>pytest plugins<a class="headerlink" href="#pytest-plugins" title="Permalink to this headline">¶</a></h3>
-<p>Many plugins exist for pytest (and nose2), such as code coverage:</p>
-<p>Some plugins, such as coverage, must be additionally installed</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install pip install pytest-cov
-# now it can be used
-$ py.test --cov=myproj
-</pre></div>
-</div>
-<p><a class="reference external" href="https://pypi.python.org/pypi/pytest-cov">https://pypi.python.org/pypi/pytest-cov</a></p>
-</div>
 <div class="section" id="parameterized-tests">
 <h3>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics">https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics</a></p>
+<p>Often you want to run exactly the same tests, but with different outputs and inputs.</p>
+<p>You can do this a really naive way, but putting multiple asserts into one test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_multiply</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">4</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
 </div>
-<div class="section" id="running-coverage">
-<h3>running coverage<a class="headerlink" href="#running-coverage" title="Permalink to this headline">¶</a></h3>
-<p>Install with <code class="docutils literal"><span class="pre">pip</span></code>. Written by Ned Batchelder</p>
+<p>If they all pass, fine, but if not, it will fail on the first one,
+and you&#8217;ll have no idea if the others pass.</p>
+<p>Plus, it gets a bit tedious to write, particularly if the code is more
+complex than a single function call.</p>
+<p>You can write a separate test for each case:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_multiply_both_posative</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">test_multiply_one_negative</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">test_multiply_both_negative</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+
+<span class="k">def</span> <span class="nf">test_multiply_second_zero</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">test_multiply_first_zero</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>But talk about tedious!!!</p>
+<p>Unfortunately, <code class="docutils literal"><span class="pre">unittest</span></code> does not have a built-in way to solve this
+problem. There are hacks to do it &#8211; google them to find out how. Here is one:</p>
+<p><a class="reference external" href="http://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases">http://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases</a></p>
+</div>
+<div class="section" id="pytest-mark-parametrize">
+<h3><code class="docutils literal"><span class="pre">pytest.mark.parametrize</span></code><a class="headerlink" href="#pytest-mark-parametrize" title="Permalink to this headline">¶</a></h3>
+<p>Pytest does provide a nifty way to do it:</p>
+<p><a class="reference external" href="https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics">https://docs.pytest.org/en/latest/parametrize.html#parametrize-basics</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">param_names</span> <span class="o">=</span> <span class="s2">&quot;arg1, arg2, result&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+          <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+          <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+          <span class="p">]</span>
+<span class="nd">@pytest.mark.parametrize</span><span class="p">(</span><span class="n">param_names</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_multiply</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">multiply</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span> <span class="o">==</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>I find this very, very, useful.</p>
+<p>See <code class="docutils literal"><span class="pre">Examples/teseting/calculator/test_calculator_pytest.py</span></code></p>
+</div>
+<div class="section" id="code-coverage">
+<h3>Code Coverage<a class="headerlink" href="#code-coverage" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;Coverage&#8221; is the fraction of your code that is run by your tests.
+That is, how much code is &#8220;covered&#8221; by the tests.</p>
+<p>It&#8217;s usually reorted as a percentage of lines of code that were run.</p>
+<p>If a line of code is <em>not</em> run in your tests &#8211; you can be pretty
+sure it hasn&#8217;t been tested &#8211; so how do you know it works?</p>
+<p>So 100% coverage is a good goal (though harder to achieve than you might think!)</p>
+<p>Keep in mind that 100% coverage does <strong>NOT</strong> mean that you code is fuly tested
+&#8211; you have no idea how many corner cases may not have been checked.</p>
+<p>But it&#8217;s a good start.</p>
+</div>
+<div class="section" id="the-coverage-tool">
+<h3>The coverage tool<a class="headerlink" href="#the-coverage-tool" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;Coverage.py&#8221; is a tool (written by Ned Batchelder) for checking code testing
+coverage in python:</p>
+<p><a class="reference external" href="https://coverage.readthedocs.io/en/coverage-4.3.4/">https://coverage.readthedocs.io/en/coverage-4.3.4/</a></p>
+<p>It can be installed with <code class="docutils literal"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">coverage</span>
+</pre></div>
+</div>
 <p>To run coverage on your test suite:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coverage</span> <span class="n">run</span> <span class="n">my_program</span><span class="o">.</span><span class="n">py</span> <span class="n">arg1</span> <span class="n">arg2</span>
 </pre></div>
@@ -609,11 +716,26 @@ option to run</p>
 </div>
 <p><a class="reference external" href="http://nedbatchelder.com/code/coverage/branch.html">http://nedbatchelder.com/code/coverage/branch.html</a></p>
 </div>
+<div class="section" id="using-coverage-with-pytest">
+<h3>Using coverage with pytest<a class="headerlink" href="#using-coverage-with-pytest" title="Permalink to this headline">¶</a></h3>
+<p>There is a plug-in for pytest that will run coverage for you when you run your tests:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install pytest-cov
+# now it can be used
+$ py.test --cov test_file.py
+</pre></div>
+</div>
+<p><a class="reference external" href="https://pypi.python.org/pypi/pytest-cov">https://pypi.python.org/pypi/pytest-cov</a></p>
+<p>There are a number of ways to invoke it and get different reports:</p>
+<p>To get a nifty html report:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span> <span class="o">--</span><span class="n">cov</span><span class="o">-</span><span class="n">report</span> <span class="n">html</span> <span class="n">test_calculator_pytest</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="doctests">
 <h3>Doctests<a class="headerlink" href="#doctests" title="Permalink to this headline">¶</a></h3>
 <p>Tests placed in docstrings to demonstrate usage of a component to a
 human in a machine testable way</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Squares x.</span>
 
@@ -655,100 +777,14 @@ single test with pytest:</p>
 <li>Add unit tests for each method in calculator_functions.py</li>
 <li>Add fixtures via setUp/tearDown methods and setUpClass/tearDownClass
 class methods. Are they behaving how you expect?</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li>Use pytest fixtures instead.</li>
 <li>Add additional unit tests for floating point calculations</li>
 <li>Fix any failures in the code</li>
 <li>Add doctests to calculator_functions.py</li>
 </ul>
-</div>
-</div>
-<div class="section" id="context-managers">
-<h2>Context managers<a class="headerlink" href="#context-managers" title="Permalink to this headline">¶</a></h2>
-<p class="medium">One more Python feature before getting back to testing...</p>
-<p class="medium">the <code class="docutils literal"><span class="pre">with</span></code> statement</p>
-<div class="section" id="context-managers-via-the-with-statement">
-<h3>Context managers via the &#8220;with&#8221; statement<a class="headerlink" href="#context-managers-via-the-with-statement" title="Permalink to this headline">¶</a></h3>
-<p>If you&#8217;ve been opening files using &#8220;with&#8221; (and you probably should be),
-you have been using context managers:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>A context manager is just a class with __enter__ and __exit__
-methods defined to handle setting up and tearing down the context</p>
-<p>Provides generalizable execution contexts in which setup and teardown of
-context are executed no matter what happens</p>
-<p>This allows us to do things like setup/teardown and separate out
-exception handling code</p>
-</div>
-<div class="section" id="writing-a-context-manager">
-<h3>Writing a context manager<a class="headerlink" href="#writing-a-context-manager" title="Permalink to this headline">¶</a></h3>
-<p>Define __enter__(self) and __exit__(self, type, value,
-traceback) on a class</p>
-<p>If __exit__ returns a true value, a caught exception is not
-re-raised</p>
-<p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">time</span>
-
-<span class="k">class</span> <span class="nc">TemporaryDirectory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A context manager for creating a temporary directory</span>
-<span class="sd">       which gets destroyed on context exit&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">directory</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span> <span class="o">=</span> <span class="n">directory</span>
-
-    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_directory</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="s2">&quot;/tmp/foo&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">dir</span><span class="p">:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><a class="reference external" href="http://www.python.org/dev/peps/pep-0343/">http://www.python.org/dev/peps/pep-0343/</a></p>
-</div>
-<div class="section" id="context-manager-exercise">
-<h3>Context Manager exercise<a class="headerlink" href="#context-manager-exercise" title="Permalink to this headline">¶</a></h3>
-<p>Create a context manager which prints information on all exceptions
-which occur in the context and continues execution</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">YourExceptionHandler</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;do some stuff here&quot;</span><span class="p">)</span>
-    <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;should still reach this point&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Also see the <a class="reference external" href="http://docs.python.org/3/library/contextlib.html">contextlib
-module</a></p>
-<p>Why might using a context manager be better than implementing this with
-try..except..finally ?</p>
-<p>For entire code block, see <a class="reference external" href="https://www.python.org/dev/peps/pep-0343/">https://www.python.org/dev/peps/pep-0343/</a> (Specification)</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">EXPR</span> <span class="k">as</span> <span class="n">VAR</span><span class="p">:</span>
-    <span class="n">BLOCK</span>
-<span class="c1"># vs.</span>
-<span class="n">mgr</span> <span class="o">=</span> <span class="p">(</span><span class="n">EXPR</span><span class="p">)</span>
-<span class="n">exit</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">mgr</span><span class="p">)</span><span class="o">.</span><span class="n">__exit__</span>  <span class="c1"># Not calling it yet</span>
-<span class="n">value</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">mgr</span><span class="p">)</span><span class="o">.</span><span class="n">__enter__</span><span class="p">(</span><span class="n">mgr</span><span class="p">)</span>
-<span class="n">exc</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">VAR</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># Only if &quot;as VAR&quot; is present</span>
-        <span class="n">BLOCK</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="c1"># The exceptional case is handled here</span>
-        <span class="n">exc</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">exit</span><span class="p">(</span><span class="n">mgr</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()):</span>
-            <span class="k">raise</span>
-        <span class="c1"># The exception is swallowed if exit() returns true</span>
-<span class="k">finally</span><span class="p">:</span>
-    <span class="c1"># The normal and non-local-goto cases are handled here</span>
-    <span class="k">if</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">mgr</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="now-we-ve-got-the-tools-to-really-test">
 <h3>Now we&#8217;ve got the tools to really test<a class="headerlink" href="#now-we-ve-got-the-tools-to-really-test" title="Permalink to this headline">¶</a></h3>
@@ -814,12 +850,12 @@ undone</p>
 </div>
 <p><a class="reference external" href="http://www.voidspace.org.uk/python/mock/patch.html">http://www.voidspace.org.uk/python/mock/patch.html</a></p>
 </div>
-<div class="section" id="id2">
-<h3>Exercises<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>When define.py is given the name of a non-existant article, an exception
+<div class="section" id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<p>When define.py is given the name of a non-existent article, an exception
 is thrown. This exception causes another exception to occur, and the whole thing
 is not very readable. Why does this happen?</p>
-<p>Use what you learned last week about exceptions to throw a better exception, and
+<p>Use what you know about exceptions to throw a better exception, and
 then add a new test that confirms this behavior. Use mock for your test, so you
 are not hammering Wikipedia.</p>
 </div>

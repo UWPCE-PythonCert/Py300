@@ -89,6 +89,9 @@
 <li><a class="reference internal" href="#what-is-a-package">What is a Package?</a></li>
 <li><a class="reference internal" href="#python-packaging-tools">Python packaging tools:</a></li>
 <li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
+<li><a class="reference internal" href="#packages-modules-imports-oh-my">Packages, modules, imports, oh my!</a></li>
+<li><a class="reference internal" href="#sys-modules">sys.modules</a></li>
+<li><a class="reference internal" href="#implications-of-module-import-process">Implications of module import process:</a></li>
 <li><a class="reference internal" href="#basic-package-structure">Basic Package Structure:</a></li>
 <li><a class="reference internal" href="#the-setup-py-file">The <code class="docutils literal"><span class="pre">setup.py</span></code> File</a></li>
 <li><a class="reference internal" href="#setup-cfg"><code class="docutils literal"><span class="pre">setup.cfg</span></code></a></li>
@@ -98,6 +101,9 @@
 <li><a class="reference internal" href="#pypi">PyPi</a></li>
 <li><a class="reference internal" href="#under-development">Under Development</a></li>
 <li><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li><a class="reference internal" href="#handling-the-version-number">Handling the version number:</a></li>
+<li><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a></li>
+<li><a class="reference internal" href="#tools-to-help">Tools to help:</a></li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#lab">LAB</a></li>
 </ul>
@@ -193,6 +199,112 @@ structured package eases development.</p>
 <p>And a sample project here:</p>
 <p><a class="reference external" href="https://github.com/pypa/sampleproject">https://github.com/pypa/sampleproject</a></p>
 <p>(this has all the complexity you might need...)</p>
+<p>And a couple good references:</p>
+<p><a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
+<p>This is a python package that helps you build a python package:</p>
+<p><a class="reference external" href="https://github.com/ionelmc/cookiecutter-pylibrary">https://github.com/ionelmc/cookiecutter-pylibrary</a>
+<a class="reference external" href="https://blog.ionelmc.ro/2014/05/25/python-packaging/">https://blog.ionelmc.ro/2014/05/25/python-packaging/</a></p>
+<p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a>
+<a class="reference external" href="https://github.com/audreyr/cookiecutter">https://github.com/audreyr/cookiecutter</a></p>
+</div>
+<div class="section" id="packages-modules-imports-oh-my">
+<h3>Packages, modules, imports, oh my!<a class="headerlink" href="#packages-modules-imports-oh-my" title="Permalink to this headline">¶</a></h3>
+<p>Before we get started on making your own package &#8211; let&#8217;s remind
+ourselves about packages and modules, and importing....</p>
+<p><strong>Modules</strong></p>
+<p>A python &#8220;module&#8221; is a siingle namespace, with a collection of values:</p>
+<blockquote>
+<div><ul class="simple">
+<li>functions</li>
+<li>constants</li>
+<li>class definitions</li>
+<li>really any old value.</li>
+</ul>
+</div></blockquote>
+<p>A module usually coresponds to a single file: <code class="docutils literal"><span class="pre">something.py</span></code></p>
+<p><strong>Packages</strong></p>
+<p><strong>Importing</strong></p>
+<p>You usually import a module like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">something</span>
+</pre></div>
+</div>
+<p><strong>``import *``</strong></p>
+<p><code class="docutils literal"><span class="pre">_all__</span></code></p>
+<p>import as</p>
+<p><code class="docutils literal"><span class="pre">relative</span> <span class="pre">imports</span></code></p>
+</div>
+<div class="section" id="sys-modules">
+<h3>sys.modules<a class="headerlink" href="#sys-modules" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="nb">type</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">dict</span>
+
+<span class="gp">In [6]: </span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">]</span>
+<span class="gh">Out[6]: </span><span class="go">&lt;module &#39;textwrap&#39; from &#39;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#39;&gt;</span>
+
+<span class="gp">In [10]: </span><span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span>
+<span class="gh">Out[10]:</span>
+<span class="go">[&#39;__spec__&#39;,</span>
+<span class="go"> &#39;__package__&#39;,</span>
+<span class="go"> &#39;__loader__&#39;,</span>
+<span class="go"> &#39;__doc__&#39;,</span>
+<span class="go"> &#39;__cached__&#39;,</span>
+<span class="go"> &#39;__name__&#39;,</span>
+<span class="go"> &#39;__all__&#39;,</span>
+<span class="go"> &#39;__file__&#39;,</span>
+<span class="go"> &#39;__builtins__&#39;]</span>
+</pre></div>
+</div>
+<p>you can access the module through the modules dict:</p>
+<p>In [12]: sys.modules[&#8216;textwrap&#8217;].__file__
+Out[12]: &#8216;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#8217;</p>
+<p>Which is the same as:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="kn">import</span> <span class="nn">textwrap</span>
+
+<span class="gp">In [14]: </span><span class="n">textwrap</span><span class="o">.</span><span class="n">__file__</span>
+<span class="gh">Out[14]: </span><span class="go">&#39;/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py&#39;</span>
+
+<span class="gp">In [15]: </span><span class="nb">type</span><span class="p">(</span><span class="n">textwrap</span><span class="p">)</span>
+<span class="gh">Out[15]: </span><span class="go">module</span>
+
+<span class="gp">In [16]: </span><span class="n">textwrap</span> <span class="ow">is</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;textwrap&#39;</span><span class="p">]</span>
+<span class="gh">Out[16]: </span><span class="go">True</span>
+</pre></div>
+</div>
+<p>So, more or less, when you import a module, the interpreter:</p>
+<ul class="simple">
+<li>Looks to see if the module is already in <code class="docutils literal"><span class="pre">sys.modules</span></code>.</li>
+<li>If it is, it binds a name to the existing module in the current
+module&#8217;s namespace.</li>
+<li>If it isn&#8217;t:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>A module object is created</li>
+<li>The code in the file is run</li>
+<li>The module is added to sys.modules</li>
+<li>The module is added to the current namespace.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="implications-of-module-import-process">
+<h3>Implications of module import process:<a class="headerlink" href="#implications-of-module-import-process" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">The code in a module only runs once per program run.</p>
+</li>
+<li><p class="first">Importing a module again is cheap and fast.</p>
+</li>
+<li><p class="first">Every place your code imports a module it gets the <em>same</em> object
+- You can use this to share &#8220;global&#8221; state where you want to.</p>
+</li>
+<li><p class="first">If you change the code in a module while the program is running &#8211; the
+change will <strong>not</strong> show up, even if re-imported.</p>
+<blockquote>
+<div><ul class="simple">
+<li>That&#8217;s what <code class="docutils literal"><span class="pre">reload()</span></code> is for.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="basic-package-structure">
 <h3>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h3>
@@ -415,6 +527,83 @@ $ python setup.py <span class="nb">test</span>
 </pre></div>
 </div>
 <p>(does py3 unittest have this??)</p>
+</div>
+<div class="section" id="handling-the-version-number">
+<h3>Handling the version number:<a class="headerlink" href="#handling-the-version-number" title="Permalink to this headline">¶</a></h3>
+<p>One key rule in software (and ANY computer use!):</p>
+<p>Never put the same information in more than one place!</p>
+<p>With a python package, you want:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">the_package</span>
+
+<span class="n">the_package</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+<p>To return the version string &#8211; something like:</p>
+<p>&#8220;1.2.3&#8221;</p>
+<p>But you also need to specify it in the <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;package_name&#39;</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
+      <span class="o">...</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p>Not Good.</p>
+<p>My solution:</p>
+<p>Put the version in the package __init__</p>
+<p>__version__ = &#8220;1.2.3&#8221;</p>
+<p>In the setup.py, you could import the package to get the version number
+... but it not a safe practice to import you package when installing
+it (or building it, or...)</p>
+<p>So: read the __version__ string yourself:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="docutils">
+<dt>def get_version():</dt>
+<dd><p class="first">&#8220;&#8221;&#8221;
+Reads the version string from the package __init__ and returns it
+&#8220;&#8221;&#8221;
+with open(os.path.join(&#8220;capitalize&#8221;, &#8220;__init__.py&#8221;)) as init_file:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>for line in init_file:</dt>
+<dd><p class="first">parts = line.strip().partition(&#8220;=&#8221;)
+if parts[0].strip() == &#8220;__version__&#8221;:</p>
+<blockquote class="last">
+<div>return parts[2].strip().strip(&#8220;&#8217;&#8221;).strip(&#8216;&#8221;&#8217;)</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<p class="last">return None</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="semantic-versioning">
+<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
+<p>Another note on version numbers.</p>
+<p>The software development world (at least the open-source one...) has
+established a standard for what version numbers mean, known as semantic
+versioning. This is helpful to users, as they can know what to expect
+they upgrade.</p>
+<p>In short, with a x.y.z version number:</p>
+<p>x is the major version &#8211; it could mean changes in API, major features, etc.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Likely to to be incompatible with previous versions</li>
+</ul>
+</div></blockquote>
+<p>y is the minor version &#8211; added features, etc, but backwards compatible.</p>
+<p>z is the &#8220;bugfix&#8221; version &#8211; fixed bugs, should be compatible.</p>
+<p>FIXME: link to good semantic versioning reference.</p>
+</div>
+<div class="section" id="tools-to-help">
+<h3>Tools to help:<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h3>
+<p>Tox:</p>
+<p><a class="reference external" href="https://tox.readthedocs.io/en/latest/">https://tox.readthedocs.io/en/latest/</a></p>
+<p>Versioneer:</p>
+<p><a class="reference external" href="https://github.com/warner/python-versioneer">https://github.com/warner/python-versioneer</a></p>
 </div>
 <div class="section" id="getting-started">
 <h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>

@@ -122,7 +122,83 @@ You usually import a module like this:
 
 import as
 
-``relative imports``
+relative imports
+----------------
+
+Relative imports were added with PEP 328:
+
+https://www.python.org/dev/peps/pep-0328/
+
+The final version is described here:
+
+https://www.python.org/dev/peps/pep-0328/#guido-s-decision
+
+This gets confusing! There is a good discussion on Stack Overflow here:
+
+http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time
+
+Relative imports allow you to refer to other modules relative to where the existing module is in the package hierachy, rather than in the while thing. For instance, with the following pacakge structure::
+
+  package/
+      __init__.py
+      subpackage1/
+          __init__.py
+          moduleX.py
+          moduleY.py
+      subpackage2/
+          __init__.py
+          moduleZ.py
+      moduleA.py
+
+You can do (in ``moduleX.py``):
+
+.. code-block:: python
+
+  from .moduleY import spam
+  from . import moduleY
+  from ..subpackage1 import moduleY
+  from ..subpackage2.moduleZ import eggs
+  from ..moduleA import foo
+  from ...package import bar
+  from ...sys import path
+
+Similarly to *nix shells:
+
+"." means "the current package"
+
+".." means "the package above this one"
+
+Note that you have to use the "from" form when using relative imports.
+
+**Caveats:**
+
+* you can only use relative imports from within a package
+
+* you can not use relative imports from the interpreter
+
+* you can not use reltaive imports from a top-level script
+
+
+The alternative is to always use absolute imports:
+
+.. code-block:: python
+
+  from package.subpackage import moduleX
+  from package.moduleA import foo
+
+Advantages of relative imports:
+
+* Package does not have to be installed
+
+* You can move things around, and not much has to change
+
+Advantages of absolute imports:
+
+* explicit is better than implicit
+* imports are the same regardless of where you put the package
+* imports are the same in package code, command line, tests, scripts, etc.
+
+There is debate about which is the "one way to do it" -- a bit unpythonic, but you'll need to make your own decision.
 
 
 sys.modules

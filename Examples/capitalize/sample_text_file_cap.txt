@@ -1,7 +1,6 @@
-This Is A Really Simple Text File.
-It Is Here So That I Can Test The Capitalize Script.
+This is a Really Simple Text File.
+It is Here So That I Can Test the Capitalize Script.
 
-And That's Only There To Try Out Distutils.
+And That's Only There to Try Out Packaging.
 
 So There.
-

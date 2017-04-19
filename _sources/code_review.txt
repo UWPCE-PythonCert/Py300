@@ -15,18 +15,40 @@ Code review is one of the best tools for this.
 
 Code review is like having a personal tutor.
 
+Code review helps more people to become familiar with the code.
+
+Code review squishes bugs.
+
 
 Getting code ready for review
 -----------------------------
 
-- First draft is messy
-- Refactor
-- Hope for no red marks, but expect they will be there
-- To get the most out of it, correct all that you can first
+- Write tests - if there are tests, much easier to make changes on the fly during review
+- First draft is messy, refactor before code review
+- To get the most out of it, correct all that you can before review
+- Expect advice and corrections, and learn from them!
+- For this class, messy is okay. :-)
+
+Size of code
+------------
+
 - Code to review should be between 200 and 400 lines of code
+- Code can, and often will, be part of a bigger project
+- Code should be modular, so can examine one smallish piece during review:
+   - and be able to explain how it fits in the bigger project
+   - and be able to explain what the smallish piece is doing in a few sentences
 
 
-what to look for
+When/Why to review code
+-----------------------
+
+- Think your code is ready for production
+- Have code working, but seems there is probably a better way
+- Totally Stuck
+- Having difficulty making it modular, can help you break large chunks into smaller chunks
+
+
+What to look for
 ----------------
 
 - readability
@@ -34,6 +56,7 @@ what to look for
 - tests
 - short functions/methods
 - anything not clear
+- logic issues
 
 
 Types of code review
@@ -46,8 +69,13 @@ Types of code review
 
 When refactoring or doing code reviews in person
 ------------------------------------------------
-If code is unclear:
 
-- write a comment explaining what the code is doing
+Write a comment explaining what the code is doing and/or questions about the code
+
+Then, if time permits you can jointly:
+
 - work on making the code clearer
-- goal to make it clear enough to get rid of the comment(s)
+- run tests after changes
+- goal to make it clear enough to get rid of the comment(s) that were added
+
+Or do this yourself afterwards, as you would for written code reviews

@@ -55,38 +55,54 @@ But it gets the job done -- and it does it well for the simple cases.
 
 ``wheel``: for binary distributions
 
+These last three are pretty much the standard now -- very well maintained by:
+
+"The Python Packaging Authority" -- PaPA
+
+https://www.pypa.io/en/latest/
+
 Where do I go to figure this out?
------------------------------------
+---------------------------------
 
 This is a really good guide:
 
 Python Packaging User Guide:
 
-https://packaging.python.org/en/latest/
+https://packaging.python.org/
+
+and a more detailed tutorial:
 
 http://python-packaging.readthedocs.io/en/latest/
 
-**Follow it!**
+**Follow one of them**
 
-And a sample project here:
+There is a sample project here:
 
 https://github.com/pypa/sampleproject
 
 (this has all the complexity you might need...)
 
-And a couple good references:
+You can use this as a template for your own packages.
+
+Here is an opinionated update -- a little more fancy, but some good ideas:
 
 https://blog.ionelmc.ro/2014/05/25/python-packaging/
 
-
-This is a python package that helps you build a python package:
-
-https://github.com/ionelmc/cookiecutter-pylibrary
-https://blog.ionelmc.ro/2014/05/25/python-packaging/
+Rather than doing it by hand, you can use the nifty "cookie cutter" project:
 
 https://cookiecutter.readthedocs.io/en/latest/
-https://github.com/audreyr/cookiecutter
 
+And there are a few templates that can be used with that.
+
+The core template written by the author:
+
+https://github.com/audreyr/cookiecutter-pypackage
+
+And one written by the author of the opinionated blog post above:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+
+Either are great starting points.
 
 Packages, modules, imports, oh my!
 ----------------------------------
@@ -96,19 +112,52 @@ ourselves about packages and modules, and importing....
 
 **Modules**
 
-A python "module" is a siingle namespace, with a collection of values:
+A python "module" is a single namespace, with a collection of values:
 
   * functions
   * constants
   * class definitions
   * really any old value.
 
-A module usually coresponds to a single file: ``something.py``
+A module usually corresponds to a single file: ``something.py``
 
 
 **Packages**
 
-**Importing**
+A "package" is essentially a module, except it can have other modules (and indeed other packages) inside it.
+
+A module usually corresponds to a directory with a file in it called ``__init__.py`` and any number
+of python files or other package directories::
+
+  a_package
+     __init__.py
+     module_a.py
+     a_sub_package
+       __init__.py
+       module_b.py
+
+The ``__init__.py`` can be totally empty -- or it can have arbitrary python code in it.
+The code will be run when the package is imported -- just like a module,
+
+modules inside packages are *not* automatically imported. So, with the above sgructure::
+
+  import a_package
+
+will run the code in ``a_package/__init__.py``. Any names defined in the
+``__init__.py`` will be available in::
+
+  a_package.a_name
+
+but::
+
+ a_package.module_a
+
+will not exist. To get submodules, you need to explicitly import them:
+
+  import a_package.module_a
+
+More on Importing
+-----------------
 
 You usually import a module like this:
 
@@ -116,15 +165,47 @@ You usually import a module like this:
 
   import something
 
+or::
+
+  from something import something_else
+
+or a few names from a package::
+
+  from something import (name_1,
+                         name_2,
+                         name_3,
+                         x,
+                         y)
+
+And you can rename stuff as you import it::
+
+  import numpy as np
+
+This is a common pattern for using large packages and not having to type a lot...
 
 
-**``import *``**
+``import *``
+------------
 
-``_all__``
+::
 
-import as
+  from something import *
 
-relative imports
+means: "import all the names in the module"
+
+You really don't want to do that! It is an old pattern that is now an anti-pattern
+
+But if you do encounter it, it doesn't actually import all the names --
+it imports the ones defined in teh module's ``_all__`` variable.
+
+``__all__`` is a list of names that you want import * to import -- so
+the module author can control it, and not expect all sorts of build ins
+and other modules.
+
+But really -- don't use it!
+
+
+Relative imports
 ----------------
 
 Relative imports were added with PEP 328:
@@ -270,9 +351,6 @@ Implications of module import process:
 * If you change the code in a module while the program is running -- the
   change will **not** show up, even if re-imported.
    - That's what ``reload()`` is for.
-
-
-
 
 
 
@@ -523,6 +601,8 @@ So that you (or your users) can:
 
   $ pip install .
   $ python setup.py test
+
+**Note:** there is debate about whether this is a good idea. But if you want to:
 
 Do do this, you need to add a ``test_suite`` stanza in setup.py.
 

@@ -79,3 +79,14 @@ Then, if time permits you can jointly:
 - goal to make it clear enough to get rid of the comment(s) that were added
 
 Or do this yourself afterwards, as you would for written code reviews
+
+
+How this will work in class
+---------------------------
+
+- Code can be pretty rough, no judging. :)
+- Person having code reviewed will send out link to code (a couple of days out, preferably)
+- At the beginning of the code review, reviewee will: 
+   - give a quick overview of the bigger picture
+   - give a quick overview of the specific code we will look at
+- We will go over code together. Everyone is encouraged to make comments and ask questions.

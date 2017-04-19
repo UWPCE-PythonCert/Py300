@@ -64,6 +64,8 @@ Python Packaging User Guide:
 
 https://packaging.python.org/en/latest/
 
+http://python-packaging.readthedocs.io/en/latest/
+
 **Follow it!**
 
 And a sample project here:
@@ -229,7 +231,7 @@ Basic Package Structure:
 
 ``MANIFEST.in``: description of what non-code files to include
 
-``README.txt``: description of the package -- should be written in reST (for PyPi):
+``README.txt``: description of the package -- should be written in ReST (for PyPi):
 
 (http://docutils.sourceforge.net/rst.html)
 
@@ -244,7 +246,7 @@ Basic Package Structure:
 
 ``docs/``: the documentation
 
-``package_name/``: The main pacakge -- this is where the code goes.
+``package_name/``: The main package -- this is where the code goes.
 
 ``test/``: your unit tests. Options here:
 
@@ -437,7 +439,7 @@ Good idea to use it for anything more than a single file project.
 Running tests
 -------------
 
-It can be a good idea to set up yoru tests to be run from ``setup.py``
+It can be a good idea to set up your tests to be run from ``setup.py``
 
 So that you (or your users) can:
 
@@ -540,8 +542,12 @@ So: read the __version__ string yourself::
                   return parts[2].strip().strip("'").strip('"')
       return None
 
+**Alternative:**
 
+You can have a script that automatically updates the version number in whatever
+places it needs to. For instance:
 
+https://pypi.python.org/pypi/bumpversion
 
 
 Semantic Versioning
@@ -556,15 +562,17 @@ they upgrade.
 
 In short, with a x.y.z version number:
 
-x is the major version -- it could mean changes in API, major features, etc.
+x is the Major version -- it could mean changes in API, major features, etc.
 
   - Likely to to be incompatible with previous versions
 
-y is the minor version -- added features, etc, but backwards compatible.
+y is the Minor version -- added features, etc, that are backwards compatible.
 
-z is the "bugfix" version -- fixed bugs, should be compatible.
+z is the "patch" version -- bug fixes, etc. -- should be compatible.
 
-FIXME: link to good semantic versioning reference.
+Read all about it:
+
+http://semver.org/
 
 
 Tools to help:
@@ -593,6 +601,10 @@ For anything but a single-file script (and maybe even then):
 4. Put some tests in ``package/test``
 
 5. ``py.test`` or ``nosetests``
+
+or use "Cookie Cutter":
+
+https://cookiecutter.readthedocs.io/en/latest/
 
 
 LAB

@@ -1,0 +1,54 @@
+:orphan:
+
+.. _decorators:
+
+###############################
+Decorators and Context Managers
+###############################
+
+
+Because functions are first-class objects in Python, you can write functions 
+that take functions as arguments and/or return functions as values:
+
+.. code-block:: python
+
+
+    In [1]: def my_decorator(func):
+       ...:      def inner():
+       ...:   	     print('running inner')
+       ...:      return inner
+       ...:
+
+
+    In [2]: @my_decorator
+       ...: def other_func():
+       ...:      print('running other_func')
+       ...:
+
+
+    In [3]: other_func()
+    In [3]: running inner
+
+    In [4]: other_func
+    Out[4]: <function __main__.my_decorator.<locals>.inner>
+
+Which is the same as:
+
+.. code-block:: python
+   
+    In [5]: def other_func():
+       ...:     print('running other_func()')
+
+    In [6]: other_func()
+    running other_func
+
+    In [7]: other_func = my_decorator(other_func)
+
+    In [8]: other_func()
+    running inner
+
+    In [9]: other_func
+    Out[9]: <function __main__.my_decorator.<locals>.inner>
+
+
+Decorators have the power to replace the decorated function with a different one!

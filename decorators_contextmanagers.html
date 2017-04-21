@@ -140,27 +140,26 @@ that take functions as arguments and/or return functions as values:</p>
    <span class="o">...</span><span class="p">:</span>
 
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="nd">@my_decorator</span>
-   <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
-   <span class="o">...</span><span class="p">:</span>      <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
-   <span class="o">...</span><span class="p">:</span>
-
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func()&#39;</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">running</span> <span class="n">inner</span>
+<span class="n">running</span> <span class="n">other_func</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">other_func</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">other_func</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">other_func</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">running</span> <span class="n">inner</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">other_func</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Which is the same as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
-   <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func()&#39;</span><span class="p">)</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
-<span class="n">running</span> <span class="n">other_func</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">other_func</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">other_func</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nd">@my_decorator</span>
+   <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
 <span class="n">running</span> <span class="n">inner</span>

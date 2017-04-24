@@ -345,11 +345,40 @@ iteratables are not *only* for ``for``
 
 They can be used with anything that expects an iterable:
 
-``sum``, ``tuple``, ``sorted``, ``list``, ``...``
+* ``sum``, ``map``, list comprehensions, ...
+* constructors for sequences:
+  - ``tuple``, ``sorted``, ``list``, ``...``
 
+Is an iterator a type?
+----------------------
+
+Iterators are not a type. An "iteratorable" is anything that has an ``__iter__``
+method that returns an iterator.
+
+An "iterator" is anything that conforms to the "iterator protocol":
+
+ - Has a ``__next__()`` method that returns objects.
+ - Raises ``StopIteration`` when their are no more objects to be returned.
+ - Has a ``__iter__()`` method that returns an iterator -- usually itself.
+   - sometimes the __iter__() method re-sets the iteration...
+
+https://docs.python.org/3/glossary.html#term-iterator
+
+Lots of common iterators are different types:
+
+.. code-block:: ipython
+
+  In [23]: type(iter(range(5)))
+  Out[23]: range_iterator
+
+  In [24]: iter(list())
+  Out[24]: <list_iterator at 0x104437fd0>
+
+  In [27]: type(iter(zip([],[])))
+  Out[27]: zip
 
 LAB
------
+----
 
 In the ``Examples/iterators`` dir, you will find: ``iterator_1.py``
 
@@ -380,41 +409,46 @@ In the ``Examples/iterators`` dir, you will find: ``iterator_1.py``
 Generators
 ----------
 
-**NOTE** add stuff about generators saving state in general -- not only in a loop.
-
-Generators
+**Generators**
 
 * give you an iterator object
 * no access to the underlying data ... if it even exists
 
 
 Conceptually:
-  Iterators are about various ways to loop over data.
+  "Iterators" are about various ways to loop over existing data.
 
-  Generators can generate the data on the fly.
+  "Generators" can generate the data on the fly.
 
 Practically:
-  You can use either one either way (and a generator is one type of iterator).
+  You can use either one either way (and a generator *is* an iterator).
 
   Generators do some of the book-keeping for you -- simpler syntax.
 
-yield
-------
+  Generators also can be used for any time you want to pause function
+  and pick it up where you left off.
 
-``yield``  is a way to make a quickie generator with a function:
+yield
+-----
+
+The ``yield`` keyword is the way to make a generator with a function:
 
 .. code-block:: python
 
     def a_generator_function(params):
         some_stuff
         yield something
+        do_some_more_stuff
 
 Generator functions "yield" a value, rather than returning a value.
 
+It is *does* return a value, but rather than ending execution of the
+function -- it preserves the state so it can pick up where it left off.
+
 State is preserved in between yields.
 
-
-.. nextslide:: generator functions
+generator functions
+-------------------
 
 A function with ``yield``  in it is a "factory" for a generator
 
@@ -428,6 +462,14 @@ Each time you call it, you get a new generator:
 Each instance keeps its own state.
 
 Really just a shorthand for an iterator class that does the book keeping for you.
+
+To master yield, you must understand that when you call the function,
+the code you have written in the function body does not run. The function
+only returns the generator object. The actual code in the function is run
+when next() is called on the generator itself.
+
+And note that each time you call the "generator function" you get a new
+instance of a generator object that saves state separately from other instances.
 
 .. nextslide::
 
@@ -443,8 +485,7 @@ An example: like ``range()``
 
 Real World Example from FloatCanvas:
 
-https://github.com/svn2github/wxPython/blob/master/3rdParty/FloatCanvas/floatcanvas/FloatCanvas.py#L100
-
+https://github.com/wxWidgets/Phoenix/blob/master/wx/lib/floatcanvas/FCObjects.py#L82
 
 .. nextslide::
 
@@ -467,17 +508,26 @@ So the generator **is** an iterator
 
 Note: A generator function can also be a method in a class
 
+In fact, this is a nice way to provide different ways to iterate over
+the data in a class in multiple ways.
 
 More about iterators and generators:
 
 http://www.learningpython.com/2009/02/23/iterators-iterables-and-generators-oh-my/
 
-:download:`yield_example.py <../../Examples/Session09/yield_example.py>`
+and:
 
-generator comprehension
------------------------
+https://pythontips.com/2013/09/29/the-python-yield-keyword-explained/
 
-yet another way to make a generator:
+demo:
+
+see: ``Examples/iterators/yield_example.py``
+
+
+generator comprehensions
+------------------------
+
+Yet another way to make a generator:
 
 .. code-block:: python
 
@@ -492,10 +542,83 @@ yet another way to make a generator:
 
 More interesting if [1, 2, 3] is also a generator
 
-Note that `map` and `filter` produce iterators.
+Keep in mind -- if all you need to do with the results is loop over it
+-- use a generator expression rather than a list comprehension.
+
+Other uses for ``yield``
+------------------------
+
+Note that the yield keyword and generator functions were designed with
+classic "generators" in mind.
+
+That is -- objects that generate values on the fly.
+
+But yield can be used for other things as well.
+
+Anytime you want to return a value, and then hold state until later,
+``yield`` can be used.
+
+**Example:** pytest fixtures:
+
+.. code-block:: python
+
+    @pytest.fixture
+    def example_fixture(request):
+        # setup code here
+        value = something()
+        yield value  # provide the fixture value
+        # do the teardown
+        something_with(value)
+
+In this case, the yield isn't in any sort of loop or anything.
+It will only get run once. But the generator will maintain state,
+so the value can be used after the yield to do the teardown.
+
+How would this be done without yield? You'd need to store the value in a class:
+
+.. code-block:: python
+
+    class a_fixture():
+
+        def __call__(self):
+            # make it callable so it can provide the value
+            # setup code here
+            value = something()
+            self.value = value
+            return value
+
+        def teardown(self):
+            something_with(self.value)
+
+Not horrible, but not as clean and simple.
+
+Context managers
+----------------
+
+But an even bigger advantage is that you can use context managers with ``yield``:
+
+.. code-block:: python
+
+    @pytest.fixture
+    def example_fixture(request):
+        # setup code here
+        with open("a_test_filename") as test_file:
+            yield test_file  # provide the fixture value
+
+And that's it!
+
+When the fixture is first invoked, it will yield the test_file.
+It will then save the state, with the file open until ``next()``
+is called again - time for the teardown.
+
+But there is no more code after the yield -- so it falls out of the
+context manager, and the file is closed.
+
+These kinds of tricks become quite useful for asynchronous programming,
+etc. More on that in a few weeks.
 
 LAB
-----
+---
 
 Write a few generators:
 
@@ -504,8 +627,9 @@ Write a few generators:
 * Fibonacci sequence
 * Prime numbers
 
-(test code in
-:download:`test_generator.py <../../Examples/Session09/test_generator.py>`)
+Test code in:
+
+``Examples/iterators/test_generator.py``
 
 Descriptions:
 

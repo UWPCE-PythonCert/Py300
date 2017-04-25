@@ -286,7 +286,17 @@ can declare a function inside another function:</p>
 </div>
 <div class="section" id="parameterized-decorators">
 <h3>Parameterized Decorators<a class="headerlink" href="#parameterized-decorators" title="Permalink to this headline">¶</a></h3>
-<p>Adding yet another function in scope:</p>
+<p>The purpose of the outer function in the decorator is to receive the function to be decorated, adding
+anything to scope that should be there before the decorated function is called.</p>
+<p>The inner function runs the function being decorated, so its inputs are the same as the function being
+decorated.</p>
+<p>How do we add more input parameters to our decorator? Like this example from Django:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@register.filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cut&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add yet another function in scope:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

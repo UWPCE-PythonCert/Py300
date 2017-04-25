@@ -188,7 +188,23 @@ Stacked Decorators
 Parameterized Decorators
 ------------------------
 
-Adding yet another function in scope:
+The purpose of the outer function in the decorator is to receive the function to be decorated, adding
+anything to scope that should be there before the decorated function is called.
+
+The inner function runs the function being decorated, so its inputs are the same as the function being
+decorated.
+
+How do we add more input parameters to our decorator? Like this example from Django:
+
+
+.. code-block:: python
+
+   @register.filter(name='cut')
+   def cut(value, arg):
+       return value.replace(arg, '')
+
+
+Add yet another function in scope:
 
 .. code-block:: python
 

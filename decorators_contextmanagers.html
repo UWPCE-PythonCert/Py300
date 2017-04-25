@@ -81,7 +81,12 @@
             
                 <!-- Local TOC -->
                 <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Decorators and Context Managers</a></li>
+<li><a class="reference internal" href="#">Decorators and Context Managers</a><ul>
+<li><a class="reference internal" href="#import-time-vs-run-time">Import Time Vs. Run Time</a></li>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#functools-library">Functools Library</a></li>
+</ul>
+</li>
 </ul>
 </div>
             
@@ -128,7 +133,93 @@
             
   <div class="section" id="decorators-and-context-managers">
 <span id="decorators"></span><h1>Decorators and Context Managers<a class="headerlink" href="#decorators-and-context-managers" title="Permalink to this headline">¶</a></h1>
-<p>This topic under development!</p>
+<p>We touched decorators and context managers in the first quarter. I recommend you review that lecture.</p>
+<p><a class="reference external" href="http://uwpce-pythoncert.github.io/IntroToPython/session10.html">http://uwpce-pythoncert.github.io/IntroToPython/session10.html</a></p>
+<p>Because functions are first-class objects in Python, you can write functions
+that take functions as arguments and/or return functions as values and you
+can declare a function inside another function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>          <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running inner&#39;</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">return</span> <span class="n">inner</span>
+   <span class="o">...</span><span class="p">:</span>
+
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">running</span> <span class="n">other_func</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">other_func</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">other_func</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">running</span> <span class="n">inner</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">other_func</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Which is the same as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nd">@my_decorator</span>
+   <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">running</span> <span class="n">inner</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">other_func</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Decorators have the power to replace the decorated function with a different one!</p>
+<div class="section" id="import-time-vs-run-time">
+<h2>Import Time Vs. Run Time<a class="headerlink" href="#import-time-vs-run-time" title="Permalink to this headline">¶</a></h2>
+<p>Decorators are run at import time:</p>
+<p>Examples/decorators/play_with_imports.py</p>
+</div>
+<div class="section" id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
+<p>Why do decorators have a function inside another function?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">start_at</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">def</span> <span class="nf">increment_by</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">return</span> <span class="n">increment_by</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">closure_1</span> <span class="o">=</span> <span class="n">start_at</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">closure_2</span> <span class="o">=</span> <span class="n">start_at</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">closure_1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">5</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">start_at</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>In addition to decorators, closures are also useful for callbacks.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;function my_callback was called with {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">make_call</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="n">func</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="o">...</span><span class="p">:</span>     <span class="n">make_call</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">my_callback</span><span class="p">)</span>
+
+<span class="n">function</span> <span class="n">my_callback</span> <span class="n">was</span> <span class="n">called</span> <span class="k">with</span> <span class="mi">0</span>
+<span class="n">function</span> <span class="n">my_callback</span> <span class="n">was</span> <span class="n">called</span> <span class="k">with</span> <span class="mi">1</span>
+<span class="n">function</span> <span class="n">my_callback</span> <span class="n">was</span> <span class="n">called</span> <span class="k">with</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Definition of closures from Wikipedia:</p>
+<p>Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure&#8217;s copies of their values or references, even when the function is invoked outside their scope.</p>
+</div>
+<div class="section" id="functools-library">
+<h2>Functools Library<a class="headerlink" href="#functools-library" title="Permalink to this headline">¶</a></h2>
+<p>Memoize decorator we created in the first quarter is in Functools</p>
+</div>
 </div>
 
 

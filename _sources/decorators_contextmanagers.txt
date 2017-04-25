@@ -65,15 +65,23 @@ Import Time Vs. Run Time
 
 Decorators are run at import time:
 
-
 Examples/decorators/play_with_imports.py
 
+
+Let's make a decorator that finds the best price for a shirt.
+
+Examples/decorators/shirt_price.py
 
 
 Scope
 -----
 
 Why do decorators have a function inside another function?
+
+Decorators are implemented using closures. Definition of closures from Wikipedia:
+
+Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure's copies of their values or references, even when the function is invoked outside their scope.
+
 
 .. code-block:: python
 
@@ -93,6 +101,16 @@ Why do decorators have a function inside another function?
     In [7]: start_at(2)(4)
     Out[7]: 6
 
+
+Let's make this more explicit:
+
+Example/decorators/play_with_scope.py
+
+nonlocal declaration: allows you to flag a variable as a free variable even if it's immutable.
+
+
+Callbacks
+---------
 In addition to decorators, closures are also useful for callbacks.
 
 .. code-block:: python
@@ -102,6 +120,7 @@ In addition to decorators, closures are also useful for callbacks.
         ...:     print("function my_callback was called with {0}".format(val))
 
     In [15]: def make_call(val, func):
+                 # do some cool stuff here, and then call the callback
         ...:     func(val)
 
     In [16]: for i in range(3):
@@ -112,12 +131,76 @@ In addition to decorators, closures are also useful for callbacks.
     function my_callback was called with 2
     
 
-Definition of closures from Wikipedia:
+What if my decorated function uses unknown inputs?
+--------------------------------------------------
 
-Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure's copies of their values or references, even when the function is invoked outside their scope.
+
+.. code-block:: python
+
+
+   def p_decorate(func):
+       def func_wrapper(*args, **kwargs):
+       	   return "<p>{0}</p>".format(func(*args, **kwargs))
+       return func_wrapper
+
+
+   @p_decorate
+   def get_fullname(first_name, last_name):
+       return first_name + last_name
 
 
 Functools Library
 -----------------
 
-Memoize decorator we created in the first quarter is in Functools
+Memoize decorator we created in the first quarter is in Functools:
+
+https://docs.python.org/3/library/functools.html#functools.lru_cache
+
+Single dispatch
+
+ - create many functions that do the same sort of thing, but based on type
+
+https://docs.python.org/3/library/functools.html#functools.singledispatch
+
+
+Stacked Decorators
+------------------
+
+
+.. code-block:: python
+
+    @dec1
+    @dec2
+    def my_fun():
+        print('my_fun')
+
+    translates to:
+    def my_fun():
+        print('my_fun')
+
+    f = dec1(dec2(my_fun))
+
+
+Parameterized Decorators
+------------------------
+
+Adding yet another function in scope:
+
+
+    def decorator(arg1, arg2):
+        def real_decorator(function):
+            def wrapper(*args, **kwargs):
+                print("Congratulations.  You decorated a function that does something with %s and %s" % (arg1, arg2))
+                function(*args, **kwargs)
+            return wrapper
+        return real_decorator
+
+
+    @decorator("arg1", "arg2")
+    def print_args(*args):
+        for arg in args:
+            print(arg)
+
+
+Last example from: http://scottlobdell.me/2015/04/decorators-arguments-python/
+Ideas for what to cover from Fluent Python by Luciano Ramalho, which I highly recommend.

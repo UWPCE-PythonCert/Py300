@@ -209,8 +209,9 @@ Adding yet another function in scope:
 
 Last example from: http://scottlobdell.me/2015/04/decorators-arguments-python/
 
-Ideas for what to cover from Fluent Python by Luciano Ramalho, which I highly recommend.
+Ideas for what to cover from "Fluent Python" by Luciano Ramalho, which I highly recommend.
 
+Another great overview: https://dbader.org/blog/python-decorators
 
 Context Managers
 ****************

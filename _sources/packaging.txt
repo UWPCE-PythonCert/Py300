@@ -1,8 +1,10 @@
+:orphan:
+
 .. _packaging:
 
--------------------------
+=========================
 Building Your Own Package
--------------------------
+=========================
 
 The very basics of what you need to know to make your own package.
 
@@ -10,7 +12,7 @@ The very basics of what you need to know to make your own package.
    :maxdepth: 2
 
 Why Build a Package?
-====================
+--------------------
 
 .. rst-class:: left
 
@@ -245,7 +247,7 @@ You can do (in ``moduleX.py``):
   from ...package import bar
   from ...sys import path
 
-Similarly to *nix shells:
+Similarly to \*nix shells:
 
 "." means "the current package"
 
@@ -335,6 +337,7 @@ So, more or less, when you import a module, the interpreter:
   module's namespace.
 
 * If it isn't:
+
  - A module object is created
  - The code in the file is run
  - The module is added to sys.modules
@@ -350,7 +353,8 @@ Implications of module import process:
 
 * If you change the code in a module while the program is running -- the
   change will **not** show up, even if re-imported.
-   - That's what ``reload()`` is for.
+
+  - That's what ``reload()`` is for.
 
 
 
@@ -683,7 +687,7 @@ In the setup.py, you could import the package to get the version number
 ... but it not a safe practice to import you package when installing
 it (or building it, or...)
 
-So: read the __version__ string yourself::
+So: read the __version__ string yourself:
 
 .. code-block:: python
 

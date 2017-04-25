@@ -424,13 +424,14 @@ The fixture function is automatically run before each test.</p>
 &#8220;teardown&#8221;</p>
 <p>to accomplish this in pytest, you use &#8220;yield&#8221;, rather than &#8220;return&#8221;.</p>
 <p>The teardowncode will run after the yield</p>
-<p>&#64;pytest.fixture()
-def smtp(request):</p>
-<blockquote>
-<div>smtp = smtplib.SMTP(&#8220;smtp.gmail.com&#8221;)
-yield smtp  # provide the fixture value
-print(&#8220;teardown smtp&#8221;)
-smtp.close()</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@pytest.fixture</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">smtp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">smtp</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s2">&quot;smtp.gmail.com&quot;</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">smtp</span>  <span class="c1"># provide the fixture value</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;teardown smtp&quot;</span><span class="p">)</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>See the example again for this...</p>
 </div>
 </div>

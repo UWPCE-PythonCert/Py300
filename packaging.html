@@ -82,7 +82,7 @@
                 <!-- Local TOC -->
                 <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Building Your Own Package</a><ul>
-<li><a class="reference internal" href="#why-build-a-package">Why Build a Package?</a><ul>
+<li><a class="reference internal" href="#why-build-a-package">Why Build a Package?</a></li>
 <li><a class="reference internal" href="#what-is-a-package">What is a Package?</a></li>
 <li><a class="reference internal" href="#python-packaging-tools">Python packaging tools:</a></li>
 <li><a class="reference internal" href="#where-do-i-go-to-figure-this-out">Where do I go to figure this out?</a></li>
@@ -106,8 +106,6 @@
 <li><a class="reference internal" href="#tools-to-help">Tools to help:</a></li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#lab">LAB</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -167,8 +165,9 @@ distribute packages.</p>
 easy to use those tools.</p>
 <p class="left">Even if you never want to give anyone else your code, a well
 structured package eases development.</p>
+</div>
 <div class="section" id="what-is-a-package">
-<h3>What is a Package?<a class="headerlink" href="#what-is-a-package" title="Permalink to this headline">¶</a></h3>
+<h2>What is a Package?<a class="headerlink" href="#what-is-a-package" title="Permalink to this headline">¶</a></h2>
 <p><strong>A collection of modules</strong></p>
 <ul class="simple">
 <li>... and the documentation</li>
@@ -179,7 +178,7 @@ structured package eases development.</p>
 </ul>
 </div>
 <div class="section" id="python-packaging-tools">
-<h3>Python packaging tools:<a class="headerlink" href="#python-packaging-tools" title="Permalink to this headline">¶</a></h3>
+<h2>Python packaging tools:<a class="headerlink" href="#python-packaging-tools" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">distutils</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
@@ -194,7 +193,7 @@ structured package eases development.</p>
 <p><a class="reference external" href="https://www.pypa.io/en/latest/">https://www.pypa.io/en/latest/</a></p>
 </div>
 <div class="section" id="where-do-i-go-to-figure-this-out">
-<h3>Where do I go to figure this out?<a class="headerlink" href="#where-do-i-go-to-figure-this-out" title="Permalink to this headline">¶</a></h3>
+<h2>Where do I go to figure this out?<a class="headerlink" href="#where-do-i-go-to-figure-this-out" title="Permalink to this headline">¶</a></h2>
 <p>This is a really good guide:</p>
 <p>Python Packaging User Guide:</p>
 <p><a class="reference external" href="https://packaging.python.org/">https://packaging.python.org/</a></p>
@@ -217,7 +216,7 @@ structured package eases development.</p>
 <p>Either are great starting points.</p>
 </div>
 <div class="section" id="packages-modules-imports-oh-my">
-<h3>Packages, modules, imports, oh my!<a class="headerlink" href="#packages-modules-imports-oh-my" title="Permalink to this headline">¶</a></h3>
+<h2>Packages, modules, imports, oh my!<a class="headerlink" href="#packages-modules-imports-oh-my" title="Permalink to this headline">¶</a></h2>
 <p>Before we get started on making your own package &#8211; let&#8217;s remind
 ourselves about packages and modules, and importing....</p>
 <p><strong>Modules</strong></p>
@@ -263,7 +262,7 @@ The code will be run when the package is imported &#8211; just like a module,</p
 <div>import a_package.module_a</div></blockquote>
 </div>
 <div class="section" id="more-on-importing">
-<h3>More on Importing<a class="headerlink" href="#more-on-importing" title="Permalink to this headline">¶</a></h3>
+<h2>More on Importing<a class="headerlink" href="#more-on-importing" title="Permalink to this headline">¶</a></h2>
 <p>You usually import a module like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">something</span>
 </pre></div>
@@ -287,7 +286,7 @@ The code will be run when the package is imported &#8211; just like a module,</p
 <p>This is a common pattern for using large packages and not having to type a lot...</p>
 </div>
 <div class="section" id="import">
-<h3><code class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></code><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<h2><code class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></code><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">something</span> <span class="k">import</span> <span class="o">*</span>
 </pre></div>
 </div>
@@ -301,7 +300,7 @@ and other modules.</p>
 <p>But really &#8211; don&#8217;t use it!</p>
 </div>
 <div class="section" id="relative-imports">
-<h3>Relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h3>
+<h2>Relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h2>
 <p>Relative imports were added with PEP 328:</p>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">https://www.python.org/dev/peps/pep-0328/</a></p>
 <p>The final version is described here:</p>
@@ -331,7 +330,7 @@ and other modules.</p>
 <span class="kn">from</span> <span class="nn">...sys</span> <span class="kn">import</span> <span class="n">path</span>
 </pre></div>
 </div>
-<p>Similarly to <a href="#id1"><span class="problematic" id="id2">*</span></a>nix shells:</p>
+<p>Similarly to *nix shells:</p>
 <p>&#8221;.&#8221; means &#8220;the current package&#8221;</p>
 <p>&#8221;..&#8221; means &#8220;the package above this one&#8221;</p>
 <p>Note that you have to use the &#8220;from&#8221; form when using relative imports.</p>
@@ -360,7 +359,7 @@ and other modules.</p>
 <p>There is debate about which is the &#8220;one way to do it&#8221; &#8211; a bit unpythonic, but you&#8217;ll need to make your own decision.</p>
 </div>
 <div class="section" id="sys-modules">
-<h3>sys.modules<a class="headerlink" href="#sys-modules" title="Permalink to this headline">¶</a></h3>
+<h2>sys.modules<a class="headerlink" href="#sys-modules" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="nb">type</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">)</span>
 <span class="gh">Out[4]: </span><span class="go">dict</span>
 
@@ -413,27 +412,21 @@ module&#8217;s namespace.</li>
 </div></blockquote>
 </div>
 <div class="section" id="implications-of-module-import-process">
-<h3>Implications of module import process:<a class="headerlink" href="#implications-of-module-import-process" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p class="first">The code in a module only runs once per program run.</p>
-</li>
-<li><p class="first">Importing a module again is cheap and fast.</p>
-</li>
-<li><p class="first">Every place your code imports a module it gets the <em>same</em> object
-- You can use this to share &#8220;global&#8221; state where you want to.</p>
-</li>
-<li><p class="first">If you change the code in a module while the program is running &#8211; the
-change will <strong>not</strong> show up, even if re-imported.</p>
-<blockquote>
-<div><ul class="simple">
+<h2>Implications of module import process:<a class="headerlink" href="#implications-of-module-import-process" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The code in a module only runs once per program run.</li>
+<li>Importing a module again is cheap and fast.</li>
+<li>Every place your code imports a module it gets the <em>same</em> object
+- You can use this to share &#8220;global&#8221; state where you want to.</li>
+<li>If you change the code in a module while the program is running &#8211; the
+change will <strong>not</strong> show up, even if re-imported.<ul>
 <li>That&#8217;s what <code class="docutils literal"><span class="pre">reload()</span></code> is for.</li>
 </ul>
-</div></blockquote>
 </li>
 </ul>
 </div>
 <div class="section" id="basic-package-structure">
-<h3>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h3>
+<h2>Basic Package Structure:<a class="headerlink" href="#basic-package-structure" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package_name</span><span class="o">/</span>
     <span class="nb">bin</span><span class="o">/</span>
     <span class="n">CHANGES</span><span class="o">.</span><span class="n">txt</span>
@@ -473,7 +466,7 @@ change will <strong>not</strong> show up, even if re-imported.</p>
 <p>Or keep it at the top level.</p>
 </div>
 <div class="section" id="the-setup-py-file">
-<h3>The <code class="docutils literal"><span class="pre">setup.py</span></code> File<a class="headerlink" href="#the-setup-py-file" title="Permalink to this headline">¶</a></h3>
+<h2>The <code class="docutils literal"><span class="pre">setup.py</span></code> File<a class="headerlink" href="#the-setup-py-file" title="Permalink to this headline">¶</a></h2>
 <p>Your <code class="docutils literal"><span class="pre">setup.py</span></code> file is what describes your package, and tells the distutils how to pacakge, build and install it</p>
 <p>It is python code, so you can add anything custom you need to it</p>
 <p>But in the simple case, it is essentially declarative.</p>
@@ -500,7 +493,7 @@ change will <strong>not</strong> show up, even if re-imported.</p>
 </div>
 </div>
 <div class="section" id="setup-cfg">
-<h3><code class="docutils literal"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h3>
+<h2><code class="docutils literal"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">setup.cfg</span></code> provides a way to give the end user some ability to customise the install</p>
 <p>It&#8217;s an <code class="docutils literal"><span class="pre">ini</span></code> style file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
@@ -514,7 +507,7 @@ change will <strong>not</strong> show up, even if re-imported.</p>
 <p>Note that an option spelled <code class="docutils literal"><span class="pre">--foo-bar</span></code> on the command-line is spelled f``foo_bar`` in configuration files.</p>
 </div>
 <div class="section" id="running-setup-py">
-<h3>Running <code class="docutils literal"><span class="pre">setup.py</span></code><a class="headerlink" href="#running-setup-py" title="Permalink to this headline">¶</a></h3>
+<h2>Running <code class="docutils literal"><span class="pre">setup.py</span></code><a class="headerlink" href="#running-setup-py" title="Permalink to this headline">¶</a></h2>
 <p>With a <code class="docutils literal"><span class="pre">setup.py</span></code> script defined, the distutils can do a lot:</p>
 <ul>
 <li><p class="first">builds a source distribution (defaults to tar file):</p>
@@ -546,7 +539,7 @@ change will <strong>not</strong> show up, even if re-imported.</p>
 </ul>
 </div>
 <div class="section" id="setuptools">
-<h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
+<h2>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">setuptools</span></code> is an extension to <code class="docutils literal"><span class="pre">distutils</span></code> that provides a number of extensions:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span>
 </pre></div>
@@ -565,7 +558,7 @@ change will <strong>not</strong> show up, even if re-imported.</p>
 <p><a class="reference external" href="http://pythonhosted.org//setuptools/">http://pythonhosted.org//setuptools/</a></p>
 </div>
 <div class="section" id="wheels">
-<h3>wheels<a class="headerlink" href="#wheels" title="Permalink to this headline">¶</a></h3>
+<h2>wheels<a class="headerlink" href="#wheels" title="Permalink to this headline">¶</a></h2>
 <p>Wheels are a new binary format for packages.</p>
 <p><a class="reference external" href="http://wheel.readthedocs.org/en/latest/">http://wheel.readthedocs.org/en/latest/</a></p>
 <p>Pretty simple, essentially an zip archive of all the stuff that gets put
@@ -589,7 +582,7 @@ in</p>
 <p><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--no-use-wheel</span></code> avoids that.</p>
 </div>
 <div class="section" id="pypi">
-<h3>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
+<h2>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h2>
 <p>The Python package index:</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi">https://pypi.python.org/pypi</a></p>
 <p>You&#8217;ve all used this &#8211; <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> searches it.</p>
@@ -602,7 +595,7 @@ in</p>
 <p><a class="reference external" href="http://docs.python.org/2/distutils/packageindex.html">http://docs.python.org/2/distutils/packageindex.html</a></p>
 </div>
 <div class="section" id="under-development">
-<h3>Under Development<a class="headerlink" href="#under-development" title="Permalink to this headline">¶</a></h3>
+<h2>Under Development<a class="headerlink" href="#under-development" title="Permalink to this headline">¶</a></h2>
 <p>Develop mode is <em>really</em> <em>really</em> nice:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
 </pre></div>
@@ -618,7 +611,7 @@ in</p>
 <p>(requires <code class="docutils literal"><span class="pre">setuptools</span></code>)</p>
 </div>
 <div class="section" id="running-tests">
-<h3>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
 <p>It can be a good idea to set up your tests to be run from <code class="docutils literal"><span class="pre">setup.py</span></code></p>
 <p>So that you (or your users) can:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install .
@@ -656,7 +649,7 @@ $ python setup.py <span class="nb">test</span>
 <p>(does py3 unittest have this??)</p>
 </div>
 <div class="section" id="handling-the-version-number">
-<h3>Handling the version number:<a class="headerlink" href="#handling-the-version-number" title="Permalink to this headline">¶</a></h3>
+<h2>Handling the version number:<a class="headerlink" href="#handling-the-version-number" title="Permalink to this headline">¶</a></h2>
 <p>One key rule in software (and ANY computer use!):</p>
 <p>Never put the same information in more than one place!</p>
 <p>With a python package, you want:</p>
@@ -682,37 +675,25 @@ $ python setup.py <span class="nb">test</span>
 ... but it not a safe practice to import you package when installing
 it (or building it, or...)</p>
 <p>So: read the __version__ string yourself:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_version</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads the version string from the package __init__ and returns it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;capitalize&quot;</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">init_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">init_file</span><span class="p">:</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;__version__&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">None</span>
 </pre></div>
 </div>
-<blockquote>
-<div><dl class="docutils">
-<dt>def get_version():</dt>
-<dd><p class="first">&#8220;&#8221;&#8221;
-Reads the version string from the package __init__ and returns it
-&#8220;&#8221;&#8221;
-with open(os.path.join(&#8220;capitalize&#8221;, &#8220;__init__.py&#8221;)) as init_file:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>for line in init_file:</dt>
-<dd><p class="first">parts = line.strip().partition(&#8220;=&#8221;)
-if parts[0].strip() == &#8220;__version__&#8221;:</p>
-<blockquote class="last">
-<div>return parts[2].strip().strip(&#8220;&#8217;&#8221;).strip(&#8216;&#8221;&#8217;)</div></blockquote>
-</dd>
-</dl>
-</div></blockquote>
-<p class="last">return None</p>
-</dd>
-</dl>
-</div></blockquote>
 <p><strong>Alternative:</strong></p>
 <p>You can have a script that automatically updates the version number in whatever
 places it needs to. For instance:</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi/bumpversion">https://pypi.python.org/pypi/bumpversion</a></p>
 </div>
 <div class="section" id="semantic-versioning">
-<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
+<h2>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h2>
 <p>Another note on version numbers.</p>
 <p>The software development world (at least the open-source one...) has
 established a standard for what version numbers mean, known as semantic
@@ -731,14 +712,14 @@ they upgrade.</p>
 <p><a class="reference external" href="http://semver.org/">http://semver.org/</a></p>
 </div>
 <div class="section" id="tools-to-help">
-<h3>Tools to help:<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h3>
+<h2>Tools to help:<a class="headerlink" href="#tools-to-help" title="Permalink to this headline">¶</a></h2>
 <p>Tox:</p>
 <p><a class="reference external" href="https://tox.readthedocs.io/en/latest/">https://tox.readthedocs.io/en/latest/</a></p>
 <p>Versioneer:</p>
 <p><a class="reference external" href="https://github.com/warner/python-versioneer">https://github.com/warner/python-versioneer</a></p>
 </div>
 <div class="section" id="getting-started">
-<h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>For anything but a single-file script (and maybe even then):</p>
 <ol class="arabic simple">
 <li>Create the basic package structure</li>
@@ -751,7 +732,7 @@ they upgrade.</p>
 <p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a></p>
 </div>
 <div class="section" id="lab">
-<h3>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h3>
+<h2>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Create a small package<ul>
 <li>package structure</li>
@@ -763,7 +744,6 @@ they upgrade.</p>
 <li>If you are ready &#8211; it can be the start of your project package.</li>
 </ul>
 <p>(otherwise you may start with the silly code in <code class="docutils literal"><span class="pre">Examples/capitalize</span></code>)</p>
-</div>
 </div>
 </div>
 

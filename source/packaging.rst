@@ -683,7 +683,7 @@ In the setup.py, you could import the package to get the version number
 ... but it not a safe practice to import you package when installing
 it (or building it, or...)
 
-So: read the __version__ string yourself::
+So: read the __version__ string yourself:
 
 .. code-block:: python
 

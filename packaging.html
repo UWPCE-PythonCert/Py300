@@ -685,30 +685,18 @@ $ python setup.py <span class="nb">test</span>
 ... but it not a safe practice to import you package when installing
 it (or building it, or...)</p>
 <p>So: read the __version__ string yourself:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_version</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads the version string from the package __init__ and returns it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;capitalize&quot;</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">init_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">init_file</span><span class="p">:</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;__version__&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">None</span>
 </pre></div>
 </div>
-<blockquote>
-<div><dl class="docutils">
-<dt>def get_version():</dt>
-<dd><p class="first">&#8220;&#8221;&#8221;
-Reads the version string from the package __init__ and returns it
-&#8220;&#8221;&#8221;
-with open(os.path.join(&#8220;capitalize&#8221;, &#8220;__init__.py&#8221;)) as init_file:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>for line in init_file:</dt>
-<dd><p class="first">parts = line.strip().partition(&#8220;=&#8221;)
-if parts[0].strip() == &#8220;__version__&#8221;:</p>
-<blockquote class="last">
-<div>return parts[2].strip().strip(&#8220;&#8217;&#8221;).strip(&#8216;&#8221;&#8217;)</div></blockquote>
-</dd>
-</dl>
-</div></blockquote>
-<p class="last">return None</p>
-</dd>
-</dl>
-</div></blockquote>
 <p><strong>Alternative:</strong></p>
 <p>You can have a script that automatically updates the version number in whatever
 places it needs to. For instance:</p>

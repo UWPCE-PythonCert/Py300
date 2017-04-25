@@ -84,7 +84,19 @@
             
                 <!-- Local TOC -->
                 <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Abstract Base Classes and standard class protocols</a></li>
+<li><a class="reference internal" href="#">Abstract Base Classes and standard class protocols</a><ul>
+<li><a class="reference internal" href="#abstract-base-classes">Abstract Base Classes</a><ul>
+<li><a class="reference internal" href="#a-digression">A digression</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-handy-built-in-sequences">Other handy built-in sequences</a><ul>
+<li><a class="reference internal" href="#array-array">array.array</a></li>
+<li><a class="reference internal" href="#binary-sequence-types">Binary sequence types</a></li>
+<li><a class="reference internal" href="#memoryview"><code class="docutils literal"><span class="pre">memoryview</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
             
@@ -133,6 +145,235 @@
 <span id="abc"></span><h1>Abstract Base Classes and standard class protocols<a class="headerlink" href="#abstract-base-classes-and-standard-class-protocols" title="Permalink to this headline">¶</a></h1>
 <p>Other built in types (array, bytes, etc.,)</p>
 <p>This topic under development!</p>
+<div class="section" id="abstract-base-classes">
+<h2>Abstract Base Classes<a class="headerlink" href="#abstract-base-classes" title="Permalink to this headline">¶</a></h2>
+<p>Abstract Base Classes are a way to define the protocol of the standard
+Python object types.</p>
+<p>They were added to Python to formalize the &#8220;Duck Typing&#8221; approach is
+some contexts. See PEP 3119 for the details:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-3119/">https://www.python.org/dev/peps/pep-3119/</a></p>
+<p>In OO languages, and &#8220;abstract&#8221; class is a class that has an interface,
+but no implementation. These are sometimes required by static OO languages
+to provide a way to have more than one implementation of a given protocol.</p>
+<p>In Python, they can be used as a way to know if a given object is what
+you might be expecting &#8211; is it a Sequence? a Mapping?</p>
+<p>You can directly check if an object is a particular type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">118</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">118</span><span class="p">]:</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>But that is not the &#8220;Python way&#8221;  &#8211; we usually don&#8217;t care if the passed
+in object is a list, or a tuple, or any other sequence type. what we care
+about is if is a Any Sequence.</p>
+<p>Enter ABCs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">121</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">121</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">122</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">122</span><span class="p">]:</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>But what if it needs to mutable?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">123</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">MutableSequence</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">124</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">MutableSequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">124</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">125</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">MutableSequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">125</span><span class="p">]:</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<div class="section" id="a-digression">
+<h3>A digression<a class="headerlink" href="#a-digression" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;private&#8221; atttributes?</p>
+<p>It&#8217;s a common convention that a leading underscore means an attribute
+that should only be accessed from within a class. Often used for
+properties, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span><span class="p">():</span>
+    <span class="o">...</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">*</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>But there is a &#8220;stronger&#8221; way to &#8220;protect&#8221; an attribute &#8211; double underscores:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [129]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
+<span class="go">     ...:     __private = &quot;sneaky&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [130]: </span><span class="n">Base</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[130]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
+</pre></div>
+</div>
+<p>note the &#8220;_Base&#8221; was added to the name.</p>
+<p>But if you don&#8217;t have doouble underscores:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [131]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
+<span class="go">     ...:     public = &quot;wide open&quot;</span>
+<span class="go">     ...:     __private = &quot;sneaky&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [132]: </span><span class="n">Base</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[132]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;public&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
+</pre></div>
+</div>
+<p>So what happens if you subclass? Does it get overridden?</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [134]: </span><span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="go">     ...:     private = &quot;oops! -- overridden?&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [135]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[135]: </span><span class="go">dict_keys([&#39;__module__&#39;, &#39;private&#39;, &#39;__doc__&#39;])</span>
+
+<span class="gp">In [136]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">private</span>
+<span class="gh">Out[136]: </span><span class="go">&#39;oops! -- overridden?&#39;</span>
+
+<span class="gp">In [137]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">_Base__private</span>
+<span class="gh">Out[137]: </span><span class="go">&#39;sneaky&#39;</span>
+</pre></div>
+</div>
+<p>so using the double underscores assures that the attribute will not get
+accidentally overridden in a subclass.</p>
+<p><strong>Note:</strong> if you now the name mangling, yu can still mess with it ...</p>
+<p><strong>So should you do this?</strong></p>
+<p>Usually not &#8211; it turns out that in practice it&#8217;s
+rare for &#8220;private&#8221; attributes to get overidden accidentally. So this is
+not a widely used practice.</p>
+</div>
+</div>
+<div class="section" id="other-handy-built-in-sequences">
+<h2>Other handy built-in sequences<a class="headerlink" href="#other-handy-built-in-sequences" title="Permalink to this headline">¶</a></h2>
+<p>Lists and tuples are very widely used in Python &#8211; they give you a mutable
+and an immutable sequence &#8211; what else do you need?</p>
+<p>There are some special case sequences:</p>
+<div class="section" id="array-array">
+<h3>array.array<a class="headerlink" href="#array-array" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">array</span></code> module provides and array object &#8211; a mutable sequence of
+homogeneous simple numeric types.</p>
+<p><code class="docutils literal"><span class="pre">https://pymotw.com/3/array/</span></code></p>
+<p>The type must be declared when the array is created, and then it can only hold that type:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [60]: </span><span class="kn">import</span> <span class="nn">array</span>
+
+<span class="gp">In [61]: </span><span class="n">arr</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span> <span class="c1"># i is an integer type)</span>
+
+<span class="gp">In [62]: </span><span class="n">arr</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="gp">In [63]: </span><span class="n">arr</span>
+<span class="gh">Out[63]: </span><span class="go">array(&#39;i&#39;, [3, 4, 5])</span>
+
+<span class="gp">In [64]: </span><span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">3.45</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-64-b853b72c3c39&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">3.45</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: integer argument expected, got float
+</pre></div>
+</div>
+<p><strong>Why?</strong></p>
+<p><code class="docutils literal"><span class="pre">array</span></code> supports a wide variety of types, stores the data far more
+compactly, and inter operates better with raw binary data.</p>
+<p>But <code class="docutils literal"><span class="pre">numpy</span></code> gives you all that, and a lot more &#8211; so folks are more likely to
+go to numpy if they really need these features.</p>
+</div>
+<div class="section" id="binary-sequence-types">
+<h3>Binary sequence types<a class="headerlink" href="#binary-sequence-types" title="Permalink to this headline">¶</a></h3>
+<p>Another way to work with binary data is the <code class="docutils literal"><span class="pre">bytes</span></code> and <code class="docutils literal"><span class="pre">bytearray</span></code> objects.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">bytes</span></code>:</dt>
+<dd>an immutable sequence of integers in the range 0 &lt;= x &lt; 256.</dd>
+<dt><code class="docutils literal"><span class="pre">bytearray</span></code>:</dt>
+<dd>a mutable sequence of integers in the range 0 &lt;= x &lt; 256. It has most
+of the usual methods of mutable sequences, as well as most methods that
+the bytes type has</dd>
+</dl>
+<p>a <code class="docutils literal"><span class="pre">byte</span></code> is essentially the smallest unit of memory the computer can work with.
+On virtually all modern hardware, a byte is 8 bits &#8211; 2**8 == 256 &#8211; so a single
+byte is a value between 0 and 255.</p>
+<p>You use bytes and bytearray objects to work with binary data &#8211; usually you&#8217;ll
+know it if you need it.</p>
+<p>But the most common use case is to deal with encoded text:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [79]: </span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Not ASCII: </span><span class="se">\u0107</span><span class="s2"> </span><span class="se">\u0398</span><span class="s2"> </span><span class="se">\u03A3</span><span class="s2"> </span><span class="se">\u03BB</span><span class="s2"> </span><span class="se">\uF4A9</span><span class="s2">&quot;</span>
+
+<span class="gp">In [80]: </span><span class="n">text</span>
+<span class="gh">Out[80]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ \uf4a9&#39;</span>
+
+<span class="gp">In [81]: </span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Not ASCII: </span><span class="se">\u0107</span><span class="s2"> </span><span class="se">\u0398</span><span class="s2"> </span><span class="se">\u03A3</span><span class="s2"> </span><span class="se">\u03BB</span><span class="s2">&quot;</span>
+
+<span class="gp">In [82]: </span><span class="n">text</span>
+<span class="gh">Out[82]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ&#39;</span>
+
+<span class="gp">In [83]: </span><span class="n">b</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="gp">In [84]: </span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[84]: </span><span class="go">bytes</span>
+
+<span class="gp">In [85]: </span><span class="n">b</span>
+<span class="gh">Out[85]: </span><span class="go">b&#39;Not ASCII: \xc4\x87 \xce\x98 \xce\xa3 \xce\xbb&#39;</span>
+</pre></div>
+</div>
+<p>Note that the bytes in the ascii range display as text. This is an
+artifact of the old days of C and Python2! where strings <em>were</em> byte arrays.</p>
+<p>Python also has a literal for a bytes object &#8211; that also uses text:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [92]: </span><span class="n">b</span>
+<span class="gh">Out[92]: </span><span class="go">b&#39;these are bytes&#39;</span>
+</pre></div>
+</div>
+<p>But the individual elements are treats as integers:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [93]: </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gh">Out[93]: </span><span class="go">116</span>
+
+<span class="gp">In [94]: </span><span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[94]: </span><span class="go">[116, 104, 101, 115, 101, 32, 97, 114, 101, 32, 98, 121, 116, 101, 115]</span>
+</pre></div>
+</div>
+<p>Since bytes are often used for encoded text, they come with a <code class="docutils literal"><span class="pre">decode</span></code> method:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [100]: </span><span class="n">b</span>
+<span class="gh">Out[100]: </span><span class="go">b&#39;Not ASCII: \xc4\x87 \xce\x98 \xce\xa3 \xce\xbb&#39;</span>
+
+<span class="gp">In [101]: </span><span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="gh">Out[101]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="memoryview">
+<h3><code class="docutils literal"><span class="pre">memoryview</span></code><a class="headerlink" href="#memoryview" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">memoryview</span></code> object is a wrapper around a bit of memory &#8211; it allows you to
+view an manipulate the data underlying some other object without copying it.</p>
+<p>Mostly used for binary interchange between different extension data types:
+like to pass data from a numpy array to an image, for instance:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [108]: </span><span class="n">b</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">b</span><span class="s1">&#39;abcdefg&#39;</span><span class="p">)</span>
+
+<span class="gp">In [109]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">memoryview</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="gp">In [110]: </span><span class="n">m</span>
+<span class="gh">Out[110]: </span><span class="go">&lt;memory at 0x104759048&gt;</span>
+
+<span class="gp">In [111]: </span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gh">Out[111]: </span><span class="go">7</span>
+</pre></div>
+</div>
+<p>m and b now share the same memoroy block. So if I change m...</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [113]: </span><span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span>
+
+<span class="gp">In [114]: </span><span class="n">m</span>
+<span class="gh">Out[114]: </span><span class="go">&lt;memory at 0x104759048&gt;</span>
+
+<span class="gp">In [115]: </span><span class="n">b</span>
+<span class="gh">Out[115]: </span><span class="go">bytearray(b&#39;ab\x00\x00efg&#39;)</span>
+</pre></div>
+</div>
+<p>b is changed as well.</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>memoryview``s can represent different data types, and even
+multi-dimensional arrays.</p>
+<p>For more info:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview">https://docs.python.org/3/library/stdtypes.html#memoryview</a></p>
+</div>
+</div>
 </div>
 
 

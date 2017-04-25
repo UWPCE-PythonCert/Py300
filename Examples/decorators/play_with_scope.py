@@ -23,7 +23,7 @@ def make_um_counter2():
     count = 0
     def um_counter2(new_word):
         if new_word is 'um':
-            return count += 1
+            count += 1
         return count
     return um_counter2
 

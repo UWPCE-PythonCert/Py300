@@ -10,18 +10,72 @@ Other built in types (array, bytes, etc.,)
 
 This topic under development!
 
+Interfaces
+==========
+
+An "Interface" (for a class) is the set of attributes and methods available.
+
+Python has traditionally used a very dynamic definition of interface:
+
+"Duck typing"
+
+If is quacks like a duck....
+
+This is very flexible -- a class does not have to provide *everything*
+that a given interface might require -- only the bit that is needed.
+
+For instance  number of functions in the Python standard library act on
+a "file-like object".
+
+That means "an object that follows the file interface". However, it is
+quite rare that any given function needs the entire interface -- maybe
+it only needs to read something -- so only needs one method:
+
+.. code-block:: python
+
+    some_bytes = obj.read()
+
+In this case, rather than checking if the object conforms to the file
+interface, this is a great use case for EAFP:
+
+"Easier to ask Forgiveness than Permission"
+
+That is -- simply call ``.read()``, and catch the AttributError.
+
+Or simply let it fail if there is no read() method.
+
+Protocols
+---------
+
+"protocol" is essentially just another word for Interface. It tends to be
+used when there is a bit more action -- such as the "Iterator Protocol".
+
+The Iterator protocol specifies not just methods and attributes, but actions:
+
+"A StopIteration Exception is raised when the iterator is exhausted"
+
+But it's really just another word for the same thing. So in Python,
+interfaces are talked about in (at least) for ways:
+
+- Interface
+- Protocol
+- -like -- as in "file-like"
+- generic name -- like "sequence"
+
 Abstract Base Classes
-=====================
+---------------------
 
-Abstract Base Classes are a way to define the protocol of the standard
-Python object types.
+Sometimes it is nice to more formally define an interface.
 
-They were added to Python to formalize the "Duck Typing" approach is
+Abstract Base Classes are a way to define a specific interface. In
+particular, the the protocols of the standard Python object types.
+
+They were added to Python to formalize the "Duck Typing" approach in
 some contexts. See PEP 3119 for the details:
 
 https://www.python.org/dev/peps/pep-3119/
 
-In OO languages, and "abstract" class is a class that has an interface,
+In OO languages, an "abstract" class is a class that has an interface,
 but no implementation. These are sometimes required by static OO languages
 to provide a way to have more than one implementation of a given protocol.
 
@@ -39,8 +93,8 @@ You can directly check if an object is a particular type:
   Out[118]: False
 
 But that is not the "Python way"  -- we usually don't care if the passed
-in object is a list, or a tuple, or any other sequence type. what we care
-about is if is a Any Sequence.
+in object is a list, or a tuple, or any other sequence type. What we care
+about is if is a Any Sequence (or maybe only any Iterable).
 
 Enter ABCs:
 
@@ -66,16 +120,202 @@ But what if it needs to mutable?
     In [125]: isinstance((1,2,3,4), MutableSequence)
     Out[125]: False
 
+So Python
+
+gotcha!
+-------
+
+One of the most common type errors seen in Python is the "sequence of
+strings" vs "single string" confusion:
+
+It is moderately common to write s function that acts on a bunch of
+strings -- perhaps a bunch of filenames.
+
+.. code-block:: python
+
+    def do_something(filenames):
+        """
+        process a number of files.
+
+        :param filenames: sequence of filenames to process
+        """
+        for name in filenames:
+            print("processing:", name)
+            with open(name) as the_file:
+                process(the_file)
+
+Pass it a list of strings, and all is good:
+
+.. code-block:: ipython
+
+    do_something(["name1", "name2", "third_name"])
+    processing: name1
+    processing: name2
+    processing: third_name
+
+But what if the user has only one file to process?
+
+.. code-block:: ipython
+
+    In [4]: do_something("a_single_name")
+    processing: a
+    processing: _
+    processing: s
+    processing: i
+    processing: n
+    processing: g
+    processing: l
+    processing: e
+    processing: _
+    processing: n
+    processing: a
+    processing: m
+    processing: e
+
+OOPS! -- this happens all too often.
+
+Why?
+
+Well, the function is expecting an iterable of strings that is can loop over.
+
+But a string IS an iterable of strings! it iterates over the string,
+yielding each letter. And a letter is simply a string that happens to
+be of length-one.
+
+So plain old duck-typing and EAFP doesn't work.
+
+what about checking for a Sequence?
+
+.. code-block:: python
+
+    def do_something2(filenames):
+        """
+        process a number of files.
+
+        :param filenames: sequence of filenames to process
+        """
+        if not isinstance(filenames, abc.Iterable):
+            # put it in a list so the rest of the code is the same.
+            filenames = [filenames]
+        for name in filenames:
+            print("processing:", name)
+
+.. code-block::ipython
+
+    In [6]: do_something2("name")
+    processing: n
+    processing: a
+    processing: m
+    processing: e
+
+DARN! that didn't work -- of course, a string *is* Iterable.
+
+So you need to do it the other way around: check for a string. But there
+is not ABC for strings -- there is only one string object in Python, and
+it's unlikely that a third party lib will write an alternate implementation.
+
+So you check for string explicitly:
+
+.. code-block:: python
+
+    def do_something3(filenames):
+        """
+        process a number of files.
+
+        :param filenames: sequence of filenames to process
+        """
+        if isinstance(filenames, str):
+            # put it in a tuple so the rest of the code is the same.
+            filenames = (filenames,)
+        for name in filenames:
+            print("processing:", name)
+
+Ahh -- that works:
+
+.. code-block:: ipython
+
+    In [10]: do_something3("name")
+    processing: name
+
+    In [11]: do_something3(["name", "name2", "name3"])
+    processing: name
+    processing: name2
+    processing: name3
 
 
-A digression
-------------
 
-"private" atttributes?
 
-It's a common convention that a leading underscore means an attribute
-that should only be accessed from within a class. Often used for
-properties, for example:
+Things you might do with ABCs
+-----------------------------
+
+(In order of likelihood)
+
+* do an ``isinstance()`` check at the top of a function.
+
+* create a class that conforms to one of the standard ABCs and register it.
+
+* write an ABC that specifies a particular subset of an interface for your
+  use-case
+
+* write a full-fledged ABC for a whole new Interface.
+  (very, very unlikely...)
+
+Demo each of these...
+
+
+Creating an object that matches an interface
+---------------------------------------------
+
+Let's say you write your own container that is a ``MutableSequence``.
+
+How do you let others know that your object can be used anywhere a
+``MutableSequence`` (or a ``Sequence``, or an ``Iterable``) can be used?
+
+You can "register" your class with the ABC:
+
+TODO!!!!
+
+
+semi-ducktyping
+---------------
+
+If you need only a method or two from an object, then just use EAFP:
+``file_like.read()`` for instance.
+
+But what if you need a bunch of methods -- but not an explcite particular type?
+
+This was brought up on SO:
+
+http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like
+
+Alex Martelli's answer:
+
+"""
+... you need to determine which methods you need. To check for them, I
+recommended defining your own FileLikeEnoughForMe abstract base class
+with abstractmethod decorators, and checking the object with an isinstance
+for that class.
+"""
+
+Here's an example:
+
+TODO:
+
+
+
+A Digression
+-------------
+
+"private" attributes?
+
+A private attribute is an attribute that is not part of the Interface
+of the class.
+
+While Python does not strictly have private attributes, It's a common
+convention that a leading underscore means an attribute that should only
+be accessed from within a class.
+
+Often used for properties, for example:
 
 .. code-block:: python
 
@@ -98,7 +338,7 @@ But there is a "stronger" way to "protect" an attribute -- double underscores:
 
 note the "_Base" was added to the name.
 
-But if you don't have doouble underscores:
+But if you don't have double underscores:
 
 .. code-block:: ipython
 
@@ -138,6 +378,24 @@ Usually not -- it turns out that in practice it's
 rare for "private" attributes to get overidden accidentally. So this is
 not a widely used practice.
 
+Final Thoughts
+--------------
+
+* don't use ``isinstace`` and ABCs when EAFP will do -- simply make the call
+  you need and catch the exception.
+
+* Generally better to call ``isinstance`` on an ABC than a specific class
+
+* Use the most general ABC you can -- i.e. "Iterable" rather than "Sequence"
+
+* "Even with ABCs, excessive use of ``isinstance`` checks may be code smell"
+  -- Luciana Ramalho (from "Fluent Python")
+
+* ABCs mostly exist to support multiple implementations of the same interface:
+  lists and tuples, multiple containers, etc.
+
+* The only time you should write a custom ABC is part of a Framework that a
+  lot of people are going to extend -- a very rare case!
 
 Other handy built-in sequences
 ==============================
@@ -291,7 +549,7 @@ m and b now share the same memoroy block. So if I change m...
 
 b is changed as well.
 
-``memoryview``s can represent different data types, and even
+``memoryview`` can represent different data types, and even
 multi-dimensional arrays.
 
 For more info:

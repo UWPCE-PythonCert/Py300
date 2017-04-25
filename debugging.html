@@ -90,6 +90,10 @@
 <li><a class="reference internal" href="#visualize-the-stack">Visualize the stack!</a></li>
 <li><a class="reference internal" href="#exceptions">Exceptions</a></li>
 <li><a class="reference internal" href="#id2">Debugging</a></li>
+<li><a class="reference internal" href="#python-ides">Python IDEs</a></li>
+<li><a class="reference internal" href="#remote-debugging">Remote debugging</a></li>
+<li><a class="reference internal" href="#debugging-exercise">Debugging exercise</a></li>
+<li><a class="reference internal" href="#questions">Questions?</a></li>
 </ul>
 </li>
 </ul>
@@ -525,7 +529,6 @@ set a new breakpoint in code coming up. Useful for getting out of rabbit holes.<
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">--</span><span class="n">pdb</span><span class="o">-</span><span class="n">failures</span>
 </pre></div>
 </div>
-<p>..nextslide:</p>
 <p>pytest allows one to drop into the PDB prompt via a command line option:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">pdb</span>
 </pre></div>
@@ -539,13 +542,15 @@ test to understand a certain failure situation:</p>
 </div>
 <p>Let&#8217;s try some debugging!</p>
 <p><a class="reference external" href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
-<p class="rubric" id="python-ides">Python IDEs</p>
-<p class="rubric" id="pycharm">PyCharm</p>
-<p>From JetBrains, and integrates some of their vast array of development
+</div>
+<div class="section" id="python-ides">
+<h3>Python IDEs<a class="headerlink" href="#python-ides" title="Permalink to this headline">¶</a></h3>
+<p><strong>PyCharm</strong></p>
+<p>From JetBrains, &#8212; integrates some of their vast array of development
 tools</p>
 <p>Free Community Edition (CE) is available</p>
 <p>Good visual debugging support</p>
-<p class="rubric" id="eclipse">Eclipse</p>
+<p><strong>Eclipse</strong></p>
 <p>A multi-language IDE</p>
 <p>Python support via <a class="reference external" href="http://pydev.org/">http://pydev.org/</a></p>
 <p>Automatic variable and expression watching</p>
@@ -553,26 +558,29 @@ tools</p>
 provided you look in the right places!</p>
 <p>Further reading</p>
 <p><a class="reference external" href="http://pydev.org/manual_adv_debugger.html">http://pydev.org/manual_adv_debugger.html</a></p>
-<p class="rubric" id="id3">Python IDEs</p>
-<p class="rubric" id="visual-studio-code">Visual Studio Code</p>
+<p><strong>Visual Studio Code</strong></p>
 <p>Visual Studio Code has support for Python</p>
 <p>(not the same as the monstrosity that is Visual Studio)</p>
 <p><a class="reference external" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
-<p class="rubric" id="winpdb">winpdb</p>
+<p><strong>winpdb</strong></p>
 <p>A multi platform Python debugger with threading support</p>
-<p>Easier to start up and get debugging</p>
+<p>Easier to start up and get debugging:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">winpdb</span> <span class="n">your_app</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="http://winpdb.org/tutorial/WinpdbTutorial.html">http://winpdb.org/tutorial/WinpdbTutorial.html</a></p>
-<p class="rubric" id="remote-debugging">Remote debugging</p>
+</div>
+<div class="section" id="remote-debugging">
+<h3>Remote debugging<a class="headerlink" href="#remote-debugging" title="Permalink to this headline">¶</a></h3>
 <p>To debug an application running a different Python, even remotely:</p>
 <p>remote-pdb</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi/remote-pdb">https://pypi.python.org/pypi/remote-pdb</a></p>
 <p>or older package rpdb</p>
 <p><a class="reference external" href="https://pypi.python.org/pypi/rpdb">https://pypi.python.org/pypi/rpdb</a></p>
 <p>(only tested to Python 3.1)</p>
-<p class="rubric" id="debugging-exercise">Debugging exercise</p>
+</div>
+<div class="section" id="debugging-exercise">
+<h3>Debugging exercise<a class="headerlink" href="#debugging-exercise" title="Permalink to this headline">¶</a></h3>
 <p>Find the wikidef app in the examples folder</p>
 <p>See if you can find the bug and get the app working. Use whatever debugging
 technique(s) you prefer.</p>
@@ -584,7 +592,7 @@ technique(s) you prefer.</p>
 <p>Once it is working again:
 Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that
 wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?</p>
-<p>You can enter the debugger by running</p>
+<p>You can enter the debugger by running:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">robot</span>
 </pre></div>
 </div>
@@ -593,7 +601,9 @@ wikipedia is using by looking at response.headers in Wikipedia.article. What typ
 &#8216;n&#8217;ext commands, or by setting a breakpoint and &#8216;c&#8217;ontinuing.</p>
 <p>What&#8217;s the result?</p>
 <p>You may also want to take a look at long_loop.py and see if you can answer the questions there.</p>
-<p class="rubric" id="questions">Questions?</p>
+</div>
+<div class="section" id="questions">
+<h3>Questions?<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>

@@ -60,10 +60,10 @@ But why make a full copy of all teh keys, when all you want o do is:
 Even worse: ``dict.items()`` created a full list of ``(key,value)`` tuples.
 -- a complete copy of all the data in the dict.
 
-Even worse: ``enumerate(dict.items())`` created a while list of
+Even worse: ``enumerate(dict.items())`` created a whole list of
 ``(index, (key, value))`` tuples -- lots of copies of everything.
 
-Enter ``*iter``
+Enter ``iter*``
 
 Python2 then introduced "iterable" versions of a number of functions and methods:
 
@@ -106,9 +106,9 @@ It works, and is fairly efficient, but what about:
 
 .. code-block:: python
 
-    for triple in zip(words[:-2], words[1:-1], words[2:-2])
+    for triple in zip(words[:-2], words[1:-1], words[2:-2]):
 
-pretty nifty.
+Pretty nifty.
 
 And ``zip()`` doesn't make any copies -- it generates the tuples on the
 fly. So pretty efficient...
@@ -122,7 +122,7 @@ Do remember that the copies are "shallow" -- the actual strings are not
 copied -- but there is a copied pointer for each item in the list.
 As these are big lists of small strings -- it is significant.
 
-Enter ``itertools``.
+Enter ``itertools``
 
 The ``itertools`` module has a ``islice()`` (iterable slice) function.
 It returns an iterator over a slice of a sequence -- so no more copies:
@@ -138,6 +138,7 @@ A bit klunky -- but no extra copies.
 So while I used to say that python was all about sequences
 -- it is now all about iterables.
 
+
 Iterators and Iterables
 -----------------------
 
@@ -149,7 +150,7 @@ Iteration is one of the main reasons Python code is so readable:
         do_stuff(x)
 
 An iterable is anything that can be looped over sequentially, so it does not have to be
-a "sequence": list, tuple, etc.  For example, a string is iterable.
+a "sequence": list, tuple, etc.  For example, a string is iterable. So is a set.
 
 An iterator is an iterable that remembers state. All sequences are iterable, but
 not all sequences are iterators. To make a sequence an iterator, you can call
@@ -310,25 +311,16 @@ What does ``for`` do?
 
 Now that we know the iterator protocol, we can write something like a for loop:
 
-
-:download:`my_for.py <../../Examples/Session09/my_for.py>`
-
 .. code-block:: python
 
-    def my_for(an_iterable, func):
-        """
-        Emulation of a for loop.
-
-        func() will be called with each item in an_iterable
-        """
-        # equiv of "for i in l:"
-        iterator = iter(an_iterable)
-        while True:
-            try:
-                i = next(iterator)
-            except StopIteration:
-                break
-            func(i)
+    # equiv of "for i in l:"
+    iterator = iter(an_iterable)
+    while True:
+        try:
+            item = next(iterator)
+        except StopIteration:
+            break
+        do_something_with_item(item)
 
 
 Itertools
@@ -339,7 +331,7 @@ build an iterator that iterates over sequences in various common ways
 
 http://docs.python.org/3/library/itertools.html
 
-NOTE:
+**NOTE:**
 
 iteratables are not *only* for ``for``
 
@@ -376,6 +368,11 @@ Lots of common iterators are different types:
 
   In [27]: type(iter(zip([],[])))
   Out[27]: zip
+
+Here's a nice overview:
+
+http://treyhunner.com/2016/12/python-iterator-protocol-how-for-loops-work/
+
 
 LAB
 ----

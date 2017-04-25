@@ -331,12 +331,14 @@ to accomplish this in pytest, you use "yield", rather than "return".
 
 The teardowncode will run after the yield
 
-@pytest.fixture()
-def smtp(request):
-    smtp = smtplib.SMTP("smtp.gmail.com")
-    yield smtp  # provide the fixture value
-    print("teardown smtp")
-    smtp.close()
+.. code-block:: python
+
+  @pytest.fixture()
+  def smtp(request):
+      smtp = smtplib.SMTP("smtp.gmail.com")
+      yield smtp  # provide the fixture value
+      print("teardown smtp")
+      smtp.close()
 
 See the example again for this...
 
@@ -783,6 +785,7 @@ Exercises
 -  Add unit tests for each method in calculator_functions.py
 -  Add fixtures via setUp/tearDown methods and setUpClass/tearDownClass
    class methods. Are they behaving how you expect?
+
 or
 
 -  Use pytest fixtures instead.

@@ -188,7 +188,23 @@ Stacked Decorators
 Parameterized Decorators
 ------------------------
 
-Adding yet another function in scope:
+The purpose of the outer function in the decorator is to receive the function to be decorated, adding
+anything to scope that should be there before the decorated function is called.
+
+The inner function runs the function being decorated, so its inputs are the same as the function being
+decorated.
+
+How do we add more input parameters to our decorator? Like this example from Django:
+
+
+.. code-block:: python
+
+   @register.filter(name='cut')
+   def cut(value, arg):
+       return value.replace(arg, '')
+
+
+Add yet another function in scope:
 
 .. code-block:: python
 
@@ -216,7 +232,7 @@ Another great overview: https://dbader.org/blog/python-decorators
 Context Managers
 ****************
 
-Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and can effect the code that is wrapped.
+Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and they can effect the code that is wrapped.
 
 Decorators wrap functions
 
@@ -226,10 +242,15 @@ Decorators are used for things like logging, enforcing access control and authen
 
 Context managers are used to make sure resource is released or previous state is restored after code block
 
+But, this is all fluid, and there are tools that are designed to be used as either a context manager or a decorator.
+
+https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch
+
+
 - The with statement was designed to simplify the try/finally pattern. 
 - Uses __enter__ and __exit__ for creating context manager
 
-Therefor, just like for try/finally block, keep the code in the context manager to the minimum that needs to be there.
+Therefor, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.
 
 Examples/decorators/context_manager.py
 

@@ -319,16 +319,19 @@ decorated.</p>
 </div>
 <div class="section" id="context-managers">
 <h2>Context Managers<a class="headerlink" href="#context-managers" title="Permalink to this headline">¶</a></h2>
-<p>Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and can effect the code that is wrapped.</p>
+<p>Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and they can effect the code that is wrapped.</p>
 <p>Decorators wrap functions</p>
 <p>Context managers wrap small sections of code</p>
 <p>Decorators are used for things like logging, enforcing access control and authentication, instrumentation and timing functions, rate-limiting, caching, etc.</p>
-<p>Context managers are used to make sure resource is released or previous state is restored after code block</p>
+<p>Context managers are used to make sure a resource is released or a previous state is restored after code block</p>
+<p>But, this is all fluid, and there are tools that are designed to be used as either a context manager or a decorator.</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch">https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch</a></p>
+<p>What makes a context manager:</p>
 <ul class="simple">
 <li>The with statement was designed to simplify the try/finally pattern.</li>
 <li>Uses __enter__ and __exit__ for creating context manager</li>
 </ul>
-<p>Therefor, just like for try/finally block, keep the code in the context manager to the minimum that needs to be there.</p>
+<p>Therefor, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.</p>
 <p>Examples/decorators/context_manager.py</p>
 <div class="section" id="contextlib-utilities">
 <h3>Contextlib Utilities<a class="headerlink" href="#contextlib-utilities" title="Permalink to this headline">¶</a></h3>

@@ -299,7 +299,180 @@ for that class.
 
 Here's an example:
 
-TODO:
+How to write an ABC
+-------------------
+
+The abc module provides tools to help write an ABC.
+
+Let's look at an example:
+
+``Examples/abcs/file_like``
+
+.. code-block:: python
+
+    import abc
+
+    # deriving from ABC makes it, well, an ABC :-)
+    class FileLike(abc.ABC):
+
+        @abc.abstractmethod
+        def read(self):
+            """read the contents of the file"""
+
+        @abc.abstractmethod
+        def write(self, text):
+            """ write stuff to the file """
+
+        @abc.abstractmethod
+        def readlines(self):
+            """read the lines of the file into a list"""
+
+        @classmethod
+        def __subclasshook__(cls, inst):
+            if cls is FileLike:
+                print(cls.__dict__.keys())
+                if (any("read" in B.__dict__ for B in inst.__mro__) and
+                    any("write" in B.__dict__ for B in inst.__mro__) and
+                    any("readlines" in B.__dict__ for B in inst.__mro__)
+                    ):
+                    return True
+            return NotImplemented
+
+1) subclass from ABC to make it an ABC.
+
+2) define the abstract methods you need -- the ``abc.abstractmethod`` decorator lets
+   the ABC machinery know the method needs to be implimented by subclasses.
+
+3) define __subclasshook__ -- this is the magic that lets isinstance() work
+   for classes that you have not control over.
+
+   It is called when isinstance() is called with this as the class. It then
+   checks to see if all the methods expected are in the object passed in.
+
+   There could certainly be more magic, but this is explicite, and you could
+   add other logic if you really wanted to.
+
+Using an ABC
+------------
+
+You use the ABC by passing it to isinstance:
+
+.. code-block:: python
+
+    def use_a_file(f):
+        """
+        Do some arbitrary thing with a file-like object
+
+        :param f: an open file-like object
+        """
+        # check if we got the right thing
+        if not isinstance(f, FileLike):
+            raise TypeError("you must pass an open file-like object to use_a_file\n"
+                            " A {} does not satisfy teh FileLike protocol".format(type(f))
+                            )
+        print("Hey -- I can use that! -- {}".format(type(f)))
+
+This function will now work with any object that satisfies the ABC,
+and raise a type error for any object that doesn't.
+
+Examples:
+
+.. code-block:: ipython
+
+    In [23]: use_a_file("a string")
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-23-1da560af8e21> in <module>()
+    ----> 1 use_a_file("a string")
+
+    /Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/abcs/file_like.py in use_a_file(f)
+         60     if not isinstance(f, FileLike):
+         61         raise TypeError("you must pass an open file-like object to use_a_file\n"
+    ---> 62                         " A {} does not satisfy teh FileLike protocol".format(type(f))
+         63                         )
+         64     print("Hey -- I can use that! -- {}".format(type(f)))
+
+    TypeError: you must pass an open file-like object to use_a_file
+     A <class 'str'> does not satisfy teh FileLike protocol
+
+Use it with a built-in actual file object:
+
+.. code-block:: ipython
+
+    In [24]: with open("junk", 'a') as a_file:
+        ...:     use_a_file(a_file)
+        ...:
+    Hey -- I can use that! -- <class '_io.TextIOWrapper'>
+
+Making your own implementation of FileLike:
+-------------------------------------------
+
+To make a File like object, you subclass from the ABC you defined.
+And define the methods
+
+.. code-block:: python
+
+    class MyFileType(FileLike):
+
+        def read(self):
+            """
+            read the contents of teh file and return it
+
+            this dummy implimentation always returns the same thing.
+            """
+            return "The contents of the file\nNot much here"
+
+now try to use it:
+
+.. code-block:: ipython
+
+    In [26]: my_f = MyFileType()
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-26-041b07f27f62> in <module>()
+    ----> 1 my_f = MyFileType()
+
+    TypeError: Can't instantiate abstract class MyFileType with abstract methods readlines, write
+
+**OOPS** -- can't do that! That's what ``@abstractmethod`` does for you -- it requires that an implimentation be provided.
+
+So let's do that:
+
+.. code-block:: ipython
+
+    class MyFileType(FileLike):
+
+        def read(self):
+            """
+            read the contents of teh file and return it
+
+            this dummy implimentation always returns the same thing.
+            """
+            return "The contents of the file\nNot much here"
+
+        def write(self, content):
+            """
+            this just throws away the content...
+            """
+            pass
+
+        def readlines(self):
+            return ["The contents of the file\n","Not much here"]
+
+
+and now it works:
+
+.. code-block:: ipython
+
+  In [28]: my_f = MyFileType()
+
+and it can be used with our function:
+
+.. code-block:: ipython
+
+  In [29]: use_a_file(my_f)
+  Hey -- I can use that! -- <class '__main__.MyFileType'>
+
 
 
 
@@ -396,6 +569,13 @@ Final Thoughts
 
 * The only time you should write a custom ABC is part of a Framework that a
   lot of people are going to extend -- a very rare case!
+
+Helpful write-ups:
+
+https://dbader.org/blog/abstract-base-classes-in-python
+
+http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python
+
 
 Other handy built-in sequences
 ==============================

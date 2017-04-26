@@ -92,6 +92,9 @@
 <li><a class="reference internal" href="#things-you-might-do-with-abcs">Things you might do with ABCs</a></li>
 <li><a class="reference internal" href="#creating-an-object-that-matches-an-interface">Creating an object that matches an interface</a></li>
 <li><a class="reference internal" href="#semi-ducktyping">semi-ducktyping</a></li>
+<li><a class="reference internal" href="#how-to-write-an-abc">How to write an ABC</a></li>
+<li><a class="reference internal" href="#using-an-abc">Using an ABC</a></li>
+<li><a class="reference internal" href="#making-your-own-implementation-of-filelike">Making your own implementation of FileLike:</a></li>
 <li><a class="reference internal" href="#a-digression">A Digression</a></li>
 <li><a class="reference internal" href="#final-thoughts">Final Thoughts</a></li>
 </ul>
@@ -362,7 +365,157 @@ with abstractmethod decorators, and checking the object with an isinstance
 for that class.
 &#8220;&#8221;&#8220;</p>
 <p>Here&#8217;s an example:</p>
-<p>TODO:</p>
+</div>
+<div class="section" id="how-to-write-an-abc">
+<h3>How to write an ABC<a class="headerlink" href="#how-to-write-an-abc" title="Permalink to this headline">¶</a></h3>
+<p>The abc module provides tools to help write an ABC.</p>
+<p>Let&#8217;s look at an example:</p>
+<p><code class="docutils literal"><span class="pre">Examples/abcs/file_like</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="c1"># deriving from ABC makes it, well, an ABC :-)</span>
+<span class="k">class</span> <span class="nc">FileLike</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read the contents of the file&quot;&quot;&quot;</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; write stuff to the file &quot;&quot;&quot;</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">readlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read the lines of the file into a list&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__subclasshook__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cls</span> <span class="ow">is</span> <span class="n">FileLike</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="s2">&quot;read&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;write&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;readlines&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span>
+                <span class="p">):</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p class="first">subclass from ABC to make it an ABC.</p>
+</li>
+<li><p class="first">define the abstract methods you need &#8211; the <code class="docutils literal"><span class="pre">abc.abstractmethod</span></code> decorator lets
+the ABC machinery know the method needs to be implimented by subclasses.</p>
+</li>
+<li><p class="first">define __subclasshook__ &#8211; this is the magic that lets isinstance() work
+for classes that you have not control over.</p>
+<p>It is called when isinstance() is called with this as the class. It then
+checks to see if all the methods expected are in the object passed in.</p>
+<p>There could certainly be more magic, but this is explicite, and you could
+add other logic if you really wanted to.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="using-an-abc">
+<h3>Using an ABC<a class="headerlink" href="#using-an-abc" title="Permalink to this headline">¶</a></h3>
+<p>You use the ABC by passing it to isinstance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">use_a_file</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Do some arbitrary thing with a file-like object</span>
+
+<span class="sd">    :param f: an open file-like object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check if we got the right thing</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">FileLike</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;you must pass an open file-like object to use_a_file</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot; A {} does not satisfy teh FileLike protocol&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                        <span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hey -- I can use that! -- {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>This function will now work with any object that satisfies the ABC,
+and raise a type error for any object that doesn&#8217;t.</p>
+<p>Examples:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">use_a_file</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-23-1da560af8e21&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">use_a_file</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">)</span>
+
+<span class="nn">/Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/abcs/file_like.py</span> in <span class="ni">use_a_file</span><span class="nt">(f)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">FileLike</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;you must pass an open file-like object to use_a_file</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">62</span>                         <span class="s2">&quot; A {} does not satisfy teh FileLike protocol&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>                         <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hey -- I can use that! -- {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+
+<span class="ne">TypeError</span>: you must pass an open file-like object to use_a_file
+ <span class="n">A</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">str</span><span class="s1">&#39;&gt; does not satisfy teh FileLike protocol</span>
+</pre></div>
+</div>
+<p>Use it with a built-in actual file object:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;junk&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">a_file</span><span class="p">:</span>
+<span class="go">    ...:     use_a_file(a_file)</span>
+<span class="go">    ...:</span>
+<span class="go">Hey -- I can use that! -- &lt;class &#39;_io.TextIOWrapper&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-your-own-implementation-of-filelike">
+<h3>Making your own implementation of FileLike:<a class="headerlink" href="#making-your-own-implementation-of-filelike" title="Permalink to this headline">¶</a></h3>
+<p>To make a File like object, you subclass from the ABC you defined.
+And define the methods</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFileType</span><span class="p">(</span><span class="n">FileLike</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        read the contents of teh file and return it</span>
+
+<span class="sd">        this dummy implimentation always returns the same thing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">Not much here&quot;</span>
+</pre></div>
+</div>
+<p>now try to use it:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-26-041b07f27f62&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+
+<span class="ne">TypeError</span>: Can&#39;t instantiate abstract class MyFileType with abstract methods readlines, write
+</pre></div>
+</div>
+<p><strong>OOPS</strong> &#8211; can&#8217;t do that! That&#8217;s what <code class="docutils literal"><span class="pre">&#64;abstractmethod</span></code> does for you &#8211; it requires that an implimentation be provided.</p>
+<p>So let&#8217;s do that:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFileType</span><span class="p">(</span><span class="n">FileLike</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        read the contents of teh file and return it</span>
+
+<span class="sd">        this dummy implimentation always returns the same thing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">Not much here&quot;</span>
+
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        this just throws away the content...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">readlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;Not much here&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and now it works:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and it can be used with our function:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [29]: </span><span class="n">use_a_file</span><span class="p">(</span><span class="n">my_f</span><span class="p">)</span>
+<span class="go">Hey -- I can use that! -- &lt;class &#39;__main__.MyFileType&#39;&gt;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="a-digression">
 <h3>A Digression<a class="headerlink" href="#a-digression" title="Permalink to this headline">¶</a></h3>
@@ -437,6 +590,9 @@ lists and tuples, multiple containers, etc.</li>
 <li>The only time you should write a custom ABC is part of a Framework that a
 lot of people are going to extend &#8211; a very rare case!</li>
 </ul>
+<p>Helpful write-ups:</p>
+<p><a class="reference external" href="https://dbader.org/blog/abstract-base-classes-in-python">https://dbader.org/blog/abstract-base-classes-in-python</a></p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python">http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python</a></p>
 </div>
 </div>
 <div class="section" id="other-handy-built-in-sequences">

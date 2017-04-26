@@ -240,12 +240,14 @@ Context managers wrap small sections of code
 
 Decorators are used for things like logging, enforcing access control and authentication, instrumentation and timing functions, rate-limiting, caching, etc. 
 
-Context managers are used to make sure resource is released or previous state is restored after code block
+Context managers are used to make sure a resource is released or a previous state is restored after code block
 
 But, this is all fluid, and there are tools that are designed to be used as either a context manager or a decorator.
 
 https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch
 
+
+What makes a context manager:
 
 - The with statement was designed to simplify the try/finally pattern. 
 - Uses __enter__ and __exit__ for creating context manager

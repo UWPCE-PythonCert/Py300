@@ -23,8 +23,8 @@ class LookingGlass:
 
 @contextlib.contextmanager
 def looking_glass():
+    msg = ''
     original_write = sys.stdout.write
-
     def reverse_write(text):
         original_write(text[::-1])
 

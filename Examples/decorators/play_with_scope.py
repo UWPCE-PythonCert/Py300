@@ -14,7 +14,7 @@ def make_um_counter():
         series.append(new_word)  # free variable
         count = 0
         for i in series:
-            if i is 'um':
+            if i == 'um':
                 count += 1
         return count
     return um_counter
@@ -22,7 +22,7 @@ def make_um_counter():
 def make_um_counter2():
     count = 0
     def um_counter2(new_word):
-        if new_word is 'um':
+        if new_word == 'um':
             count += 1
         return count
     return um_counter2
@@ -32,7 +32,7 @@ def make_um_counter3():
     count = 0
     def um_counter3(new_word):
         nonlocal count
-        if new_word is 'um':
+        if new_word == 'um':
             count += 1
         return count
     return um_counter3

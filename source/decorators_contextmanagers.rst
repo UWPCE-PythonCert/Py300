@@ -156,15 +156,15 @@ What if my decorated function uses unknown inputs?
 Functools Library
 -----------------
 
-Memoize decorator we created in the first quarter is in Functools:
-
-https://docs.python.org/3/library/functools.html#functools.lru_cache
-
 Single dispatch: 
  - create many functions that do the same sort of thing, but based on type
  - decorator determines type, and decides which function is run
 
 https://docs.python.org/3/library/functools.html#functools.singledispatch
+
+Memoize decorator we created in the first quarter is in Functools:
+
+https://docs.python.org/3/library/functools.html#functools.lru_cache
 
 
 Stacked Decorators
@@ -234,13 +234,13 @@ Context Managers
 
 Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and they can effect the code that is wrapped.
 
-Decorators wrap functions
+Decorators wrap functions.
 
-Context managers wrap small sections of code
+Context managers wrap small sections of code.
 
 Decorators are used for things like logging, enforcing access control and authentication, instrumentation and timing functions, rate-limiting, caching, etc. 
 
-Context managers are used to make sure a resource is released or a previous state is restored after code block
+Context managers are used to make sure a resource is released or a previous state is restored after a code block
 
 But, this is all fluid, and there are tools that are designed to be used as either a context manager or a decorator.
 
@@ -249,10 +249,10 @@ https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch
 
 What makes a context manager:
 
-- The with statement was designed to simplify the try/finally pattern. 
+- The with statement, designed to simplify the try/finally pattern. 
 - Uses __enter__ and __exit__ for creating context manager
 
-Therefor, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.
+Therefore, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.
 
 Examples/decorators/context_manager.py
 

@@ -51,6 +51,9 @@ Topics
 :ref:`documentation`
 ....................
 
+:ref:`sql`
+..........
+
 :ref:`nosql`
 ............
 

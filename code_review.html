@@ -93,9 +93,12 @@
 <li><a class="reference internal" href="#">Code Reviews</a><ul>
 <li><a class="reference internal" href="#why-code-review">Why code review</a><ul>
 <li><a class="reference internal" href="#getting-code-ready-for-review">Getting code ready for review</a></li>
-<li><a class="reference internal" href="#what-to-look-for">what to look for</a></li>
+<li><a class="reference internal" href="#size-of-code">Size of code</a></li>
+<li><a class="reference internal" href="#when-why-to-review-code">When/Why to review code</a></li>
+<li><a class="reference internal" href="#what-to-look-for">What to look for</a></li>
 <li><a class="reference internal" href="#types-of-code-review">Types of code review</a></li>
 <li><a class="reference internal" href="#when-refactoring-or-doing-code-reviews-in-person">When refactoring or doing code reviews in person</a></li>
+<li><a class="reference internal" href="#how-this-will-work-in-class">How this will work in class</a></li>
 </ul>
 </li>
 </ul>
@@ -170,24 +173,52 @@
 <p>As professional developers, we need to always be learning and improving.</p>
 <p>Code review is one of the best tools for this.</p>
 <p>Code review is like having a personal tutor.</p>
+<p>Code review helps more people to become familiar with the code.</p>
+<p>Code review squishes bugs.</p>
 <div class="section" id="getting-code-ready-for-review">
 <h3>Getting code ready for review<a class="headerlink" href="#getting-code-ready-for-review" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>First draft is messy</li>
-<li>Refactor</li>
-<li>Hope for no red marks, but expect they will be there</li>
-<li>To get the most out of it, correct all that you can first</li>
+<li>Write tests - if there are tests, much easier to make changes on the fly during review</li>
+<li>First draft is messy, refactor before code review</li>
+<li>To get the most out of it, correct all that you can before review</li>
+<li>Expect advice and corrections, and learn from them!</li>
+<li>For this class, messy is okay. :-)</li>
+</ul>
+</div>
+<div class="section" id="size-of-code">
+<h3>Size of code<a class="headerlink" href="#size-of-code" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
 <li>Code to review should be between 200 and 400 lines of code</li>
+<li>Code can, and often will, be part of a bigger project</li>
+<li><dl class="first docutils">
+<dt>Code should be modular, so can examine one smallish piece during review:</dt>
+<dd><ul class="first last">
+<li>and be able to explain how it fits in the bigger project</li>
+<li>and be able to explain what the smallish piece is doing in a few sentences</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="when-why-to-review-code">
+<h3>When/Why to review code<a class="headerlink" href="#when-why-to-review-code" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Think your code is ready for production</li>
+<li>Have code working, but seems there is probably a better way</li>
+<li>Totally Stuck</li>
+<li>Having difficulty making it modular, can help you break large chunks into smaller chunks</li>
 </ul>
 </div>
 <div class="section" id="what-to-look-for">
-<h3>what to look for<a class="headerlink" href="#what-to-look-for" title="Permalink to this headline">¶</a></h3>
+<h3>What to look for<a class="headerlink" href="#what-to-look-for" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>readability</li>
 <li>&#8216;pythonic&#8217;</li>
 <li>tests</li>
 <li>short functions/methods</li>
 <li>anything not clear</li>
+<li>logic issues</li>
 </ul>
 </div>
 <div class="section" id="types-of-code-review">
@@ -200,11 +231,30 @@
 </div>
 <div class="section" id="when-refactoring-or-doing-code-reviews-in-person">
 <h3>When refactoring or doing code reviews in person<a class="headerlink" href="#when-refactoring-or-doing-code-reviews-in-person" title="Permalink to this headline">¶</a></h3>
-<p>If code is unclear:</p>
+<p>Write a comment explaining what the code is doing and/or questions about the code</p>
+<p>Then, if time permits you can jointly:</p>
 <ul class="simple">
-<li>write a comment explaining what the code is doing</li>
 <li>work on making the code clearer</li>
-<li>goal to make it clear enough to get rid of the comment(s)</li>
+<li>run tests after changes</li>
+<li>goal to make it clear enough to get rid of the comment(s) that were added</li>
+</ul>
+<p>Or do this yourself afterwards, as you would for written code reviews</p>
+</div>
+<div class="section" id="how-this-will-work-in-class">
+<h3>How this will work in class<a class="headerlink" href="#how-this-will-work-in-class" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Code can be pretty rough, no judging. :)</li>
+<li>Person having code reviewed will send out link to code (a couple of days out, preferably)</li>
+<li><dl class="first docutils">
+<dt>At the beginning of the code review, reviewee will:</dt>
+<dd><ul class="first last">
+<li>give a quick overview of the bigger picture</li>
+<li>give a quick overview of the specific code we will look at</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>We will go over code together. Everyone is encouraged to make comments and ask questions.</li>
 </ul>
 </div>
 </div>

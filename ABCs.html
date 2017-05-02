@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Abstract Base Classes and standard class protocols &mdash; Py300 3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Abstract Base Classes and standard class protocols</a><ul>
+<li><a class="reference internal" href="#interfaces">Interfaces</a><ul>
+<li><a class="reference internal" href="#protocols">Protocols</a></li>
+<li><a class="reference internal" href="#abstract-base-classes">Abstract Base Classes</a></li>
+<li><a class="reference internal" href="#gotcha">gotcha!</a></li>
+<li><a class="reference internal" href="#things-you-might-do-with-abcs">Things you might do with ABCs</a></li>
+<li><a class="reference internal" href="#creating-an-object-that-matches-an-interface">Creating an object that matches an interface</a></li>
+<li><a class="reference internal" href="#semi-ducktyping">semi-ducktyping</a></li>
+<li><a class="reference internal" href="#how-to-write-an-abc">How to write an ABC</a></li>
+<li><a class="reference internal" href="#using-an-abc">Using an ABC</a></li>
+<li><a class="reference internal" href="#making-your-own-implementation-of-filelike">Making your own implementation of FileLike:</a></li>
+<li><a class="reference internal" href="#a-digression">A Digression</a></li>
+<li><a class="reference internal" href="#final-thoughts">Final Thoughts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-handy-built-in-sequences">Other handy built-in sequences</a><ul>
+<li><a class="reference internal" href="#array-array">array.array</a></li>
+<li><a class="reference internal" href="#binary-sequence-types">Binary sequence types</a></li>
+<li><a class="reference internal" href="#memoryview"><code class="docutils literal"><span class="pre">memoryview</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Abstract Base Classes and standard class protocols</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ABCs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="abstract-base-classes-and-standard-class-protocols">
+<span id="abc"></span><h1>Abstract Base Classes and standard class protocols<a class="headerlink" href="#abstract-base-classes-and-standard-class-protocols" title="Permalink to this headline">¶</a></h1>
+<p>Other built in types (array, bytes, etc.,)</p>
+<p>This topic under development!</p>
+<div class="section" id="interfaces">
+<h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
+<p>An &#8220;Interface&#8221; (for a class) is the set of attributes and methods available.</p>
+<p>Python has traditionally used a very dynamic definition of interface:</p>
+<p>&#8220;Duck typing&#8221;</p>
+<p>If is quacks like a duck....</p>
+<p>This is very flexible &#8211; a class does not have to provide <em>everything</em>
+that a given interface might require &#8211; only the bit that is needed.</p>
+<p>For instance  number of functions in the Python standard library act on
+a &#8220;file-like object&#8221;.</p>
+<p>That means &#8220;an object that follows the file interface&#8221;. However, it is
+quite rare that any given function needs the entire interface &#8211; maybe
+it only needs to read something &#8211; so only needs one method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">some_bytes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this case, rather than checking if the object conforms to the file
+interface, this is a great use case for EAFP:</p>
+<p>&#8220;Easier to ask Forgiveness than Permission&#8221;</p>
+<p>That is &#8211; simply call <code class="docutils literal"><span class="pre">.read()</span></code>, and catch the AttributError.</p>
+<p>Or simply let it fail if there is no read() method.</p>
+<div class="section" id="protocols">
+<h3>Protocols<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;protocol&#8221; is essentially just another word for Interface. It tends to be
+used when there is a bit more action &#8211; such as the &#8220;Iterator Protocol&#8221;.</p>
+<p>The Iterator protocol specifies not just methods and attributes, but actions:</p>
+<p>&#8220;A StopIteration Exception is raised when the iterator is exhausted&#8221;</p>
+<p>But it&#8217;s really just another word for the same thing. So in Python,
+interfaces are talked about in (at least) for ways:</p>
+<ul class="simple">
+<li>Interface</li>
+<li>Protocol</li>
+<li>-like &#8211; as in &#8220;file-like&#8221;</li>
+<li>generic name &#8211; like &#8220;sequence&#8221;</li>
+</ul>
+</div>
+<div class="section" id="abstract-base-classes">
+<h3>Abstract Base Classes<a class="headerlink" href="#abstract-base-classes" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes it is nice to more formally define an interface.</p>
+<p>Abstract Base Classes are a way to define a specific interface. In
+particular, the the protocols of the standard Python object types.</p>
+<p>They were added to Python to formalize the &#8220;Duck Typing&#8221; approach in
+some contexts. See PEP 3119 for the details:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-3119/">https://www.python.org/dev/peps/pep-3119/</a></p>
+<p>In OO languages, an &#8220;abstract&#8221; class is a class that has an interface,
+but no implementation. These are sometimes required by static OO languages
+to provide a way to have more than one implementation of a given protocol.</p>
+<p>In Python, they can be used as a way to know if a given object is what
+you might be expecting &#8211; is it a Sequence? a Mapping?</p>
+<p>You can directly check if an object is a particular type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">118</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">118</span><span class="p">]:</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>But that is not the &#8220;Python way&#8221;  &#8211; we usually don&#8217;t care if the passed
+in object is a list, or a tuple, or any other sequence type. What we care
+about is if is a Any Sequence (or maybe only any Iterable).</p>
+<p>Enter ABCs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">121</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">121</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">122</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">122</span><span class="p">]:</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>But what if it needs to mutable?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">123</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">MutableSequence</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">124</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">MutableSequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">124</span><span class="p">]:</span> <span class="bp">True</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">125</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">MutableSequence</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">125</span><span class="p">]:</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>So Python</p>
+</div>
+<div class="section" id="gotcha">
+<h3>gotcha!<a class="headerlink" href="#gotcha" title="Permalink to this headline">¶</a></h3>
+<p>One of the most common type errors seen in Python is the &#8220;sequence of
+strings&#8221; vs &#8220;single string&#8221; confusion:</p>
+<p>It is moderately common to write s function that acts on a bunch of
+strings &#8211; perhaps a bunch of filenames.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    process a number of files.</span>
+
+<span class="sd">    :param filenames: sequence of filenames to process</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_file</span><span class="p">:</span>
+            <span class="n">process</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pass it a list of strings, and all is good:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="n">do_something</span><span class="p">([</span><span class="s2">&quot;name1&quot;</span><span class="p">,</span> <span class="s2">&quot;name2&quot;</span><span class="p">,</span> <span class="s2">&quot;third_name&quot;</span><span class="p">])</span>
+<span class="n">processing</span><span class="p">:</span> <span class="n">name1</span>
+<span class="n">processing</span><span class="p">:</span> <span class="n">name2</span>
+<span class="n">processing</span><span class="p">:</span> <span class="n">third_name</span>
+</pre></div>
+</div>
+<p>But what if the user has only one file to process?</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">do_something</span><span class="p">(</span><span class="s2">&quot;a_single_name&quot;</span><span class="p">)</span>
+<span class="go">processing: a</span>
+<span class="go">processing: _</span>
+<span class="go">processing: s</span>
+<span class="go">processing: i</span>
+<span class="go">processing: n</span>
+<span class="go">processing: g</span>
+<span class="go">processing: l</span>
+<span class="go">processing: e</span>
+<span class="go">processing: _</span>
+<span class="go">processing: n</span>
+<span class="go">processing: a</span>
+<span class="go">processing: m</span>
+<span class="go">processing: e</span>
+</pre></div>
+</div>
+<p>OOPS! &#8211; this happens all too often.</p>
+<p>Why?</p>
+<p>Well, the function is expecting an iterable of strings that is can loop over.</p>
+<p>But a string IS an iterable of strings! it iterates over the string,
+yielding each letter. And a letter is simply a string that happens to
+be of length-one.</p>
+<p>So plain old duck-typing and EAFP doesn&#8217;t work.</p>
+<p>what about checking for a Sequence?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something2</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    process a number of files.</span>
+
+<span class="sd">    :param filenames: sequence of filenames to process</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+        <span class="c1"># put it in a list so the rest of the code is the same.</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">filenames</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>DARN! that didn&#8217;t work &#8211; of course, a string <em>is</em> Iterable.</p>
+<p>So you need to do it the other way around: check for a string. But there
+is not ABC for strings &#8211; there is only one string object in Python, and
+it&#8217;s unlikely that a third party lib will write an alternate implementation.</p>
+<p>So you check for string explicitly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something3</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    process a number of files.</span>
+
+<span class="sd">    :param filenames: sequence of filenames to process</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># put it in a tuple so the rest of the code is the same.</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">(</span><span class="n">filenames</span><span class="p">,)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ahh &#8211; that works:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">do_something3</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+<span class="go">processing: name</span>
+
+<span class="gp">In [11]: </span><span class="n">do_something3</span><span class="p">([</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;name2&quot;</span><span class="p">,</span> <span class="s2">&quot;name3&quot;</span><span class="p">])</span>
+<span class="go">processing: name</span>
+<span class="go">processing: name2</span>
+<span class="go">processing: name3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="things-you-might-do-with-abcs">
+<h3>Things you might do with ABCs<a class="headerlink" href="#things-you-might-do-with-abcs" title="Permalink to this headline">¶</a></h3>
+<p>(In order of likelihood)</p>
+<ul class="simple">
+<li>do an <code class="docutils literal"><span class="pre">isinstance()</span></code> check at the top of a function.</li>
+<li>create a class that conforms to one of the standard ABCs and register it.</li>
+<li>write an ABC that specifies a particular subset of an interface for your
+use-case</li>
+<li>write a full-fledged ABC for a whole new Interface.
+(very, very unlikely...)</li>
+</ul>
+<p>Demo each of these...</p>
+</div>
+<div class="section" id="creating-an-object-that-matches-an-interface">
+<h3>Creating an object that matches an interface<a class="headerlink" href="#creating-an-object-that-matches-an-interface" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s say you write your own container that is a <code class="docutils literal"><span class="pre">MutableSequence</span></code>.</p>
+<p>How do you let others know that your object can be used anywhere a
+<code class="docutils literal"><span class="pre">MutableSequence</span></code> (or a <code class="docutils literal"><span class="pre">Sequence</span></code>, or an <code class="docutils literal"><span class="pre">Iterable</span></code>) can be used?</p>
+<p>You can &#8220;register&#8221; your class with the ABC:</p>
+<p>TODO!!!!</p>
+</div>
+<div class="section" id="semi-ducktyping">
+<h3>semi-ducktyping<a class="headerlink" href="#semi-ducktyping" title="Permalink to this headline">¶</a></h3>
+<p>If you need only a method or two from an object, then just use EAFP:
+<code class="docutils literal"><span class="pre">file_like.read()</span></code> for instance.</p>
+<p>But what if you need a bunch of methods &#8211; but not an explcite particular type?</p>
+<p>This was brought up on SO:</p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like">http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like</a></p>
+<p>Alex Martelli&#8217;s answer:</p>
+<p>&#8220;&#8221;&#8221;
+... you need to determine which methods you need. To check for them, I
+recommended defining your own FileLikeEnoughForMe abstract base class
+with abstractmethod decorators, and checking the object with an isinstance
+for that class.
+&#8220;&#8221;&#8220;</p>
+<p>Here&#8217;s an example:</p>
+</div>
+<div class="section" id="how-to-write-an-abc">
+<h3>How to write an ABC<a class="headerlink" href="#how-to-write-an-abc" title="Permalink to this headline">¶</a></h3>
+<p>The abc module provides tools to help write an ABC.</p>
+<p>Let&#8217;s look at an example:</p>
+<p><code class="docutils literal"><span class="pre">Examples/abcs/file_like</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="c1"># deriving from ABC makes it, well, an ABC :-)</span>
+<span class="k">class</span> <span class="nc">FileLike</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read the contents of the file&quot;&quot;&quot;</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; write stuff to the file &quot;&quot;&quot;</span>
+
+    <span class="nd">@abc.abstractmethod</span>
+    <span class="k">def</span> <span class="nf">readlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read the lines of the file into a list&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__subclasshook__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">FileLike</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="s2">&quot;read&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;write&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;readlines&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span>
+                <span class="p">):</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p class="first">subclass from ABC to make it an ABC.</p>
+</li>
+<li><p class="first">define the abstract methods you need &#8211; the <code class="docutils literal"><span class="pre">abc.abstractmethod</span></code> decorator lets
+the ABC machinery know the method needs to be implimented by subclasses.</p>
+</li>
+<li><p class="first">define __subclasshook__ &#8211; this is the magic that lets isinstance() work
+for classes that you have not control over.</p>
+<p>It is called when isinstance() is called with this as the class. It then
+checks to see if all the methods expected are in the object passed in.</p>
+<p>There could certainly be more magic, but this is explicite, and you could
+add other logic if you really wanted to.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="using-an-abc">
+<h3>Using an ABC<a class="headerlink" href="#using-an-abc" title="Permalink to this headline">¶</a></h3>
+<p>You use the ABC by passing it to isinstance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">use_a_file</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Do some arbitrary thing with a file-like object</span>
+
+<span class="sd">    :param f: an open file-like object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check if we got the right thing</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">FileLike</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;you must pass an open file-like object to use_a_file</span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot; A {} does not satisfy teh FileLike protocol&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                        <span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hey -- I can use that! -- {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>This function will now work with any object that satisfies the ABC,
+and raise a type error for any object that doesn&#8217;t.</p>
+<p>Examples:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">use_a_file</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-23-1da560af8e21&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">use_a_file</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">)</span>
+
+<span class="nn">/Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/abcs/file_like.py</span> in <span class="ni">use_a_file</span><span class="nt">(f)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">FileLike</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;you must pass an open file-like object to use_a_file</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">62</span>                         <span class="s2">&quot; A {} does not satisfy teh FileLike protocol&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>                         <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hey -- I can use that! -- {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+
+<span class="ne">TypeError</span>: you must pass an open file-like object to use_a_file
+ <span class="n">A</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">str</span><span class="s1">&#39;&gt; does not satisfy teh FileLike protocol</span>
+</pre></div>
+</div>
+<p>Use it with a built-in actual file object:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;junk&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">a_file</span><span class="p">:</span>
+<span class="go">    ...:     use_a_file(a_file)</span>
+<span class="go">    ...:</span>
+<span class="go">Hey -- I can use that! -- &lt;class &#39;_io.TextIOWrapper&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-your-own-implementation-of-filelike">
+<h3>Making your own implementation of FileLike:<a class="headerlink" href="#making-your-own-implementation-of-filelike" title="Permalink to this headline">¶</a></h3>
+<p>To make a File like object, you subclass from the ABC you defined.
+And define the methods</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFileType</span><span class="p">(</span><span class="n">FileLike</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        read the contents of teh file and return it</span>
+
+<span class="sd">        this dummy implimentation always returns the same thing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">Not much here&quot;</span>
+</pre></div>
+</div>
+<p>now try to use it:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-26-041b07f27f62&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+
+<span class="ne">TypeError</span>: Can&#39;t instantiate abstract class MyFileType with abstract methods readlines, write
+</pre></div>
+</div>
+<p><strong>OOPS</strong> &#8211; can&#8217;t do that! That&#8217;s what <code class="docutils literal"><span class="pre">&#64;abstractmethod</span></code> does for you &#8211; it requires that an implimentation be provided.</p>
+<p>So let&#8217;s do that:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFileType</span><span class="p">(</span><span class="n">FileLike</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        read the contents of teh file and return it</span>
+
+<span class="sd">        this dummy implimentation always returns the same thing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">Not much here&quot;</span>
+
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        this just throws away the content...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">readlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;The contents of the file</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;Not much here&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and now it works:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">my_f</span> <span class="o">=</span> <span class="n">MyFileType</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and it can be used with our function:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [29]: </span><span class="n">use_a_file</span><span class="p">(</span><span class="n">my_f</span><span class="p">)</span>
+<span class="go">Hey -- I can use that! -- &lt;class &#39;__main__.MyFileType&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-digression">
+<h3>A Digression<a class="headerlink" href="#a-digression" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;private&#8221; attributes?</p>
+<p>A private attribute is an attribute that is not part of the Interface
+of the class.</p>
+<p>While Python does not strictly have private attributes, It&#8217;s a common
+convention that a leading underscore means an attribute that should only
+be accessed from within a class.</p>
+<p>Often used for properties, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span><span class="p">():</span>
+    <span class="o">...</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">*</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>But there is a &#8220;stronger&#8221; way to &#8220;protect&#8221; an attribute &#8211; double underscores:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [129]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
+<span class="go">     ...:     __private = &quot;sneaky&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [130]: </span><span class="n">Base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[130]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
+</pre></div>
+</div>
+<p>note the &#8220;_Base&#8221; was added to the name.</p>
+<p>But if you don&#8217;t have double underscores:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [131]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
+<span class="go">     ...:     public = &quot;wide open&quot;</span>
+<span class="go">     ...:     __private = &quot;sneaky&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [132]: </span><span class="n">Base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[132]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;public&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
+</pre></div>
+</div>
+<p>So what happens if you subclass? Does it get overridden?</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [134]: </span><span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="go">     ...:     private = &quot;oops! -- overridden?&quot;</span>
+<span class="go">     ...:</span>
+
+<span class="gp">In [135]: </span><span class="n">Sub</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gh">Out[135]: </span><span class="go">dict_keys([&#39;__module__&#39;, &#39;private&#39;, &#39;__doc__&#39;])</span>
+
+<span class="gp">In [136]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">private</span>
+<span class="gh">Out[136]: </span><span class="go">&#39;oops! -- overridden?&#39;</span>
+
+<span class="gp">In [137]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">_Base__private</span>
+<span class="gh">Out[137]: </span><span class="go">&#39;sneaky&#39;</span>
+</pre></div>
+</div>
+<p>so using the double underscores assures that the attribute will not get
+accidentally overridden in a subclass.</p>
+<p><strong>Note:</strong> if you now the name mangling, yu can still mess with it ...</p>
+<p><strong>So should you do this?</strong></p>
+<p>Usually not &#8211; it turns out that in practice it&#8217;s
+rare for &#8220;private&#8221; attributes to get overidden accidentally. So this is
+not a widely used practice.</p>
+</div>
+<div class="section" id="final-thoughts">
+<h3>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>don&#8217;t use <code class="docutils literal"><span class="pre">isinstace</span></code> and ABCs when EAFP will do &#8211; simply make the call
+you need and catch the exception.</li>
+<li>Generally better to call <code class="docutils literal"><span class="pre">isinstance</span></code> on an ABC than a specific class</li>
+<li>Use the most general ABC you can &#8211; i.e. &#8220;Iterable&#8221; rather than &#8220;Sequence&#8221;</li>
+<li>&#8220;Even with ABCs, excessive use of <code class="docutils literal"><span class="pre">isinstance</span></code> checks may be code smell&#8221;
+&#8211; Luciana Ramalho (from &#8220;Fluent Python&#8221;)</li>
+<li>ABCs mostly exist to support multiple implementations of the same interface:
+lists and tuples, multiple containers, etc.</li>
+<li>The only time you should write a custom ABC is part of a Framework that a
+lot of people are going to extend &#8211; a very rare case!</li>
+</ul>
+<p>Helpful write-ups:</p>
+<p><a class="reference external" href="https://dbader.org/blog/abstract-base-classes-in-python">https://dbader.org/blog/abstract-base-classes-in-python</a></p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python">http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python</a></p>
+</div>
+</div>
+<div class="section" id="other-handy-built-in-sequences">
+<h2>Other handy built-in sequences<a class="headerlink" href="#other-handy-built-in-sequences" title="Permalink to this headline">¶</a></h2>
+<p>Lists and tuples are very widely used in Python &#8211; they give you a mutable
+and an immutable sequence &#8211; what else do you need?</p>
+<p>There are some special case sequences:</p>
+<div class="section" id="array-array">
+<h3>array.array<a class="headerlink" href="#array-array" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">array</span></code> module provides and array object &#8211; a mutable sequence of
+homogeneous simple numeric types.</p>
+<p><code class="docutils literal"><span class="pre">https://pymotw.com/3/array/</span></code></p>
+<p>The type must be declared when the array is created, and then it can only hold that type:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [60]: </span><span class="kn">import</span> <span class="nn">array</span>
+
+<span class="gp">In [61]: </span><span class="n">arr</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span> <span class="c1"># i is an integer type)</span>
+
+<span class="gp">In [62]: </span><span class="n">arr</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="gp">In [63]: </span><span class="n">arr</span>
+<span class="gh">Out[63]: </span><span class="go">array(&#39;i&#39;, [3, 4, 5])</span>
+
+<span class="gp">In [64]: </span><span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">3.45</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-64-b853b72c3c39&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">3.45</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: integer argument expected, got float
+</pre></div>
+</div>
+<p><strong>Why?</strong></p>
+<p><code class="docutils literal"><span class="pre">array</span></code> supports a wide variety of types, stores the data far more
+compactly, and inter operates better with raw binary data.</p>
+<p>But <code class="docutils literal"><span class="pre">numpy</span></code> gives you all that, and a lot more &#8211; so folks are more likely to
+go to numpy if they really need these features.</p>
+</div>
+<div class="section" id="binary-sequence-types">
+<h3>Binary sequence types<a class="headerlink" href="#binary-sequence-types" title="Permalink to this headline">¶</a></h3>
+<p>Another way to work with binary data is the <code class="docutils literal"><span class="pre">bytes</span></code> and <code class="docutils literal"><span class="pre">bytearray</span></code> objects.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">bytes</span></code>:</dt>
+<dd>an immutable sequence of integers in the range 0 &lt;= x &lt; 256.</dd>
+<dt><code class="docutils literal"><span class="pre">bytearray</span></code>:</dt>
+<dd>a mutable sequence of integers in the range 0 &lt;= x &lt; 256. It has most
+of the usual methods of mutable sequences, as well as most methods that
+the bytes type has</dd>
+</dl>
+<p>a <code class="docutils literal"><span class="pre">byte</span></code> is essentially the smallest unit of memory the computer can work with.
+On virtually all modern hardware, a byte is 8 bits &#8211; 2**8 == 256 &#8211; so a single
+byte is a value between 0 and 255.</p>
+<p>You use bytes and bytearray objects to work with binary data &#8211; usually you&#8217;ll
+know it if you need it.</p>
+<p>But the most common use case is to deal with encoded text:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [79]: </span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Not ASCII: </span><span class="se">\u0107</span><span class="s2"> </span><span class="se">\u0398</span><span class="s2"> </span><span class="se">\u03A3</span><span class="s2"> </span><span class="se">\u03BB</span><span class="s2"> </span><span class="se">\uF4A9</span><span class="s2">&quot;</span>
+
+<span class="gp">In [80]: </span><span class="n">text</span>
+<span class="gh">Out[80]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ \uf4a9&#39;</span>
+
+<span class="gp">In [81]: </span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Not ASCII: </span><span class="se">\u0107</span><span class="s2"> </span><span class="se">\u0398</span><span class="s2"> </span><span class="se">\u03A3</span><span class="s2"> </span><span class="se">\u03BB</span><span class="s2">&quot;</span>
+
+<span class="gp">In [82]: </span><span class="n">text</span>
+<span class="gh">Out[82]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ&#39;</span>
+
+<span class="gp">In [83]: </span><span class="n">b</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="gp">In [84]: </span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[84]: </span><span class="go">bytes</span>
+
+<span class="gp">In [85]: </span><span class="n">b</span>
+<span class="gh">Out[85]: </span><span class="go">b&#39;Not ASCII: \xc4\x87 \xce\x98 \xce\xa3 \xce\xbb&#39;</span>
+</pre></div>
+</div>
+<p>Note that the bytes in the ascii range display as text. This is an
+artifact of the old days of C and Python2! where strings <em>were</em> byte arrays.</p>
+<p>Python also has a literal for a bytes object &#8211; that also uses text:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [92]: </span><span class="n">b</span>
+<span class="gh">Out[92]: </span><span class="go">b&#39;these are bytes&#39;</span>
+</pre></div>
+</div>
+<p>But the individual elements are treats as integers:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [93]: </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gh">Out[93]: </span><span class="go">116</span>
+
+<span class="gp">In [94]: </span><span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[94]: </span><span class="go">[116, 104, 101, 115, 101, 32, 97, 114, 101, 32, 98, 121, 116, 101, 115]</span>
+</pre></div>
+</div>
+<p>Since bytes are often used for encoded text, they come with a <code class="docutils literal"><span class="pre">decode</span></code> method:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [100]: </span><span class="n">b</span>
+<span class="gh">Out[100]: </span><span class="go">b&#39;Not ASCII: \xc4\x87 \xce\x98 \xce\xa3 \xce\xbb&#39;</span>
+
+<span class="gp">In [101]: </span><span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="gh">Out[101]: </span><span class="go">&#39;Not ASCII: ć Θ Σ λ&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="memoryview">
+<h3><code class="docutils literal"><span class="pre">memoryview</span></code><a class="headerlink" href="#memoryview" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">memoryview</span></code> object is a wrapper around a bit of memory &#8211; it allows you to
+view an manipulate the data underlying some other object without copying it.</p>
+<p>Mostly used for binary interchange between different extension data types:
+like to pass data from a numpy array to an image, for instance:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [108]: </span><span class="n">b</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;abcdefg&#39;</span><span class="p">)</span>
+
+<span class="gp">In [109]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">memoryview</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="gp">In [110]: </span><span class="n">m</span>
+<span class="gh">Out[110]: </span><span class="go">&lt;memory at 0x104759048&gt;</span>
+
+<span class="gp">In [111]: </span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gh">Out[111]: </span><span class="go">7</span>
+</pre></div>
+</div>
+<p>m and b now share the same memoroy block. So if I change m...</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [113]: </span><span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span>
+
+<span class="gp">In [114]: </span><span class="n">m</span>
+<span class="gh">Out[114]: </span><span class="go">&lt;memory at 0x104759048&gt;</span>
+
+<span class="gp">In [115]: </span><span class="n">b</span>
+<span class="gh">Out[115]: </span><span class="go">bytearray(b&#39;ab\x00\x00efg&#39;)</span>
+</pre></div>
+</div>
+<p>b is changed as well.</p>
+<p><code class="docutils literal"><span class="pre">memoryview</span></code> can represent different data types, and even
+multi-dimensional arrays.</p>
+<p>For more info:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview">https://docs.python.org/3/library/stdtypes.html#memoryview</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

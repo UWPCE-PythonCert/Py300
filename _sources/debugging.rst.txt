@@ -597,7 +597,7 @@ On test failure, drop to pdb:
     nosetests --pdb-failures
 
 
-..nextslide::
+.. nextslide::
 
 pytest allows one to drop into the PDB prompt via a command line option::
 
@@ -617,15 +617,13 @@ Let's try some debugging!
 
 https://github.com/spiside/pdb-tutorial
 
-.. nextslide::
 
-.. rubric:: Python IDEs
-   :name: python-ides
+Python IDEs
+-----------
 
-.. rubric:: PyCharm
-   :name: pycharm
+**PyCharm**
 
-From JetBrains, and integrates some of their vast array of development
+From JetBrains, --- integrates some of their vast array of development
 tools
 
 Free Community Edition (CE) is available
@@ -634,8 +632,7 @@ Good visual debugging support
 
 .. nextslide::
 
-.. rubric:: Eclipse
-   :name: eclipse
+**Eclipse**
 
 A multi-language IDE
 
@@ -653,12 +650,7 @@ http://pydev.org/manual_adv_debugger.html
 
 .. nextslide::
 
-.. rubric:: Python IDEs
-   :name: python-ides
-
-.. rubric:: Visual Studio Code
-   :name: Visual Studio Code
-
+**Visual Studio Code**
 
 Visual Studio Code has support for Python
 
@@ -669,26 +661,19 @@ https://code.visualstudio.com/
 
 .. nextslide::
 
-.. rubric:: winpdb
-   :name: winpdb
+**winpdb**
 
 A multi platform Python debugger with threading support
 
-Easier to start up and get debugging
+Easier to start up and get debugging::
 
-::
-
-
-          winpdb your_app.py
-
+  winpdb your_app.py
 
 http://winpdb.org/tutorial/WinpdbTutorial.html
 
 
-.. rubric:: Remote debugging
-   :name: remote-debugging
-
-.. nextslide::
+Remote debugging
+----------------
 
 To debug an application running a different Python, even remotely:
 
@@ -702,18 +687,16 @@ https://pypi.python.org/pypi/rpdb
 
 (only tested to Python 3.1)
 
-.. nextslide::
 
-.. rubric:: Debugging exercise
-   :name: debugging-exercise
+Debugging exercise
+------------------
 
 Find the wikidef app in the examples folder
 
 See if you can find the bug and get the app working. Use whatever debugging
 technique(s) you prefer.
 
-To run the app:
-::
+To run the app::
 
     python define.py interesting_topic
 
@@ -725,9 +708,7 @@ Once it is working again:
 Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that
 wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?
 
-You can enter the debugger by running
-
-::
+You can enter the debugger by running::
 
     python -m pdb ./define.py robot
 
@@ -741,8 +722,6 @@ What's the result?
 
 You may also want to take a look at long_loop.py and see if you can answer the questions there.
 
-.. nextslide::
-
-.. rubric:: Questions?
-   :name: questions
+Questions?
+----------
 

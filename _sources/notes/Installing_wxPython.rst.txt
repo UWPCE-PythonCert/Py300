@@ -1,3 +1,5 @@
+:orphan:
+
 .. _installing_wxpython:
 
 ===================
@@ -131,12 +133,16 @@ Example: ``wxPython_Phoenix-3.0.3-dev1836+f764b32.tar.gz``
 
 Note:  A .tar.gz file is called a tarball.
 
-3. Untar the tarball::
+3. Untar the tarball:
+
+..code-block:: shell
 
   tar -xvzf wxPython_Phoenix-3.0.3-dev1836+f764b32.tar.gz
 
 
-4. Go into the directory::
+4. Go into the directory:
+
+..code-block:: shell
 
   cd wxPython_Phoenix-3.0.3-dev1836+f764b32.tar.gz
 

@@ -80,7 +80,7 @@ Examples/decorators/shirt_price.py
 Scope
 -----
 
-Why do decorators have a function inside another function?
+Why do decorators usually have a function inside another function?
 
 Decorators are implemented using closures. Definition of closures from Wikipedia:
 
@@ -116,6 +116,8 @@ nonlocal declaration: allows you to flag a variable as a free variable even if i
 Callbacks
 ---------
 In addition to decorators, closures are also useful for callbacks.
+
+Callbacks are functions handed off to another function, so that they can call the handed off function once they are done running their own code. 
 
 .. code-block:: python
 

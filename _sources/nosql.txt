@@ -1,5 +1,6 @@
-.. _nosql:
+:orphan:
 
+.. _nosql:
 
 ################
 No SQL Databases
@@ -36,11 +37,13 @@ OK: They don't use SQL -- but what are they?
 Not one thing, but key features are mostly shared:
 
 * "schema less"
+
  - Document oriented
 
 * More direct mapping to an object model.
 
 * Highly Scalable
+
  - Easier to distribute / parallelize
 
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Unicode in Python 2 &mdash; Py300 3.0 documentation</title>
+  <title>Unicode in Python &mdash; Py300 3.0 documentation</title>
   
 
   
@@ -81,7 +81,7 @@
             
                 <!-- Local TOC -->
                 <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Unicode in Python 2</a><ul>
+<li><a class="reference internal" href="#">Unicode in Python</a><ul>
 <li><a class="reference internal" href="#history">History</a><ul>
 <li><a class="reference internal" href="#what-the-heck-is-unicode-anyway">What the heck is Unicode anyway?</a></li>
 <li><a class="reference internal" href="#enter-unicode">Enter Unicode</a></li>
@@ -144,7 +144,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Unicode in Python 2</li>
+    <li>Unicode in Python</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -158,10 +158,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="unicode-in-python-2">
-<span id="unicode"></span><h1>Unicode in Python 2<a class="headerlink" href="#unicode-in-python-2" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="unicode-in-python">
+<span id="unicode"></span><h1>Unicode in Python<a class="headerlink" href="#unicode-in-python" title="Permalink to this headline">¶</a></h1>
 <p class="medium">A quick run-down of Unicode,</p>
-<p class="medium">its use in Python 2,</p>
+<p class="medium">Its use in Python 2 and 3,</p>
 <p class="medium">and some of the gotchas that arise.</p>
 <div class="medium line-block">
 <div class="line"><br /></div>
@@ -208,7 +208,9 @@
 <dt>Enter &#8220;encodings&#8221;:</dt>
 <dd><ul class="first last simple">
 <li>An encoding is a way to map specific bytes to a code point.</li>
-<li>Each code point can have one or more bytes.</li>
+<li>Each code point can be represented by one or more bytes.</li>
+<li>each encoding is different &#8211; if you don&#8217;tknow the encoding, you don&#8217;t
+know how to interpret the bytes!</li>
 </ul>
 </dd>
 </dl>

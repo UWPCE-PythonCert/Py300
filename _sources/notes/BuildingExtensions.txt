@@ -1,3 +1,5 @@
+:orphan:
+
 .. _building_extensions:
 
 ==============================

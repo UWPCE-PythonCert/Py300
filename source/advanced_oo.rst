@@ -12,6 +12,29 @@ Advanced Object Oriented Features of Python
 ``PythonCHB@gmail.com``
 
 
+Class
+#####
+
+
+Like 'def', class is used to define something. 
+A class is a logical grouping of data and functions (methods). 
+Often based on the real world, like 'Customer' or 'Product'
+
+Can be thought of as 'blueprints for creating objects'
+
+``Examples/advancedOO/basic_class.py``
+
+Important to be consistent. Objects should start in a valid state:
+
+Initialize everything in the __init__ method!
+
+What if you want a truck class too?
+
+Create a Vehicle class, and subclass. Should we be able to instanticate Vehicle?
+
+Another use for ABC library.
+
+
 Multiple Inheritance
 #####################
 
@@ -31,7 +54,6 @@ multiple inheritance
             Super3.__init__(self, ......)
 
 (calls to the super class' ``__init__`` are optional and case dependent)
-
 
 .. nextslide::
 

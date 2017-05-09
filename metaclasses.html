@@ -98,6 +98,8 @@
 <li><a class="reference internal" href="#namemangler">NameMangler</a></li>
 <li><a class="reference internal" href="#exercise-working-with-namemangler">Exercise: Working with NameMangler</a></li>
 <li><a class="reference internal" href="#the-singleton">The Singleton</a></li>
+<li><a class="reference internal" href="#class-decorators">class decorators?</a></li>
+<li><a class="reference internal" href="#json-save">Json_save</a></li>
 <li><a class="reference internal" href="#reference-reading">Reference reading</a></li>
 </ul>
 </li>
@@ -157,6 +159,7 @@
 <p class="left">Passed as a parameter</p>
 <p class="left">Returned from a function</p>
 <p class="left">Assigned to a variable</p>
+<p class="left">(sound familiar from when we were talking about functions?)</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">create_a_class</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
@@ -177,7 +180,7 @@
 </div>
 <div class="section" id="equivalent-to">
 <h3>Equivalent to:<a class="headerlink" href="#equivalent-to" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
    <span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;nice&#39;</span>
    <span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;sweet&#39;</span>
 </pre></div>
@@ -388,6 +391,38 @@ NameMangler and Singleton classes in the <code class="docutils literal"><span cl
 <p>One common use of metaclasses is to create a singleton. There is an example of this called singleton.py in the Examples directory. However, metaclasses are not the only way to create a singleton. It really depends on what you are trying to do with your singleton.</p>
 <p><a class="reference external" href="http://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html">http://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html</a></p>
 <p><a class="reference external" href="http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python">http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python</a></p>
+</div>
+<div class="section" id="class-decorators">
+<h3>class decorators?<a class="headerlink" href="#class-decorators" title="Permalink to this headline">¶</a></h3>
+<p>We touched last week a bit about class decorators:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@a_decorator</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A decorator is a &#8220;callable&#8221; that returns a &#8220;callable&#8221; &#8211; usually a modified
+version of he one passed in.</p>
+<p>Class objects are callable &#8211; you call them when you instantiate a instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">an_inst</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>So you can decorate a class as well as functions and methods.</p>
+<p>In fact, you can do many of the same things that you can do with metaclasses:</p>
+<p>When you decorate a class, you can cahnge it in some way, and then the
+changed version replaces the one in the definiton.</p>
+<p>This also happens at compile time, rather than run time, just like metaclasses.</p>
+<p>class decorators were actually introduced AFTER metaclasses &#8211; maybe they
+are a clearer solution??</p>
+</div>
+<div class="section" id="json-save">
+<h3>Json_save<a class="headerlink" href="#json-save" title="Permalink to this headline">¶</a></h3>
+<p>For a more involved (and useful!) example, see:</p>
+<p><code class="docutils literal"><span class="pre">Examples/metaclasses/Json_save</span></code></p>
+<p>It is a meta-class based system for saving and re-loading objects.</p>
+<p>It actually works a bit like the ORMs.</p>
+<p>It turns out that the metaclass part of the code is pretty simple and small.</p>
+<p>But there is a lot of other nifty, magic with classes in there
+&#8211; so let&#8217;s take a look.</p>
 </div>
 <div class="section" id="reference-reading">
 <h3>Reference reading<a class="headerlink" href="#reference-reading" title="Permalink to this headline">¶</a></h3>

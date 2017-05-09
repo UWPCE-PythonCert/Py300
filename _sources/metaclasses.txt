@@ -23,6 +23,7 @@ A class is just an object
 
   Assigned to a variable
 
+  (sound familiar from when we were talking about functions?)
 
 Example
 -------
@@ -48,7 +49,7 @@ Equivalent to:
 --------------
 
 
-::
+.. code-block:: python
 
    class CoolClass(object):
       foo = 'nice'
@@ -331,6 +332,55 @@ One common use of metaclasses is to create a singleton. There is an example of t
 http://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html
 
 http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python
+
+class decorators?
+-----------------
+
+We touched last week a bit about class decorators:
+
+.. code-block:: python
+
+    @a_decorator
+    class MyClass():
+        ...
+
+A decorator is a "callable" that returns a "callable" -- usually a modified
+version of he one passed in.
+
+Class objects are callable -- you call them when you instantiate a instance:
+
+.. code-block:: python
+
+   an_inst = MyClass()
+
+So you can decorate a class as well as functions and methods.
+
+In fact, you can do many of the same things that you can do with metaclasses:
+
+When you decorate a class, you can cahnge it in some way, and then the
+changed version replaces the one in the definiton.
+
+This also happens at compile time, rather than run time, just like metaclasses.
+
+class decorators were actually introduced AFTER metaclasses -- maybe they
+are a clearer solution??
+
+
+Json_save
+---------
+
+For a more involved (and useful!) example, see:
+
+``Examples/metaclasses/Json_save``
+
+It is a meta-class based system for saving and re-loading objects.
+
+It actually works a bit like the ORMs.
+
+It turns out that the metaclass part of the code is pretty simple and small.
+
+But there is a lot of other nifty, magic with classes in there
+-- so let's take a look.
 
 
 Reference reading

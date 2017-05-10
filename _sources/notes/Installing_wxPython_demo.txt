@@ -1,3 +1,5 @@
+:orphan:
+
 .. _installing_wxpython_demo:
 
 ============================

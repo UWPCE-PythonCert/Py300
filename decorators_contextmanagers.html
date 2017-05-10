@@ -199,7 +199,7 @@ can declare a function inside another function:</p>
 </div>
 <div class="section" id="scope">
 <h3>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h3>
-<p>Why do decorators have a function inside another function?</p>
+<p>Why do decorators usually have a function inside another function?</p>
 <p>Decorators are implemented using closures. Definition of closures from Wikipedia:</p>
 <p>Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure&#8217;s copies of their values or references, even when the function is invoked outside their scope.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">start_at</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -225,6 +225,7 @@ can declare a function inside another function:</p>
 <div class="section" id="callbacks">
 <h3>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h3>
 <p>In addition to decorators, closures are also useful for callbacks.</p>
+<p>Callbacks are functions handed off to another function, so that they can call the handed off function once they are done running their own code.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
     <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;function my_callback was called with {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
 
@@ -257,8 +258,6 @@ can declare a function inside another function:</p>
 </div>
 <div class="section" id="functools-library">
 <h3>Functools Library<a class="headerlink" href="#functools-library" title="Permalink to this headline">¶</a></h3>
-<p>Memoize decorator we created in the first quarter is in Functools:</p>
-<p><a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.lru_cache">https://docs.python.org/3/library/functools.html#functools.lru_cache</a></p>
 <dl class="docutils">
 <dt>Single dispatch:</dt>
 <dd><ul class="first last simple">
@@ -268,6 +267,8 @@ can declare a function inside another function:</p>
 </dd>
 </dl>
 <p><a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.singledispatch">https://docs.python.org/3/library/functools.html#functools.singledispatch</a></p>
+<p>Memoize decorator we created in the first quarter is in Functools:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.lru_cache">https://docs.python.org/3/library/functools.html#functools.lru_cache</a></p>
 </div>
 <div class="section" id="stacked-decorators">
 <h3>Stacked Decorators<a class="headerlink" href="#stacked-decorators" title="Permalink to this headline">¶</a></h3>
@@ -320,18 +321,18 @@ decorated.</p>
 <div class="section" id="context-managers">
 <h2>Context Managers<a class="headerlink" href="#context-managers" title="Permalink to this headline">¶</a></h2>
 <p>Are kind of similar to decorators in function: they wrap a section of code so that some other code is run before and/or afterwards, and they can effect the code that is wrapped.</p>
-<p>Decorators wrap functions</p>
-<p>Context managers wrap small sections of code</p>
+<p>Decorators wrap functions.</p>
+<p>Context managers wrap small sections of code.</p>
 <p>Decorators are used for things like logging, enforcing access control and authentication, instrumentation and timing functions, rate-limiting, caching, etc.</p>
-<p>Context managers are used to make sure a resource is released or a previous state is restored after code block</p>
+<p>Context managers are used to make sure a resource is released or a previous state is restored after a code block</p>
 <p>But, this is all fluid, and there are tools that are designed to be used as either a context manager or a decorator.</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch">https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch</a></p>
 <p>What makes a context manager:</p>
 <ul class="simple">
-<li>The with statement was designed to simplify the try/finally pattern.</li>
+<li>The with statement, designed to simplify the try/finally pattern.</li>
 <li>Uses __enter__ and __exit__ for creating context manager</li>
 </ul>
-<p>Therefor, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.</p>
+<p>Therefore, just like for a try/finally block, keep the code in the context manager to the minimum that needs to be there.</p>
 <p>Examples/decorators/context_manager.py</p>
 <div class="section" id="contextlib-utilities">
 <h3>Contextlib Utilities<a class="headerlink" href="#contextlib-utilities" title="Permalink to this headline">¶</a></h3>

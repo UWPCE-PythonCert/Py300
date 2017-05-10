@@ -8,26 +8,121 @@ Metaclasses
 
 adapted from work by Joseph Sheedy
 
-A class is just an object
-=========================
+Metaprogramming
+===============
 
 .. rst-class:: left
 
-  A class is a first-class object:
+  **Metaprogramming:**
 
-  Can be created at runtime
+  "Metaprogramming is a programming technique in which computer programs have the ability to treat programs as their data. It means that a program can be designed to read, generate, analyse or transform other programs, and even modify itself while running."
 
-  Passed as a parameter
+  -- ``https://en.wikipedia.org/wiki/Metaprogramming``
 
-  Returned from a function
+  In other words: A metaprogram is a program that writes (or maodifies) programs.
 
-  Assigned to a variable
+  As a dynamic language, Python is very well suited to metaprograming, as it allows objects to be modified at run time. It also provides excellent tools for **"Introspection"**:
+
+  "The ability of a program to examine the type or properties of an object at runtime."
 
 
-Example
--------
+A class is just an object
+-------------------------
 
-::
+A class is a first-class object:
+
+Can be created at runtime
+
+Passed as a parameter
+
+Returned from a function
+
+Assigned to a variable
+
+(sound familiar from when we were talking about functions?)
+
+This "everything is an object" is what allows full introspection and metaprogramming.
+
+Introspeciton and manipulation tools
+====================================
+
+``getattr()`` and ``setattr()``
+-------------------------------
+
+these allow you to get and set attributes of an object by name:
+
+.. code-block:: ipython
+
+  In [1]: class Dummy():
+     ...:     """A class with nothing in it"""
+     ...:     pass
+     ...:
+
+  In [2]: obj = Dummy()
+
+  In [3]: vars(obj)
+  Out[3]: {}
+
+  In [4]: setattr(obj, 'this', 54)
+
+  In [5]: vars(obj)
+  Out[5]: {'this': 54}
+
+  In [6]: getattr(obj, 'this')
+  Out[6]: 54
+
+What's in a Class?
+------------------
+
+A class (and instance) object stores its attributes in a dictionary -- yes, a regular old python dict. You can access that dict with the ``__dict__`` attribute:
+
+.. code-block:: ipython
+
+  In [11]: class Simple():
+      ...:     this = "a class attribute"
+      ...:     def __init__(self):
+      ...:         self.that = "an instance attribute"
+      ...:
+
+  In [12]: obj = Simple()
+
+  In [13]: Simple.__dict__
+  Out[13]:
+  mappingproxy({'__dict__': <attribute '__dict__' of 'Simple' objects>,
+                '__doc__': None,
+                '__init__': <function __main__.Simple.__init__>,
+                '__module__': '__main__',
+                '__weakref__': <attribute '__weakref__' of 'Simple' objects>,
+                'this': 'a class attribute'})
+
+  In [15]: obj.__dict__
+  Out[15]: {'that': 'an instance attribute'}
+
+
+What class does this object belong to?
+--------------------------------------
+
+every object has a ``__class__`` attribute specifying what class the object belongs to:
+
+.. code-block:: ipython
+
+    In [16]: obj.__class__
+    Out[16]: __main__.Simple
+
+and that is the actuall class object:
+
+.. code-block:: ipython
+
+  In [17]: obj.__class__ is Simple
+  Out[17]: True
+
+metaclasses
+===========
+
+Creating a class from scratch
+-----------------------------
+
+.. code-block:: python
 
    >>> def create_a_class(**kw):
    ...    return type('CoolClass', (object,), dict(**kw))
@@ -47,8 +142,7 @@ Example
 Equivalent to:
 --------------
 
-
-::
+.. code-block:: python
 
    class CoolClass(object):
       foo = 'nice'
@@ -60,13 +154,30 @@ But it was created at runtime, returned from a function and assigned to a variab
 
 http://eli.thegreenplace.net/2011/08/14/python-metaclasses-by-example
 
+"type" or "class"
+-----------------
+
+We talk about "classes", and yet we create them with ``type()``.
+
+In python, "type" and "class" are essentially the same thing.
+
+So why the two names?
+
+History: in teheraly days of python, a "type" was a built-in object, and a "class" was an object crated with code.
+
+type - class unifiation began in python 2.2:
+
+``https://www.python.org/download/releases/2.2/descrintro/``
+
+In python3, the unification is complete -- types *are* classes and vice-versa.
+
 
 More on Classes
 ---------------
 
   Objects get created from classes. So what is the class of a class?
 
-  The class of Class is a metaclass
+  The class of a Class is a metaclass
 
   The metaclass can be used to dynamically create a class
 
@@ -331,6 +442,55 @@ One common use of metaclasses is to create a singleton. There is an example of t
 http://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html
 
 http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python
+
+class decorators?
+-----------------
+
+We touched last week a bit about class decorators:
+
+.. code-block:: python
+
+    @a_decorator
+    class MyClass():
+        ...
+
+A decorator is a "callable" that returns a "callable" -- usually a modified
+version of he one passed in.
+
+Class objects are callable -- you call them when you instantiate a instance:
+
+.. code-block:: python
+
+   an_inst = MyClass()
+
+So you can decorate a class as well as functions and methods.
+
+In fact, you can do many of the same things that you can do with metaclasses:
+
+When you decorate a class, you can cahnge it in some way, and then the
+changed version replaces the one in the definiton.
+
+This also happens at compile time, rather than run time, just like metaclasses.
+
+class decorators were actually introduced AFTER metaclasses -- maybe they
+are a clearer solution??
+
+
+Json_save
+---------
+
+For a more involved (and useful!) example, see:
+
+``Examples/metaclasses/Json_save``
+
+It is a meta-class based system for saving and re-loading objects.
+
+It works a bit like the ORMs.
+
+It turns out that the metaclass part of the code is pretty simple and small.
+
+But there is a lot of other nifty, magic with classes in there
+-- so let's take a look.
 
 
 Reference reading

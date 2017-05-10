@@ -35,6 +35,25 @@ Create a Vehicle class, and subclass. Should we be able to instanticate Vehicle?
 Another use for ABC library.
 
 
+.. code-block:: python
+
+
+   class Vehicle():
+      def __init__(self, something):
+      	  self.something = something
+ 
+
+   class Car(Vehicle):
+      def __init__(self, something):
+	  Vehicle.__init(self, something)
+
+
+   class Truck(Vehicle):
+      def __init__(self, something):
+	  Vehicle.__init(self, something)
+
+
+
 Multiple Inheritance
 #####################
 
@@ -53,7 +72,7 @@ multiple inheritance
             Super2.__init__(self, ......)
             Super3.__init__(self, ......)
 
-(calls to the super class' ``__init__`` are optional and case dependent)
+(calls to the super class' ``__init__`` are optional and case dependent, but default should generally be yes)
 
 .. nextslide::
 
@@ -215,6 +234,21 @@ And the diamond problem?
 
 What does super() do?
 ----------------------
+
+
+.. code-block:: python
+
+
+    class ChildB(Base):
+        def __init__(self):
+            mro = type(self).mro()
+            for next_class in mro[mro.index(ChildB) + 1:]: # slice to end
+                if hasattr(next_class, '__init__'):
+                    next_class.__init__(self)
+                    break
+
+
+http://stackoverflow.com/questions/576169/understanding-python-super-with-init-methods
 
 ``super`` returns a "proxy object" that delegates method calls.
 

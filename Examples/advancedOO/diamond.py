@@ -3,6 +3,11 @@ class A(object):
         print("doing A's stuff")
 
 
+class Default(A):
+    def do_your_stuff(self):
+        print('doing Default stuff')
+
+
 class B(A):
     def do_your_stuff(self):
         A.do_your_stuff(self)
@@ -27,6 +32,10 @@ if __name__ == '__main__':
     a = A()
     print("\ncalling A's method")
     a.do_your_stuff()
+
+    default = Default()
+    print("\ncalling Default's method")
+    default.do_your_stuff()
 
     print("\ncalling B's method")
     b = B()

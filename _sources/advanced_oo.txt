@@ -30,9 +30,7 @@ Initialize everything in the __init__ method!
 
 What if you want a truck class too?
 
-Create a Vehicle class, and subclass. Should we be able to instanticate Vehicle?
-
-Another use for ABC library.
+Create a Vehicle class, and subclasses.
 
 
 .. code-block:: python

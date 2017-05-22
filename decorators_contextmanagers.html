@@ -224,7 +224,7 @@ can declare a function inside another function:</p>
 </div>
 <div class="section" id="scope">
 <h3>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h3>
-<p>Why do decorators have a function inside another function?</p>
+<p>Why do decorators usually have a function inside another function?</p>
 <p>Decorators are implemented using closures. Definition of closures from Wikipedia:</p>
 <p>Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure&#8217;s copies of their values or references, even when the function is invoked outside their scope.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">start_at</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -250,6 +250,7 @@ can declare a function inside another function:</p>
 <div class="section" id="callbacks">
 <h3>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h3>
 <p>In addition to decorators, closures are also useful for callbacks.</p>
+<p>Callbacks are functions handed off to another function, so that they can call the handed off function once they are done running their own code.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
     <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;function my_callback was called with {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
 

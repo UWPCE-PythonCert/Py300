@@ -6,9 +6,8 @@
 Abstract Base Classes and standard class protocols
 ##################################################
 
-Other built in types (array, bytes, etc.,)
+( And other built in types (array, bytes, etc.,) )
 
-This topic under development!
 
 Interfaces
 ==========
@@ -24,7 +23,7 @@ If is quacks like a duck....
 This is very flexible -- a class does not have to provide *everything*
 that a given interface might require -- only the bit that is needed.
 
-For instance  number of functions in the Python standard library act on
+For instance, a number of functions in the Python standard library act on
 a "file-like object".
 
 That means "an object that follows the file interface". However, it is
@@ -47,7 +46,7 @@ Or simply let it fail if there is no read() method.
 Protocols
 ---------
 
-"protocol" is essentially just another word for Interface. It tends to be
+"Protocol" is essentially just another word for Interface. It tends to be
 used when there is a bit more action -- such as the "Iterator Protocol".
 
 The Iterator protocol specifies not just methods and attributes, but actions:
@@ -68,7 +67,7 @@ Abstract Base Classes
 Sometimes it is nice to more formally define an interface.
 
 Abstract Base Classes are a way to define a specific interface. In
-particular, the the protocols of the standard Python object types.
+particular, the protocols of the standard Python object types.
 
 They were added to Python to formalize the "Duck Typing" approach in
 some contexts. See PEP 3119 for the details:
@@ -94,7 +93,7 @@ You can directly check if an object is a particular type:
 
 But that is not the "Python way"  -- we usually don't care if the passed
 in object is a list, or a tuple, or any other sequence type. What we care
-about is if is a Any Sequence (or maybe only any Iterable).
+about is if is *Any Sequence* (or maybe only any Iterable).
 
 Enter ABCs:
 
@@ -128,7 +127,7 @@ gotcha!
 One of the most common type errors seen in Python is the "sequence of
 strings" vs "single string" confusion:
 
-It is moderately common to write s function that acts on a bunch of
+It is moderately common to write a function that acts on a bunch of
 strings -- perhaps a bunch of filenames.
 
 .. code-block:: python
@@ -176,9 +175,9 @@ OOPS! -- this happens all too often.
 
 Why?
 
-Well, the function is expecting an iterable of strings that is can loop over.
+Well, the function is expecting an iterable of strings that it can loop over.
 
-But a string IS an iterable of strings! it iterates over the string,
+But a string IS an iterable of strings! It iterates over the string,
 yielding each letter. And a letter is simply a string that happens to
 be of length-one.
 
@@ -211,7 +210,7 @@ what about checking for a Sequence?
 DARN! that didn't work -- of course, a string *is* Iterable.
 
 So you need to do it the other way around: check for a string. But there
-is not ABC for strings -- there is only one string object in Python, and
+is no ABC for strings -- there is only one string object in Python, and
 it's unlikely that a third party lib will write an alternate implementation.
 
 So you check for string explicitly:
@@ -243,25 +242,65 @@ Ahh -- that works:
     processing: name3
 
 
-
-
 Things you might do with ABCs
 -----------------------------
 
 (In order of likelihood)
 
-* do an ``isinstance()`` check at the top of a function.
+* Do an ``isinstance()`` check at the top of a function.
 
-* create a class that conforms to one of the standard ABCs and register it.
+* Create a class that conforms to one of the standard ABCs and register it.
 
-* write an ABC that specifies a particular subset of an interface for your
+* Write an ABC that specifies a particular subset of an interface for your
   use-case
 
-* write a full-fledged ABC for a whole new Interface.
-  (very, very unlikely...)
+* Write a full-fledged ABC for a whole new Interface.
+  (very, very, unlikely...)
 
-Demo each of these...
+Using isinstance with standard ABCs
+-----------------------------------
 
+This you would do at the top of a funciton to make sure you are working
+with what you think you are.
+
+Remember that most of the time you can simply use EAFP instead.
+
+But if you do -- choose the ABC that is at the lowest level for your use case.
+
+That is, don't use ``MutableSequence`` if it does not need to be mutable.
+
+And if you only need to iterate over it -- use ``Iterable``
+
+Most of the build-in ones are in the ``collections.abc`` module:
+
+.. code-block:: python
+
+    for name in dir(collections.abc):
+        if not name.startswith('_'):
+             print(name)
+
+    AsyncIterable
+    AsyncIterator
+    Awaitable
+    ByteString
+    Callable
+    Container
+    Coroutine
+    Generator
+    Hashable
+    ItemsView
+    Iterable
+    Iterator
+    KeysView
+    Mapping
+    MappingView
+    MutableMapping
+    MutableSequence
+    MutableSet
+    Sequence
+    Set
+    Sized
+    ValuesView
 
 Creating an object that matches an interface
 ---------------------------------------------
@@ -273,16 +312,42 @@ How do you let others know that your object can be used anywhere a
 
 You can "register" your class with the ABC:
 
-TODO!!!!
+Every ABC has a register method that can serve as a decorator:
+
+.. code-block:: python
+
+    import collections.abc
+
+    @collections.abc.Sequence.register
+    class MyKindOfSequence():
+
+        def __init__(self, an_iterable):
+            self.contents = list(an_iterable)
+
+        def __len__(self):
+            return len(self.contents)
+
+.. code-block:: ipython
+
+    In [23]: s = MyKindOfSequence(('this', 'that', 4))
+
+    In [24]: isinstance(s, MyKindOfSequence)
+    Out[24]: True
+
+``Examples/abcs/register.py``
+
+**CAUTION:** you really should implement the entire interface if you are
+going to register something!
 
 
-semi-ducktyping
+Semi-ducktyping
 ---------------
 
 If you need only a method or two from an object, then just use EAFP:
 ``file_like.read()`` for instance.
 
-But what if you need a bunch of methods -- but not an explcite particular type?
+But what if you need a bunch of methods -- but not an explicit particular
+type?
 
 This was brought up on SO:
 
@@ -293,9 +358,12 @@ Alex Martelli's answer:
 """
 ... you need to determine which methods you need. To check for them, I
 recommended defining your own FileLikeEnoughForMe abstract base class
-with abstractmethod decorators, and checking the object with an isinstance
-for that class.
+with ``abstractmethod`` decorators, and checking the object with
+``isinstance`` for that class.
 """
+
+**Note** You could use ``isinstance(obj, io.FileIO)``, but then you
+would only be able to use object that conformed to the full File interface.
 
 Here's an example:
 
@@ -306,7 +374,7 @@ The abc module provides tools to help write an ABC.
 
 Let's look at an example:
 
-``Examples/abcs/file_like``
+``Examples/abcs/file_like.py``
 
 .. code-block:: python
 
@@ -355,7 +423,7 @@ Let's look at an example:
 Using an ABC
 ------------
 
-You use the ABC by passing it to isinstance:
+You use the ABC by passing it to ``isinstance``:
 
 .. code-block:: python
 
@@ -368,7 +436,7 @@ You use the ABC by passing it to isinstance:
         # check if we got the right thing
         if not isinstance(f, FileLike):
             raise TypeError("you must pass an open file-like object to use_a_file\n"
-                            " A {} does not satisfy teh FileLike protocol".format(type(f))
+                            " A {} does not satisfy the FileLike protocol".format(type(f))
                             )
         print("Hey -- I can use that! -- {}".format(type(f)))
 
@@ -403,6 +471,7 @@ Use it with a built-in actual file object:
         ...:     use_a_file(a_file)
         ...:
     Hey -- I can use that! -- <class '_io.TextIOWrapper'>
+
 
 Making your own implementation of FileLike:
 -------------------------------------------
@@ -472,7 +541,6 @@ and it can be used with our function:
 
   In [29]: use_a_file(my_f)
   Hey -- I can use that! -- <class '__main__.MyFileType'>
-
 
 
 
@@ -554,7 +622,7 @@ not a widely used practice.
 Final Thoughts
 --------------
 
-* don't use ``isinstace`` and ABCs when EAFP will do -- simply make the call
+* don't use ``isinstance`` and ABCs when EAFP will do -- simply make the call
   you need and catch the exception.
 
 * Generally better to call ``isinstance`` on an ABC than a specific class
@@ -575,6 +643,8 @@ Helpful write-ups:
 https://dbader.org/blog/abstract-base-classes-in-python
 
 http://stackoverflow.com/questions/3570796/why-use-abstract-base-classes-in-python
+
+https://pymotw.com/3/abc/
 
 
 Other handy built-in sequences

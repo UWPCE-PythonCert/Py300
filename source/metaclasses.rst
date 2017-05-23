@@ -2,11 +2,11 @@
 
 .. _metaclasses:
 
-###########
-Metaclasses
-###########
+################
+Meta Programming
+################
 
-adapted from work by Joseph Sheedy
+Adapted from work by Joseph Sheedy
 
 Metaprogramming
 ===============

@@ -82,6 +82,7 @@
                 <!-- Local TOC -->
                 <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Advanced Object Oriented Features of Python</a><ul>
+<li><a class="reference internal" href="#class">Class</a></li>
 <li><a class="reference internal" href="#multiple-inheritance">Multiple Inheritance</a><ul>
 <li><a class="reference internal" href="#id1">multiple inheritance</a></li>
 <li><a class="reference internal" href="#mix-ins">Mix-ins</a></li>
@@ -158,6 +159,33 @@
 <li>Chris Barker</li>
 </ul>
 <p><code class="docutils literal"><span class="pre">PythonCHB&#64;gmail.com</span></code></p>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<p>Like &#8216;def&#8217;, class is used to define something.
+A class is a logical grouping of data and functions (methods).
+Often based on the real world, like &#8216;Customer&#8217; or &#8216;Product&#8217;</p>
+<p>Can be thought of as &#8216;blueprints for creating objects&#8217;</p>
+<p><code class="docutils literal"><span class="pre">Examples/advancedOO/basic_class.py</span></code></p>
+<p>Important to be consistent. Objects should start in a valid state:</p>
+<p>Initialize everything in the __init__ method!</p>
+<p>What if you want a truck class too?</p>
+<p>Create a Vehicle class, and subclasses.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vehicle</span><span class="p">():</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">):</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">something</span> <span class="o">=</span> <span class="n">something</span>
+
+
+<span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">Vehicle</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">):</span>
+       <span class="n">Vehicle</span><span class="o">.</span><span class="n">__init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Truck</span><span class="p">(</span><span class="n">Vehicle</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">):</span>
+       <span class="n">Vehicle</span><span class="o">.</span><span class="n">__init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="multiple-inheritance">
 <h2>Multiple Inheritance<a class="headerlink" href="#multiple-inheritance" title="Permalink to this headline">¶</a></h2>
 <p>Pulling methods from more than one class</p>
@@ -170,7 +198,7 @@
         <span class="n">Super3</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">......</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>(calls to the super class&#8217; <code class="docutils literal"><span class="pre">__init__</span></code> are optional and case dependent)</p>
+<p>(calls to the super class&#8217; <code class="docutils literal"><span class="pre">__init__</span></code> are optional and case dependent, but default should generally be yes)</p>
 <p><strong>Method Resolution Order:</strong>  left to right</p>
 <ol class="arabic simple">
 <li>Is it an instance attribute ?</li>
@@ -283,6 +311,16 @@ linearization algorithm:</p>
 </div>
 <div class="section" id="what-does-super-do">
 <h3>What does super() do?<a class="headerlink" href="#what-does-super-do" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ChildB</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mro</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">next_class</span> <span class="ow">in</span> <span class="n">mro</span><span class="p">[</span><span class="n">mro</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ChildB</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]:</span> <span class="c1"># slice to end</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">next_class</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">):</span>
+                <span class="n">next_class</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">break</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://stackoverflow.com/questions/576169/understanding-python-super-with-init-methods">http://stackoverflow.com/questions/576169/understanding-python-super-with-init-methods</a></p>
 <p><code class="docutils literal"><span class="pre">super</span></code> returns a &#8220;proxy object&#8221; that delegates method calls.</p>
 <p>It&#8217;s not returning the object itself &#8211; but you can call methods on it.</p>
 <p>It runs through the method resolution order (MRO) to find the method

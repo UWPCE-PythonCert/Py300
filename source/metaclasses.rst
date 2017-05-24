@@ -3,10 +3,10 @@
 .. _metaclasses:
 
 ################
-Meta Programming
+Metaprogramming
 ################
 
-Adapted from work by Joseph Sheedy
+programs that write programs....
 
 Metaprogramming
 ===============
@@ -70,6 +70,10 @@ these allow you to get and set attributes of an object by name:
 
   In [6]: getattr(obj, 'this')
   Out[6]: 54
+
+Let's play with this: (demo)
+
+NOTE: Do attributes have to be python legal python names??
 
 What's in a Class?
 ------------------

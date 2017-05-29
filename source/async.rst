@@ -136,7 +136,7 @@ Async is the good approach to support many connections that are spending a lot o
 
 **NOTE:** the backbone of the web is HTTP -- which is a "stateless" protocol. That is, each request is independent (state is "faked" with sessions via cookies). So "classic" web apps are NOT keeping many connections alive, there may be many clients at once, but each request is still independent. And often there is substantial work do be done with each one. A multi-threaded or multi-processes web server works fine for this.
 
-Single page apps and WebSockets
+Single Page Apps and WebSockets
 -------------------------------
 
 **"Single Page Apps"**
@@ -156,6 +156,8 @@ Communication with the web service can be regular old http (AJAX), or in modern 
 WebSocket gives the advantage of "pushing" -- the server can push information to the client, rather than the client having to poll the server to see if anything needs to be updated.
 
 Either HTTP or WebSocket can generate many small requests to the server, which async is good for, but WebSocket pretty much requires an async server if you want it to scale well, as each active client is keeping a connection open.
+
+Also: often a web service is depending on other web services to do it's task. Kind of nice if your web server can do other things while waiting on a third-party service.
 
 
 Blocking
@@ -216,7 +218,7 @@ Callbacks are a way to tell a non-blocking function what to do when they are don
               console.log(body);
           });
 
-What this means is make a request to google, and when the request is complete, call the function with three parameters: ``error``, ``response``, and ``body``. This function is defined inline, and simiply passes the body to the console log. But it could do anything.
+What this means is make a request to Google, and when the request is complete, call the function with three parameters: ``error``, ``response``, and ``body``. This function is defined inline, and simply passes the body to the console log. But it could do anything.
 
 That function is put on the event queue when the request is done, and will be called when the other events on the queue are processed.
 
@@ -247,7 +249,136 @@ This may sound a bit familiar from generators -- a generator function can hold s
 
 In fact, you can use generators and yield to make coroutines, and that was done in Python before version 3.5 added new features to directly support coroutines.
 
+**Warning:** This is really hard stuff to wrap your head around!
 
+.. image:: images/coroutines_plot.png
+
+(from: http://www.dabeaz.com/coroutines/Coroutines.pdf)
+
+``async`` / ``await``
+---------------------
+
+In Python 3.5, the ``async`` and ``await`` keywords were added to make coroutines "native" and more clear.
+
+You define a coroutine with the ``async`` keyword:
+
+.. code-block:: python
+
+   async def ping_server(ip):
+        pass
+
+When you call ``ping_server``, it doesn't run the code. what it does is return a coroutine, all set up and ready to go.
+
+.. code-block:: ipython
+
+    In [12]: cr = ping_server(5)
+
+    In [13]: cr
+    Out[13]: <coroutine object ping_server at 0x104d75620>
+
+So How do you actually *run* the code in a coroutine?
+
+``await a_coroutine``
+
+It's kind of like yield (from generators), but instead it returns the next value from the coroutine, and pauses execution so other things can run.
+
+``await`` suspends the execution (letting other code run) until the object called returns.
+
+Or you can put it on the event loop with loop.ensure_future()
+
+When you call await on an object, it needs to be an "awaitable" object: an object that defines an ``__await__()`` method which returns an iterator which is not a coroutine itself. Coroutines themselves are also considered awaitable objects.
+
+Think of async/await as an API for asynchronous programming
+-----------------------------------------------------------
+
+async/await is really an API for asynchronous programming: People shouldn't think that async/await as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the async/await API for asynchronous programming.
+
+Future object
+--------------
+
+A Future object encapsulates the asynchronous execution of a callable -- it "holds" the code to be run later.
+
+It also contains methods like:
+
+* cancel()
+
+  Cancel the future and schedule callbacks.
+
+* done()
+
+  Return True if the future is done.
+
+* result()
+
+  Return the result this future represents.
+
+
+* add_done_callback(fn)
+
+  Add a callback to be run when the future becomes done.
+
+ * set_result(result)
+
+   Mark the future done and set its result.
+
+A coroutine isn't a future, but they can be wrapped in one by the event loop.
+
+The Event Loop
+--------------
+
+The whole point of this to to pass events along to an event loop. So you can't really do anything without one.
+
+The ``asyncio`` package provides an event loop:
+
+The ``asyncio`` event loop can do a lot:
+
+ * Register, execute, and cancel delayed calls (asynchronous functions)
+ * Create client and server transports for communication
+ * Create subprocesses and transports for communication with another program
+ * Delegate function calls to a pool of threads
+
+But the simple option is to use it to run coroutines:
+
+.. code-block:: python
+
+    import asyncio
+
+    async def say_something():
+        print('This was run by the loop')
+
+    # getting an event loop
+    loop = asyncio.get_event_loop()
+    # run it:
+    loop.run_until_complete(say_something())
+    loop.close()
+
+This is not a very interesting example -- after all, the coroutine only does one thing and exits out, so the loop simply runs one event and is done.
+
+So let's see a slightly more interesting example:
+
+.. code-block:: python
+
+    import asyncio
+    import datetime
+    import random
+
+    # using "async" makes this a coroutine:
+    async def display_date(num, loop):
+        # the event loop has a time() built in.
+        end_time = loop.time() + 50.0 # we want it to run for 50 seconds.
+        while True: # keep doing this until break
+            print("Loop: {} Time: {}".format(num, datetime.datetime.now()))
+            if (loop.time() + 1.0) >= end_time:
+                break
+            await asyncio.sleep(random.randint(0, 5))
+
+
+    loop = asyncio.get_event_loop()
+
+    asyncio.ensure_future(display_date(1, loop))
+    asyncio.ensure_future(display_date(2, loop))
+
+    loop.run_forever()
 
 
 async features of Python:
@@ -303,6 +434,7 @@ David Beazley: asyncio:
 
 https://youtu.be/ZzfHjytDceU
 
+https://www.youtube.com/watch?v=lYe8W04ERnY
 
 
 

@@ -55,6 +55,14 @@ Python threads work will if the threads are spending time waiting for something:
  - Network Access
  - File I/O
 
+More in the GIL:
+
+https://emptysqua.re/blog/grok-the-gil-fast-thread-safe-python/
+
+If you really want to understand the GIL -- and get blow away -- watch this one:
+
+http://pyvideo.org/pycon-us-2010/pycon-2010--understanding-the-python-gil---82.html
+
 Advantages / Disadvantages of Processes
 ---------------------------------------
 
@@ -138,6 +146,20 @@ As it's the most "modern" implementation -- we will use it for examples in this 
 .. code-block:: bash
 
     pip install aiohttp
+
+
+References:
+
+David Beazley: Concurrency from the ground Up.
+
+He writes a full async client server from scratch before your eyes --
+this guy can write code faster than most of us can read it...
+
+https://youtu.be/MCs5OvhV9S4
+
+David Beazley: asyncio:
+
+https://youtu.be/ZzfHjytDceU
 
 
 

@@ -276,17 +276,34 @@ When you call ``ping_server``, it doesn't run the code. what it does is return a
     In [13]: cr
     Out[13]: <coroutine object ping_server at 0x104d75620>
 
-So How do you actually *run* the code in a coroutine?
+Running a Coroutine
+....................
+
+So how do you actually *run* the code in a coroutine?
+
+**await**
 
 ``await a_coroutine``
 
-It's kind of like yield (from generators), but instead it returns the next value from the coroutine, and pauses execution so other things can run.
+It's kind of like yield (from generators), but instead it returns the next value from the coroutine, and *pauses execution* so other things can run.
 
 ``await`` suspends the execution (letting other code run) until the object called returns.
 
-Or you can put it on the event loop with loop.ensure_future()
-
 When you call await on an object, it needs to be an "awaitable" object: an object that defines an ``__await__()`` method which returns an iterator which is not a coroutine itself. Coroutines themselves are also considered awaitable objects.
+
+Scheduling it to run
+....................
+
+Schedule it with
+
+``asyncio.ensure_future()``
+
+or
+
+``event_loop.create_task()``
+
+
+
 
 Think of async/await as an API for asynchronous programming
 -----------------------------------------------------------
@@ -352,37 +369,209 @@ But the simple option is to use it to run coroutines:
     loop.run_until_complete(say_something())
     loop.close()
 
+Note that ``asyncio.get_event_loop()`` will create an event loop in teh mian thread if one doesn't exist -- and return the existing loop if one does exist. So you can use it to get the already existing, and maybe running, loop from anywhere.
+
 This is not a very interesting example -- after all, the coroutine only does one thing and exits out, so the loop simply runs one event and is done.
 
-So let's see a slightly more interesting example:
+Let's make that a tiny bit more interesting with multiple events:
 
 .. code-block:: python
 
     import asyncio
+
+    async def say_lots(num):
+        for i in range(num):
+            print('This was run by the loop:')
+            await asyncio.sleep(0.2)
+
+    # getting an event loop
+    loop = asyncio.get_event_loop()
+    # run it:
+    loop.run_until_complete(say_lots(5))
+    print("done with loop")
+    loop.close()
+
+(``Examples/async/ultra_simple``)
+
+Still not very interesting -- technically async, but with only one coroutine, not much to it.
+
+So let's see an even more interesting example:
+
+(``Examples/async/async_timer.py``)
+
+.. code-block:: python
+
+    import asyncio
+    import time
     import datetime
     import random
 
     # using "async" makes this a coroutine:
-    async def display_date(num, loop):
-        # the event loop has a time() built in.
-        end_time = loop.time() + 50.0 # we want it to run for 50 seconds.
-        while True: # keep doing this until break
+    # its code can be run by the event loop
+    async def display_date(num):
+        end_time = time.time() + 10.0  # we want it to run for 10 seconds.
+        while True:  # keep doing this until break
             print("instance: {} Time: {}".format(num, datetime.datetime.now()))
-            if (loop.time() + 1.0) >= end_time:
+            if (time.time()) >= end_time:
+                print("instance: {} is all done".format(num))
                 break
-            await asyncio.sleep(random.randint(0, 5))
+            # pause for a random amount of time
+            await asyncio.sleep(random.randint(0, 3))
 
+    def shutdown():
+        print("shutdown called")
+        # you can access the event loop this way:
+        loop = asyncio.get_event_loop()
+        loop.stop()
+
+
+    # You register "futures" on the loop this way:
+    asyncio.ensure_future(display_date(1))
+    asyncio.ensure_future(display_date(2))
 
     loop = asyncio.get_event_loop()
 
-    asyncio.ensure_future(display_date(1, loop))
-    asyncio.ensure_future(display_date(2, loop))
+    # or add tasks to the loop like this:
+    loop.create_task(display_date(3))
+    loop.create_task(display_date(4))
 
+    # this will shut the event loop down in 15 seconds
+    loop.call_later(15, shutdown)
+
+    print("about to run loop")
+    # this is a blocking call
     loop.run_forever()
+    print("loop exited")
+
+Calling a regular function
+--------------------------
+
+The usual way to use the event loop is to schedule "awaitable" tasks -- i.e. corotuines.
+
+But sometimes you need to call a regular old function.
+
+This is more like the traditional "callback" style:
+
+You can do that with:
+
+``event_loop.call_soon(callback, *args)``
+
+This will put an event on the event loop, and call the function (callable) passed in, passing on any extra arguments as keyword arguments. It will run "soon"
+
+Similarly, you can schedule a callable to be run some number of seconds in the future:
+
+``event_loop.call_later(delay, callback, *args)``
+
+Or at some specified time:
+
+``event_loop.call_at(when, callback, *args)``
+
+Absolute time corresponds to the event loop's time() method: ``event_loop.time()``
+
+If you need to put an event on the loop from a separate thread, you can use:
+
+``event_loop.call_soon_threadsafe(callback, *args)``
 
 
-async features of Python:
--------------------------
+Giving up control
+-----------------
+
+``await`` passes control back to the event loop -- cooperaive multitasking!
+
+Usually, you actually need to wait for a task of some sort. but if not, and you still need to give up control, you can use:
+
+``await asyncio.sleep(0)``
+
+You can, of course, actually have to pause for a period of time, but other than demos, I'm not sure why you'd want to do that.
+
+Running Blocking Code
+---------------------
+
+Sometimes you really do need to run "blocking" code -- maybe a long computation, or reading a big file, or.....
+
+In that case, if yo don't want your app locked up -- you need to put it in a separate thread (or process). Use:
+
+result = await loop.run_in_executor(Executor, function)
+
+This will run the function in the specified Executor:
+
+https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor
+
+If Executor is None -- the default is used.
+
+``Examples/async/async_executor.py``
+
+.. code-block:: python
+
+    import asyncio
+    import time
+    import datetime
+    import random
+
+
+    async def small_task(num):
+        """
+        Just something to give us little tasks that run at random intervals
+        These will go on forever
+        """
+        while True:  # keep doing this until break
+            print("task: {} run".format(num))
+            # pause for a random amount of time between 0 and 2 seconds
+            await asyncio.sleep(random.random() * 2)
+
+    async def slow_task():
+        while True:  # keep going forever
+            print("running the slow task- blocking!")
+            # This will block for 2-10 seconds!
+            result = slow_function(random.random() * 8 + 2)
+            # uncomment to put it on a different thread:
+            # result = await loop.run_in_executor(None,
+            #                                     slow_function,
+            #                                     random.random() * 8 + 2)
+            print("slow function done: result", result)
+            await asyncio.sleep(0.1)  # to release the loop
+
+
+    def slow_function(duration):
+        """
+        this is a fake function that takes a long time, and blocks
+        """
+        time.sleep(duration)
+        print("slow task complete")
+        return duration
+
+
+    # get a loop going:
+    loop = asyncio.get_event_loop()
+
+    # or add tasks to the loop like this:
+    loop.create_task(small_task(1))
+    loop.create_task(small_task(2))
+    loop.create_task(small_task(3))
+    loop.create_task(small_task(4))
+
+    # Add the slow one
+    loop.create_task(slow_task())
+
+    print("about to run loop")
+    # this is a blocking call
+    # we will need to hit ^C to stop it...
+    loop.run_forever()
+    print("loop exited")
+
+Doing real work with async
+==========================
+
+So what kinds of real things can you do with asychronous programming?
+
+``asyncio`` provides the core tools to write asychronous programs:
+
+* An event loop with a lot of features
+* Asynchronous versions of core network protocols: i.e. sockets.
+* file watching
+* ....
+
+But chances are, if you want to do something real, you'll use a library..
 
 Web servers and clients
 -----------------------
@@ -398,14 +587,9 @@ Relative Newcomer:
 Tornado:
 http://www.tornadoweb.org/en/stable/
 
-Using the latest and greatest: In Python 3.4, the asyncio package was added
-to the standard lib:
+Using the latest and greatest:
 
-https://www.python.org/dev/peps/pep-3156/
-
-https://docs.python.org/3/library/asyncio.html
-
-It provides the core pieces needed for asynchronous development.
+Once the asyncio package was added to the standard lib the tools are there to build "proper" http servers, etc:
 
 ``aiohttp`` is an http server (and client) built on top of ``asyncio``:
 
@@ -414,14 +598,22 @@ http://aiohttp.readthedocs.io/
 (Twisted, Tornado, and the others have their own implementation of much
 of what is in asycio)
 
-As it's the most "modern" implementation -- we will use it for examples in this class:
+As it's the most "modern" implementation -- we will use it for examples in the rest of this class:
 
 .. code-block:: bash
 
     pip install aiohttp
 
 
+
+
 References:
+===========
+
+The Asyncio Cheat Sheet: This is a pretty helpful, how to do it guide.
+
+http://cheat.readthedocs.io/en/latest/python/asyncio.html
+
 
 David Beazley: Concurrency from the ground Up.
 

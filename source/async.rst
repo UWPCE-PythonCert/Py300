@@ -367,7 +367,7 @@ So let's see a slightly more interesting example:
         # the event loop has a time() built in.
         end_time = loop.time() + 50.0 # we want it to run for 50 seconds.
         while True: # keep doing this until break
-            print("Loop: {} Time: {}".format(num, datetime.datetime.now()))
+            print("instance: {} Time: {}".format(num, datetime.datetime.now()))
             if (loop.time() + 1.0) >= end_time:
                 break
             await asyncio.sleep(random.randint(0, 5))
@@ -436,6 +436,11 @@ https://youtu.be/ZzfHjytDceU
 
 https://www.youtube.com/watch?v=lYe8W04ERnY
 
+
+When to use what
+----------------
+
+.. image:: images/proc_thread_async.png
 
 
 

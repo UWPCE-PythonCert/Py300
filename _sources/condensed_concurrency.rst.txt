@@ -222,6 +222,7 @@ Events (threading.Event)
 
  - threads can wait for particular event
  - setting an event unblocks all waiting threads
+
 Common use: barriers, notification
 
 

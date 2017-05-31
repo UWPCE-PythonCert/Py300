@@ -95,7 +95,9 @@ They share memory space:
 
 Creating threads is easy, but programming with threads is difficult.
 
+
 Q: Why did the multithreaded chicken cross the road?
+
 A: to To other side. get the
 
 -- Jason Whittington
@@ -151,16 +153,12 @@ They have similar APIs -- so you can use them in similar ways.
 
 Key points:
 
-There is no Python thread scheduler, it is up to the host OS
-
-Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!
-
-Works well for I/O bound problems, can use literally thousands of threads.
-
-Limit CPU-bound processing to C extensions (that release the GIL)
+ - There is no Python thread scheduler, it is up to the host OS
+ - Works well for I/O bound problems, can use literally thousands of threads
+ - Limit CPU-bound processing to C extensions (that release the GIL)
+ - Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!
 
 Starting threads is relatively simple, but there are many potential issues.
-
 
 We already talked about shared data, this can lead to a race condition.
 

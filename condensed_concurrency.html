@@ -257,8 +257,8 @@ They share memory space:</p>
 </ul>
 </div></blockquote>
 <p>Creating threads is easy, but programming with threads is difficult.</p>
-<p>Q: Why did the multithreaded chicken cross the road?
-A: to To other side. get the</p>
+<p>Q: Why did the multithreaded chicken cross the road?</p>
+<p>A: to To other side. get the</p>
 <p>– Jason Whittington</p>
 <p><strong>Global Interpreter Lock</strong></p>
 <p>(<strong>GIL</strong>)</p>
@@ -295,10 +295,14 @@ another thread needs. The upshot:</p>
 <p>Python provides the <cite>threading</cite> and <cite>multiprocessing</cite> modules to facility concurrency.</p>
 <p>They have similar APIs – so you can use them in similar ways.</p>
 <p>Key points:</p>
-<p>There is no Python thread scheduler, it is up to the host OS</p>
-<p>Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!</p>
-<p>Works well for I/O bound problems, can use literally thousands of threads.</p>
-<p>Limit CPU-bound processing to C extensions (that release the GIL)</p>
+<blockquote>
+<div><ul class="simple">
+<li>There is no Python thread scheduler, it is up to the host OS</li>
+<li>Works well for I/O bound problems, can use literally thousands of threads</li>
+<li>Limit CPU-bound processing to C extensions (that release the GIL)</li>
+<li>Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!</li>
+</ul>
+</div></blockquote>
 <p>Starting threads is relatively simple, but there are many potential issues.</p>
 <p>We already talked about shared data, this can lead to a race condition.</p>
 <blockquote>

@@ -227,15 +227,14 @@ it’s the scheduling of these subtasks that creates it.</p>
 <li>concurrent.futures: <a class="reference external" href="https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/">https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/</a> This is also in the asyncio package, and we go into it in more depth there)</li>
 </ul>
 </div></blockquote>
-<dl class="docutils">
-<dt>Concurrency outside the standard library:</dt>
-<dd><ul class="first last simple">
+<p>Concurrency outside the standard library:</p>
+<blockquote>
+<div><ul class="simple">
 <li>Celery + Rabbitmq</li>
 <li>Redis + RQ</li>
 <li>Twisted</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </div>
 <div class="section" id="advantages-disadvantages-of-threads">
 <h3>Advantages / Disadvantages of Threads<a class="headerlink" href="#advantages-disadvantages-of-threads" title="Permalink to this headline">¶</a></h3>
@@ -299,16 +298,17 @@ another thread needs. The upshot:</p>
 <p>Works well for I/O bound problems, can use literally thousands of threads.</p>
 <p>Limit CPU-bound processing to C extensions (that release the GIL)</p>
 <p>Starting threads is relatively simple, but there are many potential issues.</p>
-<dl class="docutils">
-<dt>We already talked about shared data, this can lead to a race condition.</dt>
-<dd><ul class="first last simple">
+<p>We already talked about shared data, this can lead to a race condition.</p>
+<blockquote>
+<div><ul class="simple">
 <li>may produce sligthly different results every run</li>
 <li>may just flake out mysteriously every once in a while</li>
 <li>Thus must synchronize threads!</li>
 </ul>
-</dd>
-<dt>Synchronization options:</dt>
-<dd><ul class="first last simple">
+</div></blockquote>
+<p>Synchronization options:</p>
+<blockquote>
+<div><ul class="simple">
 <li>Locks</li>
 <li>Semaphore</li>
 <li>BoundedSemaphore</li>
@@ -316,8 +316,7 @@ another thread needs. The upshot:</p>
 <li>Condition</li>
 <li>Queues</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <div class="section" id="mutex-locks-threading-lock">
 <h3>Mutex locks (threading.Lock)<a class="headerlink" href="#mutex-locks-threading-lock" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -464,17 +463,16 @@ independent Python interpreter.</p>
 - queue is only shared data</li>
 </ul>
 </div></blockquote>
-<dl class="docutils">
-<dt>Other features of Multiprocessing</dt>
-<dd><ul class="first last simple">
+<p>Other features of Multiprocessing</p>
+<blockquote>
+<div><ul class="simple">
 <li>Pools</li>
 <li>Shared objects and arrays</li>
 <li>Synchronization primitives</li>
 <li>Managed objects</li>
 <li>Connections</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </div>
 </div>
 </div>

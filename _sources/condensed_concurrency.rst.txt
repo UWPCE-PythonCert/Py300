@@ -60,9 +60,9 @@ How to know what to choose?
 -callbacks vs coroutines + scheduler/event loop
 
 
-
 Concurrency in the standard library:
 ------------------------------------
+
  - threading: processing is interweaved to get more done (doing dishes while taking a break from cooking)
    - sched: Scheduler, safe in mulit-threaded enivoronments
    - queue: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads. 
@@ -72,6 +72,7 @@ Concurrency in the standard library:
 
 
 Concurrency outside the standard library:
+
  - Celery + Rabbitmq
  - Redis + RQ
  - Twisted
@@ -82,11 +83,13 @@ Advantages / Disadvantages of Threads
 
 Advantages:
 They share memory space:
+
  - Threads are light-weight, shared memory means can be created fairly quickly without much memory use. 
  - Easy and cheap to pass data around.
 
 Disadvantages:
 They share memory space:
+
  - Operations often take several steps and may be interrupted mid-stream
  - Thus, access to shared data is also non-deterministic
 
@@ -160,12 +163,14 @@ Starting threads is relatively simple, but there are many potential issues.
 
 
 We already talked about shared data, this can lead to a race condition.
+
  - may produce sligthly different results every run
  - may just flake out mysteriously every once in a while
  - Thus must synchronize threads!
 
 
 Synchronization options:
+
  - Locks
  - Semaphore
  - BoundedSemaphore
@@ -202,6 +207,7 @@ Or use RLock for code-based locking (locking function/method execution rather th
 
 Semaphores (threading.Semaphore)
 --------------------------------
+
  - Counter-based synchronization primitive
     - when acquire called, wait if count is zero, otherwise decrement 
     - when release called, increment count, signal any waiting threads
@@ -213,6 +219,7 @@ Semaphores (threading.Semaphore)
 
 Events (threading.Event)
 ------------------------
+
  - threads can wait for particular event
  - setting an event unblocks all waiting threads
 Common use: barriers, notification
@@ -220,6 +227,7 @@ Common use: barriers, notification
 
 Condition (threading.Condition)
 -------------------------------
+
  - combination of locking/signaling
  - lock protects code that establishes a "condition" (e.g., data available)
  - signal notifies threads that "condition" has changed
@@ -228,6 +236,7 @@ Common use: producer/consumer patterns
 
 Queues (Queue)
 --------------
+
  - easier to use than many of above
  - do not need locks
  - has signaling
@@ -266,12 +275,14 @@ independent Python interpreter.
 
 Pipes and Pickle and Subprocess
 -------------------------------
+
  - Very low level, for the brave of heart
  - Can send just about any Python object
 
 
 Multiprocessing (multiprocessing)
 ---------------------------------
+
  - processes are completely isolated
  - no locking :)
  - instead messaging
@@ -296,6 +307,7 @@ Queues (multiprocessing.Queue):
 
 
 Other features of Multiprocessing
+
  - Pools
  - Shared objects and arrays
  - Synchronization primitives

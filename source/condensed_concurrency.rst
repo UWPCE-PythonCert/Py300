@@ -8,6 +8,10 @@ Concurrent Programing
 
 What does it mean to do something in parallel?
 
+ - Parallelism is about doing things at the same time; 
+ - Concurrency is about dealing with mulitple things at the same time.
+ - Parallelism needs concurrency, but concurrency need not be in parallel.
+
 
 Whirlwind Tour of Concurrency
 ==============================
@@ -22,7 +26,7 @@ The occurrence of events independent of the main program flow and ways to deal w
 
 Asynchrony and Concurrency are really two different things -- you can do either
 one without the other -- but they are closely related, and often used together.
-They solve different problems, but the solutions overlap.
+They solve different problems, but the problems and the solutions overlap.
 
 
 https://vimeo.com/49718712
@@ -38,11 +42,6 @@ it’s the scheduling of these subtasks that creates it.
 Types of Concurrency
 --------------------
 
-Parallelism is about doing things at the same time; 
-Concurrency is about dealing with mulitple things at the same time.
-Parallelism needs concurrency, but concurrency need not be in parallel.
-
-
 Multithreading:
 
 what is a thread?
@@ -56,24 +55,26 @@ Lots of different packages both in the standard library and 3rd party libaries.
 
 How to know what to choose?
 
--IO bound vs. CPU bound
--event driven cooperative multitasking vs preemptive multitasking
+- IO bound vs. CPU bound
+- event driven cooperative multitasking vs preemptive multitasking
 -callbacks vs coroutines + scheduler/event loop
 
 
 
 Concurrency in the standard library:
 ------------------------------------
-   -threading: processing is interweaved to get more done (doing dishes while taking a break from cooking)
-       -sched: Scheduler, safe in mulit-threaded enivoronments
-       -queue: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads. 
-   -multiprocessing: processing is parallel (someone else does the dishes while you cook)
-   -subprocess: (replaces os.system, os.spawn) allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.  parallel, hands to OS
+ - threading: processing is interweaved to get more done (doing dishes while taking a break from cooking)
+   - sched: Scheduler, safe in mulit-threaded enivoronments
+   - queue: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads. 
+ - multiprocessing: processing is parallel (someone else does the dishes while you cook)
+   - subprocess: (replaces os.system, os.spawn) allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.  parallel, hands to OS
+ - concurrent.futures: https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/ This is also in the asyncio package, and we go into it in more depth there)
 
-    -concurrent.futures: https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/ This is also in the asyncio package, and we go into it in more depth there)
 
 Concurrency outside the standard library:
-Coroutines and a scheduler:
+ - Celery + Rabbitmq
+ - Redis + RQ
+ - Twisted
 
 
 Advantages / Disadvantages of Threads
@@ -81,13 +82,13 @@ Advantages / Disadvantages of Threads
 
 Advantages:
 They share memory space:
--Threads are light-weight, shared memory means can be created fairly quickly without much memory use. 
--Easy and cheap to pass data around.
+ - Threads are light-weight, shared memory means can be created fairly quickly without much memory use. 
+ - Easy and cheap to pass data around.
 
 Disadvantages:
 They share memory space:
--Operations often take several steps and may be interrupted mid-stream
--Thus, access to shared data is also non-deterministic
+ - Operations often take several steps and may be interrupted mid-stream
+ - Thus, access to shared data is also non-deterministic
 
 Creating threads is easy, but programming with threads is difficult.
 
@@ -165,12 +166,12 @@ We already talked about shared data, this can lead to a race condition.
 
 
 Synchronization options:
-- Locks
-- Semaphore
-- BoundedSemaphore
-- Event
-- Condition
-- Queues
+ - Locks
+ - Semaphore
+ - BoundedSemaphore
+ - Event
+ - Condition
+ - Queues
 
 
 Mutex locks (threading.Lock)
@@ -201,35 +202,35 @@ Or use RLock for code-based locking (locking function/method execution rather th
 
 Semaphores (threading.Semaphore)
 --------------------------------
-- Counter-based synchronization primitive
+ - Counter-based synchronization primitive
     - when acquire called, wait if count is zero, otherwise decrement 
     - when release called, increment count, signal any waiting threads
-- Can be called in any order by any thread
-- more tunable than locks
+ - Can be called in any order by any thread
+ - more tunable than locks
     - Can limit number of threads performing certain operations
     - Can signal between threads
 
 
 Events (threading.Event)
 ------------------------
-- threads can wait for particular event
-- setting an event unblocks all waiting threads
+ - threads can wait for particular event
+ - setting an event unblocks all waiting threads
 Common use: barriers, notification
 
 
 Condition (threading.Condition)
 -------------------------------
-- combination of locking/signaling
-- lock protects code that establishes a "condition" (e.g., data available)
-- signal notifies threads that "condition" has changed
+ - combination of locking/signaling
+ - lock protects code that establishes a "condition" (e.g., data available)
+ - signal notifies threads that "condition" has changed
 Common use: producer/consumer patterns
 
 
 Queues (Queue)
 --------------
-- easier to use than many of above
-- do not need locks
-- has signaling
+ - easier to use than many of above
+ - do not need locks
+ - has signaling
 Common use: producer/consumer patterns
 
 
@@ -252,9 +253,8 @@ Common use: producer/consumer patterns
 Scheduling (sched)
 ------------------
 
-Schedules based on time, either absolute or delay
-Low level, so has many of the traps of the threading
-synchromization primitives.
+ - Schedules based on time, either absolute or delay
+ - Low level, so has many of the traps of the threading synchromization primitives.
 
 
 Multiprocessing
@@ -266,15 +266,15 @@ independent Python interpreter.
 
 Pipes and Pickle and Subprocess
 -------------------------------
-
-Can send just about any Python object
+ - Very low level, for the brave of heart
+ - Can send just about any Python object
 
 
 Multiprocessing (multiprocessing)
 ---------------------------------
-- processes are completely isolated
-- no locking :)
-- instead messaging
+ - processes are completely isolated
+ - no locking :)
+ - instead messaging
 
 
 Messaging
@@ -282,35 +282,22 @@ Messaging
 
 Pipes (multiprocessing.Pipe):
 
--Returns a pair of coneected objects
--Largely mimics Unix pipes, but higher level
--send picked objects or buffers
+ - Returns a pair of coneected objects
+ - Largely mimics Unix pipes, but higher level
+ - send picked objects or buffers
 
 
 Queues (multiprocessing.Queue):
 
--same interface as Queue
--implemented on top of pipes
--means you can pretty easily port threaded programs using queues to mutiprocessing
-   -queue is only shared data
+ - same interface as Queue
+ - implemented on top of pipes
+ - means you can pretty easily port threaded programs using queues to mutiprocessing
+   - queue is only shared data
 
 
 Other features of Multiprocessing
-- Pools
-- Shared objects and arrays
-- Synchronization primitives
-- Managed objects
-- Connections
-
-
-
-
-
-
-
-
-
-
-
-
-
+ - Pools
+ - Shared objects and arrays
+ - Synchronization primitives
+ - Managed objects
+ - Connections

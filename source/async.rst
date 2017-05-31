@@ -8,108 +8,11 @@ Asychronous Programing
 
 Async: Not knowing what is happening when...
 
-Whirlwind Tour of Concurrency
-==============================
-
-Before we get into async, it helps to know a a bit about Concurrency:
-
-Having different code running at the same time.
-
-Async and Concurrency are really two different things -- you can do either
-one without the other -- but they are closely related.
-
-
-https://vimeo.com/49718712
-
-In "Concurrency is not parallelism" Rob Pike makes a key point:
-Breaking down tasks into concurrent subtasks only allows parallelism,
-it’s the scheduling of these subtasks that creates it.
-
-Async is about the scheduling.
-
-
-Types of Concurrency
---------------------
-
-(definitions here)
-
-Multithreading:
-
-what is a thread?
-
-Multiprocessing:
-
-what is a process
-
-Advantages / Disadvantages of Threads
---------------------------------------
-
-Threads are light-weight -- they share memory space, and thus can be created
-fairly quickly without much memory use. Multiple threads share the same memory,
-so easy and cheap to pass data around.
-
-But -- since threads share the same memory, things can get out of whack -- thus the dreaded:
-
-**Global Interpreter Lock**
-
-(**GIL**)
-
-The GIL locks the interpreter so that only a single thread can run at once,
-assuring that one thread doesn't make a mess of the python objects that
-another thread needs. The upshot:
-
-Python threads do not work well for computationally intensive work.
-
-Python threads work will if the threads are spending time waiting for something:
-
- - Database Access
- - Network Access
- - File I/O
-
-More in the GIL:
-
-https://emptysqua.re/blog/grok-the-gil-fast-thread-safe-python/
-
-If you really want to understand the GIL -- and get blow away -- watch this one:
-
-http://pyvideo.org/pycon-us-2010/pycon-2010--understanding-the-python-gil---82.html
-
-Advantages / Disadvantages of Processes
----------------------------------------
-
-Processes are heavier weight -- each process makes a copy of the entire interpreter (Mostly...) -- uses more resources.
-
-You need to copy the data you need back and forth between processes.
-
-Slower to start, slower to use, more memory.
-
- **no GIL**
-
-Multiprocessing is suitable for computationally intensive work.
-
-Works best for "large" problems with not much data:
-
-
-The mechanics: how do you use threads and/or processes
-======================================================
-
-Python provides the `threading` and `multiprocessing` modules to facility concurrency.
-
-They have similar APIs -- so you can use them in similar ways.
-
-Key points:
-
-Fill in the mechanics here.....
- - starting threads
- - keeing things in sync
- - queues
- - locks
- - etc.
 
 Asynchronous Programming
 ========================
 
-What is it?
+Another way to achieve concurrency
 
 Approaches:
 
@@ -131,6 +34,7 @@ In: "A Web Crawler With asyncio Coroutines", Guido himself writes:
 http://www.aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
 So my take:
+...........
 
 Async is the good approach to support many connections that are spending a lot of time waiting, and doing short tasks when they do do something.
 
@@ -159,9 +63,22 @@ Either HTTP or WebSocket can generate many small requests to the server, which a
 
 Also: often a web service is depending on other web services to do it's task. Kind of nice if your web server can do other things while waiting on a third-party service.
 
+Client-side HTTP
+----------------
+
+Another nice use for async is client side HTTP:
+
+When you make an http request, there is often a substantial lag time between making the request and getting the response.
+
+the server receives the request, and it may have to do a fair bit of processing before it can return something -- and it takes time for the response to travel over the wire.
+
+with "regular" requests -- the program is halted while its waiting for the server to do its thing. ("Blocking" -- see below)
+
+With async, the program can do other things while the request is waiting for the server to respond.
 
 Blocking
 --------
+
 A "Blocking" call means a function call that does not return until it is complete. That is, an ordinary old function call:
 
 .. code-block:: python
@@ -176,7 +93,7 @@ But what if:
 - And it's mostly just waiting for the network or database, or....
 
 Maybe your application needs to be responsive to user input, or do other
-work while that function is working. how do you deal with that?
+work while that function is working. How do you deal with that?
 
 Event Loops
 -----------
@@ -185,9 +102,9 @@ Asynchronous programming is not new -- it is the key component of traditional de
 
 You write "event handlers" that respond to particular events in the GUI: moving the mouse, clicking on a button, etc.
 
-The trick is that you don't know in what order anything might happen -- there are Multiple GUI objects on the screen at a given time, and users could click on any of them in any order.
+The trick is that you don't know in what order anything might happen -- there are multiple GUI objects on the screen at a given time, and users could click on any of them in any order.
 
-This is all handles by and "event loop", essentially code like this:
+This is all handled by and "event loop", essentially code like this:
 
 .. code-block:: python
 
@@ -206,10 +123,11 @@ For some examples of this, see:
 
 https://www.blog.pythonlibrary.org/2013/06/27/wxpython-how-to-communicate-with-your-gui-via-sockets/
 
+
 Callbacks
 ---------
 
-Callbacks are a way to tell a non-blocking function what to do when they are done. This is a common way for systems to handle non-blocking operations. For instance, in Javascript http requests are non-blocking. The request function call will return right away.
+Callbacks are a way to tell a non-blocking function what to do when they are done. This is a common way for systems to handle non-blocking operations. For instance, in Javascript, http requests are non-blocking. The request function call will return right away.
 
 .. code-block:: javascript
 
@@ -218,11 +136,13 @@ Callbacks are a way to tell a non-blocking function what to do when they are don
               console.log(body);
           });
 
-What this means is make a request to Google, and when the request is complete, call the function with three parameters: ``error``, ``response``, and ``body``. This function is defined inline, and simply passes the body to the console log. But it could do anything.
+What this means is:
+
+Make a request to Google, and when the request is complete, call the function with three parameters: ``error``, ``response``, and ``body``. This function is defined inline, and simply passes the body to the console log. But it could do anything.
 
 That function is put on the event queue when the request is done, and will be called when the other events on the queue are processed.
 
-Contrast with with the "normal" python request:
+Contrast with the "normal" python request library:
 
 .. code-block:: python
 
@@ -230,7 +150,7 @@ Contrast with with the "normal" python request:
   r = requests.get('http://www.google.com')
   print(r.text)
 
-The difference here is that the program will wait for ``requests.get()`` call to return, and that won't happen until the request is complete. If you are making a lot of requests and they take a while, that is a lot of time sitting around waiting when your computer isn't doing anything.
+The difference here is that the program will wait for ``requests.get()`` call to return, and that won't happen until the request is complete. If you are making a lot of requests and they take a while, that is a lot of time sitting around waiting for the server when your computer isn't doing anything.
 
 Async programming usually (always?) involves an event loop to schedule operations.
 
@@ -303,12 +223,11 @@ or
 ``event_loop.create_task()``
 
 
-
-
 Think of async/await as an API for asynchronous programming
 -----------------------------------------------------------
 
 async/await is really an API for asynchronous programming: People shouldn't think that async/await as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the async/await API for asynchronous programming.
+
 
 Future object
 --------------
@@ -340,6 +259,8 @@ It also contains methods like:
 
 A coroutine isn't a future, but they can be wrapped in one by the event loop.
 
+For the most part, you don't need to work directly with futures.
+
 The Event Loop
 --------------
 
@@ -369,7 +290,7 @@ But the simple option is to use it to run coroutines:
     loop.run_until_complete(say_something())
     loop.close()
 
-Note that ``asyncio.get_event_loop()`` will create an event loop in teh mian thread if one doesn't exist -- and return the existing loop if one does exist. So you can use it to get the already existing, and maybe running, loop from anywhere.
+Note that ``asyncio.get_event_loop()`` will create an event loop in the main thread if one doesn't exist -- and return the existing loop if one does exist. So you can use it to get the already existing, and maybe running, loop from anywhere.
 
 This is not a very interesting example -- after all, the coroutine only does one thing and exits out, so the loop simply runs one event and is done.
 
@@ -559,6 +480,21 @@ If Executor is None -- the default is used.
     loop.run_forever()
     print("loop exited")
 
+Running a bunch of tasks
+------------------------
+
+Sometimes you have a bunch of individual tasks to complete, but it does not matter in what order they are done.
+
+``asyncio.gather()`` collects a bunch of individual coroutines (or futures) together, runs them all (in parallel), and puts the results in a list.
+
+Remember that they are now run in arbitrary order.
+
+``Examples/async/gather.py``
+
+
+
+
+
 Doing real work with async
 ==========================
 
@@ -600,11 +536,50 @@ of what is in asycio)
 
 As it's the most "modern" implementation -- we will use it for examples in the rest of this class:
 
+``aiohttp``
+-----------
+
+* Supports both Client and HTTP Server.
+* Supports both Server WebSockets and Client WebSockets out-of-the-box.
+* Web-server has Middlewares, Signals and pluggable routing.
+
+Installing:
+
 .. code-block:: bash
 
     pip install aiohttp
 
+An async client example:
+------------------------
 
+If you need to make a lot of requests to collect data, or whatever, it's likely your code is taking a lot of time to wait for the server to return. If it's a slow server, it could be much more time waiting than doing real work.
+
+This is where async shines!
+
+This example borrowed from:
+
+http://terriblecode.com/blog/asynchronous-http-requests-in-python/
+
+It's a really nice example.
+
+The goal is to collect statistics for various NBA players. It turns out the NBA has an API for accessing statistics:
+
+http://stats.nba.com/
+
+It's kinda slow, but has a lot of great data.
+
+Using the trusty old requests library, this is how you access it:
+
+
+
+
+
+
+
+
+
+
+``requests`` is teh go-to package for making
 
 
 References:

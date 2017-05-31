@@ -69,6 +69,9 @@ Topics
 :ref:`threading`
 ................
 
+:ref:`concurrency`
+..................
+
 :ref:`async`
 ............
 

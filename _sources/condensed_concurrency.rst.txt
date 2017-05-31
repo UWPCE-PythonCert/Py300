@@ -171,7 +171,7 @@ We already talked about shared data, this can lead to a race condition.
 
 Synchronization options:
 
- - Locks
+ - Locks (Mutex: mutual exclusion, Rlock: reentrant lock)
  - Semaphore
  - BoundedSemaphore
  - Event

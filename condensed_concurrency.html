@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Concurrent Programing &mdash; Py300 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Py300 3.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Py300
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Concurrent Programing</a><ul>
+<li><a class="reference internal" href="#whirlwind-tour-of-concurrency">Whirlwind Tour of Concurrency</a><ul>
+<li><a class="reference internal" href="#types-of-concurrency">Types of Concurrency</a></li>
+<li><a class="reference internal" href="#concurrency-in-the-standard-library">Concurrency in the standard library:</a></li>
+<li><a class="reference internal" href="#advantages-disadvantages-of-threads">Advantages / Disadvantages of Threads</a></li>
+<li><a class="reference internal" href="#advantages-disadvantages-of-processes">Advantages / Disadvantages of Processes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-mechanics-how-do-you-use-threads-and-or-processes">The mechanics: how do you use threads and/or processes</a><ul>
+<li><a class="reference internal" href="#mutex-locks-threading-lock">Mutex locks (threading.Lock)</a></li>
+<li><a class="reference internal" href="#semaphores-threading-semaphore">Semaphores (threading.Semaphore)</a></li>
+<li><a class="reference internal" href="#events-threading-event">Events (threading.Event)</a></li>
+<li><a class="reference internal" href="#condition-threading-condition">Condition (threading.Condition)</a></li>
+<li><a class="reference internal" href="#queues-queue">Queues (Queue)</a></li>
+<li><a class="reference internal" href="#scheduling-sched">Scheduling (sched)</a></li>
+<li><a class="reference internal" href="#multiprocessing">Multiprocessing</a></li>
+<li><a class="reference internal" href="#pipes-and-pickle-and-subprocess">Pipes and Pickle and Subprocess</a></li>
+<li><a class="reference internal" href="#multiprocessing-multiprocessing">Multiprocessing (multiprocessing)</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Py300</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Concurrent Programing</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/condensed_concurrency.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="concurrent-programing">
+<span id="concurrency"></span><h1>Concurrent Programing<a class="headerlink" href="#concurrent-programing" title="Permalink to this headline">¶</a></h1>
+<p>What does it mean to do something in parallel?</p>
+<blockquote>
+<div><ul class="simple">
+<li>Parallelism is about doing things at the same time;</li>
+<li>Concurrency is about dealing with mulitple things at the same time.</li>
+<li>Parallelism needs concurrency, but concurrency need not be in parallel.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="whirlwind-tour-of-concurrency">
+<h2>Whirlwind Tour of Concurrency<a class="headerlink" href="#whirlwind-tour-of-concurrency" title="Permalink to this headline">¶</a></h2>
+<p>Concurrency:</p>
+<p>Having different code running at the same time, or kind of the same time.</p>
+<p>Asynchrony:</p>
+<p>The occurrence of events independent of the main program flow and ways to deal with such events.</p>
+<p>Asynchrony and Concurrency are really two different things &#8211; you can do either
+one without the other &#8211; but they are closely related, and often used together.
+They solve different problems, but the problems and the solutions overlap.</p>
+<p><a class="reference external" href="https://vimeo.com/49718712">https://vimeo.com/49718712</a></p>
+<p>Despite Rob Pike using an example about burning books, I recommend listening to
+at least the first half of his talk.</p>
+<p>In &#8220;Concurrency is not parallelism&#8221; Rob Pike makes a key point:
+Breaking down tasks into concurrent subtasks only allows parallelism,
+it’s the scheduling of these subtasks that creates it.</p>
+<div class="section" id="types-of-concurrency">
+<h3>Types of Concurrency<a class="headerlink" href="#types-of-concurrency" title="Permalink to this headline">¶</a></h3>
+<p>Multithreading:</p>
+<p>what is a thread?</p>
+<p>Multiprocessing:</p>
+<p>what is a process?</p>
+<p>Lots of different packages both in the standard library and 3rd party libaries.</p>
+<p>How to know what to choose?</p>
+<blockquote>
+<div><ul class="simple">
+<li>IO bound vs. CPU bound</li>
+<li>event driven cooperative multitasking vs preemptive multitasking</li>
+<li>callbacks vs coroutines + scheduler/event loop</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="concurrency-in-the-standard-library">
+<h3>Concurrency in the standard library:<a class="headerlink" href="#concurrency-in-the-standard-library" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>threading: processing is interweaved to get more done (doing dishes while taking a break from cooking)
+- sched: Scheduler, safe in mulit-threaded enivoronments
+- queue: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads.</li>
+<li>multiprocessing: processing is parallel (someone else does the dishes while you cook)
+- subprocess: (replaces os.system, os.spawn) allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.  parallel, hands to OS</li>
+<li>concurrent.futures: <a class="reference external" href="https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/">https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/</a> This is also in the asyncio package, and we go into it in more depth there)</li>
+</ul>
+</div></blockquote>
+<p>Concurrency outside the standard library:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Celery + Rabbitmq</li>
+<li>Redis + RQ</li>
+<li>Twisted</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="advantages-disadvantages-of-threads">
+<h3>Advantages / Disadvantages of Threads<a class="headerlink" href="#advantages-disadvantages-of-threads" title="Permalink to this headline">¶</a></h3>
+<p>Advantages:
+They share memory space:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Threads are light-weight, shared memory means can be created fairly quickly without much memory use.</li>
+<li>Easy and cheap to pass data around.</li>
+</ul>
+</div></blockquote>
+<p>Disadvantages:
+They share memory space:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Operations often take several steps and may be interrupted mid-stream</li>
+<li>Thus, access to shared data is also non-deterministic</li>
+</ul>
+</div></blockquote>
+<p>Creating threads is easy, but programming with threads is difficult.</p>
+<p>Q: Why did the multithreaded chicken cross the road?</p>
+<p>A: to To other side. get the</p>
+<p>&#8211; Jason Whittington</p>
+<p><strong>Global Interpreter Lock</strong></p>
+<p>(<strong>GIL</strong>)</p>
+<p>The GIL locks the interpreter so that only a single thread can run at once,
+assuring that one thread doesn&#8217;t make a mess of the python objects that
+another thread needs. The upshot:</p>
+<p>Python threads do not work well for computationally intensive work.</p>
+<p>Python threads work well if the threads are spending time waiting for something:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Database Access</li>
+<li>Network Access</li>
+<li>File I/O</li>
+</ul>
+</div></blockquote>
+<p>More on the GIL:</p>
+<p><a class="reference external" href="https://emptysqua.re/blog/grok-the-gil-fast-thread-safe-python/">https://emptysqua.re/blog/grok-the-gil-fast-thread-safe-python/</a></p>
+<p>If you really want to understand the GIL &#8211; and get blow away &#8211; watch this one:</p>
+<p><a class="reference external" href="http://pyvideo.org/pycon-us-2010/pycon-2010--understanding-the-python-gil---82.html">http://pyvideo.org/pycon-us-2010/pycon-2010&#8211;understanding-the-python-gil&#8212;82.html</a></p>
+</div>
+<div class="section" id="advantages-disadvantages-of-processes">
+<h3>Advantages / Disadvantages of Processes<a class="headerlink" href="#advantages-disadvantages-of-processes" title="Permalink to this headline">¶</a></h3>
+<p>Processes are heavier weight &#8211; each process makes a copy of the entire interpreter (Mostly...) &#8211; uses more resources.</p>
+<p>You need to copy the data you need back and forth between processes.</p>
+<p>Slower to start, slower to use, more memory.</p>
+<blockquote>
+<div><strong>no GIL</strong></div></blockquote>
+<p>Multiprocessing is suitable for computationally intensive work.</p>
+<p>Works best for &#8220;large&#8221; problems with not much data:</p>
+</div>
+</div>
+<div class="section" id="the-mechanics-how-do-you-use-threads-and-or-processes">
+<h2>The mechanics: how do you use threads and/or processes<a class="headerlink" href="#the-mechanics-how-do-you-use-threads-and-or-processes" title="Permalink to this headline">¶</a></h2>
+<p>Python provides the <cite>threading</cite> and <cite>multiprocessing</cite> modules to facility concurrency.</p>
+<p>They have similar APIs &#8211; so you can use them in similar ways.</p>
+<p>Key points:</p>
+<blockquote>
+<div><ul class="simple">
+<li>There is no Python thread scheduler, it is up to the host OS</li>
+<li>Works well for I/O bound problems, can use literally thousands of threads</li>
+<li>Limit CPU-bound processing to C extensions (that release the GIL)</li>
+<li>Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!</li>
+</ul>
+</div></blockquote>
+<p>Starting threads is relatively simple, but there are many potential issues.</p>
+<p>We already talked about shared data, this can lead to a race condition.</p>
+<blockquote>
+<div><ul class="simple">
+<li>may produce sligthly different results every run</li>
+<li>may just flake out mysteriously every once in a while</li>
+<li>Thus must synchronize threads!</li>
+</ul>
+</div></blockquote>
+<p>Synchronization options:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Locks (Mutex: mutual exclusion, Rlock: reentrant lock)</li>
+<li>Semaphore</li>
+<li>BoundedSemaphore</li>
+<li>Event</li>
+<li>Condition</li>
+<li>Queues</li>
+</ul>
+</div></blockquote>
+<div class="section" id="mutex-locks-threading-lock">
+<h3>Mutex locks (threading.Lock)<a class="headerlink" href="#mutex-locks-threading-lock" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>probably most common</li>
+<li>only one thread can modify shared data a any given time</li>
+<li>thread determines when unlocked</li>
+<li>must put lock/unlock around critical code in ALL threads</li>
+<li>difficult to manage</li>
+</ul>
+</div></blockquote>
+<p>Easiest with context manager:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+<span class="c1"># Example critical section</span>
+<span class="k">with</span> <span class="n">x_lock</span><span class="p">:</span>
+    <span class="c1"># statements using x</span>
+</pre></div>
+</div>
+<p>Only one lock per thread! (or risk mysterious deadlocks)</p>
+<p>Or use RLock for code-based locking (locking function/method execution rather than data access)</p>
+</div>
+<div class="section" id="semaphores-threading-semaphore">
+<h3>Semaphores (threading.Semaphore)<a class="headerlink" href="#semaphores-threading-semaphore" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>Counter-based synchronization primitive</dt>
+<dd><ul class="first last simple">
+<li>when acquire called, wait if count is zero, otherwise decrement</li>
+<li>when release called, increment count, signal any waiting threads</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Can be called in any order by any thread</p>
+</li>
+<li><dl class="first docutils">
+<dt>more tunable than locks</dt>
+<dd><ul class="first last simple">
+<li>Can limit number of threads performing certain operations</li>
+<li>Can signal between threads</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="events-threading-event">
+<h3>Events (threading.Event)<a class="headerlink" href="#events-threading-event" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>threads can wait for particular event</li>
+<li>setting an event unblocks all waiting threads</li>
+</ul>
+</div></blockquote>
+<p>Common use: barriers, notification</p>
+</div>
+<div class="section" id="condition-threading-condition">
+<h3>Condition (threading.Condition)<a class="headerlink" href="#condition-threading-condition" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>combination of locking/signaling</li>
+<li>lock protects code that establishes a &#8220;condition&#8221; (e.g., data available)</li>
+<li>signal notifies threads that &#8220;condition&#8221; has changed</li>
+</ul>
+</div></blockquote>
+<p>Common use: producer/consumer patterns</p>
+</div>
+<div class="section" id="queues-queue">
+<h3>Queues (Queue)<a class="headerlink" href="#queues-queue" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>easier to use than many of above</li>
+<li>do not need locks</li>
+<li>has signaling</li>
+</ul>
+</div></blockquote>
+<p>Common use: producer/consumer patterns</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="n">data_q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+
+<span class="n">Producer</span> <span class="n">thread</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">produce_items</span><span class="p">():</span>
+    <span class="n">data_q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">items</span>
+
+<span class="n">Consumer</span> <span class="n">thread</span><span class="p">:</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">consume_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scheduling-sched">
+<h3>Scheduling (sched)<a class="headerlink" href="#scheduling-sched" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Schedules based on time, either absolute or delay</li>
+<li>Low level, so has many of the traps of the threading synchromization primitives.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="multiprocessing">
+<h3>Multiprocessing<a class="headerlink" href="#multiprocessing" title="Permalink to this headline">¶</a></h3>
+<p>For this to work, want to send messages, as each process runs its own
+independent Python interpreter.</p>
+</div>
+<div class="section" id="pipes-and-pickle-and-subprocess">
+<h3>Pipes and Pickle and Subprocess<a class="headerlink" href="#pipes-and-pickle-and-subprocess" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Very low level, for the brave of heart</li>
+<li>Can send just about any Python object</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="multiprocessing-multiprocessing">
+<h3>Multiprocessing (multiprocessing)<a class="headerlink" href="#multiprocessing-multiprocessing" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>processes are completely isolated</li>
+<li>no locking :)</li>
+<li>instead messaging</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
+<p>Pipes (multiprocessing.Pipe):</p>
+<blockquote>
+<div><ul class="simple">
+<li>Returns a pair of coneected objects</li>
+<li>Largely mimics Unix pipes, but higher level</li>
+<li>send picked objects or buffers</li>
+</ul>
+</div></blockquote>
+<p>Queues (multiprocessing.Queue):</p>
+<blockquote>
+<div><ul class="simple">
+<li>same interface as Queue</li>
+<li>implemented on top of pipes</li>
+<li>means you can pretty easily port threaded programs using queues to mutiprocessing
+- queue is only shared data</li>
+</ul>
+</div></blockquote>
+<p>Other features of Multiprocessing</p>
+<blockquote>
+<div><ul class="simple">
+<li>Pools</li>
+<li>Shared objects and arrays</li>
+<li>Synchronization primitives</li>
+<li>Managed objects</li>
+<li>Connections</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christopher Barker, Cris Ewing, Maria McKinley, Rick Riehle.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

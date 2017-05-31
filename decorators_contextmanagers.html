@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Decorators and Context Managers</a><ul>
 <li><a class="reference internal" href="#id1">Decorators</a><ul>
 <li><a class="reference internal" href="#import-time-vs-run-time">Import Time Vs. Run Time</a></li>
@@ -113,8 +119,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -123,23 +131,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Decorators and Context Managers</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Decorators and Context Managers</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/decorators_contextmanagers.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/decorators_contextmanagers.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -194,14 +219,14 @@ can declare a function inside another function:</p>
 <h3>Import Time Vs. Run Time<a class="headerlink" href="#import-time-vs-run-time" title="Permalink to this headline">¶</a></h3>
 <p>Decorators are run at import time:</p>
 <p>Examples/decorators/play_with_imports.py</p>
-<p>Let&#8217;s make a decorator that finds the best price for a shirt.</p>
+<p>Let’s make a decorator that finds the best price for a shirt.</p>
 <p>Examples/decorators/shirt_price.py</p>
 </div>
 <div class="section" id="scope">
 <h3>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h3>
 <p>Why do decorators usually have a function inside another function?</p>
 <p>Decorators are implemented using closures. Definition of closures from Wikipedia:</p>
-<p>Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure&#8217;s copies of their values or references, even when the function is invoked outside their scope.</p>
+<p>Operationally, a closure is a record storing a function together with an environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created. A closure—unlike a plain function—allows the function to access those captured variables through the closure’s copies of their values or references, even when the function is invoked outside their scope.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">start_at</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
    <span class="o">...</span><span class="p">:</span>     <span class="k">def</span> <span class="nf">increment_by</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
    <span class="o">...</span><span class="p">:</span>         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
@@ -218,9 +243,9 @@ can declare a function inside another function:</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mi">6</span>
 </pre></div>
 </div>
-<p>Let&#8217;s make this more explicit:</p>
+<p>Let’s make this more explicit:</p>
 <p>Example/decorators/play_with_scope.py</p>
-<p>nonlocal declaration: allows you to flag a variable as a free variable even if it&#8217;s immutable.</p>
+<p>nonlocal declaration: allows you to flag a variable as a free variable even if it’s immutable.</p>
 </div>
 <div class="section" id="callbacks">
 <h3>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h3>
@@ -314,7 +339,7 @@ decorated.</p>
 </pre></div>
 </div>
 <p>Last example from: <a class="reference external" href="http://scottlobdell.me/2015/04/decorators-arguments-python/">http://scottlobdell.me/2015/04/decorators-arguments-python/</a></p>
-<p>Ideas for what to cover from &#8220;Fluent Python&#8221; by Luciano Ramalho, which I highly recommend.</p>
+<p>Ideas for what to cover from “Fluent Python” by Luciano Ramalho, which I highly recommend.</p>
 <p>Another great overview: <a class="reference external" href="https://dbader.org/blog/python-decorators">https://dbader.org/blog/python-decorators</a></p>
 </div>
 </div>
@@ -339,13 +364,16 @@ decorated.</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/contextlib.html">https://docs.python.org/3/library/contextlib.html</a></p>
 <p>especially check out:
 <a class="reference external" href="https://docs.python.org/3/library/contextlib.html#examples-and-recipes">https://docs.python.org/3/library/contextlib.html#examples-and-recipes</a></p>
-<p>Remember Yield can be thought of as &#8216;pause&#8217;</p>
+<p>Remember Yield can be thought of as ‘pause’</p>
 <p>Having a try/finally (or a with block) around the yield is an unavoidable price of using &#64;contextmanager, because you never know what the users of your context manager are going to do inside their with block.  - Leonardo Rochael</p>
 </div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -380,7 +408,8 @@ decorated.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

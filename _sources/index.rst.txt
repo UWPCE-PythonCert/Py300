@@ -18,7 +18,6 @@ Class info:
 
 - :ref:`syllabus`
 
-
 Topics
 ------
 
@@ -30,6 +29,15 @@ Topics
 
 :ref:`testing`
 ..............
+
+:ref:`abc`
+..........
+
+:ref:`iterables`
+................
+
+:ref:`decorators`
+.................
 
 :ref:`serialization`
 ....................
@@ -43,6 +51,9 @@ Topics
 :ref:`documentation`
 ....................
 
+:ref:`sql`
+..........
+
 :ref:`nosql`
 ............
 
@@ -50,10 +61,10 @@ Topics
 ............
 
 :ref:`advanced_oo`
-................
+..................
 
 :ref:`metaclasses`
-................
+..................
 
 :ref:`threading`
 ................
@@ -81,6 +92,9 @@ Topics
 
 :ref:`weak_references`
 ......................
+
+:ref:`pep8`
+...........
 
 
 Assorted Notes:

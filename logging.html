@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Logging and the logging module</a><ul>
 <li><a class="reference internal" href="#what-is-logging">What is Logging?</a><ul>
 <li><a class="reference internal" href="#what-to-log">what to log?</a></li>
@@ -93,7 +99,7 @@
 </li>
 <li><a class="reference internal" href="#background">Background</a><ul>
 <li><a class="reference internal" href="#id1">The <code class="docutils literal"><span class="pre">logging</span></code> module</a></li>
-<li><a class="reference internal" href="#logging-levels">Logging &#8220;levels&#8221;</a></li>
+<li><a class="reference internal" href="#logging-levels">Logging “levels”</a></li>
 <li><a class="reference internal" href="#the-logging-classes">The logging classes</a></li>
 <li><a class="reference internal" href="#the-logger-class">The <code class="docutils literal"><span class="pre">Logger</span></code> class</a></li>
 <li><a class="reference internal" href="#logging-get-logger"><code class="docutils literal"><span class="pre">logging.get_logger()</span></code></a></li>
@@ -120,8 +126,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -130,23 +138,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Logging and the logging module</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Logging and the logging module</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/logging.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/logging.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -182,17 +207,17 @@ as your code.</p>
 </div>
 <div class="section" id="why-not-print">
 <h3>Why not <code class="docutils literal"><span class="pre">print()</span></code>?<a class="headerlink" href="#why-not-print" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;ve all been using <code class="docutils literal"><span class="pre">print()</span></code> all over the place to track what&#8217;s going on in a program.</p>
-<p>And I still use it &#8211; a lot.</p>
-<p>But we (usually) don&#8217;t want all sorts of crap sent to stdout when the program is running in production.</p>
-<p>So we comment out or delete those <code class="docutils literal"><span class="pre">print()</span></code> s &#8211; but if we wanted to know what the program was doing when developing &#8211; maybe we want to know when something unanticipated goes wrong, too?</p>
-<p>The <code class="docutils literal"><span class="pre">logging</span></code> module give you a flexible system that allows you to monitor what&#8217;s going on in your system, when you need to, without cluttering things up when you don&#8217;t need it.</p>
+<p>We’ve all been using <code class="docutils literal"><span class="pre">print()</span></code> all over the place to track what’s going on in a program.</p>
+<p>And I still use it – a lot.</p>
+<p>But we (usually) don’t want all sorts of crap sent to stdout when the program is running in production.</p>
+<p>So we comment out or delete those <code class="docutils literal"><span class="pre">print()</span></code> s – but if we wanted to know what the program was doing when developing – maybe we want to know when something unanticipated goes wrong, too?</p>
+<p>The <code class="docutils literal"><span class="pre">logging</span></code> module give you a flexible system that allows you to monitor what’s going on in your system, when you need to, without cluttering things up when you don’t need it.</p>
 </div>
 </div>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
 <p class="left">There are lots of good tutorials, etc, on the web for getting you started with <em>useing</em> the logging module.</p>
-<p class="left">But not much about how it works &#8211; how it is structured.</p>
+<p class="left">But not much about how it works – how it is structured.</p>
 <p class="left">I found it hard to get beyond the basics without that knowledge, so the following should help.</p>
 <p class="left">The logging module provides a very flexible framework for customizing the logging in a simple or complex application.</p>
 <div class="section" id="id1">
@@ -207,9 +232,9 @@ as your code.</p>
 <p>(NOTE: this is one good reason to prefer logging over <code class="docutils literal"><span class="pre">print()</span></code>)</p>
 </div>
 <div class="section" id="logging-levels">
-<h3>Logging &#8220;levels&#8221;<a class="headerlink" href="#logging-levels" title="Permalink to this headline">¶</a></h3>
+<h3>Logging “levels”<a class="headerlink" href="#logging-levels" title="Permalink to this headline">¶</a></h3>
 <p>The built in way to catagorize logging messages is by level.</p>
-<p>Levels are ordered numerically, so you can think of them as in order of importance, and it&#8217;s easy to choose how much detail you want.</p>
+<p>Levels are ordered numerically, so you can think of them as in order of importance, and it’s easy to choose how much detail you want.</p>
 <p>The built-in set is:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CRITICAL</span>    <span class="mi">50</span>
 <span class="n">ERROR</span>       <span class="mi">40</span>
@@ -218,7 +243,7 @@ as your code.</p>
 <span class="n">DEBUG</span>       <span class="mi">10</span>
 </pre></div>
 </div>
-<p>so DEBUG provides the most detail, and CRITICAL you&#8217;d pretty much always want to see.</p>
+<p>so DEBUG provides the most detail, and CRITICAL you’d pretty much always want to see.</p>
 <p>The logging API provides easy ways to send messages with these levels:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is a debugging message&#39;</span><span class="p">)</span>
 </pre></div>
@@ -232,8 +257,8 @@ as your code.</p>
 <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is a debug message&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that if you have not configured the logger, a default configuration will automatically be set up &#8211; so you can alwlays call these in yoru code, and it won&#8217;t fail.</p>
-<p>This is actually particularly nice &#8211; you can add logging messages to your code, and they will &#8220;do the right thing&#8221; when run inside any application, whether it&#8217;s been spcifically configured or not.</p>
+<p>Note that if you have not configured the logger, a default configuration will automatically be set up – so you can alwlays call these in yoru code, and it won’t fail.</p>
+<p>This is actually particularly nice – you can add logging messages to your code, and they will “do the right thing” when run inside any application, whether it’s been spcifically configured or not.</p>
 </div>
 <div class="section" id="the-logging-classes">
 <h3>The logging classes<a class="headerlink" href="#the-logging-classes" title="Permalink to this headline">¶</a></h3>
@@ -249,17 +274,17 @@ as your code.</p>
 <h3>The <code class="docutils literal"><span class="pre">Logger</span></code> class<a class="headerlink" href="#the-logger-class" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">Logger</span></code> class is the core class that handles logging.</p>
 <p>Messages get sent to a <code class="docutils literal"><span class="pre">Logger</span></code> instance, and it is responsibile for routing them appropriately.</p>
-<p><code class="docutils literal"><span class="pre">Logger</span></code> s can be  nested in a hierarchical fashion, so that a message can be sent to sub-loggers, and any messages not handled will be passed the chain to eventually be handled by the &#8220;root&#8221; logger.</p>
+<p><code class="docutils literal"><span class="pre">Logger</span></code> s can be  nested in a hierarchical fashion, so that a message can be sent to sub-loggers, and any messages not handled will be passed the chain to eventually be handled by the “root” logger.</p>
 <p>There is always a root logger, and often the only one you need.</p>
 <p>Each <code class="docutils literal"><span class="pre">Logger</span></code> represents a single logging channel.</p>
-<p><code class="docutils literal"><span class="pre">Logger</span></code> instances are given text names, with module-style &#8220;dots&#8221; representing the hierarchy:</p>
+<p><code class="docutils literal"><span class="pre">Logger</span></code> instances are given text names, with module-style “dots” representing the hierarchy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="s2">&quot;main&quot;</span>
 <span class="s2">&quot;main.sub_logger1&quot;</span>
 <span class="s2">&quot;main.sub_logger2&quot;</span>
 <span class="o">...</span>
 </pre></div>
 </div>
-<p>The &#8220;root&#8221; logger has no name, but is the root of all created loggers</p>
+<p>The “root” logger has no name, but is the root of all created loggers</p>
 <p>The logging module keeps track of all the loggers you create, so you can reference them by name.</p>
 </div>
 <div class="section" id="logging-get-logger">
@@ -269,13 +294,13 @@ as your code.</p>
 <span class="n">another_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If the logger you ask for doesn&#8217;t exist, <code class="docutils literal"><span class="pre">get_logger</span></code> will create a new one for you by that name. (It won&#8217;t be configured, though...)</p>
+<p>If the logger you ask for doesn’t exist, <code class="docutils literal"><span class="pre">get_logger</span></code> will create a new one for you by that name. (It won’t be configured, though…)</p>
 <p>This whole system allows you to have multiple loggers without having to pass logging instances around.</p>
 </div>
 <div class="section" id="the-handler-classes">
 <h3>The <code class="docutils literal"><span class="pre">Handler</span></code> classes<a class="headerlink" href="#the-handler-classes" title="Permalink to this headline">¶</a></h3>
 <p>logging <code class="docutils literal"><span class="pre">Handler</span></code> s are what actually do the work of, well, handling, the log message.</p>
-<p>Formatting it, and actually writing to a file or somehow performing the &#8216;log&#8217; duty.</p>
+<p>Formatting it, and actually writing to a file or somehow performing the ‘log’ duty.</p>
 <p>There are handlers for writing to files, streams (stdout, stderr), sockets, and nifty things like automaticaly rotating log files.</p>
 <p>And, of course, you can make your own.</p>
 <p>Each logger can have multiple Handlers</p>
@@ -297,7 +322,7 @@ as your code.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(module)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">levelname</span></code> is the &#8220;level&#8221; of the log message: debug, warning, etc. <code class="docutils literal"><span class="pre">module</span></code> is the name of the module the message came from. <code class="docutils literal"><span class="pre">message</span></code> is the message itself.</p>
+<p><code class="docutils literal"><span class="pre">levelname</span></code> is the “level” of the log message: debug, warning, etc. <code class="docutils literal"><span class="pre">module</span></code> is the name of the module the message came from. <code class="docutils literal"><span class="pre">message</span></code> is the message itself.</p>
 <p>There are lots of other options:</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/logging.html#logrecord-attributes">https://docs.python.org/3/library/logging.html#logrecord-attributes</a></p>
 <p>Each <code class="docutils literal"><span class="pre">Handler</span></code> can have its own <code class="docutils literal"><span class="pre">Formatter</span></code></p>
@@ -308,12 +333,12 @@ as your code.</p>
 <p><code class="docutils literal"><span class="pre">Filters</span></code> determine which messages will be handled by a given logger, and which pass on to other loggers up the hierarchy.</p>
 <p>They can do very flexible filtering based on where the message came from, etc.</p>
 <p>But only really needed for complex systems:</p>
-<p>Loggers filter by &#8220;level&#8221; by default &#8211; which is enough for most uses.</p>
+<p>Loggers filter by “level” by default – which is enough for most uses.</p>
 </div>
 <div class="section" id="basic-logging-usage">
 <h3>Basic logging usage<a class="headerlink" href="#basic-logging-usage" title="Permalink to this headline">¶</a></h3>
-<p>As you can see from the above &#8211; the logging system is a complex nest of classes that can be configured and mixed and matched in complex ways.</p>
-<p>The system was ported from Java &#8211; can you tell?</p>
+<p>As you can see from the above – the logging system is a complex nest of classes that can be configured and mixed and matched in complex ways.</p>
+<p>The system was ported from Java – can you tell?</p>
 <p>However, the module provides a Pythonic API for common usage: the <code class="docutils literal"><span class="pre">logging.basicConfig()</span></code> function.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
@@ -324,12 +349,12 @@ as your code.</p>
                     <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This creates a &#8220;root&#8221; logger, and sets it up with:</p>
+<p>This creates a “root” logger, and sets it up with:</p>
 <ul>
 <li><p class="first">a <code class="docutils literal"><span class="pre">FileHandler</span></code> with the given filename and mode</p>
 <blockquote>
 <div><ul class="simple">
-<li>The mode is the file opening mode: &#8216;w&#8217; to clobber and make a new file each time, &#8216;a&#8217; to append to an existing file</li>
+<li>The mode is the file opening mode: ‘w’ to clobber and make a new file each time, ‘a’ to append to an existing file</li>
 </ul>
 </div></blockquote>
 </li>
@@ -338,7 +363,7 @@ as your code.</p>
 <li><code class="docutils literal"><span class="pre">asctime</span></code> provides a datetime stamp (you can specify a format for that, too)</li>
 </ul>
 </li>
-<li><p class="first">sets the level to debug &#8211; so all messages will get logged.</p>
+<li><p class="first">sets the level to debug – so all messages will get logged.</p>
 </li>
 </ul>
 </div>
@@ -356,21 +381,21 @@ as your code.</p>
 <span class="n">logging</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">EBUG</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Wouldn&#8217;t that be fun?</p>
+<p>Wouldn’t that be fun?</p>
 </div>
 <div class="section" id="a-more-complex-logging-setup">
 <h3>A more complex logging setup<a class="headerlink" href="#a-more-complex-logging-setup" title="Permalink to this headline">¶</a></h3>
 <p>See:</p>
 <p>see <code class="docutils literal"><span class="pre">Examples/logging/example.py</span></code></p>
 <p>In there, a logging system is set up that logs to a file, and also the console.</p>
-<p>It calls a fake &#8220;application&#8221; that does things in random order, logging as it goes...</p>
-<p>Let&#8217;s go check it out!</p>
+<p>It calls a fake “application” that does things in random order, logging as it goes…</p>
+<p>Let’s go check it out!</p>
 </div>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
 <p>The logging system is very powerful and flexible.</p>
-<p>And frankly, not as clean and Pythonic as it could be...</p>
-<p>So it&#8217;s pretty tricky to figure out.</p>
+<p>And frankly, not as clean and Pythonic as it could be…</p>
+<p>So it’s pretty tricky to figure out.</p>
 <p>I highly recommend the cookbook to get beyond the basics:</p>
 <p><a class="reference external" href="https://docs.python.org/3/howto/logging-cookbook.html">https://docs.python.org/3/howto/logging-cookbook.html</a></p>
 <p>Also these:</p>
@@ -381,6 +406,9 @@ as your code.</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -415,7 +443,8 @@ as your code.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

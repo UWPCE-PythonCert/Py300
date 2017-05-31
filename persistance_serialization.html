@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Persistence and Serialization</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a><ul>
 <li><a class="reference internal" href="#id1">Serialization</a></li>
@@ -144,8 +150,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -154,23 +162,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Persistence and Serialization</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Persistence and Serialization</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/persistance_serialization.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/persistance_serialization.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -184,8 +209,8 @@
 <p class="left persistence and serialization are closely related"><a class="reference external" href="https://en.wikipedia.org/wiki/Serialization">https://en.wikipedia.org/wiki/Serialization</a></p>
 <p class="left persistence and serialization are closely related"><em>Persistence</em> is storing data in a way that it will persist beyond the run-time of your program.</p>
 <p class="left persistence and serialization are closely related"><a class="reference external" href="https://en.wikipedia.org/wiki/Persistence_(computer_science">https://en.wikipedia.org/wiki/Persistence_(computer_science</a>)</p>
-<p class="left persistence and serialization are closely related">They are closely related, because most forms of persistent storage &#8211; simple text files, databases, etc., require that it be turned into a simple string of bytes first. After all, at the end of the day, everything done with computers is ultimately a serial string of bytes.</p>
-<p class="left persistence and serialization are closely related">Serialization is also very useful for transmitting information between systems &#8211; over the network, etc.</p>
+<p class="left persistence and serialization are closely related">They are closely related, because most forms of persistent storage – simple text files, databases, etc., require that it be turned into a simple string of bytes first. After all, at the end of the day, everything done with computers is ultimately a serial string of bytes.</p>
+<p class="left persistence and serialization are closely related">Serialization is also very useful for transmitting information between systems – over the network, etc.</p>
 <div class="section" id="id1">
 <h3>Serialization<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Today is less about concepts.</p>
@@ -196,7 +221,7 @@
 </div>
 <div class="section" id="persistence">
 <h3>Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
-<p>Persistence is saving your python data structure(s) to disk &#8211; so they
+<p>Persistence is saving your python data structure(s) to disk – so they
 will persist once the python process is finished.</p>
 <p>Any serial form can provide persistence (by dumping/loading it to/from
 a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
@@ -205,14 +230,14 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
 </div>
 <div class="section" id="python-specific-formats">
 <h2>Python Specific Formats<a class="headerlink" href="#python-specific-formats" title="Permalink to this headline">¶</a></h2>
-<p class="medium">These are formats specific to python &#8211; convenient to use, but not useful for interchange with other systems.</p>
+<p class="medium">These are formats specific to python – convenient to use, but not useful for interchange with other systems.</p>
 <div class="section" id="python-literals">
 <h3>Python Literals<a class="headerlink" href="#python-literals" title="Permalink to this headline">¶</a></h3>
 <p>Putting plain old python literals in your file</p>
 <p>Gives a nice, human-editable form for config files, etc.</p>
-<p>Don&#8217;t use for untrusted sources!!!</p>
+<p>Don’t use for untrusted sources!!!</p>
 <p>Good for basic python types.</p>
-<p>(can work for your own classes, too &#8211; if you write a good <code class="docutils literal"><span class="pre">__repr__</span></code> )</p>
+<p>(can work for your own classes, too – if you write a good <code class="docutils literal"><span class="pre">__repr__</span></code> )</p>
 <p>In theory, <code class="docutils literal"><span class="pre">repr()</span></code> always gives a form that can be re-constructed.</p>
 <p>Often the <code class="docutils literal"><span class="pre">str()</span></code> form works too.</p>
 <p><code class="docutils literal"><span class="pre">pprint</span></code>  (pretty print) module can make it easier to read:</p>
@@ -231,14 +256,14 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
 </pre></div>
 </div>
 <p>You can save the string to a file and even use <code class="docutils literal"><span class="pre">import</span></code>.</p>
-<p>In fact, using a python file and importing it is a great way to handle configuration for your app &#8211; very powerful and flexible.</p>
+<p>In fact, using a python file and importing it is a great way to handle configuration for your app – very powerful and flexible.</p>
 <p>NOTE: <code class="docutils literal"><span class="pre">eval()</span></code> is <strong>DANGEROUS</strong>:</p>
 <p>Not so bad if you know where your data is coming from, but <code class="docutils literal"><span class="pre">eval()</span></code> will run any code it gets, even:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;cd /; rm -rf *&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You really don&#8217;t want that run on your machine!</p>
+<p>You really don’t want that run on your machine!</p>
 <dl class="docutils">
 <dt>The alternative:</dt>
 <dd><p class="first"><code class="docutils literal"><span class="pre">ast.literal_eval</span></code> is safer than eval:</p>
@@ -267,7 +292,7 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
 <div class="section" id="pickle">
 <h3>Pickle<a class="headerlink" href="#pickle" title="Permalink to this headline">¶</a></h3>
 <p>Pickle is a custom binary format for python objects.</p>
-<p>You can essentially dump any python object to disk (or string, or socket, or...</p>
+<p>You can essentially dump any python object to disk (or string, or socket, or…</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [87]: </span><span class="kn">import</span> <span class="nn">pickle</span>
 <span class="gp">In [83]: </span><span class="n">data</span>
 <span class="gh">Out[83]:</span>
@@ -284,18 +309,18 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/pickle.html">https://docs.python.org/3.5/library/pickle.html</a></p>
 <p class="medium"><strong>Warning</strong></p>
 <p>The pickle module is <strong>not secure</strong> against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source.</p>
-<p><code class="docutils literal"><span class="pre">pickle</span></code> is cool because it can serialize virtually ANY object &#8211; including your self-defined classes.</p>
-<p>But to do this, it must run essentially arbitrary code &#8211; so <strong>not safe</strong>.</p>
+<p><code class="docutils literal"><span class="pre">pickle</span></code> is cool because it can serialize virtually ANY object – including your self-defined classes.</p>
+<p>But to do this, it must run essentially arbitrary code – so <strong>not safe</strong>.</p>
 <p>Do not use it for receiving data from an external source.</p>
-<p>But you probably won&#8217;t want to do that anyway &#8211; pickle is python-specific, not very useful for data interchange.</p>
+<p>But you probably won’t want to do that anyway – pickle is python-specific, not very useful for data interchange.</p>
 </div>
 <div class="section" id="shelve">
 <h3>Shelve<a class="headerlink" href="#shelve" title="Permalink to this headline">¶</a></h3>
-<p>A &#8220;shelf&#8221; is a persistent, dictionary-like object.</p>
-<p>(It&#8217;s also a place you can put a jar of pickles...)</p>
+<p>A “shelf” is a persistent, dictionary-like object.</p>
+<p>(It’s also a place you can put a jar of pickles…)</p>
 <p>The values (not the keys!) can be essentially arbitrary Python objects (anything picklable)</p>
 <p><strong>NOTE:</strong> it will not reflect changes in mutable objects without re-writing them to the db. (or use <code class="docutils literal"><span class="pre">writeback=True</span></code>)</p>
-<p>If less that 100s of MB &#8211; just use a dict and pickle it.</p>
+<p>If less that 100s of MB – just use a dict and pickle it.</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/shelve.html">https://docs.python.org/3.5/library/shelve.html</a></p>
 <p><code class="docutils literal"><span class="pre">shelve</span></code>  presents a <code class="docutils literal"><span class="pre">dict</span></code>  interface:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shelve</span>
@@ -307,7 +332,7 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)</p>
 <span class="n">d</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>       <span class="c1"># close it</span>
 </pre></div>
 </div>
-<p>(it uses pickle under the hood &#8211; same security issues)</p>
+<p>(it uses pickle under the hood – same security issues)</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/shelve.html">https://docs.python.org/3.5/library/shelve.html</a></p>
 </div>
 <div class="section" id="lab">
@@ -321,7 +346,7 @@ and
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">add_book_data</span> <span class="k">import</span> <span class="n">AddressBook</span>
 </pre></div>
 </div>
-<p>They have address book data &#8211; one with a nested dict, one &#8220;flat&#8221;. Use the nested version for this exercise.</p>
+<p>They have address book data – one with a nested dict, one “flat”. Use the nested version for this exercise.</p>
 <ul class="simple">
 <li>Write a module that saves the data as python literals in a file<ul>
 <li>and reads it back in</li>
@@ -341,7 +366,7 @@ and
 </div>
 <div class="section" id="interchange-formats">
 <h2>Interchange Formats<a class="headerlink" href="#interchange-formats" title="Permalink to this headline">¶</a></h2>
-<p class="medium">These are formats suitable for interchanging data with other systems &#8211; written in arbitrary other languages.</p>
+<p class="medium">These are formats suitable for interchanging data with other systems – written in arbitrary other languages.</p>
 <p class="medium">In other words: standard formats.</p>
 <div class="section" id="ini">
 <h3>INI<a class="headerlink" href="#ini" title="Permalink to this headline">¶</a></h3>
@@ -389,8 +414,8 @@ and
 <div class="section" id="csv">
 <h3>CSV<a class="headerlink" href="#csv" title="Permalink to this headline">¶</a></h3>
 <p>CSV (Comma Separated Values) format is the most common import and export format for spreadsheets and databases.</p>
-<p>No real standard &#8211; the Python csv package more or less follows MS Excel &#8220;standard&#8221; (with other &#8220;dialects&#8221; available)</p>
-<p>Can use delimiters other than commas... (I like tabs better)</p>
+<p>No real standard – the Python csv package more or less follows MS Excel “standard” (with other “dialects” available)</p>
+<p>Can use delimiters other than commas… (I like tabs better)</p>
 <p>Most useful for simple tabular data</p>
 </div>
 <div class="section" id="the-csv-module">
@@ -408,7 +433,7 @@ and
 </div>
 <p>The <code class="docutils literal"><span class="pre">csv</span></code>  module takes care of string quoting, etc. for you.</p>
 <ul class="simple">
-<li>This is a pretty big deal &#8211; that can be a real pain!</li>
+<li>This is a pretty big deal – that can be a real pain!</li>
 </ul>
 <p>NOTE: <code class="docutils literal"><span class="pre">skipinitialspace</span></code> is False by default, which can mess up
 interpretting quotes correctly.</p>
@@ -430,10 +455,10 @@ interpretting quotes correctly.</p>
 <div class="section" id="json">
 <h3>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h3>
 <p>JSON (JavaScript Object Notation) is a subset of JavaScript syntax used as a lightweight data interchange format.</p>
-<p><strong>LOTS</strong> of systems can read JSON &#8211; notably browsers...</p>
+<p><strong>LOTS</strong> of systems can read JSON – notably browsers…</p>
 <p>Python module has an interface similar to <code class="docutils literal"><span class="pre">pickle</span></code></p>
 <p>Can handle the standard Python data types</p>
-<p>Specializable encoding/decoding for other types &#8211; but I wouldn&#8217;t do that!</p>
+<p>Specializable encoding/decoding for other types – but I wouldn’t do that!</p>
 <p>Commonly used for configuration files, etc.</p>
 <p><a class="reference external" href="http://www.json.org/">http://www.json.org/</a></p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/json.html">https://docs.python.org/3.5/library/json.html</a></p>
@@ -454,7 +479,7 @@ interpretting quotes correctly.</p>
 </pre></div>
 </div>
 <p>(also <code class="docutils literal"><span class="pre">json.dump()</span> <span class="pre">and</span> <span class="pre">json.load()</span></code> for files)</p>
-<p><strong>NOTE:</strong> JSON is less &#8220;rich&#8221; than python &#8211; no tuples, no distinction between integers and floats, no comments! And keys can only be strings.</p>
+<p><strong>NOTE:</strong> JSON is less “rich” than python – no tuples, no distinction between integers and floats, no comments! And keys can only be strings.</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/json.html">https://docs.python.org/3.5/library/json.html</a></p>
 </div>
 <div class="section" id="id2">
@@ -480,7 +505,7 @@ interpretting quotes correctly.</p>
 </div></blockquote>
 </li>
 </ul>
-<p>( you&#8217;ll need the &#8220;flat&#8221; version for this...)</p>
+<p>( you’ll need the “flat” version for this…)</p>
 <ul>
 <li><p class="first">Write a module that saves the data in JSON</p>
 <blockquote>
@@ -506,9 +531,9 @@ interpretting quotes correctly.</p>
 </div>
 <div class="section" id="elementtree">
 <h3>elementtree<a class="headerlink" href="#elementtree" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">elementtree</span></code> is the simplest tool &#8211; maps pretty directly to XML.</p>
+<p><code class="docutils literal"><span class="pre">elementtree</span></code> is the simplest tool – maps pretty directly to XML.</p>
 <p>The Element type is a flexible container object, designed to store hierarchical data structures in memory.</p>
-<p>Essentially an in-memory XML &#8211; can be read from/written to XML</p>
+<p>Essentially an in-memory XML – can be read from/written to XML</p>
 <p>an <code class="docutils literal"><span class="pre">ElementTree</span></code>  is an entire XML doc</p>
 <p>an <code class="docutils literal"><span class="pre">Element</span></code>  is a node in that tree</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/xml.etree.elementtree.html">https://docs.python.org/3.5/library/xml.etree.elementtree.html</a></p>
@@ -527,16 +552,16 @@ interpretting quotes correctly.</p>
 </div>
 <div class="section" id="databases">
 <h2>DataBases<a class="headerlink" href="#databases" title="Permalink to this headline">¶</a></h2>
-<p>A database is a system for storing and retrieving data &#8211; usually in a filesystem.</p>
-<p>We usually think RDBMS and SQL &#8211; but there are simpler systems.</p>
+<p>A database is a system for storing and retrieving data – usually in a filesystem.</p>
+<p>We usually think RDBMS and SQL – but there are simpler systems.</p>
 <div class="section" id="dbm">
 <h3>dbm<a class="headerlink" href="#dbm" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">dbm</span></code>  is a generic interface to variants of the DBM database</p>
 <p>Suitable for storing data that fits well into a python dict with strings as both keys and values</p>
-<p>Note: dbm will use the dbm system that works on your system &#8211; this may be different on different systems &#8211; so the db files may NOT be compatible! <code class="docutils literal"><span class="pre">whichdb</span></code>  will try to figure it out, but it&#8217;s not guaranteed</p>
+<p>Note: dbm will use the dbm system that works on your system – this may be different on different systems – so the db files may NOT be compatible! <code class="docutils literal"><span class="pre">whichdb</span></code>  will try to figure it out, but it’s not guaranteed</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/dbm.html">https://docs.python.org/3.5/library/dbm.html</a></p>
-<p><strong>NOTE:</strong> dbm is getting pretty old fashioned &#8211; e.g. it doesn&#8217;t handle Unicode</p>
-<p>It&#8217;s here for completeness, but there are probably better options!</p>
+<p><strong>NOTE:</strong> dbm is getting pretty old fashioned – e.g. it doesn’t handle Unicode</p>
+<p>It’s here for completeness, but there are probably better options!</p>
 </div>
 <div class="section" id="the-dbm-module">
 <h3>the <code class="docutils literal"><span class="pre">dbm</span></code> module<a class="headerlink" href="#the-dbm-module" title="Permalink to this headline">¶</a></h3>
@@ -548,12 +573,12 @@ interpretting quotes correctly.</p>
 </div>
 <p>flag options are:</p>
 <ul class="simple">
-<li>&#8216;r&#8217; &#8211; Open existing database for reading only (default)</li>
-<li>&#8216;w&#8217; &#8211; Open existing database for reading and writing</li>
-<li>&#8216;c&#8217; &#8211; Open database for reading and writing, creating it if it doesn’t exist</li>
-<li>&#8216;n&#8217; &#8211; Always create a new, empty database, open for reading and writing</li>
+<li>‘r’ – Open existing database for reading only (default)</li>
+<li>‘w’ – Open existing database for reading and writing</li>
+<li>‘c’ – Open database for reading and writing, creating it if it doesn’t exist</li>
+<li>‘n’ – Always create a new, empty database, open for reading and writing</li>
 </ul>
-<p><strong>caution</strong> &#8211; these are different than the file open modes!</p>
+<p><strong>caution</strong> – these are different than the file open modes!</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/dbm.html">https://docs.python.org/3.5/library/dbm.html</a></p>
 <p><code class="docutils literal"><span class="pre">dbm</span></code>  provides a dict-like interface:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dbm</span>
@@ -583,7 +608,7 @@ interpretting quotes correctly.</p>
 </div>
 <div class="section" id="python-sqlite-module">
 <h3>python sqlite module<a class="headerlink" href="#python-sqlite-module" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">sqlite3</span></code>  Python module wraps C lib &#8211; provides standard DB-API interface</p>
+<p><code class="docutils literal"><span class="pre">sqlite3</span></code>  Python module wraps C lib – provides standard DB-API interface</p>
 <p>Allows (and requires) SQL queries</p>
 <p>Can provide high performance, flexible, portable storage for your app</p>
 <p><a class="reference external" href="https://docs.python.org/3.5/library/sqlite3.html">https://docs.python.org/3.5/library/sqlite3.html</a></p>
@@ -647,7 +672,7 @@ interpretting quotes correctly.</p>
 <li>PostgreSQL</li>
 <li>Oracle</li>
 <li>MSSQL (?)</li>
-<li>...</li>
+<li>…</li>
 </ul>
 </div></blockquote>
 <p><a class="reference external" href="http://www.python.org/dev/peps/pep-0249">http://www.python.org/dev/peps/pep-0249</a>}</p>
@@ -685,7 +710,7 @@ A custom class, or amore complex built-in?</li>
 </div>
 <div class="section" id="object-databases">
 <h3>Object Databases<a class="headerlink" href="#object-databases" title="Permalink to this headline">¶</a></h3>
-<p>(we&#8217;ll be talking more about this in another class: <a class="reference internal" href="nosql.html#nosql"><span class="std std-ref">No SQL Databases</span></a>)</p>
+<p>(we’ll be talking more about this in another class: <a class="reference internal" href="nosql.html#nosql"><span class="std std-ref">No SQL Databases</span></a>)</p>
 <p>Directly store and retrieve Python Objects.</p>
 <p>Kind of like <code class="docutils literal"><span class="pre">shelve</span></code>, but more flexible, and give you searching, etc.</p>
 <p>ZODB: (<a class="reference external" href="http://www.zodb.org/">http://www.zodb.org/</a>)</p>
@@ -693,7 +718,7 @@ A custom class, or amore complex built-in?</li>
 <div class="section" id="nosql">
 <h3>NoSQL<a class="headerlink" href="#nosql" title="Permalink to this headline">¶</a></h3>
 <p>Map-Reduce, etc.</p>
-<p>&#8211; Big deal for &#8220;Big Data&#8221;: Amazon, Google, etc.</p>
+<p>– Big deal for “Big Data”: Amazon, Google, etc.</p>
 <p>Document-Oriented Storage</p>
 <ul class="simple">
 <li>MongoDB (BSON interface, JSON documents)</li>
@@ -718,7 +743,7 @@ A custom class, or amore complex built-in?</li>
 </li>
 <li>Write a module that saves the data in an SQLite database<ul>
 <li>and reads it back in</li>
-<li>helps to know SQL here...</li>
+<li>helps to know SQL here…</li>
 </ul>
 </li>
 </ul>
@@ -731,6 +756,9 @@ A custom class, or amore complex built-in?</li>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -765,7 +793,8 @@ A custom class, or amore complex built-in?</li>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Abstract Base Classes and standard class protocols</a><ul>
 <li><a class="reference internal" href="#interfaces">Interfaces</a><ul>
 <li><a class="reference internal" href="#protocols">Protocols</a></li>
@@ -120,8 +126,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -130,23 +138,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Abstract Base Classes and standard class protocols</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Abstract Base Classes and standard class protocols</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/ABCs.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/ABCs.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -157,38 +182,38 @@
 <p>( And other built in types (array, bytes, etc.,) )</p>
 <div class="section" id="interfaces">
 <h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
-<p>An &#8220;Interface&#8221; (for a class) is the set of attributes and methods available.</p>
+<p>An “Interface” (for a class) is the set of attributes and methods available.</p>
 <p>Python has traditionally used a very dynamic definition of interface:</p>
-<p>&#8220;Duck typing&#8221;</p>
-<p>If is quacks like a duck....</p>
-<p>This is very flexible &#8211; a class does not have to provide <em>everything</em>
-that a given interface might require &#8211; only the bit that is needed.</p>
+<p>“Duck typing”</p>
+<p>If is quacks like a duck….</p>
+<p>This is very flexible – a class does not have to provide <em>everything</em>
+that a given interface might require – only the bit that is needed.</p>
 <p>For instance, a number of functions in the Python standard library act on
-a &#8220;file-like object&#8221;.</p>
-<p>That means &#8220;an object that follows the file interface&#8221;. However, it is
-quite rare that any given function needs the entire interface &#8211; maybe
-it only needs to read something &#8211; so only needs one method:</p>
+a “file-like object”.</p>
+<p>That means “an object that follows the file interface”. However, it is
+quite rare that any given function needs the entire interface – maybe
+it only needs to read something – so only needs one method:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">some_bytes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In this case, rather than checking if the object conforms to the file
 interface, this is a great use case for EAFP:</p>
-<p>&#8220;Easier to ask Forgiveness than Permission&#8221;</p>
-<p>That is &#8211; simply call <code class="docutils literal"><span class="pre">.read()</span></code>, and catch the AttributError.</p>
+<p>“Easier to ask Forgiveness than Permission”</p>
+<p>That is – simply call <code class="docutils literal"><span class="pre">.read()</span></code>, and catch the AttributError.</p>
 <p>Or simply let it fail if there is no read() method.</p>
 <div class="section" id="protocols">
 <h3>Protocols<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h3>
-<p>&#8220;Protocol&#8221; is essentially just another word for Interface. It tends to be
-used when there is a bit more action &#8211; such as the &#8220;Iterator Protocol&#8221;.</p>
+<p>“Protocol” is essentially just another word for Interface. It tends to be
+used when there is a bit more action – such as the “Iterator Protocol”.</p>
 <p>The Iterator protocol specifies not just methods and attributes, but actions:</p>
-<p>&#8220;A StopIteration Exception is raised when the iterator is exhausted&#8221;</p>
-<p>But it&#8217;s really just another word for the same thing. So in Python,
+<p>“A StopIteration Exception is raised when the iterator is exhausted”</p>
+<p>But it’s really just another word for the same thing. So in Python,
 interfaces are talked about in (at least) for ways:</p>
 <ul class="simple">
 <li>Interface</li>
 <li>Protocol</li>
-<li>-like &#8211; as in &#8220;file-like&#8221;</li>
-<li>generic name &#8211; like &#8220;sequence&#8221;</li>
+<li>-like – as in “file-like”</li>
+<li>generic name – like “sequence”</li>
 </ul>
 </div>
 <div class="section" id="abstract-base-classes">
@@ -196,14 +221,14 @@ interfaces are talked about in (at least) for ways:</p>
 <p>Sometimes it is nice to more formally define an interface.</p>
 <p>Abstract Base Classes are a way to define a specific interface. In
 particular, the protocols of the standard Python object types.</p>
-<p>They were added to Python to formalize the &#8220;Duck Typing&#8221; approach in
+<p>They were added to Python to formalize the “Duck Typing” approach in
 some contexts. See PEP 3119 for the details:</p>
 <p><a class="reference external" href="https://www.python.org/dev/peps/pep-3119/">https://www.python.org/dev/peps/pep-3119/</a></p>
-<p>In OO languages, an &#8220;abstract&#8221; class is a class that has an interface,
+<p>In OO languages, an “abstract” class is a class that has an interface,
 but no implementation. These are sometimes required by static OO languages
 to provide a way to have more than one implementation of a given protocol.</p>
 <p>In Python, they can be used as a way to know if a given object is what
-you might be expecting &#8211; is it a Sequence? a Mapping?</p>
+you might be expecting – is it a Sequence? a Mapping?</p>
 <p>You can directly check if an object is a particular type:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">117</span><span class="p">]:</span> <span class="bp">True</span>
@@ -212,7 +237,7 @@ you might be expecting &#8211; is it a Sequence? a Mapping?</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">118</span><span class="p">]:</span> <span class="bp">False</span>
 </pre></div>
 </div>
-<p>But that is not the &#8220;Python way&#8221;  &#8211; we usually don&#8217;t care if the passed
+<p>But that is not the “Python way”  – we usually don’t care if the passed
 in object is a list, or a tuple, or any other sequence type. What we care
 about is if is <em>Any Sequence</em> (or maybe only any Iterable).</p>
 <p>Enter ABCs:</p>
@@ -239,10 +264,10 @@ about is if is <em>Any Sequence</em> (or maybe only any Iterable).</p>
 </div>
 <div class="section" id="gotcha">
 <h3>gotcha!<a class="headerlink" href="#gotcha" title="Permalink to this headline">¶</a></h3>
-<p>One of the most common type errors seen in Python is the &#8220;sequence of
-strings&#8221; vs &#8220;single string&#8221; confusion:</p>
+<p>One of the most common type errors seen in Python is the “sequence of
+strings” vs “single string” confusion:</p>
 <p>It is moderately common to write a function that acts on a bunch of
-strings &#8211; perhaps a bunch of filenames.</p>
+strings – perhaps a bunch of filenames.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    process a number of files.</span>
@@ -279,13 +304,13 @@ strings &#8211; perhaps a bunch of filenames.</p>
 <span class="go">processing: e</span>
 </pre></div>
 </div>
-<p>OOPS! &#8211; this happens all too often.</p>
+<p>OOPS! – this happens all too often.</p>
 <p>Why?</p>
 <p>Well, the function is expecting an iterable of strings that it can loop over.</p>
 <p>But a string IS an iterable of strings! It iterates over the string,
 yielding each letter. And a letter is simply a string that happens to
 be of length-one.</p>
-<p>So plain old duck-typing and EAFP doesn&#8217;t work.</p>
+<p>So plain old duck-typing and EAFP doesn’t work.</p>
 <p>what about checking for a Sequence?</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something2</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -300,10 +325,10 @@ be of length-one.</p>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>DARN! that didn&#8217;t work &#8211; of course, a string <em>is</em> Iterable.</p>
+<p>DARN! that didn’t work – of course, a string <em>is</em> Iterable.</p>
 <p>So you need to do it the other way around: check for a string. But there
-is no ABC for strings &#8211; there is only one string object in Python, and
-it&#8217;s unlikely that a third party lib will write an alternate implementation.</p>
+is no ABC for strings – there is only one string object in Python, and
+it’s unlikely that a third party lib will write an alternate implementation.</p>
 <p>So you check for string explicitly:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_something3</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -318,7 +343,7 @@ it&#8217;s unlikely that a third party lib will write an alternate implementatio
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Ahh &#8211; that works:</p>
+<p>Ahh – that works:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">do_something3</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 <span class="go">processing: name</span>
 
@@ -338,7 +363,7 @@ it&#8217;s unlikely that a third party lib will write an alternate implementatio
 <li>Write an ABC that specifies a particular subset of an interface for your
 use-case</li>
 <li>Write a full-fledged ABC for a whole new Interface.
-(very, very, unlikely...)</li>
+(very, very, unlikely…)</li>
 </ul>
 </div>
 <div class="section" id="using-isinstance-with-standard-abcs">
@@ -346,9 +371,9 @@ use-case</li>
 <p>This you would do at the top of a funciton to make sure you are working
 with what you think you are.</p>
 <p>Remember that most of the time you can simply use EAFP instead.</p>
-<p>But if you do &#8211; choose the ABC that is at the lowest level for your use case.</p>
-<p>That is, don&#8217;t use <code class="docutils literal"><span class="pre">MutableSequence</span></code> if it does not need to be mutable.</p>
-<p>And if you only need to iterate over it &#8211; use <code class="docutils literal"><span class="pre">Iterable</span></code></p>
+<p>But if you do – choose the ABC that is at the lowest level for your use case.</p>
+<p>That is, don’t use <code class="docutils literal"><span class="pre">MutableSequence</span></code> if it does not need to be mutable.</p>
+<p>And if you only need to iterate over it – use <code class="docutils literal"><span class="pre">Iterable</span></code></p>
 <p>Most of the build-in ones are in the <code class="docutils literal"><span class="pre">collections.abc</span></code> module:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
@@ -381,20 +406,20 @@ with what you think you are.</p>
 </div>
 <div class="section" id="creating-an-object-that-matches-an-interface">
 <h3>Creating an object that matches an interface<a class="headerlink" href="#creating-an-object-that-matches-an-interface" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s say you write your own container that is a <code class="docutils literal"><span class="pre">MutableSequence</span></code>.</p>
+<p>Let’s say you write your own container that is a <code class="docutils literal"><span class="pre">MutableSequence</span></code>.</p>
 <p>How do you let others know that your object can be used anywhere a
 <code class="docutils literal"><span class="pre">MutableSequence</span></code> (or a <code class="docutils literal"><span class="pre">Sequence</span></code>, or an <code class="docutils literal"><span class="pre">Iterable</span></code>) can be used?</p>
-<p>You can &#8220;register&#8221; your class with the ABC:</p>
+<p>You can “register” your class with the ABC:</p>
 <p>Every ABC has a register method that can serve as a decorator:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">collections.abc</span>
 
 <span class="nd">@collections.abc.Sequence.register</span>
 <span class="k">class</span> <span class="nc">MyKindOfSequence</span><span class="p">():</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">an_iterable</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">an_iterable</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">an_iterable</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -412,25 +437,25 @@ going to register something!</p>
 <h3>Semi-ducktyping<a class="headerlink" href="#semi-ducktyping" title="Permalink to this headline">¶</a></h3>
 <p>If you need only a method or two from an object, then just use EAFP:
 <code class="docutils literal"><span class="pre">file_like.read()</span></code> for instance.</p>
-<p>But what if you need a bunch of methods &#8211; but not an explicit particular
+<p>But what if you need a bunch of methods – but not an explicit particular
 type?</p>
 <p>This was brought up on SO:</p>
 <p><a class="reference external" href="http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like">http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like</a></p>
-<p>Alex Martelli&#8217;s answer:</p>
-<p>&#8220;&#8221;&#8221;
-... you need to determine which methods you need. To check for them, I
+<p>Alex Martelli’s answer:</p>
+<p>“””
+… you need to determine which methods you need. To check for them, I
 recommended defining your own FileLikeEnoughForMe abstract base class
 with <code class="docutils literal"><span class="pre">abstractmethod</span></code> decorators, and checking the object with
 <code class="docutils literal"><span class="pre">isinstance</span></code> for that class.
-&#8220;&#8221;&#8220;</p>
+“”“</p>
 <p><strong>Note</strong> You could use <code class="docutils literal"><span class="pre">isinstance(obj,</span> <span class="pre">io.FileIO)</span></code>, but then you
 would only be able to use object that conformed to the full File interface.</p>
-<p>Here&#8217;s an example:</p>
+<p>Here’s an example:</p>
 </div>
 <div class="section" id="how-to-write-an-abc">
 <h3>How to write an ABC<a class="headerlink" href="#how-to-write-an-abc" title="Permalink to this headline">¶</a></h3>
 <p>The abc module provides tools to help write an ABC.</p>
-<p>Let&#8217;s look at an example:</p>
+<p>Let’s look at an example:</p>
 <p><code class="docutils literal"><span class="pre">Examples/abcs/file_like.py</span></code></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
 
@@ -450,12 +475,12 @@ would only be able to use object that conformed to the full File interface.</p>
         <span class="sd">&quot;&quot;&quot;read the lines of the file into a list&quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">__subclasshook__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">cls</span> <span class="ow">is</span> <span class="n">FileLike</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="s2">&quot;read&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span> <span class="ow">and</span>
-                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;write&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span> <span class="ow">and</span>
-                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;readlines&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">__mro__</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__subclasshook__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">inst</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">FileLike</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="s2">&quot;read&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;write&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;readlines&quot;</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span>
                 <span class="p">):</span>
                 <span class="k">return</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span>
@@ -464,10 +489,10 @@ would only be able to use object that conformed to the full File interface.</p>
 <ol class="arabic">
 <li><p class="first">subclass from ABC to make it an ABC.</p>
 </li>
-<li><p class="first">define the abstract methods you need &#8211; the <code class="docutils literal"><span class="pre">abc.abstractmethod</span></code> decorator lets
+<li><p class="first">define the abstract methods you need – the <code class="docutils literal"><span class="pre">abc.abstractmethod</span></code> decorator lets
 the ABC machinery know the method needs to be implimented by subclasses.</p>
 </li>
-<li><p class="first">define __subclasshook__ &#8211; this is the magic that lets isinstance() work
+<li><p class="first">define __subclasshook__ – this is the magic that lets isinstance() work
 for classes that you have not control over.</p>
 <p>It is called when isinstance() is called with this as the class. It then
 checks to see if all the methods expected are in the object passed in.</p>
@@ -494,7 +519,7 @@ add other logic if you really wanted to.</p>
 </pre></div>
 </div>
 <p>This function will now work with any object that satisfies the ABC,
-and raise a type error for any object that doesn&#8217;t.</p>
+and raise a type error for any object that doesn’t.</p>
 <p>Examples:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">use_a_file</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">)</span>
 <span class="gt">---------------------------------------------------------------------------</span>
@@ -546,8 +571,8 @@ And define the methods</p>
 <span class="ne">TypeError</span>: Can&#39;t instantiate abstract class MyFileType with abstract methods readlines, write
 </pre></div>
 </div>
-<p><strong>OOPS</strong> &#8211; can&#8217;t do that! That&#8217;s what <code class="docutils literal"><span class="pre">&#64;abstractmethod</span></code> does for you &#8211; it requires that an implimentation be provided.</p>
-<p>So let&#8217;s do that:</p>
+<p><strong>OOPS</strong> – can’t do that! That’s what <code class="docutils literal"><span class="pre">&#64;abstractmethod</span></code> does for you – it requires that an implimentation be provided.</p>
+<p>So let’s do that:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyFileType</span><span class="p">(</span><span class="n">FileLike</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -580,10 +605,10 @@ And define the methods</p>
 </div>
 <div class="section" id="a-digression">
 <h3>A Digression<a class="headerlink" href="#a-digression" title="Permalink to this headline">¶</a></h3>
-<p>&#8220;private&#8221; attributes?</p>
+<p>“private” attributes?</p>
 <p>A private attribute is an attribute that is not part of the Interface
 of the class.</p>
-<p>While Python does not strictly have private attributes, It&#8217;s a common
+<p>While Python does not strictly have private attributes, It’s a common
 convention that a leading underscore means an attribute that should only
 be accessed from within a class.</p>
 <p>Often used for properties, for example:</p>
@@ -594,23 +619,23 @@ be accessed from within a class.</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_radius</span> <span class="o">*</span> <span class="mi">2</span>
 </pre></div>
 </div>
-<p>But there is a &#8220;stronger&#8221; way to &#8220;protect&#8221; an attribute &#8211; double underscores:</p>
+<p>But there is a “stronger” way to “protect” an attribute – double underscores:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [129]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
 <span class="go">     ...:     __private = &quot;sneaky&quot;</span>
 <span class="go">     ...:</span>
 
-<span class="gp">In [130]: </span><span class="n">Base</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gp">In [130]: </span><span class="n">Base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="gh">Out[130]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
 </pre></div>
 </div>
-<p>note the &#8220;_Base&#8221; was added to the name.</p>
-<p>But if you don&#8217;t have double underscores:</p>
+<p>note the “_Base” was added to the name.</p>
+<p>But if you don’t have double underscores:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [131]: </span><span class="k">class</span> <span class="nc">Base</span><span class="p">():</span>
 <span class="go">     ...:     public = &quot;wide open&quot;</span>
 <span class="go">     ...:     __private = &quot;sneaky&quot;</span>
 <span class="go">     ...:</span>
 
-<span class="gp">In [132]: </span><span class="n">Base</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gp">In [132]: </span><span class="n">Base</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="gh">Out[132]: </span><span class="go">dict_keys([&#39;_Base__private&#39;, &#39;__module__&#39;, &#39;__doc__&#39;, &#39;public&#39;, &#39;__weakref__&#39;, &#39;__dict__&#39;])</span>
 </pre></div>
 </div>
@@ -619,7 +644,7 @@ be accessed from within a class.</p>
 <span class="go">     ...:     private = &quot;oops! -- overridden?&quot;</span>
 <span class="go">     ...:</span>
 
-<span class="gp">In [135]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="gp">In [135]: </span><span class="n">Sub</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="gh">Out[135]: </span><span class="go">dict_keys([&#39;__module__&#39;, &#39;private&#39;, &#39;__doc__&#39;])</span>
 
 <span class="gp">In [136]: </span><span class="n">Sub</span><span class="o">.</span><span class="n">private</span>
@@ -631,25 +656,25 @@ be accessed from within a class.</p>
 </div>
 <p>so using the double underscores assures that the attribute will not get
 accidentally overridden in a subclass.</p>
-<p><strong>Note:</strong> if you now the name mangling, yu can still mess with it ...</p>
+<p><strong>Note:</strong> if you now the name mangling, yu can still mess with it …</p>
 <p><strong>So should you do this?</strong></p>
-<p>Usually not &#8211; it turns out that in practice it&#8217;s
-rare for &#8220;private&#8221; attributes to get overidden accidentally. So this is
+<p>Usually not – it turns out that in practice it’s
+rare for “private” attributes to get overidden accidentally. So this is
 not a widely used practice.</p>
 </div>
 <div class="section" id="final-thoughts">
 <h3>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>don&#8217;t use <code class="docutils literal"><span class="pre">isinstance</span></code> and ABCs when EAFP will do &#8211; simply make the call
+<li>don’t use <code class="docutils literal"><span class="pre">isinstance</span></code> and ABCs when EAFP will do – simply make the call
 you need and catch the exception.</li>
 <li>Generally better to call <code class="docutils literal"><span class="pre">isinstance</span></code> on an ABC than a specific class</li>
-<li>Use the most general ABC you can &#8211; i.e. &#8220;Iterable&#8221; rather than &#8220;Sequence&#8221;</li>
-<li>&#8220;Even with ABCs, excessive use of <code class="docutils literal"><span class="pre">isinstance</span></code> checks may be code smell&#8221;
-&#8211; Luciana Ramalho (from &#8220;Fluent Python&#8221;)</li>
+<li>Use the most general ABC you can – i.e. “Iterable” rather than “Sequence”</li>
+<li>“Even with ABCs, excessive use of <code class="docutils literal"><span class="pre">isinstance</span></code> checks may be code smell”
+– Luciana Ramalho (from “Fluent Python”)</li>
 <li>ABCs mostly exist to support multiple implementations of the same interface:
 lists and tuples, multiple containers, etc.</li>
 <li>The only time you should write a custom ABC is part of a Framework that a
-lot of people are going to extend &#8211; a very rare case!</li>
+lot of people are going to extend – a very rare case!</li>
 </ul>
 <p>Helpful write-ups:</p>
 <p><a class="reference external" href="https://dbader.org/blog/abstract-base-classes-in-python">https://dbader.org/blog/abstract-base-classes-in-python</a></p>
@@ -659,12 +684,12 @@ lot of people are going to extend &#8211; a very rare case!</li>
 </div>
 <div class="section" id="other-handy-built-in-sequences">
 <h2>Other handy built-in sequences<a class="headerlink" href="#other-handy-built-in-sequences" title="Permalink to this headline">¶</a></h2>
-<p>Lists and tuples are very widely used in Python &#8211; they give you a mutable
-and an immutable sequence &#8211; what else do you need?</p>
+<p>Lists and tuples are very widely used in Python – they give you a mutable
+and an immutable sequence – what else do you need?</p>
 <p>There are some special case sequences:</p>
 <div class="section" id="array-array">
 <h3>array.array<a class="headerlink" href="#array-array" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">array</span></code> module provides and array object &#8211; a mutable sequence of
+<p>The <code class="docutils literal"><span class="pre">array</span></code> module provides and array object – a mutable sequence of
 homogeneous simple numeric types.</p>
 <p><code class="docutils literal"><span class="pre">https://pymotw.com/3/array/</span></code></p>
 <p>The type must be declared when the array is created, and then it can only hold that type:</p>
@@ -689,7 +714,7 @@ homogeneous simple numeric types.</p>
 <p><strong>Why?</strong></p>
 <p><code class="docutils literal"><span class="pre">array</span></code> supports a wide variety of types, stores the data far more
 compactly, and inter operates better with raw binary data.</p>
-<p>But <code class="docutils literal"><span class="pre">numpy</span></code> gives you all that, and a lot more &#8211; so folks are more likely to
+<p>But <code class="docutils literal"><span class="pre">numpy</span></code> gives you all that, and a lot more – so folks are more likely to
 go to numpy if they really need these features.</p>
 </div>
 <div class="section" id="binary-sequence-types">
@@ -704,9 +729,9 @@ of the usual methods of mutable sequences, as well as most methods that
 the bytes type has</dd>
 </dl>
 <p>a <code class="docutils literal"><span class="pre">byte</span></code> is essentially the smallest unit of memory the computer can work with.
-On virtually all modern hardware, a byte is 8 bits &#8211; 2**8 == 256 &#8211; so a single
+On virtually all modern hardware, a byte is 8 bits – 2**8 == 256 – so a single
 byte is a value between 0 and 255.</p>
-<p>You use bytes and bytearray objects to work with binary data &#8211; usually you&#8217;ll
+<p>You use bytes and bytearray objects to work with binary data – usually you’ll
 know it if you need it.</p>
 <p>But the most common use case is to deal with encoded text:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [79]: </span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Not ASCII: </span><span class="se">\u0107</span><span class="s2"> </span><span class="se">\u0398</span><span class="s2"> </span><span class="se">\u03A3</span><span class="s2"> </span><span class="se">\u03BB</span><span class="s2"> </span><span class="se">\uF4A9</span><span class="s2">&quot;</span>
@@ -730,7 +755,7 @@ know it if you need it.</p>
 </div>
 <p>Note that the bytes in the ascii range display as text. This is an
 artifact of the old days of C and Python2! where strings <em>were</em> byte arrays.</p>
-<p>Python also has a literal for a bytes object &#8211; that also uses text:</p>
+<p>Python also has a literal for a bytes object – that also uses text:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [92]: </span><span class="n">b</span>
 <span class="gh">Out[92]: </span><span class="go">b&#39;these are bytes&#39;</span>
 </pre></div>
@@ -754,11 +779,11 @@ artifact of the old days of C and Python2! where strings <em>were</em> byte arra
 </div>
 <div class="section" id="memoryview">
 <h3><code class="docutils literal"><span class="pre">memoryview</span></code><a class="headerlink" href="#memoryview" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="docutils literal"><span class="pre">memoryview</span></code> object is a wrapper around a bit of memory &#8211; it allows you to
+<p>A <code class="docutils literal"><span class="pre">memoryview</span></code> object is a wrapper around a bit of memory – it allows you to
 view an manipulate the data underlying some other object without copying it.</p>
 <p>Mostly used for binary interchange between different extension data types:
 like to pass data from a numpy array to an image, for instance:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [108]: </span><span class="n">b</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">b</span><span class="s1">&#39;abcdefg&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [108]: </span><span class="n">b</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;abcdefg&#39;</span><span class="p">)</span>
 
 <span class="gp">In [109]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">memoryview</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
@@ -769,8 +794,8 @@ like to pass data from a numpy array to an image, for instance:</p>
 <span class="gh">Out[111]: </span><span class="go">7</span>
 </pre></div>
 </div>
-<p>m and b now share the same memoroy block. So if I change m...</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [113]: </span><span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span>
+<p>m and b now share the same memoroy block. So if I change m…</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [113]: </span><span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span>
 
 <span class="gp">In [114]: </span><span class="n">m</span>
 <span class="gh">Out[114]: </span><span class="go">&lt;memory at 0x104759048&gt;</span>
@@ -789,6 +814,9 @@ multi-dimensional arrays.</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -823,7 +851,8 @@ multi-dimensional arrays.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

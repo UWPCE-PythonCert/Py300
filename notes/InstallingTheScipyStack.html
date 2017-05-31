@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,11 +85,14 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Installing The SciPy Stack</a><ul>
 <li><a class="reference internal" href="#scipy">Scipy</a><ul>
-<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What&#8217;s in the scipy stack?</a></li>
+<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What’s in the scipy stack?</a></li>
 <li><a class="reference internal" href="#installing-the-stack">Installing the Stack</a></li>
 <li><a class="reference internal" href="#checking-if-it-works">Checking if it works:</a></li>
 </ul>
@@ -105,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Py300</a>
+        
       </nav>
 
 
@@ -115,23 +123,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Installing The SciPy Stack</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing The SciPy Stack</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/notes/InstallingTheScipyStack.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/notes/InstallingTheScipyStack.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -143,7 +168,7 @@
 <p>To build extensions to Python, you need a C (and maybe C++) compiler that is compatible with your Python build.</p>
 <div class="section" id="scipy">
 <h2>Scipy<a class="headerlink" href="#scipy" title="Permalink to this headline">¶</a></h2>
-<p>&#8220;SciPy&#8221; is really two things:</p>
+<p>“SciPy” is really two things:</p>
 <ol class="arabic simple">
 <li>A particular package of modules useful for computational/scientific computing: what you get when you do:</li>
 </ol>
@@ -151,12 +176,12 @@
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>A community of folks doing scientific computing, and all the packages that are developed and used &#8211; <strong>A LOT</strong></li>
+<li>A community of folks doing scientific computing, and all the packages that are developed and used – <strong>A LOT</strong></li>
 </ol>
-<p>But there are a few packages that what most people will want, regardless of domain. To help calrify all this the &#8220;scipy stack&#8221; was officially declared:</p>
+<p>But there are a few packages that what most people will want, regardless of domain. To help calrify all this the “scipy stack” was officially declared:</p>
 <p><a class="reference external" href="http://www.scipy.org/stackspec.html">http://www.scipy.org/stackspec.html</a></p>
 <div class="section" id="what-s-in-the-scipy-stack">
-<h3>What&#8217;s in the scipy stack?<a class="headerlink" href="#what-s-in-the-scipy-stack" title="Permalink to this headline">¶</a></h3>
+<h3>What’s in the scipy stack?<a class="headerlink" href="#what-s-in-the-scipy-stack" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Python (<a class="reference external" href="http://www.python.org">http://www.python.org</a>)</li>
 <li>NumPy (<a class="reference external" href="http://www.numpy.org">http://www.numpy.org</a>)</li>
@@ -170,13 +195,13 @@
 </div>
 <div class="section" id="installing-the-stack">
 <h3>Installing the Stack<a class="headerlink" href="#installing-the-stack" title="Permalink to this headline">¶</a></h3>
-<p>Many of these packages are compiled code, some of it in Fortran &#8211; so it can be quite a pain to install from source. There are a number of ways to find pre-complied packages, some of which are outlined here:</p>
+<p>Many of these packages are compiled code, some of it in Fortran – so it can be quite a pain to install from source. There are a number of ways to find pre-complied packages, some of which are outlined here:</p>
 <p><a class="reference external" href="http://www.scipy.org/install.html">http://www.scipy.org/install.html</a></p>
 <p>But here are my thoughts:</p>
 <ul>
 <li><p class="first">If you are doing a lot of scientific computing, and not much else:</p>
 <ul class="simple">
-<li>Install the Anaconda distribution, and use it to install the other packages you&#8217;ll need:</li>
+<li>Install the Anaconda distribution, and use it to install the other packages you’ll need:</li>
 </ul>
 <p><a class="reference external" href="https://store.continuum.io/cshop/anaconda/">https://store.continuum.io/cshop/anaconda/</a></p>
 <p>There are free versions for Windows, Linux and OS-X.</p>
@@ -198,17 +223,17 @@
 <ul class="simple">
 <li>Windows:</li>
 </ul>
-<p>Another good option is Chris Gohlke&#8217;s packages, which you can find here:</p>
+<p>Another good option is Chris Gohlke’s packages, which you can find here:</p>
 <p><a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
 <p>These are binary wheels, so once downloaded, they can be installed with pip:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>pip install numpy‑1.9.2+mkl‑cp26‑none‑win_amd64.whl
 </pre></div>
 </div>
-<p>Note that he has both 32 bit and 64 bit packages there, install the ones that match your python. Despite the name, the &#8220;amd64&#8221; packages will work with Intel processors, too.</p>
+<p>Note that he has both 32 bit and 64 bit packages there, install the ones that match your python. Despite the name, the “amd64” packages will work with Intel processors, too.</p>
 <ul class="simple">
 <li>Linux</li>
 </ul>
-<p>These may be available from your system package manager (yum, apt-get) &#8211; try that first. If not, then you&#8217;ll need the compilers set up right, which may require some additional system packages first.</p>
+<p>These may be available from your system package manager (yum, apt-get) – try that first. If not, then you’ll need the compilers set up right, which may require some additional system packages first.</p>
 </div>
 <div class="section" id="checking-if-it-works">
 <h3>Checking if it works:<a class="headerlink" href="#checking-if-it-works" title="Permalink to this headline">¶</a></h3>
@@ -229,6 +254,9 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -263,7 +291,8 @@
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

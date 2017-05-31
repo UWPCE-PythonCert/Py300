@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Documentation</a><ul>
 <li><a class="reference internal" href="#why">Why</a><ul>
 <li><a class="reference internal" href="#sphinx">Sphinx</a></li>
@@ -129,8 +135,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -139,23 +147,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Documentation</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/documentation.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/documentation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -170,8 +195,8 @@
 <div class="section" id="why">
 <h2>Why<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
 <p class="left">Documentation is a key part of software development.</p>
-<p class="left">You&#8217;ll be glad you have it, even if you are the only one that uses your code.</p>
-<p class="left">If you are writing a package you want others to use &#8211; documentation can make all the difference</p>
+<p class="left">You’ll be glad you have it, even if you are the only one that uses your code.</p>
+<p class="left">If you are writing a package you want others to use – documentation can make all the difference</p>
 <p class="left">And there are some nice tools for documenting Python code.</p>
 <p class="left">There is even a hosting service:</p>
 <blockquote class="left">
@@ -183,7 +208,7 @@
 <h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h3>
 <p>Sphinx is a documentation system built specifically for documenting Python itself:</p>
 <p><a class="reference external" href="http://sphinx-doc.org">http://sphinx-doc.org</a></p>
-<p>But it&#8217;s also useful for any sort of structured documentation</p>
+<p>But it’s also useful for any sort of structured documentation</p>
 <ul class="simple">
 <li>and is sometimes used for non-code projects.</li>
 </ul>
@@ -202,7 +227,7 @@
 <p>Sphinx has an extension architecture for adding special functionality:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Hieroglyph (It is used for these slides...)</li>
+<li>Hieroglyph (It is used for these slides…)</li>
 <li>Matplotlib added some nice stuff:</li>
 </ul>
 <blockquote>
@@ -224,7 +249,7 @@
 <p>It can extract docstrings from your code and build docs from them.</p>
 <p>Includes cross referencing of modules and classes, etc.</p>
 <p>This keeps your code and docs in sync, and encourages you to have nice docstrings.</p>
-<p>It&#8217;s a bit tricky to get it all set up though :-(</p>
+<p>It’s a bit tricky to get it all set up though :-(</p>
 </div>
 <div class="section" id="documentation-for-the-documentation-system">
 <h3>Documentation for the Documentation System<a class="headerlink" href="#documentation-for-the-documentation-system" title="Permalink to this headline">¶</a></h3>
@@ -247,16 +272,16 @@
 <h3>reStructuredText<a class="headerlink" href="#restructuredtext" title="Permalink to this headline">¶</a></h3>
 <p>reStructuredText is the markup language used for Sphinx.</p>
 <p>Developed (adapted, really) for Python documentation.</p>
-<p>It&#8217;s a plain text, easy to read and write markup.</p>
+<p>It’s a plain text, easy to read and write markup.</p>
 <p>Like many similar markup languages (Markdown, etc.)</p>
 <ul class="simple">
 <li>designed to be easy to read and write</li>
 <li>makes sense in plain text</li>
 <li>looks a lot like what you might write in plain text anyway.</li>
 </ul>
-<p>So it&#8217;s suitable for use both as plain text and for fancier formatting
+<p>So it’s suitable for use both as plain text and for fancier formatting
 (i.e. docstrings and autodoc)</p>
-<p>But more extensible than most others &#8211; so good for sphinx</p>
+<p>But more extensible than most others – so good for sphinx</p>
 </div>
 <div class="section" id="id2">
 <h3>reStructuredText<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
@@ -287,7 +312,7 @@ And ``this`` is code.
 <li>The first form it sees is Header 1</li>
 <li>The second encountered is Header 2</li>
 <li>The third is header 3</li>
-<li>. . . .</li>
+<li>… .</li>
 </ul>
 </div></blockquote>
 </div>
@@ -295,7 +320,7 @@ And ``this`` is code.
 <h3>reStructuredText directives<a class="headerlink" href="#restructuredtext-directives" title="Permalink to this headline">¶</a></h3>
 <p>Directives are an extension mechanism for RST.</p>
 <p>A directive starts iwth 2 dots, then a smapce, then the directive, then two colons.</p>
-<p>Directives are indicated by an explicit markup start (&#8221;.. &#8221;) followed by the directive type, two colons, and whitespace.</p>
+<p>Directives are indicated by an explicit markup start (“.. “) followed by the directive type, two colons, and whitespace.</p>
 <p>Directive types are case-insensitive single words.</p>
 <p>There are three logical parts to the directive block:</p>
 <ul class="simple">
@@ -356,11 +381,11 @@ And ``this`` is code.
 </div>
 <div class="section" id="an-alternative">
 <h3>An Alternative<a class="headerlink" href="#an-alternative" title="Permalink to this headline">¶</a></h3>
-<p>The previous works OK, but it&#8217;s really pretty klunky, hard to write and kinda hard to read.</p>
-<p>To much markup not really the &#8220;just like plain next&#8221; we&#8217;re going for.</p>
-<p>Recent version os Sphinx include &#8220;napolean&#8221; to remedy this:</p>
+<p>The previous works OK, but it’s really pretty klunky, hard to write and kinda hard to read.</p>
+<p>To much markup not really the “just like plain next” we’re going for.</p>
+<p>Recent version os Sphinx include “napolean” to remedy this:</p>
 <p><a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.org">https://sphinxcontrib-napoleon.readthedocs.org</a></p>
-<p>It allows the use of &#8220;google style&#8221; or &#8220;numpy style&#8221; docstrings.</p>
+<p>It allows the use of “google style” or “numpy style” docstrings.</p>
 <p>So the previous example would look like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">a_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;fred&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -460,7 +485,7 @@ _static    _templates conf.py    index.rst
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">index.rst</span></code> is the start of your documentation</p>
-<p><code class="docutils literal"><span class="pre">conf.py</span></code> is the configuration that was created by <code class="docutils literal"><span class="pre">sphinx-quickstart</span></code> &#8211; you can edit it if you change you mind about anything.</p>
+<p><code class="docutils literal"><span class="pre">conf.py</span></code> is the configuration that was created by <code class="docutils literal"><span class="pre">sphinx-quickstart</span></code> – you can edit it if you change you mind about anything.</p>
 </div>
 <div class="section" id="building-the-docs">
 <h3>Building the docs:<a class="headerlink" href="#building-the-docs" title="Permalink to this headline">¶</a></h3>
@@ -477,7 +502,7 @@ Build finished. The HTML pages are in build/html.
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ make latexpdf
 </pre></div>
 </div>
-<p>(if you have LaTeX installed...)</p>
+<p>(if you have LaTeX installed…)</p>
 <p>Take a look at <code class="docutils literal"><span class="pre">build/html/index.html</span></code></p>
 </div>
 <div class="section" id="getting-started-with-writing">
@@ -516,7 +541,7 @@ Indices and tables
 </div>
 <div class="section" id="id4">
 <h3>A tiny bit of RST<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">..</span></code> is either a comment or a &#8220;directive&#8221;:</p>
+<p>The <code class="docutils literal"><span class="pre">..</span></code> is either a comment or a “directive”:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
    <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">2</span>
 </pre></div>
@@ -527,18 +552,18 @@ Indices and tables
 <div class="section" id="autodoc">
 <h3>AutoDoc<a class="headerlink" href="#autodoc" title="Permalink to this headline">¶</a></h3>
 <p>AutoDoc extracts the docstrings from your code.</p>
-<p>In order to find them &#8211; sphinx needs to be able to import the code.</p>
+<p>In order to find them – sphinx needs to be able to import the code.</p>
 <p>Another reason to build a package and use <code class="docutils literal"><span class="pre">develop</span></code> mode!</p>
 <p>Alternatively, you can add the path to your code by adding this to the conf.py file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;mydir/myfile.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(Path is relative to the conf.py file)</p>
-<p>But I&#8217;m not going to do that, &#8216;cause I use <code class="docutils literal"><span class="pre">develop</span></code> mode</p>
+<p>But I’m not going to do that, ‘cause I use <code class="docutils literal"><span class="pre">develop</span></code> mode</p>
 </div>
 <div class="section" id="adding-autodoc-to-your-docs">
 <h3>Adding Autodoc to your docs.<a class="headerlink" href="#adding-autodoc-to-your-docs" title="Permalink to this headline">¶</a></h3>
-<p>I like to put the auto-generated docs in a &#8220;reference&#8221; page.</p>
+<p>I like to put the auto-generated docs in a “reference” page.</p>
 <p>Create a new file names <code class="docutils literal"><span class="pre">reference.rst</span></code></p>
 <p>Give it a header:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Capitalize</span> <span class="n">Reference</span>
@@ -605,13 +630,13 @@ Indices and tables
    <span class="p">:</span><span class="n">members</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>You may want to set <code class="docutils literal"><span class="pre">autoclass_content</span></code> configuration to one of: &#8220;class&#8221;,
-&#8220;init&#8221;, or &#8220;both&#8221;</p>
+<p>You may want to set <code class="docutils literal"><span class="pre">autoclass_content</span></code> configuration to one of: “class”,
+“init”, or “both”</p>
 <p>(<a class="reference external" href="http://sphinx-doc.org/ext/autodoc.html">http://sphinx-doc.org/ext/autodoc.html</a>)</p>
 </div>
 <div class="section" id="multiple-files">
 <h3>Multiple Files<a class="headerlink" href="#multiple-files" title="Permalink to this headline">¶</a></h3>
-<p>For most projects, you&#8217;ll want multiple pages in your docs. You can put each in their own <cite>*.rst</cite> file, and reference them in the <code class="docutils literal"><span class="pre">toctree</span></code> section:</p>
+<p>For most projects, you’ll want multiple pages in your docs. You can put each in their own <cite>*.rst</cite> file, and reference them in the <code class="docutils literal"><span class="pre">toctree</span></code> section:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
    <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">2</span>
 
@@ -621,7 +646,7 @@ Indices and tables
 </pre></div>
 </div>
 <p>Then you need to create and populate those files - make sure they have a header!</p>
-<p>I put the autocdoc stuff in the api.rst file...</p>
+<p>I put the autocdoc stuff in the api.rst file…</p>
 </div>
 <div class="section" id="apidoc">
 <h3>APIdoc<a class="headerlink" href="#apidoc" title="Permalink to this headline">¶</a></h3>
@@ -637,11 +662,11 @@ Creating file test/capitalize.test.rst.
 Creating file test/modules.rst.
 </pre></div>
 </div>
-<p>This is actually pretty slick....</p>
+<p>This is actually pretty slick….</p>
 </div>
 <div class="section" id="sphinx-appearance">
 <h3>Sphinx Appearance<a class="headerlink" href="#sphinx-appearance" title="Permalink to this headline">¶</a></h3>
-<p>If you don&#8217;t like the default looks, there are a number of other options, or you can build your own:</p>
+<p>If you don’t like the default looks, there are a number of other options, or you can build your own:</p>
 <p><a class="reference external" href="http://sphinx-doc.org/theming.html">http://sphinx-doc.org/theming.html</a></p>
 <p>In <code class="docutils literal"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
@@ -654,6 +679,9 @@ Creating file test/modules.rst.
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -688,7 +716,8 @@ Creating file test/modules.rst.
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Metaclasses &mdash; Py300 3.0 documentation</title>
+  <title>Metaprogramming &mdash; Py300 3.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,23 +85,26 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Metaclasses</a><ul>
-<li><a class="reference internal" href="#metaprogramming">Metaprogramming</a><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Metaprogramming</a><ul>
+<li><a class="reference internal" href="#id1">Metaprogramming</a><ul>
 <li><a class="reference internal" href="#a-class-is-just-an-object">A class is just an object</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#introspeciton-and-manipulation-tools">Introspeciton and manipulation tools</a><ul>
 <li><a class="reference internal" href="#getattr-and-setattr"><code class="docutils literal"><span class="pre">getattr()</span></code> and <code class="docutils literal"><span class="pre">setattr()</span></code></a></li>
-<li><a class="reference internal" href="#what-s-in-a-class">What&#8217;s in a Class?</a></li>
+<li><a class="reference internal" href="#what-s-in-a-class">What’s in a Class?</a></li>
 <li><a class="reference internal" href="#what-class-does-this-object-belong-to">What class does this object belong to?</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id2">metaclasses</a><ul>
 <li><a class="reference internal" href="#creating-a-class-from-scratch">Creating a class from scratch</a></li>
 <li><a class="reference internal" href="#equivalent-to">Equivalent to:</a></li>
-<li><a class="reference internal" href="#type-or-class">&#8220;type&#8221; or &#8220;class&#8221;</a></li>
+<li><a class="reference internal" href="#type-or-class">“type” or “class”</a></li>
 <li><a class="reference internal" href="#more-on-classes">More on Classes</a></li>
 <li><a class="reference internal" href="#what-is-a-metaclass">What is a metaclass?</a></li>
 <li><a class="reference internal" href="#type"><code class="docutils literal"><span class="pre">type()</span></code></a></li>
@@ -131,8 +137,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -141,39 +149,56 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Metaclasses</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Metaprogramming</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/metaclasses.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/metaclasses.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="metaclasses">
-<span id="id1"></span><h1>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this headline">¶</a></h1>
-<p>adapted from work by Joseph Sheedy</p>
-<div class="section" id="metaprogramming">
-<h2>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="metaprogramming">
+<span id="metaclasses"></span><h1>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline">¶</a></h1>
+<p>programs that write programs….</p>
+<div class="section" id="id1">
+<h2>Metaprogramming<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p class="left"><strong>Metaprogramming:</strong></p>
-<p class="left">&#8220;Metaprogramming is a programming technique in which computer programs have the ability to treat programs as their data. It means that a program can be designed to read, generate, analyse or transform other programs, and even modify itself while running.&#8221;</p>
-<p class="left">&#8211; <code class="docutils literal"><span class="pre">https://en.wikipedia.org/wiki/Metaprogramming</span></code></p>
+<p class="left">“Metaprogramming is a programming technique in which computer programs have the ability to treat programs as their data. It means that a program can be designed to read, generate, analyse or transform other programs, and even modify itself while running.”</p>
+<p class="left">– <code class="docutils literal"><span class="pre">https://en.wikipedia.org/wiki/Metaprogramming</span></code></p>
 <p class="left">In other words: A metaprogram is a program that writes (or maodifies) programs.</p>
-<p class="left">As a dynamic language, Python is very well suited to metaprograming, as it allows objects to be modified at run time. It also provides excellent tools for <strong>&#8220;Introspection&#8221;</strong>:</p>
-<p class="left">&#8220;The ability of a program to examine the type or properties of an object at runtime.&#8221;</p>
+<p class="left">As a dynamic language, Python is very well suited to metaprograming, as it allows objects to be modified at run time. It also provides excellent tools for <strong>“Introspection”</strong>:</p>
+<p class="left">“The ability of a program to examine the type or properties of an object at runtime.”</p>
 <div class="section" id="a-class-is-just-an-object">
 <h3>A class is just an object<a class="headerlink" href="#a-class-is-just-an-object" title="Permalink to this headline">¶</a></h3>
 <p>A class is a first-class object:</p>
@@ -182,7 +207,7 @@
 <p>Returned from a function</p>
 <p>Assigned to a variable</p>
 <p>(sound familiar from when we were talking about functions?)</p>
-<p>This &#8220;everything is an object&#8221; is what allows full introspection and metaprogramming.</p>
+<p>This “everything is an object” is what allows full introspection and metaprogramming.</p>
 </div>
 </div>
 <div class="section" id="introspeciton-and-manipulation-tools">
@@ -209,10 +234,12 @@
 <span class="gh">Out[6]: </span><span class="go">54</span>
 </pre></div>
 </div>
+<p>Let’s play with this: (demo)</p>
+<p>NOTE: Do attributes have to be python legal python names??</p>
 </div>
 <div class="section" id="what-s-in-a-class">
-<h3>What&#8217;s in a Class?<a class="headerlink" href="#what-s-in-a-class" title="Permalink to this headline">¶</a></h3>
-<p>A class (and instance) object stores its attributes in a dictionary &#8211; yes, a regular old python dict. You can access that dict with the <code class="docutils literal"><span class="pre">__dict__</span></code> attribute:</p>
+<h3>What’s in a Class?<a class="headerlink" href="#what-s-in-a-class" title="Permalink to this headline">¶</a></h3>
+<p>A class (and instance) object stores its attributes in a dictionary – yes, a regular old python dict. You can access that dict with the <code class="docutils literal"><span class="pre">__dict__</span></code> attribute:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="k">class</span> <span class="nc">Simple</span><span class="p">():</span>
 <span class="go">    ...:     this = &quot;a class attribute&quot;</span>
 <span class="go">    ...:     def __init__(self):</span>
@@ -221,7 +248,7 @@
 
 <span class="gp">In [12]: </span><span class="n">obj</span> <span class="o">=</span> <span class="n">Simple</span><span class="p">()</span>
 
-<span class="gp">In [13]: </span><span class="n">Simple</span><span class="o">.</span><span class="n">__dict__</span>
+<span class="gp">In [13]: </span><span class="n">Simple</span><span class="o">.</span><span class="vm">__dict__</span>
 <span class="gh">Out[13]:</span>
 <span class="go">mappingproxy({&#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;Simple&#39; objects&gt;,</span>
 <span class="go">              &#39;__doc__&#39;: None,</span>
@@ -230,7 +257,7 @@
 <span class="go">              &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;Simple&#39; objects&gt;,</span>
 <span class="go">              &#39;this&#39;: &#39;a class attribute&#39;})</span>
 
-<span class="gp">In [15]: </span><span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span>
+<span class="gp">In [15]: </span><span class="n">obj</span><span class="o">.</span><span class="vm">__dict__</span>
 <span class="gh">Out[15]: </span><span class="go">{&#39;that&#39;: &#39;an instance attribute&#39;}</span>
 </pre></div>
 </div>
@@ -238,12 +265,12 @@
 <div class="section" id="what-class-does-this-object-belong-to">
 <h3>What class does this object belong to?<a class="headerlink" href="#what-class-does-this-object-belong-to" title="Permalink to this headline">¶</a></h3>
 <p>every object has a <code class="docutils literal"><span class="pre">__class__</span></code> attribute specifying what class the object belongs to:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span>
 <span class="gh">Out[16]: </span><span class="go">__main__.Simple</span>
 </pre></div>
 </div>
 <p>and that is the actuall class object:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span> <span class="ow">is</span> <span class="n">Simple</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">Simple</span>
 <span class="gh">Out[17]: </span><span class="go">True</span>
 </pre></div>
 </div>
@@ -280,14 +307,14 @@
 <p><a class="reference external" href="http://eli.thegreenplace.net/2011/08/14/python-metaclasses-by-example">http://eli.thegreenplace.net/2011/08/14/python-metaclasses-by-example</a></p>
 </div>
 <div class="section" id="type-or-class">
-<h3>&#8220;type&#8221; or &#8220;class&#8221;<a class="headerlink" href="#type-or-class" title="Permalink to this headline">¶</a></h3>
-<p>We talk about &#8220;classes&#8221;, and yet we create them with <code class="docutils literal"><span class="pre">type()</span></code>.</p>
-<p>In python, &#8220;type&#8221; and &#8220;class&#8221; are essentially the same thing.</p>
+<h3>“type” or “class”<a class="headerlink" href="#type-or-class" title="Permalink to this headline">¶</a></h3>
+<p>We talk about “classes”, and yet we create them with <code class="docutils literal"><span class="pre">type()</span></code>.</p>
+<p>In python, “type” and “class” are essentially the same thing.</p>
 <p>So why the two names?</p>
-<p>History: in teheraly days of python, a &#8220;type&#8221; was a built-in object, and a &#8220;class&#8221; was an object crated with code.</p>
+<p>History: in teheraly days of python, a “type” was a built-in object, and a “class” was an object crated with code.</p>
 <p>type - class unifiation began in python 2.2:</p>
 <p><code class="docutils literal"><span class="pre">https://www.python.org/download/releases/2.2/descrintro/</span></code></p>
-<p>In python3, the unification is complete &#8211; types <em>are</em> classes and vice-versa.</p>
+<p>In python3, the unification is complete – types <em>are</em> classes and vice-versa.</p>
 </div>
 <div class="section" id="more-on-classes">
 <h3>More on Classes<a class="headerlink" href="#more-on-classes" title="Permalink to this headline">¶</a></h3>
@@ -304,7 +331,7 @@
 <li>A class is something that makes instances</li>
 <li>A metaclass is something that makes classes</li>
 <li>A metaclass is most commonly used as a class factory</li>
-<li>Metaclasses allow you to do &#8216;extra things&#8217; when creating a class,
+<li>Metaclasses allow you to do ‘extra things’ when creating a class,
 like registering the new class with some registry, adding methods
 dynamically, or even replace the class with something else entirely</li>
 <li>Every object in Python has a metaclass</li>
@@ -358,7 +385,7 @@ dictionary</p>
 <p>MyClass = type(name, bases, dct)</p>
 <ul class="simple">
 <li>name: name of newly created class</li>
-<li>bases: tuple of class&#8217;s base classes</li>
+<li>bases: tuple of class’s base classes</li>
 <li>dct: class attribute mapping</li>
 </ul>
 </div>
@@ -371,7 +398,7 @@ dictionary</p>
 </div>
 <div class="section" id="metaclass">
 <h3><code class="docutils literal"><span class="pre">metaclass</span></code><a class="headerlink" href="#metaclass" title="Permalink to this headline">¶</a></h3>
-<p>Setting a class&#8217; metaclass:</p>
+<p>Setting a class’ metaclass:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MyMetaClass</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
@@ -383,7 +410,7 @@ same signature as type()</p>
 <p><strong>Python2 NOTE:</strong></p>
 <p>In Python 2, instead of the keyword argument, a special class attribute: <code class="docutils literal"><span class="pre">__metaclass__</span></code> is used:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">MyMetaClass</span>
+  <span class="vm">__metaclass__</span> <span class="o">=</span> <span class="n">MyMetaClass</span>
 </pre></div>
 </div>
 </div>
@@ -415,18 +442,18 @@ abstracted from the user of the Model class.</p>
 <p><code class="docutils literal"><span class="pre">__new__</span></code> and <code class="docutils literal"><span class="pre">__init__</span></code> are both called when the module containing the class is imported for the first time.</p>
 <p><code class="docutils literal"><span class="pre">__call__</span></code> is used when you want to control how a class (object) is called (instantiation)</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CoolMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Creating class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
   <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Initializing class&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-  <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+  <span class="nb">super</span><span class="p">(</span><span class="n">CoolMeta</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Meta has been called&#39;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">CoolClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">CoolMeta</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;And now my CoolClass exists&#39;</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Actually instantiating now&#39;</span><span class="p">)</span>
@@ -451,7 +478,7 @@ provide uppercase and lower case attributes</p>
 <h3>NameMangler<a class="headerlink" href="#namemangler" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NameMangler</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
         <span class="n">uppercase_attr</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
@@ -460,7 +487,7 @@ provide uppercase and lower case attributes</p>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">uppercase_attr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
 
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">uppercase_attr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">clsname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">uppercase_attr</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">NameMangler</span><span class="p">):</span>
@@ -501,9 +528,9 @@ NameMangler and Singleton classes in the <code class="docutils literal"><span cl
     <span class="o">...</span>
 </pre></div>
 </div>
-<p>A decorator is a &#8220;callable&#8221; that returns a &#8220;callable&#8221; &#8211; usually a modified
+<p>A decorator is a “callable” that returns a “callable” – usually a modified
 version of he one passed in.</p>
-<p>Class objects are callable &#8211; you call them when you instantiate a instance:</p>
+<p>Class objects are callable – you call them when you instantiate a instance:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">an_inst</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -512,7 +539,7 @@ version of he one passed in.</p>
 <p>When you decorate a class, you can cahnge it in some way, and then the
 changed version replaces the one in the definiton.</p>
 <p>This also happens at compile time, rather than run time, just like metaclasses.</p>
-<p>class decorators were actually introduced AFTER metaclasses &#8211; maybe they
+<p>class decorators were actually introduced AFTER metaclasses – maybe they
 are a clearer solution??</p>
 </div>
 <div class="section" id="json-save">
@@ -523,7 +550,7 @@ are a clearer solution??</p>
 <p>It works a bit like the ORMs.</p>
 <p>It turns out that the metaclass part of the code is pretty simple and small.</p>
 <p>But there is a lot of other nifty, magic with classes in there
-&#8211; so let&#8217;s take a look.</p>
+– so let’s take a look.</p>
 </div>
 <div class="section" id="reference-reading">
 <h3>Reference reading<a class="headerlink" href="#reference-reading" title="Permalink to this headline">¶</a></h3>
@@ -543,6 +570,9 @@ are a clearer solution??</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -577,7 +607,8 @@ are a clearer solution??</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

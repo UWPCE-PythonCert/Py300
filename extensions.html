@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Extending Python with Complied Code</a><ul>
 <li><a class="reference internal" href="#topics">Topics</a><ul>
 <li><a class="reference internal" href="#motivation">Motivation</a></li>
@@ -132,7 +138,7 @@
 <li><a class="reference internal" href="#installing-swig">Installing SWIG</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#decisions-decisions">Decisions, Decisions...</a><ul>
+<li><a class="reference internal" href="#decisions-decisions">Decisions, Decisions…</a><ul>
 <li><a class="reference internal" href="#my-decision-tree">My decision tree</a></li>
 </ul>
 </li>
@@ -150,8 +156,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -160,23 +168,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Extending Python with Complied Code</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Extending Python with Complied Code</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/extensions.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/extensions.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -222,7 +247,7 @@
 <div class="section" id="example-case">
 <h3>Example Case<a class="headerlink" href="#example-case" title="Permalink to this headline">¶</a></h3>
 <p>To focus on the integration techniques, rather than complex C code,
-we&#8217;ll work with the following function we want to integrate:</p>
+we’ll work with the following function we want to integrate:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include &lt;stdio.h&gt;</span>
 
 <span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
@@ -251,14 +276,14 @@ gcc -o add add.c
 3 + 2 = 5
 </pre></div>
 </div>
-<p>So are simple function works &#8211; but how to call it from Python?</p>
+<p>So are simple function works – but how to call it from Python?</p>
 </div>
 <div class="section" id="the-c-api">
 <h3>The C API<a class="headerlink" href="#the-c-api" title="Permalink to this headline">¶</a></h3>
 <p>Write your function in pure C using the Python API and import it into Python</p>
 <p>Good for integrating with C library functions and system calls</p>
-<p>The API isn&#8217;t trivial to learn</p>
-<p>Lots of opportunity for error &#8211; you must do manual reference counting:</p>
+<p>The API isn’t trivial to learn</p>
+<p>Lots of opportunity for error – you must do manual reference counting:</p>
 <p>(<a class="reference external" href="http://docs.python.org/2/c-api/refcounting.html">http://docs.python.org/2/c-api/refcounting.html</a>)</p>
 <p>Further reading:</p>
 <blockquote>
@@ -270,7 +295,7 @@ gcc -o add add.c
 </div>
 <div class="section" id="intro-to-the-c-api">
 <h3>Intro to the C API<a class="headerlink" href="#intro-to-the-c-api" title="Permalink to this headline">¶</a></h3>
-<p>You&#8217;ll need the Python dev package installed on your system</p>
+<p>You’ll need the Python dev package installed on your system</p>
 <p>Pull in the Python API to your C code via:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#include &lt;Python.h&gt;</span>
 <span class="o">/*</span>
@@ -363,7 +388,7 @@ PyMODINIT_FUNC initadd(void) {
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>(<code class="docutils literal"><span class="pre">distutils</span></code> does too &#8211; but setuptools is getting updated to better
+<p>(<code class="docutils literal"><span class="pre">distutils</span></code> does too – but setuptools is getting updated to better
 support new stuff)</p>
 <p>Run the setup.py:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">--</span><span class="n">inplace</span>
@@ -420,8 +445,8 @@ C Extension.</p>
 <p><code class="docutils literal"><span class="pre">Py_INCREF(x)</span></code> and <code class="docutils literal"><span class="pre">Py_DECREF(x)</span></code></p>
 <p><code class="docutils literal"><span class="pre">PyArg_ParseTuple</span></code>  and  <code class="docutils literal"><span class="pre">Py_BuildValue</span></code></p>
 <p>Handle this for you.</p>
-<p>But if you&#8217;re creating new objects inside your function, you need to keep track.</p>
-<p>And what it the function raises an exception in the middle and can&#8217;t finish?</p>
+<p>But if you’re creating new objects inside your function, you need to keep track.</p>
+<p>And what it the function raises an exception in the middle and can’t finish?</p>
 <p>This gets really ugly and error-prone (and hard to debug!)</p>
 </div>
 <div class="section" id="lab">
@@ -446,7 +471,7 @@ divide-by-zero case</li>
 </div>
 <div class="section" id="ctypes">
 <h2>ctypes<a class="headerlink" href="#ctypes" title="Permalink to this headline">¶</a></h2>
-<p>Isn&#8217;t there an easier way to just call some C code?</p>
+<p>Isn’t there an easier way to just call some C code?</p>
 <div class="section" id="what-is-ctypes">
 <h3>What is ctypes?<a class="headerlink" href="#what-is-ctypes" title="Permalink to this headline">¶</a></h3>
 <p>A foreign function interface in Python</p>
@@ -455,13 +480,13 @@ divide-by-zero case</li>
 <dt>Benefits:</dt>
 <dd><ul class="first last simple">
 <li>Ships with Python, since 2.5</li>
-<li>No new language to learn, it&#8217;s all Python</li>
+<li>No new language to learn, it’s all Python</li>
 </ul>
 </dd>
 <dt>Drawbacks:</dt>
 <dd><ul class="first last simple">
 <li>Performance hit for on the fly type translation</li>
-<li>&#8220;thicker&#8221; interface in python</li>
+<li>“thicker” interface in python</li>
 </ul>
 </dd>
 </dl>
@@ -493,8 +518,8 @@ divide-by-zero case</li>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">add</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>But....</p>
-<p>C is statically typed &#8211; once compiled, the function must be called with
+<p>But….</p>
+<p>C is statically typed – once compiled, the function must be called with
 the correct types.</p>
 </div>
 <div class="section" id="ctypes-data-types">
@@ -513,7 +538,7 @@ the correct types.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;An int </span><span class="si">%d</span><span class="s2">, a double </span><span class="si">%f</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">c_double</span><span class="p">(</span><span class="mf">3.14</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>There are ctypes wrappers for all the &#8220;standard&#8221; C types</p>
+<p>There are ctypes wrappers for all the “standard” C types</p>
 <p><a class="reference external" href="http://docs.python.org/2/library/ctypes.html#fundamental-data-types">http://docs.python.org/2/library/ctypes.html#fundamental-data-types</a></p>
 <p>You can also do pointers to types:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a_lib</span><span class="o">.</span><span class="n">a_function</span><span class="p">(</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">c_float</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
@@ -551,7 +576,7 @@ the correct types.</p>
 <span class="n">libm</span><span class="o">.</span><span class="n">pow</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>And you can just call it like a regular python function &#8211; ctypes will type check/convert at run time:</p>
+<p>And you can just call it like a regular python function – ctypes will type check/convert at run time:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">libm</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="s1">&#39;a string&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="o">---------------------------------------------------------------------------</span>
 <span class="n">ArgumentError</span>                             <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
@@ -574,7 +599,7 @@ the correct types.</p>
 </div>
 <p>Numpy provides utilities for numpy arrays:</p>
 <p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.ctypes.html">http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.ctypes.html</a></p>
-<p>(works well for C code that takes &#8220;classic&#8221; C arrays)</p>
+<p>(works well for C code that takes “classic” C arrays)</p>
 </div>
 <div class="section" id="summary">
 <h3>Summary:<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
@@ -601,7 +626,7 @@ the correct types.</p>
 <ul class="simple">
 <li>Upside:<ul>
 <li>You can call system libs with little code</li>
-<li>You don&#8217;t need to compile anything<ul>
+<li>You don’t need to compile anything<ul>
 <li>at least for system and pre-compiled libs</li>
 </ul>
 </li>
@@ -622,12 +647,12 @@ the correct types.</p>
 </div>
 <div class="section" id="id1">
 <h3>LAB<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>In <code class="docutils literal"><span class="pre">Examples/week-08-extensions/ctypes</span></code> you&#8217;ll find <code class="docutils literal"><span class="pre">add.c</span></code></p>
+<p>In <code class="docutils literal"><span class="pre">Examples/week-08-extensions/ctypes</span></code> you’ll find <code class="docutils literal"><span class="pre">add.c</span></code></p>
 <p>You can build a shared lib with it with <code class="docutils literal"><span class="pre">make</span></code>
 (<code class="docutils literal"><span class="pre">make.bat</span></code>) on Windows.</p>
 <p><code class="docutils literal"><span class="pre">test_ctypes.py</span></code> will call that dll, and a few system dlls.</p>
 <ul class="simple">
-<li>Take a look at what&#8217;s there, and how it works.</li>
+<li>Take a look at what’s there, and how it works.</li>
 <li>add another function to add.c, that takes different types (maybe divide?)</li>
 <li>rebuild, and figure out how to call it with ctypes.</li>
 <li>Try calling other system functions with ctypes.</li>
@@ -645,7 +670,7 @@ for Python extensions.</p>
 <li>Fully understands the python types</li>
 </ul>
 </li>
-<li>With careful typing &#8211; you get pure C (and pure C speed)</li>
+<li>With careful typing – you get pure C (and pure C speed)</li>
 <li>Can also call other C code: libraries or compiled in.</li>
 <li>Used for custom Python extensions and/or call C and C++ code.</li>
 </ul>
@@ -684,7 +709,7 @@ for Python extensions.</p>
 </div>
 <div class="section" id="building-a-module">
 <h3>Building a module<a class="headerlink" href="#building-a-module" title="Permalink to this headline">¶</a></h3>
-<p>For testing, it&#8217;s helpful to do:</p>
+<p>For testing, it’s helpful to do:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">--</span><span class="n">inplace</span>
 </pre></div>
 </div>
@@ -705,7 +730,7 @@ for Python extensions.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span> <span class="n">a_file</span><span class="o">.</span><span class="n">pyx</span>
 </pre></div>
 </div>
-<p>Generates``a_file.html`` html file that is easier to read and gives
+<p>Generates“a_file.html“ html file that is easier to read and gives
 additional information that is helpful for debugging and performance
 tuning.</p>
 <p>More on this later.</p>
@@ -721,7 +746,7 @@ tuning.</p>
 </pre></div>
 </div>
 <p>Inside those functions, you can write virtually any python code.</p>
-<p>But the real magic is with the optional type declarations: the <code class="docutils literal"><span class="pre">cdef</span></code> lines. Well see this as we go...</p>
+<p>But the real magic is with the optional type declarations: the <code class="docutils literal"><span class="pre">cdef</span></code> lines. Well see this as we go…</p>
 </div>
 <div class="section" id="calling-a-c-function-from-cython">
 <h3>Calling a C function from Cython<a class="headerlink" href="#calling-a-c-function-from-cython" title="Permalink to this headline">¶</a></h3>
@@ -790,7 +815,7 @@ if you didn&#39;t get an assertion, it worked
 if you didn&#39;t get an assertion, it worked
 </pre></div>
 </div>
-<p>But this is still essentially Python. So let&#8217;s type define it:</p>
+<p>But this is still essentially Python. So let’s type define it:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">):</span>
 
     <span class="n">cdef</span> <span class="nb">int</span> <span class="n">result</span><span class="o">=</span><span class="mi">0</span>
@@ -807,7 +832,7 @@ raw C for that.</p>
 Chris$ python test_cy_add2.py
 </pre></div>
 </div>
-<p>If you didn&#8217;t get an assertion, it worked</p>
+<p>If you didn’t get an assertion, it worked</p>
 </div>
 <div class="section" id="a-real-example-the-cython-process">
 <h3>A real Example: the Cython process<a class="headerlink" href="#a-real-example-the-cython-process" title="Permalink to this headline">¶</a></h3>
@@ -823,11 +848,11 @@ Chris$ python test_cy_add2.py
     <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
 </pre></div>
 </div>
-<p>This is a good candidate for Cython &#8211; an essentially static function called a lot.</p>
+<p>This is a good candidate for Cython – an essentially static function called a lot.</p>
 </div>
 <div class="section" id="cython-from-pure-python-to-c">
 <h3>Cython from pure Python to C<a class="headerlink" href="#cython-from-pure-python-to-c" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s go through the steps one by one. In the <code class="docutils literal"><span class="pre">Examples/week-08-extensions/cython/integrate</span></code> directory:</p>
+<p>Let’s go through the steps one by one. In the <code class="docutils literal"><span class="pre">Examples/week-08-extensions/cython/integrate</span></code> directory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cy_integrate1</span><span class="o">.</span><span class="n">pyx</span>
 <span class="n">cy_integrate2</span><span class="o">.</span><span class="n">pyx</span>
 <span class="n">cy_integrate3</span><span class="o">.</span><span class="n">pyx</span>
@@ -837,7 +862,7 @@ Chris$ python test_cy_add2.py
 <span class="n">cy_integrate7</span><span class="o">.</span><span class="n">pyx</span>
 </pre></div>
 </div>
-<p>At each step, we&#8217;ll time and look at the output from:</p>
+<p>At each step, we’ll time and look at the output from:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$cython -a cy_integrate1.pyx
 </pre></div>
 </div>
@@ -849,7 +874,7 @@ array is in:</p>
 <p>Examples/week-08-extensions/AGC_example</p>
 <p>This one impliments an Automatic Gain Control Signal processing filter.</p>
 <p>It turns out that you can use some advanced numpy tricks to get pretty
-good performancew with this filter, but you can&#8217;t get full-on speed
+good performancew with this filter, but you can’t get full-on speed
 without some compiled code.</p>
 <dl class="docutils">
 <dt>This example uses all of:</dt>
@@ -868,8 +893,8 @@ without some compiled code.</p>
 <p>SWIG</p>
 <p>SIP</p>
 <p>XDress</p>
-<p>[also Boost-Python &#8211; not really a wrapper generator]</p>
-<p>f2py &#8211; for Fortran</p>
+<p>[also Boost-Python – not really a wrapper generator]</p>
+<p>f2py – for Fortran</p>
 <div class="section" id="swig">
 <h3>SWIG<a class="headerlink" href="#swig" title="Permalink to this headline">¶</a></h3>
 <p><strong>Simple Wrapper Interface Generator</strong></p>
@@ -878,7 +903,7 @@ without some compiled code.</p>
 <blockquote>
 <div><ul class="simple">
 <li>Code generation for other environments than Python.</li>
-<li>Doesn&#8217;t require modification to your C source.</li>
+<li>Doesn’t require modification to your C source.</li>
 </ul>
 </div></blockquote>
 <p><strong>Disadvantages:</strong></p>
@@ -886,7 +911,7 @@ without some compiled code.</p>
 <div><ul class="simple">
 <li>For anything non-trivial, requires substantial effort to develop the interface.</li>
 <li>Awkward when you want to mix python and C in the interface.</li>
-<li>Inefficient passing of &#8220;Swigified Pointers&#8221;</li>
+<li>Inefficient passing of “Swigified Pointers”</li>
 </ul>
 </div></blockquote>
 <p>Language interfaces:</p>
@@ -907,8 +932,8 @@ without some compiled code.</p>
 </div>
 <div class="section" id="swigifying-add">
 <h3>SWIGifying add()<a class="headerlink" href="#swigifying-add" title="Permalink to this headline">¶</a></h3>
-<p>SWIG doesn&#8217;t require modification to your C source code</p>
-<p>The language interface is defined by an &#8220;interface file&#8221;, usually with
+<p>SWIG doesn’t require modification to your C source code</p>
+<p>The language interface is defined by an “interface file”, usually with
 a suffix of <code class="docutils literal"><span class="pre">.i</span></code></p>
 <p>From there, SWIG can generate interfaces for the languages it supports</p>
 <p>The interface file contains ANSI C prototypes and variable declarations</p>
@@ -941,14 +966,14 @@ created by SWIG</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">--</span><span class="n">inplace</span>
 </pre></div>
 </div>
-<p>NOTE: distutils (and thus setuptools) &#8220;knows&#8221; about SWIG, so it does the
+<p>NOTE: distutils (and thus setuptools) “knows” about SWIG, so it does the
 swig step for you when you give it a *.i file.</p>
 <p>Notice what gets created:</p>
 <blockquote>
 <div><ul class="simple">
-<li>an <code class="docutils literal"><span class="pre">add_wrap.c</span></code> file &#8211; the wrapper code.</li>
-<li>an <code class="docutils literal"><span class="pre">add.py</span></code> file &#8211; python code that calls the C function</li>
-<li>an <code class="docutils literal"><span class="pre">_add.so</span></code> (or <code class="docutils literal"><span class="pre">_add.pyd</span></code>) file &#8211; the compiled extension</li>
+<li>an <code class="docutils literal"><span class="pre">add_wrap.c</span></code> file – the wrapper code.</li>
+<li>an <code class="docutils literal"><span class="pre">add.py</span></code> file – python code that calls the C function</li>
+<li>an <code class="docutils literal"><span class="pre">_add.so</span></code> (or <code class="docutils literal"><span class="pre">_add.pyd</span></code>) file – the compiled extension</li>
 </ul>
 </div></blockquote>
 <p>You can then run the code:</p>
@@ -972,7 +997,7 @@ Windows binaries:</p>
 </pre></div>
 </div>
 <p>should do it.</p>
-<p>For OS-X: the same thing, except you also need the &#8220;pcre&#8221; package.
+<p>For OS-X: the same thing, except you also need the “pcre” package.
 Which you can get from:</p>
 <p><a class="reference external" href="http://sourceforge.net/projects/pcre/files/pcre/8.37/pcre-8.37.tar.gz/download">http://sourceforge.net/projects/pcre/files/pcre/8.37/pcre-8.37.tar.gz/download</a></p>
 <p>Put it in the dir created when the SWIG source was unpacked.</p>
@@ -989,7 +1014,7 @@ Which you can get from:</p>
 </div>
 </div>
 <div class="section" id="decisions-decisions">
-<h2>Decisions, Decisions...<a class="headerlink" href="#decisions-decisions" title="Permalink to this headline">¶</a></h2>
+<h2>Decisions, Decisions…<a class="headerlink" href="#decisions-decisions" title="Permalink to this headline">¶</a></h2>
 <p class="large">So what to use???</p>
 <div class="section" id="my-decision-tree">
 <h3>My decision tree<a class="headerlink" href="#my-decision-tree" title="Permalink to this headline">¶</a></h3>
@@ -999,7 +1024,7 @@ Which you can get from:</p>
 <li>Use ctypes</li>
 </ul>
 </div></blockquote>
-<p>Do you have a really big library to wrap? &#8211; use a wrapper generator:</p>
+<p>Do you have a really big library to wrap? – use a wrapper generator:</p>
 <blockquote>
 <div><ul class="simple">
 <li>SWIG (other languages?)</li>
@@ -1017,7 +1042,7 @@ Which you can get from:</p>
 </li>
 </ul>
 </div></blockquote>
-<p>Do you want a &#8220;thick&#8221; wrapper around a C/C++ lib:</p>
+<p>Do you want a “thick” wrapper around a C/C++ lib:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Cython</li>
@@ -1028,6 +1053,9 @@ Which you can get from:</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -1062,7 +1090,8 @@ Which you can get from:</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,10 +85,13 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Datetime</a><ul>
-<li><a class="reference internal" href="#what-s-so-hard-about-representing-time">What&#8217;s so hard about representing time?</a><ul>
+<li><a class="reference internal" href="#what-s-so-hard-about-representing-time">What’s so hard about representing time?</a><ul>
 <li><a class="reference internal" href="#dst">DST</a></li>
 <li><a class="reference internal" href="#on-representing-a-point-in-time">On representing a point in time</a></li>
 <li><a class="reference internal" href="#unix-time">UNIX time</a></li>
@@ -118,8 +124,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -128,23 +136,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Datetime</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Datetime</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/datetime.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/datetime.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -153,10 +178,10 @@
   <div class="section" id="datetime">
 <span id="id1"></span><h1>Datetime<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-s-so-hard-about-representing-time">
-<h2>What&#8217;s so hard about representing time?<a class="headerlink" href="#what-s-so-hard-about-representing-time" title="Permalink to this headline">¶</a></h2>
+<h2>What’s so hard about representing time?<a class="headerlink" href="#what-s-so-hard-about-representing-time" title="Permalink to this headline">¶</a></h2>
 <p>Humans are mostly accustomed to communicating in their local timezone.</p>
 <p>There are hundreds of them, whose definitions change</p>
-<p>What happens to your application when it&#8217;s deployed to a server running
+<p>What happens to your application when it’s deployed to a server running
 in a different timezone?</p>
 <p>The length of a day is not constant, and <a class="reference external" href="http://en.wikipedia.org/wiki/Leap_second">leap
 seconds</a> have been inserted
@@ -209,13 +234,13 @@ exist</li>
 <p>Calculating the time between two dates spanning timezones, daylight
 savings time transitions, and leap seconds is a task fraught with error.</p>
 <p>The <a class="reference external" href="http://en.wikipedia.org/wiki/Tz_database">Olson database</a> is a
-reference database of the world&#8217;s timezones.</p>
+reference database of the world’s timezones.</p>
 <p>It can be obtained through the IANA
 <a class="reference external" href="http://www.iana.org/time-zones">here.</a></p>
 <p>As stated in the <a class="reference external" href="https://docs.python.org/3/library/datetime.html">datetime
 docs</a>,</p>
 <p>The rules for time adjustment across the world are more political than rational</p>
-<p>See: John Oliver &#8211; Daylight Saving Time - How Is This Still A Thing?</p>
+<p>See: John Oliver – Daylight Saving Time - How Is This Still A Thing?</p>
 <p><a class="reference external" href="https://youtu.be/br0NW9ufUUw">https://youtu.be/br0NW9ufUUw</a></p>
 </div>
 <div class="section" id="from-datetime-import-time-date-datetime">
@@ -265,7 +290,7 @@ docs</a>,</p>
 <span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;Date: %B </span><span class="si">%d</span><span class="s2">, %Y.  Time: %H:%M&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>strftime passes format codes to the strftime of the platform&#8217;s C
+<p>strftime passes format codes to the strftime of the platform’s C
 library. This may not be standardized! A list of format directives is
 <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior">here</a></p>
 <p>getting the current UNIX time :</p>
@@ -289,37 +314,37 @@ datetime.datetime.strptime(time_string, format)
 </pre></div>
 </div>
 <p>strptime format strings use the same formatting tokens as strftime</p>
-<p>If you need to parse arbitrary time strings, or don&#8217;t want to maintain
+<p>If you need to parse arbitrary time strings, or don’t want to maintain
 format strings, there is
 <a class="reference external" href="http://labix.org/python-dateutil">python-dateutil.parser</a></p>
 </div>
 <div class="section" id="two-types-of-datetimes-naive-and-aware">
 <h3>two types of datetimes - naive and aware<a class="headerlink" href="#two-types-of-datetimes-naive-and-aware" title="Permalink to this headline">¶</a></h3>
-<p>so far we haven&#8217;t created any datetime objects with associated timezone
-information, these are known as &#8216;naive&#8217; datetimes</p>
+<p>so far we haven’t created any datetime objects with associated timezone
+information, these are known as ‘naive’ datetimes</p>
 <p>in order to accurately represent a real time, timezone information is
 required</p>
 <p>Some systems may expect naive times to represent UTC, others may decide
-on local time zone. It&#8217;s usually safer to be explicit.</p>
+on local time zone. It’s usually safer to be explicit.</p>
 <p>Timezone is specified with the tzinfo attribute, through the
 constructor: datetimes are immutable</p>
 <p>Change the timezone or another attribute with the replace(*args,
 **kwargs) method to create a new object with all the same attributes
 except those specified</p>
 <p>tzinfo is expected to be a subclass of datetime.tzinfo</p>
-<p>However, datetime.tzinfo is an abstract base class, which means you&#8217;ll
+<p>However, datetime.tzinfo is an abstract base class, which means you’ll
 need to define your own subclass (filled with peril) or install the pytz
 package</p>
 <p>pytz is based on the <a class="reference external" href="http://en.wikipedia.org/wiki/Tz_database">Olson
 database</a>, a reference
-database of the world&#8217;s timezones.</p>
+database of the world’s timezones.</p>
 </div>
 <div class="section" id="pytz">
 <h3>pytz<a class="headerlink" href="#pytz" title="Permalink to this headline">¶</a></h3>
 <p>A list of all the timezones in pytz is available in pytz.all_timezones</p>
 <p>Timezone is often specified as a UTC offset in hours, e.g.
-2019-11-1T11:59-08:00. Don&#8217;t use this offset directly to permanently
-record a user&#8217;s timezone because it may change with Daylight Savings
+2019-11-1T11:59-08:00. Don’t use this offset directly to permanently
+record a user’s timezone because it may change with Daylight Savings
 Time. Better to obtain the IANA code from the list in pytz and let
 datetime do the calculations.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
@@ -370,7 +395,7 @@ timedelta.microseconds</p>
 </div>
 <div class="section" id="storing-datetimes">
 <h3>Storing datetimes<a class="headerlink" href="#storing-datetimes" title="Permalink to this headline">¶</a></h3>
-<p>Try to deal in UTC as much as possible.  Do not depend on the machine&#8217;s interpretation of local time.
+<p>Try to deal in UTC as much as possible.  Do not depend on the machine’s interpretation of local time.
 For instance, datetime.now() on my Mac will return a naive datetime containing the local time.  Alternatively:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># return the current time as an aware datetime in UTC:</span>
 <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span><span class="p">)</span>
@@ -379,7 +404,7 @@ For instance, datetime.now() on my Mac will return a naive datetime containing t
 </pre></div>
 </div>
 <p>When storing a datetime in a database, it will need to be translated
-into the database&#8217;s native format. Depending on the database driver, it
+into the database’s native format. Depending on the database driver, it
 may or may not accept datetimes. If it does, it may or may not respect
 the timezone information</p>
 <p>Discovering the behavior is part of your database integration work</p>
@@ -395,7 +420,7 @@ the timezone information</p>
 </pre></div>
 </div>
 <p>So Python datetime objects must be translated to these types</p>
-<p>sqlite3 has support for &#8220;adapters&#8221; and &#8220;converters&#8221; to translate types
+<p>sqlite3 has support for “adapters” and “converters” to translate types
 going in and out of the DB</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/sqlite3.html#default-adapters-and-converters">Default adapters and
 converters</a>
@@ -418,6 +443,9 @@ datetimes, but they are simply implementable</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -452,7 +480,8 @@ datetimes, but they are simply implementable</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

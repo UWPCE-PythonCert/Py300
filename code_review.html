@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Code Reviews</a><ul>
 <li><a class="reference internal" href="#why-code-review">Why code review</a><ul>
 <li><a class="reference internal" href="#getting-code-ready-for-review">Getting code ready for review</a></li>
@@ -109,8 +115,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -119,23 +127,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Code Reviews</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Code Reviews</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/code_review.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/code_review.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -162,14 +187,12 @@
 </div>
 <div class="section" id="size-of-code">
 <h3>Size of code<a class="headerlink" href="#size-of-code" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p class="first">Code to review should be between 200 and 400 lines of code</p>
-</li>
-<li><p class="first">Code can, and often will, be part of a bigger project</p>
-</li>
+<ul class="simple">
+<li>Code to review should be between 200 and 400 lines of code</li>
+<li>Code can, and often will, be part of a bigger project</li>
 <li><dl class="first docutils">
 <dt>Code should be modular, so can examine one smallish piece during review:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>and be able to explain how it fits in the bigger project</li>
 <li>and be able to explain what the smallish piece is doing in a few sentences</li>
 </ul>
@@ -191,7 +214,7 @@
 <h3>What to look for<a class="headerlink" href="#what-to-look-for" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>readability</li>
-<li>&#8216;pythonic&#8217;</li>
+<li>‘pythonic’</li>
 <li>tests</li>
 <li>short functions/methods</li>
 <li>anything not clear</li>
@@ -219,28 +242,28 @@
 </div>
 <div class="section" id="how-this-will-work-in-class">
 <h3>How this will work in class<a class="headerlink" href="#how-this-will-work-in-class" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p class="first">Code can be pretty rough, no judging. :)</p>
-</li>
-<li><p class="first">Person having code reviewed will send out link to code (a couple of days out, preferably)</p>
-</li>
+<ul class="simple">
+<li>Code can be pretty rough, no judging. :)</li>
+<li>Person having code reviewed will send out link to code (a couple of days out, preferably)</li>
 <li><dl class="first docutils">
 <dt>At the beginning of the code review, reviewee will:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>give a quick overview of the bigger picture</li>
 <li>give a quick overview of the specific code we will look at</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">We will go over code together. Everyone is encouraged to make comments and ask questions.</p>
-</li>
+<li>We will go over code together. Everyone is encouraged to make comments and ask questions.</li>
 </ul>
 </div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -275,7 +298,8 @@
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

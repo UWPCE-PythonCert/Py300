@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,12 +85,15 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Testing</a><ul>
 <li><a class="reference internal" href="#what-is-testing">What is testing?</a><ul>
 <li><a class="reference internal" href="#terminology-of-testing">Terminology of testing</a></li>
-<li><a class="reference internal" href="#v-model-and-tests-levels">&#8220;V&#8221; model and tests levels</a></li>
+<li><a class="reference internal" href="#v-model-and-tests-levels">“V” model and tests levels</a></li>
 <li><a class="reference internal" href="#unit-testing">Unit testing</a></li>
 <li><a class="reference internal" href="#what-should-be-tested">What should be tested?</a></li>
 <li><a class="reference internal" href="#unit-testing-tools">Unit-testing tools</a></li>
@@ -104,7 +110,7 @@
 <li><a class="reference internal" href="#fixtures-setting-up-your-tests-for-success">Fixtures: Setting up your tests for success</a></li>
 <li><a class="reference internal" href="#fixtures-in-unittest">Fixtures in unittest</a></li>
 <li><a class="reference internal" href="#fixtures-in-pytest">Fixtures in pytest</a></li>
-<li><a class="reference internal" href="#teardown">&#8220;teardown&#8221;</a></li>
+<li><a class="reference internal" href="#teardown">“teardown”</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#testing-floating-point-values">Testing floating point values</a><ul>
@@ -122,7 +128,7 @@
 <li><a class="reference internal" href="#doctests">Doctests</a></li>
 <li><a class="reference internal" href="#test-driven-development-tdd">Test Driven Development (TDD)</a></li>
 <li><a class="reference internal" href="#exercises">Exercises</a></li>
-<li><a class="reference internal" href="#now-we-ve-got-the-tools-to-really-test">Now we&#8217;ve got the tools to really test</a></li>
+<li><a class="reference internal" href="#now-we-ve-got-the-tools-to-really-test">Now we’ve got the tools to really test</a></li>
 <li><a class="reference internal" href="#using-mock-objects">Using Mock objects</a></li>
 <li><a class="reference internal" href="#mocks">Mocks</a></li>
 <li><a class="reference internal" href="#easy-mocking-with-mock-patch">Easy mocking with mock.patch</a></li>
@@ -144,8 +150,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -154,23 +162,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Testing</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Testing</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/testing.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/testing.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -195,7 +220,7 @@ feasible and validates its behavior</p>
 </ul>
 </div>
 <div class="section" id="v-model-and-tests-levels">
-<h3>&#8220;V&#8221; model and tests levels<a class="headerlink" href="#v-model-and-tests-levels" title="Permalink to this headline">¶</a></h3>
+<h3>“V” model and tests levels<a class="headerlink" href="#v-model-and-tests-levels" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/test_v_model.png" src="_images/test_v_model.png" />
 </div>
 <div class="section" id="unit-testing">
@@ -227,7 +252,7 @@ input some code may get.</p>
 </li>
 <li><p class="first">nose2, a test runner which integrates with unittest, making it nicer and easier</p>
 <p><a class="reference external" href="http://nose2.readthedocs.org/en/latest/">http://nose2.readthedocs.org/en/latest/</a></p>
-<p>NOTE: it&#8217;s not clear how well maintained nose2 is...</p>
+<p>NOTE: it’s not clear how well maintained nose2 is…</p>
 </li>
 <li><p class="first">pytest, an alternative to unittest, which you should be pretty familiar with now</p>
 <p><a class="reference external" href="http://pytest.org/latest/">http://pytest.org/latest/</a></p>
@@ -241,7 +266,7 @@ input some code may get.</p>
 <h3>About Unit-testing<a class="headerlink" href="#about-unit-testing" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Tests should be independent.</li>
-<li>Tests do not run in order, which shouldn&#8217;t matter, see point 1.</li>
+<li>Tests do not run in order, which shouldn’t matter, see point 1.</li>
 <li>Test fixtures are available to do any setup/teardown needed for tests.</li>
 <li>Test behavior not implementation</li>
 <li>Mocking is available to fake stuff you may not want to run in your tests.</li>
@@ -251,11 +276,11 @@ input some code may get.</p>
 <div class="section" id="unittest">
 <h3>unittest<a class="headerlink" href="#unittest" title="Permalink to this headline">¶</a></h3>
 <p>The unittest framework comes with the standard library</p>
-<p>Unittest is ported from Java&#8217;s jUnit &#8211; it is therefor OO-heavy, and
+<p>Unittest is ported from Java’s jUnit – it is therefor OO-heavy, and
 requires a lot of boilerplate code.</p>
-<p>Many projects built custom testing Frameworks on top of it &#8211; e.g. Django</p>
+<p>Many projects built custom testing Frameworks on top of it – e.g. Django</p>
 <p>Therefor you will encounter it</p>
-<p>So it&#8217;s good to be familiar with it.</p>
+<p>So it’s good to be familiar with it.</p>
 <p>Key missing features:</p>
 <blockquote>
 <div><ul class="simple">
@@ -289,7 +314,7 @@ requires a lot of boilerplate code.</p>
     <span class="k">def</span> <span class="nf">test_len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -320,7 +345,7 @@ for validation, here are a few common ones:</p>
 <div class="section" id="running-tests-in-a-single-module">
 <h3>running tests in a single module<a class="headerlink" href="#running-tests-in-a-single-module" title="Permalink to this headline">¶</a></h3>
 <p>Call unittest.main() right in your module</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
           <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 
 <span class="c1"># or from the command line:</span>
@@ -367,7 +392,7 @@ $ nose2
 </div>
 <p><a class="reference external" href="http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests">http://nose2.readthedocs.org/en/latest/getting_started.html#running-tests</a></p>
 <p><a class="reference external" href="https://docs.pytest.org/en/latest/index.html">https://docs.pytest.org/en/latest/index.html</a></p>
-<p>A number of projects use nose &#8211; so you may encounter it, but we&#8217;ll focus
+<p>A number of projects use nose – so you may encounter it, but we’ll focus
 on pytest for now.</p>
 </div>
 <div class="section" id="fixtures-setting-up-your-tests-for-success">
@@ -413,19 +438,19 @@ returns <em>something</em> that your tests need:</p>
 </div>
 <p>the parameter gets set to the value returned by the fixture function.
 The fixture function is automatically run before each test.</p>
-<p>Let&#8217;s see this in action:</p>
+<p>Let’s see this in action:</p>
 <p>in: <code class="docutils literal"><span class="pre">Examples\testing</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">v</span> <span class="n">pytest_fixtures</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">-s</span></code> tells pytest not to capture stdout &#8211; so we can see print statements)</p>
-<p>The <code class="docutils literal"><span class="pre">-v</span></code> is verbose mode &#8211; so we can see a bit more what is going on.</p>
+<p>The <code class="docutils literal"><span class="pre">-s</span></code> tells pytest not to capture stdout – so we can see print statements)</p>
+<p>The <code class="docutils literal"><span class="pre">-v</span></code> is verbose mode – so we can see a bit more what is going on.</p>
 </div>
 <div class="section" id="teardown">
-<h3>&#8220;teardown&#8221;<a class="headerlink" href="#teardown" title="Permalink to this headline">¶</a></h3>
+<h3>“teardown”<a class="headerlink" href="#teardown" title="Permalink to this headline">¶</a></h3>
 <p>If your fixture needs to clean itself up after its done, this is known as
-&#8220;teardown&#8221;</p>
-<p>to accomplish this in pytest, you use &#8220;yield&#8221;, rather than &#8220;return&#8221;.</p>
+“teardown”</p>
+<p>to accomplish this in pytest, you use “yield”, rather than “return”.</p>
 <p>The teardowncode will run after the yield</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@pytest.fixture</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">smtp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -435,12 +460,12 @@ The fixture function is automatically run before each test.</p>
     <span class="n">smtp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>See the example again for this...</p>
+<p>See the example again for this…</p>
 </div>
 </div>
 <div class="section" id="testing-floating-point-values">
 <h2>Testing floating point values<a class="headerlink" href="#testing-floating-point-values" title="Permalink to this headline">¶</a></h2>
-<p class="left">Why can&#8217;t we just test if .5 == .5 ?</p>
+<p class="left">Why can’t we just test if .5 == .5 ?</p>
 <div class="left highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="mi">3</span> <span class="o">*</span> <span class="o">.</span><span class="mi">15</span> <span class="o">==</span> <span class="o">.</span><span class="mi">45</span>
 <span class="gh">Out[1]: </span><span class="go">False</span>
 
@@ -523,9 +548,9 @@ to 16 decimal digits.</p>
 </pre></div>
 </div>
 <p>They are different by about a billion!</p>
-<p>In general, we don&#8217;t want to compare floating point numbers to within a
+<p>In general, we don’t want to compare floating point numbers to within a
 certain number of decimal places.</p>
-<p>Anyone remember &#8220;significant figures&#8221; from science classes?</p>
+<p>Anyone remember “significant figures” from science classes?</p>
 </div>
 <div class="section" id="isclose">
 <h3><code class="docutils literal"><span class="pre">isclose()</span></code><a class="headerlink" href="#isclose" title="Permalink to this headline">¶</a></h3>
@@ -560,8 +585,8 @@ certain number of decimal places.</p>
 </div>
 <p><code class="docutils literal"><span class="pre">rel_tol</span></code> essentially specifies how many significant figures you want:
 <code class="docutils literal"><span class="pre">1e-09</span></code> is 9 significant figures: about half of what floats can store.</p>
-<p><code class="docutils literal"><span class="pre">abs_tol</span></code> is required for comparisons to zero &#8211; nothing is
-&#8220;relatively close&#8221; to zero</p>
+<p><code class="docutils literal"><span class="pre">abs_tol</span></code> is required for comparisons to zero – nothing is
+“relatively close” to zero</p>
 </div>
 <div class="section" id="using-isclose-with-unittest">
 <h3>Using <code class="docutils literal"><span class="pre">isclose()</span></code> with <code class="docutils literal"><span class="pre">unittest</span></code><a class="headerlink" href="#using-isclose-with-unittest" title="Permalink to this headline">¶</a></h3>
@@ -580,10 +605,10 @@ But you can use:</p>
 </pre></div>
 </div>
 <p><strong>NOTE</strong> This is one of the key flaws with the unittest module: while
-it can test anything with <code class="docutils literal"><span class="pre">assertTrue</span></code> and the like &#8211; if there is no
+it can test anything with <code class="docutils literal"><span class="pre">assertTrue</span></code> and the like – if there is no
 nifty <code class="docutils literal"><span class="pre">assert*</span></code> method for your use-case, you lose the advantages of
 the <code class="docutils literal"><span class="pre">assert*</span></code> methods.</p>
-<p>What are those advantages? &#8211; mostly a prettier printing of information
+<p>What are those advantages? – mostly a prettier printing of information
 in the error:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FAIL</span><span class="p">:</span> <span class="n">test_floating_point</span> <span class="p">(</span><span class="n">__main__</span><span class="o">.</span><span class="n">TestAlmostEqual</span><span class="p">)</span>
 <span class="o">----------------------------------------------------------------------</span>
@@ -598,12 +623,12 @@ in the error:</p>
 <span class="o">----------------------------------------------------------------------</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;/Users/Chris/PythonStuff/UWPCE/Py300-Spring2017/Examples/testing/test_floats.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">32</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_isclose_tiny</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="o">.</span><span class="mi">15</span><span class="n">e</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">.</span><span class="mi">45</span><span class="n">e</span><span class="o">-</span><span class="mi">30</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="o">.</span><span class="mf">15e-30</span><span class="p">,</span> <span class="o">.</span><span class="mf">45e-30</span><span class="p">))</span>
 <span class="ne">AssertionError</span><span class="p">:</span> <span class="kc">False</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>Not that helpful &#8211; is it?</p>
-<p><code class="docutils literal"><span class="pre">pytest</span></code> give you nice informative messages when tests fail &#8211; without special asserts.</p>
+<p>Not that helpful – is it?</p>
+<p><code class="docutils literal"><span class="pre">pytest</span></code> give you nice informative messages when tests fail – without special asserts.</p>
 </div>
 <div class="section" id="parameterized-tests">
 <h3>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Permalink to this headline">¶</a></h3>
@@ -618,7 +643,7 @@ in the error:</p>
 </pre></div>
 </div>
 <p>If they all pass, fine, but if not, it will fail on the first one,
-and you&#8217;ll have no idea if the others pass.</p>
+and you’ll have no idea if the others pass.</p>
 <p>Plus, it gets a bit tedious to write, particularly if the code is more
 complex than a single function call.</p>
 <p>You can write a separate test for each case:</p>
@@ -640,7 +665,7 @@ complex than a single function call.</p>
 </div>
 <p>But talk about tedious!!!</p>
 <p>Unfortunately, <code class="docutils literal"><span class="pre">unittest</span></code> does not have a built-in way to solve this
-problem. There are hacks to do it &#8211; google them to find out how. Here is one:</p>
+problem. There are hacks to do it – google them to find out how. Here is one:</p>
 <p><a class="reference external" href="http://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases">http://eli.thegreenplace.net/2011/08/02/python-unit-testing-parametrized-test-cases</a></p>
 </div>
 <div class="section" id="pytest-mark-parametrize">
@@ -662,19 +687,19 @@ problem. There are hacks to do it &#8211; google them to find out how. Here is o
 </div>
 <div class="section" id="code-coverage">
 <h3>Code Coverage<a class="headerlink" href="#code-coverage" title="Permalink to this headline">¶</a></h3>
-<p>&#8220;Coverage&#8221; is the fraction of your code that is run by your tests.
-That is, how much code is &#8220;covered&#8221; by the tests.</p>
-<p>It&#8217;s usually reorted as a percentage of lines of code that were run.</p>
-<p>If a line of code is <em>not</em> run in your tests &#8211; you can be pretty
-sure it hasn&#8217;t been tested &#8211; so how do you know it works?</p>
+<p>“Coverage” is the fraction of your code that is run by your tests.
+That is, how much code is “covered” by the tests.</p>
+<p>It’s usually reorted as a percentage of lines of code that were run.</p>
+<p>If a line of code is <em>not</em> run in your tests – you can be pretty
+sure it hasn’t been tested – so how do you know it works?</p>
 <p>So 100% coverage is a good goal (though harder to achieve than you might think!)</p>
 <p>Keep in mind that 100% coverage does <strong>NOT</strong> mean that you code is fuly tested
-&#8211; you have no idea how many corner cases may not have been checked.</p>
-<p>But it&#8217;s a good start.</p>
+– you have no idea how many corner cases may not have been checked.</p>
+<p>But it’s a good start.</p>
 </div>
 <div class="section" id="the-coverage-tool">
 <h3>The coverage tool<a class="headerlink" href="#the-coverage-tool" title="Permalink to this headline">¶</a></h3>
-<p>&#8220;Coverage.py&#8221; is a tool (written by Ned Batchelder) for checking code testing
+<p>“Coverage.py” is a tool (written by Ned Batchelder) for checking code testing
 coverage in python:</p>
 <p><a class="reference external" href="https://coverage.readthedocs.io/en/coverage-4.3.4/">https://coverage.readthedocs.io/en/coverage-4.3.4/</a></p>
 <p>It can be installed with <code class="docutils literal"><span class="pre">pip</span></code>:</p>
@@ -710,7 +735,7 @@ coverage in python:</p>
 </div>
 <p>We want to make sure the branch is being bypassed correctly in the False
 case</p>
-<p>Track which branch destinations were not visited with the &#8211;branch
+<p>Track which branch destinations were not visited with the –branch
 option to run</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">coverage</span> <span class="n">run</span> <span class="o">--</span><span class="n">branch</span> <span class="n">myprog</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -766,7 +791,7 @@ human in a machine testable way</p>
 <p>In TDD, the tests are written the meet the requirements before the code
 exists.</p>
 <p>Once the collection of tests passes, the requirement is considered met.</p>
-<p>We don&#8217;t always want to run the entire test suite. In order to run a
+<p>We don’t always want to run the entire test suite. In order to run a
 single test with pytest:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">k</span> <span class="s2">&quot;test_divide&quot;</span>
 </pre></div>
@@ -788,7 +813,7 @@ class methods. Are they behaving how you expect?</li>
 </ul>
 </div>
 <div class="section" id="now-we-ve-got-the-tools-to-really-test">
-<h3>Now we&#8217;ve got the tools to really test<a class="headerlink" href="#now-we-ve-got-the-tools-to-really-test" title="Permalink to this headline">¶</a></h3>
+<h3>Now we’ve got the tools to really test<a class="headerlink" href="#now-we-ve-got-the-tools-to-really-test" title="Permalink to this headline">¶</a></h3>
 <p>Consider the application in the examples/wikidef directory. Give the
 command line utility a subject, and it will return a definition.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">Robot</span>
@@ -865,6 +890,9 @@ are not hammering Wikipedia.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -898,7 +926,8 @@ are not hammering Wikipedia.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Debugging</a><ul>
 <li><a class="reference internal" href="#topics">Topics</a><ul>
 <li><a class="reference internal" href="#the-call-stack">The Call Stack</a></li>
@@ -110,8 +116,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -120,23 +128,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Debugging</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Debugging</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/debugging.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/debugging.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -162,7 +187,7 @@
 <li>A stack is a Last-In-First-Out (LIFO) data structure (stack of plates)</li>
 <li>The call stack is a stack data structure that stores information
 about the current active function calls</li>
-<li>The objects in the stack are known as &#8220;stack frames&#8221;. Each frame
+<li>The objects in the stack are known as “stack frames”. Each frame
 contains the arguments passed to the function, space for local
 variables, and the return address</li>
 <li>It is usually (unintuitively) displayed like an upside-down stack of
@@ -191,7 +216,7 @@ program exits</li>
 </pre></div>
 </div>
 <p>That value can be changed with sys.setrecursionlimit(N)</p>
-<p>If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RecursionError (derived from RuntimeError), which is python&#8217;s version of StackOverflow</p>
+<p>If we try to put more than sys.getrecursionlimit() frames on the stack, we get a RecursionError (derived from RuntimeError), which is python’s version of StackOverflow</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
 
 <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
@@ -210,10 +235,10 @@ program exits</li>
 </div>
 <div class="section" id="exceptions">
 <h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
-<p>It&#8217;s easier to ask for forgiveness than permission (Grace Hopper)</p>
+<p>It’s easier to ask for forgiveness than permission (Grace Hopper)</p>
 <p>When either the interpreter or your own code detects an error condition,
 an exception will be raised</p>
-<p>The exception will bubble up the call stack until it is handled. If it&#8217;s
+<p>The exception will bubble up the call stack until it is handled. If it’s
 not handled anywhere in the stack, the interpreter will exit the program.</p>
 <p>At each level in the stack, a handler can either:</p>
 <ul class="simple">
@@ -296,7 +321,7 @@ have reports of exactly what happened and what exception would have been thrown.
 <li>You will spend most of your time as a developer debugging.</li>
 <li>You will spend more time than you expect on google.</li>
 <li>Small, tested functions are easier to debug.</li>
-<li>Find a bug, make a test, so it doesn&#8217;t come back</li>
+<li>Find a bug, make a test, so it doesn’t come back</li>
 </ul>
 <p>Tools</p>
 <ul class="simple">
@@ -323,7 +348,7 @@ TypeError: &#39;method&#39; object is not subscriptable
 <p>But things can quickly get complicated, as we all ran into last quarter with web frameworks.</p>
 <p>Some helpful hints with stacktraces:</p>
 <ul class="simple">
-<li>May seem obvious, but... Read it carefully!</li>
+<li>May seem obvious, but… Read it carefully!</li>
 <li>What is the error? Try reading it aloud.</li>
 <li>The first place to look is the bottom.</li>
 <li>More than likely the error is in your code, not established packages.</li>
@@ -331,7 +356,7 @@ TypeError: &#39;method&#39; object is not subscriptable
 <li>If error at bottom of stacktrace is not helpful, look first for other code of yours in stack.</li>
 <li>Will show the line number and file of exception/calling functions.</li>
 </ul>
-<p>If that fails you...</p>
+<p>If that fails you…</p>
 <ul class="simple">
 <li>Make sure the code you think is executing is really executing.</li>
 <li>Simplify your code (smallest code that causes bug).</li>
@@ -339,7 +364,7 @@ TypeError: &#39;method&#39; object is not subscriptable
 <li>Save (and print) intermediate results from long expressions</li>
 <li>Try out bits of code at the command line</li>
 </ul>
-<p>If all else fails...</p>
+<p>If all else fails…</p>
 <p>Write out an email that describes the problem:</p>
 <ul class="simple">
 <li>include the stacktrace</li>
@@ -349,7 +374,7 @@ TypeError: &#39;method&#39; object is not subscriptable
 <p>Often after writing out this email, you will realize what you forgot to check, and more often than not, this will happen just after you hit send. Good places to send these emails are other people on same project and mailing list for software package.</p>
 <p>Print</p>
 <ul class="simple">
-<li>print(&#8220;my_module.py: my_variable: &#8221;, my_variable)</li>
+<li>print(“my_module.py: my_variable: “, my_variable)</li>
 <li>can use print statements to make sure you are editing a file in the stack</li>
 </ul>
 <p>Console debuggers</p>
@@ -378,7 +403,7 @@ TypeError: &#39;method&#39; object is not subscriptable
 <p>Forces interpreter to remain active, and still in scope</p>
 <p>Useful tools from interpreter:</p>
 <ul class="simple">
-<li>In IPython, &#8216;who&#8217; will list all currently defined variables</li>
+<li>In IPython, ‘who’ will list all currently defined variables</li>
 <li>locals()</li>
 <li>globals()</li>
 <li>dir()</li>
@@ -395,7 +420,7 @@ Debugger</a></p>
 <ul class="simple">
 <li>Steep-ish learning curve</li>
 <li>Easy to get lost in a deep stack</li>
-<li>Watching variables isn&#8217;t hard, but non-trivial</li>
+<li>Watching variables isn’t hard, but non-trivial</li>
 </ul>
 <p class="rubric" id="pdb-the-python-debugger-1"><a class="reference external" href="http://docs.python.org/2/library/pdb.html">Pdb - The Python
 Debugger</a></p>
@@ -406,10 +431,10 @@ Debugger</a></p>
 <li>Script mode</li>
 <li>Trace mode</li>
 </ul>
-<p>Note: in most cases where you see the word &#8216;pdb&#8217; in the examples, you
-can replace it with &#8216;ipdb&#8217;. ipdb is the ipython enhanced version of pdb
+<p>Note: in most cases where you see the word ‘pdb’ in the examples, you
+can replace it with ‘ipdb’. ipdb is the ipython enhanced version of pdb
 which is mostly compatible, and generally easier to work with. But it
-doesn&#8217;t ship with Python.</p>
+doesn’t ship with Python.</p>
 <p class="rubric" id="postmortem-mode">Postmortem mode</p>
 <p>For analyzing crashes due to uncaught exceptions</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">i</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
@@ -426,14 +451,14 @@ doesn&#8217;t ship with Python.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>&#8220;-m [module]&#8221; finds [module] in sys.path and executes it as a script</p>
+<p>“-m [module]” finds [module] in sys.path and executes it as a script</p>
 <p class="rubric" id="trace-mode">Trace mode</p>
 <p>Insert the following line into your code where you want execution to
 halt:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>It&#8217;s not always OK/possible to modify your code in order to debug it,
+<p>It’s not always OK/possible to modify your code in order to debug it,
 but this is often the quickest way to begin inspecting state</p>
 <p class="rubric" id="pdb-in-ipython">pdb in ipython</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pdb</span>
@@ -445,7 +470,7 @@ but this is often the quickest way to begin inspecting state</p>
 </pre></div>
 </div>
 <p>If you forget to turn on pdb, the magic command %debug will activate the
-debugger (in &#8216;post-mortem mode&#8217;).</p>
+debugger (in ‘post-mortem mode’).</p>
 <p class="rubric" id="navigating-pdb">Navigating pdb</p>
 <p>The goal of each of the preceding techniques was to get to the pdb
 prompt and get to work inspecting state. Most commands can be short-cutted
@@ -540,13 +565,13 @@ test to understand a certain failure situation:</p>
 <span class="n">pytest</span> <span class="o">--</span><span class="n">pdb</span> <span class="o">--</span><span class="n">maxfail</span><span class="o">=</span><span class="mi">3</span>  <span class="c1"># drop to PDB for first three failures</span>
 </pre></div>
 </div>
-<p>Let&#8217;s try some debugging!</p>
+<p>Let’s try some debugging!</p>
 <p><a class="reference external" href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
 </div>
 <div class="section" id="python-ides">
 <h3>Python IDEs<a class="headerlink" href="#python-ides" title="Permalink to this headline">¶</a></h3>
 <p><strong>PyCharm</strong></p>
-<p>From JetBrains, &#8212; integrates some of their vast array of development
+<p>From JetBrains, — integrates some of their vast array of development
 tools</p>
 <p>Free Community Edition (CE) is available</p>
 <p>Good visual debugging support</p>
@@ -597,9 +622,9 @@ wikipedia is using by looking at response.headers in Wikipedia.article. What typ
 </pre></div>
 </div>
 <p>(define.py takes the first sys arg and finds articles on wikipedia on that topic)</p>
-<p>You can get to the code by walking through each line with &#8216;s&#8217;tep and
-&#8216;n&#8217;ext commands, or by setting a breakpoint and &#8216;c&#8217;ontinuing.</p>
-<p>What&#8217;s the result?</p>
+<p>You can get to the code by walking through each line with ‘s’tep and
+‘n’ext commands, or by setting a breakpoint and ‘c’ontinuing.</p>
+<p>What’s the result?</p>
 <p>You may also want to take a look at long_loop.py and see if you can answer the questions there.</p>
 </div>
 <div class="section" id="questions">
@@ -609,6 +634,9 @@ wikipedia is using by looking at response.headers in Wikipedia.article. What typ
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -643,7 +671,8 @@ wikipedia is using by looking at response.headers in Wikipedia.article. What typ
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

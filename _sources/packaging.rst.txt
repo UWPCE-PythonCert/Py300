@@ -1,8 +1,10 @@
+:orphan:
+
 .. _packaging:
 
--------------------------
+=========================
 Building Your Own Package
--------------------------
+=========================
 
 The very basics of what you need to know to make your own package.
 
@@ -10,7 +12,7 @@ The very basics of what you need to know to make your own package.
    :maxdepth: 2
 
 Why Build a Package?
-====================
+--------------------
 
 .. rst-class:: left
 
@@ -55,22 +57,305 @@ But it gets the job done -- and it does it well for the simple cases.
 
 ``wheel``: for binary distributions
 
+These last three are pretty much the standard now -- very well maintained by:
+
+"The Python Packaging Authority" -- PaPA
+
+https://www.pypa.io/en/latest/
+
 Where do I go to figure this out?
------------------------------------
+---------------------------------
 
 This is a really good guide:
 
 Python Packaging User Guide:
 
-https://packaging.python.org/en/latest/
+https://packaging.python.org/
 
-**Follow it!**
+and a more detailed tutorial:
 
-And a sample project here:
+http://python-packaging.readthedocs.io/en/latest/
+
+**Follow one of them**
+
+There is a sample project here:
 
 https://github.com/pypa/sampleproject
 
 (this has all the complexity you might need...)
+
+You can use this as a template for your own packages.
+
+Here is an opinionated update -- a little more fancy, but some good ideas:
+
+https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+Rather than doing it by hand, you can use the nifty "cookie cutter" project:
+
+https://cookiecutter.readthedocs.io/en/latest/
+
+And there are a few templates that can be used with that.
+
+The core template written by the author:
+
+https://github.com/audreyr/cookiecutter-pypackage
+
+And one written by the author of the opinionated blog post above:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+
+Either are great starting points.
+
+Packages, modules, imports, oh my!
+----------------------------------
+
+Before we get started on making your own package -- let's remind
+ourselves about packages and modules, and importing....
+
+**Modules**
+
+A python "module" is a single namespace, with a collection of values:
+
+  * functions
+  * constants
+  * class definitions
+  * really any old value.
+
+A module usually corresponds to a single file: ``something.py``
+
+
+**Packages**
+
+A "package" is essentially a module, except it can have other modules (and indeed other packages) inside it.
+
+A module usually corresponds to a directory with a file in it called ``__init__.py`` and any number
+of python files or other package directories::
+
+  a_package
+     __init__.py
+     module_a.py
+     a_sub_package
+       __init__.py
+       module_b.py
+
+The ``__init__.py`` can be totally empty -- or it can have arbitrary python code in it.
+The code will be run when the package is imported -- just like a module,
+
+modules inside packages are *not* automatically imported. So, with the above sgructure::
+
+  import a_package
+
+will run the code in ``a_package/__init__.py``. Any names defined in the
+``__init__.py`` will be available in::
+
+  a_package.a_name
+
+but::
+
+ a_package.module_a
+
+will not exist. To get submodules, you need to explicitly import them:
+
+  import a_package.module_a
+
+More on Importing
+-----------------
+
+You usually import a module like this:
+
+.. code-block:: python
+
+  import something
+
+or::
+
+  from something import something_else
+
+or a few names from a package::
+
+  from something import (name_1,
+                         name_2,
+                         name_3,
+                         x,
+                         y)
+
+And you can rename stuff as you import it::
+
+  import numpy as np
+
+This is a common pattern for using large packages and not having to type a lot...
+
+
+``import *``
+------------
+
+::
+
+  from something import *
+
+means: "import all the names in the module"
+
+You really don't want to do that! It is an old pattern that is now an anti-pattern
+
+But if you do encounter it, it doesn't actually import all the names --
+it imports the ones defined in teh module's ``_all__`` variable.
+
+``__all__`` is a list of names that you want import * to import -- so
+the module author can control it, and not expect all sorts of build ins
+and other modules.
+
+But really -- don't use it!
+
+
+Relative imports
+----------------
+
+Relative imports were added with PEP 328:
+
+https://www.python.org/dev/peps/pep-0328/
+
+The final version is described here:
+
+https://www.python.org/dev/peps/pep-0328/#guido-s-decision
+
+This gets confusing! There is a good discussion on Stack Overflow here:
+
+http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time
+
+Relative imports allow you to refer to other modules relative to where the existing module is in the package hierachy, rather than in the while thing. For instance, with the following pacakge structure::
+
+  package/
+      __init__.py
+      subpackage1/
+          __init__.py
+          moduleX.py
+          moduleY.py
+      subpackage2/
+          __init__.py
+          moduleZ.py
+      moduleA.py
+
+You can do (in ``moduleX.py``):
+
+.. code-block:: python
+
+  from .moduleY import spam
+  from . import moduleY
+  from ..subpackage1 import moduleY
+  from ..subpackage2.moduleZ import eggs
+  from ..moduleA import foo
+  from ...package import bar
+  from ...sys import path
+
+Similarly to \*nix shells:
+
+"." means "the current package"
+
+".." means "the package above this one"
+
+Note that you have to use the "from" form when using relative imports.
+
+**Caveats:**
+
+* you can only use relative imports from within a package
+
+* you can not use relative imports from the interpreter
+
+* you can not use reltaive imports from a top-level script
+
+
+The alternative is to always use absolute imports:
+
+.. code-block:: python
+
+  from package.subpackage import moduleX
+  from package.moduleA import foo
+
+Advantages of relative imports:
+
+* Package does not have to be installed
+
+* You can move things around, and not much has to change
+
+Advantages of absolute imports:
+
+* explicit is better than implicit
+* imports are the same regardless of where you put the package
+* imports are the same in package code, command line, tests, scripts, etc.
+
+There is debate about which is the "one way to do it" -- a bit unpythonic, but you'll need to make your own decision.
+
+
+sys.modules
+-----------
+
+.. code-block:: ipython
+
+  In [4]: type(sys.modules)
+  Out[4]: dict
+
+  In [6]: sys.modules['textwrap']
+  Out[6]: <module 'textwrap' from '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'>
+
+  In [10]: [var for var in vars(sys.modules['textwrap']) if var.startswith("__")]
+  Out[10]:
+  ['__spec__',
+   '__package__',
+   '__loader__',
+   '__doc__',
+   '__cached__',
+   '__name__',
+   '__all__',
+   '__file__',
+   '__builtins__']
+
+you can access the module through the modules dict:
+
+In [12]: sys.modules['textwrap'].__file__
+Out[12]: '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'
+
+Which is the same as:
+
+.. code-block:: ipython
+
+  In [13]: import textwrap
+
+  In [14]: textwrap.__file__
+  Out[14]: '/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/textwrap.py'
+
+  In [15]: type(textwrap)
+  Out[15]: module
+
+  In [16]: textwrap is sys.modules['textwrap']
+  Out[16]: True
+
+So, more or less, when you import a module, the interpreter:
+
+* Looks to see if the module is already in ``sys.modules``.
+
+* If it is, it binds a name to the existing module in the current
+  module's namespace.
+
+* If it isn't:
+
+ - A module object is created
+ - The code in the file is run
+ - The module is added to sys.modules
+ - The module is added to the current namespace.
+
+Implications of module import process:
+--------------------------------------
+
+* The code in a module only runs once per program run.
+* Importing a module again is cheap and fast.
+* Every place your code imports a module it gets the *same* object
+  - You can use this to share "global" state where you want to.
+
+* If you change the code in a module while the program is running -- the
+  change will **not** show up, even if re-imported.
+
+  - That's what ``reload()`` is for.
+
 
 
 Basic Package Structure:
@@ -104,7 +389,7 @@ Basic Package Structure:
 
 ``MANIFEST.in``: description of what non-code files to include
 
-``README.txt``: description of the package -- should be written in reST (for PyPi):
+``README.txt``: description of the package -- should be written in ReST (for PyPi):
 
 (http://docutils.sourceforge.net/rst.html)
 
@@ -119,7 +404,7 @@ Basic Package Structure:
 
 ``docs/``: the documentation
 
-``package_name/``: The main pacakge -- this is where the code goes.
+``package_name/``: The main package -- this is where the code goes.
 
 ``test/``: your unit tests. Options here:
 
@@ -312,7 +597,7 @@ Good idea to use it for anything more than a single file project.
 Running tests
 -------------
 
-It can be a good idea to set up yoru tests to be run from ``setup.py``
+It can be a good idea to set up your tests to be run from ``setup.py``
 
 So that you (or your users) can:
 
@@ -320,6 +605,8 @@ So that you (or your users) can:
 
   $ pip install .
   $ python setup.py test
+
+**Note:** there is debate about whether this is a good idea. But if you want to:
 
 Do do this, you need to add a ``test_suite`` stanza in setup.py.
 
@@ -360,6 +647,106 @@ https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-
 (does py3 unittest have this??)
 
 
+Handling the version number:
+----------------------------
+
+One key rule in software (and ANY computer use!):
+
+Never put the same information in more than one place!
+
+With a python package, you want:
+
+.. code-block:: python
+
+  import the_package
+
+  the_package.__version__
+
+To return the version string -- something like:
+
+"1.2.3"
+
+But you also need to specify it in the ``setup.py``:
+
+.. code-block:: python
+
+  setup(name='package_name',
+        version="1.2.3",
+        ...
+        )
+
+Not Good.
+
+My solution:
+
+Put the version in the package __init__
+
+__version__ = "1.2.3"
+
+In the setup.py, you could import the package to get the version number
+... but it not a safe practice to import you package when installing
+it (or building it, or...)
+
+So: read the __version__ string yourself:
+
+.. code-block:: python
+
+  def get_version():
+      """
+      Reads the version string from the package __init__ and returns it
+      """
+      with open(os.path.join("capitalize", "__init__.py")) as init_file:
+          for line in init_file:
+              parts = line.strip().partition("=")
+              if parts[0].strip() == "__version__":
+                  return parts[2].strip().strip("'").strip('"')
+      return None
+
+**Alternative:**
+
+You can have a script that automatically updates the version number in whatever
+places it needs to. For instance:
+
+https://pypi.python.org/pypi/bumpversion
+
+
+Semantic Versioning
+-------------------
+
+Another note on version numbers.
+
+The software development world (at least the open-source one...) has
+established a standard for what version numbers mean, known as semantic
+versioning. This is helpful to users, as they can know what to expect
+they upgrade.
+
+In short, with a x.y.z version number:
+
+x is the Major version -- it could mean changes in API, major features, etc.
+
+  - Likely to to be incompatible with previous versions
+
+y is the Minor version -- added features, etc, that are backwards compatible.
+
+z is the "patch" version -- bug fixes, etc. -- should be compatible.
+
+Read all about it:
+
+http://semver.org/
+
+
+Tools to help:
+--------------
+
+Tox:
+
+https://tox.readthedocs.io/en/latest/
+
+Versioneer:
+
+https://github.com/warner/python-versioneer
+
+
 Getting Started
 ----------------
 
@@ -374,6 +761,10 @@ For anything but a single-file script (and maybe even then):
 4. Put some tests in ``package/test``
 
 5. ``py.test`` or ``nosetests``
+
+or use "Cookie Cutter":
+
+https://cookiecutter.readthedocs.io/en/latest/
 
 
 LAB

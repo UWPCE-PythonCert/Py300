@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,8 +85,11 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Threading and multiprocessing</a><ul>
 <li><a class="reference internal" href="#threading-multiprocessing">Threading / multiprocessing</a><ul>
 <li><a class="reference internal" href="#motivations-for-parallel-execution">Motivations for parallel execution</a></li>
@@ -139,8 +145,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -149,23 +157,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Threading and multiprocessing</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Threading and multiprocessing</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/threading-multiprocessing.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/threading-multiprocessing.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -175,7 +200,7 @@
 <span id="threading"></span><h1>Threading and multiprocessing<a class="headerlink" href="#threading-and-multiprocessing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="threading-multiprocessing">
 <h2>Threading / multiprocessing<a class="headerlink" href="#threading-multiprocessing" title="Permalink to this headline">¶</a></h2>
-<p>Today&#8217;s topics:</p>
+<p>Today’s topics:</p>
 <ul class="simple">
 <li>Threading / multiprocessing motivation and options</li>
 <li>threading module</li>
@@ -186,9 +211,9 @@
 <h3>Motivations for parallel execution<a class="headerlink" href="#motivations-for-parallel-execution" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Performance<ul>
-<li>Limited by &#8220;Amdahl&#8217;s Law&#8221;
+<li>Limited by “Amdahl’s Law”
 <a class="reference external" href="http://en.wikipedia.org/wiki/Amdahl%27s_law">http://en.wikipedia.org/wiki/Amdahl%27s_law</a></li>
-<li>CPUs aren&#8217;t getting much faster</li>
+<li>CPUs aren’t getting much faster</li>
 </ul>
 </li>
 <li>Event handling<ul>
@@ -247,7 +272,7 @@ benefit from threading</p>
 <p>A process contains all the instructions and data required to execute
 independently, so processes do not share data!</p>
 <p>Mulitple processes best to speed up CPU bound operations.</p>
-<p>The Python interpreter isn&#8217;t lightweight!</p>
+<p>The Python interpreter isn’t lightweight!</p>
 <p>Communication between processes can be achieved via:</p>
 <p><code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code></p>
 <p><code class="docutils literal"><span class="pre">multiprocessing.Pipe</span></code></p>
@@ -269,7 +294,7 @@ done in parallel, others have to be done by time slicing.</p>
 <p>Some alternative Python implementations such as Jython and IronPython
 have no GIL</p>
 <p>cPython and PyPy have one</p>
-<p>David Beazley&#8217;s talk on the gil</p>
+<p>David Beazley’s talk on the gil</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.youtube.com/watch?v=Obt-vMVdM8s">https://www.youtube.com/watch?v=Obt-vMVdM8s</a></li>
 </ul>
@@ -314,7 +339,7 @@ together:</p>
 </div>
 <div class="section" id="the-threading-module">
 <h3>The threading module<a class="headerlink" href="#the-threading-module" title="Permalink to this headline">¶</a></h3>
-<p>Starting threads doesn&#8217;t take much:</p>
+<p>Starting threads doesn’t take much:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -336,7 +361,7 @@ together:</p>
 <li>A thread can be specified as a daemon thread by setting its daemon
 attribute: <code class="docutils literal"><span class="pre">thread.daemon</span> <span class="pre">=</span> <span class="pre">True</span></code></li>
 <li>daemon threads get cut off at program exit, without any opportunity
-for cleanup. But you don&#8217;t have to track and manage them. Useful for
+for cleanup. But you don’t have to track and manage them. Useful for
 things like garbage collection, network keepalives, ..</li>
 <li>You can block and wait for a thread to exit with thread.join()</li>
 </ul>
@@ -378,42 +403,42 @@ atomically, but get interrupted midway</p>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Thread 1</th>
 <th class="head">Thread 2</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 <th class="head">Integer value</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>0</td>
 </tr>
 <tr class="row-odd"><td>read value</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>←</td>
 <td>0</td>
 </tr>
 <tr class="row-even"><td>increase value</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>0</td>
 </tr>
 <tr class="row-odd"><td>write back</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>→</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
 <td>read value</td>
 <td>←</td>
 <td>1</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td>increase value</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
 <td>write back</td>
 <td>→</td>
 <td>2</td>
@@ -433,42 +458,42 @@ atomically, but get interrupted midway</p>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Thread 1</th>
 <th class="head">Thread 2</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 <th class="head">Integer value</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>0</td>
 </tr>
 <tr class="row-odd"><td>read value</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>←</td>
 <td>0</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
 <td>read value</td>
 <td>←</td>
 <td>0</td>
 </tr>
 <tr class="row-odd"><td>increase value</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 <td>0</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
 <td>increase value</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
 </tr>
 <tr class="row-odd"><td>write back</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>→</td>
 <td>1</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
+<tr class="row-even"><td>&#160;</td>
 <td>write back</td>
 <td>→</td>
 <td>1</td>
@@ -481,10 +506,10 @@ atomically, but get interrupted midway</p>
 <h3>Deadlocks<a class="headerlink" href="#deadlocks" title="Permalink to this headline">¶</a></h3>
 <p>Synchronization and Critical Sections are used to control race
 conditions</p>
-<p>But they introduce other potential problems...</p>
+<p>But they introduce other potential problems…</p>
 <p>like: <a class="reference external" href="http://en.wikipedia.org/wiki/Deadlock">http://en.wikipedia.org/wiki/Deadlock</a></p>
-<p>&#8220;A deadlock is a situation in which two or more competing actions are
-each waiting for the other to finish, and thus neither ever does.&#8221;</p>
+<p>“A deadlock is a situation in which two or more competing actions are
+each waiting for the other to finish, and thus neither ever does.”</p>
 <p><em>When two trains approach each other at a crossing, both shall come to a
 full stop and neither shall start up again until the other has gone</em></p>
 <p>See also <em>Livelock</em>:</p>
@@ -495,7 +520,7 @@ both repeatedly move the same way at the same time.</em></p>
 </div>
 <div class="section" id="locks">
 <h3>Locks<a class="headerlink" href="#locks" title="Permalink to this headline">¶</a></h3>
-<p>Lock objects allow threads to control access to a resource until they&#8217;re
+<p>Lock objects allow threads to control access to a resource until they’re
 done with it</p>
 <p>This is known as mutual exclusion, often called mutex</p>
 <p>Python 2 has a deprecated module called mutex for this. Use a Lock
@@ -621,7 +646,7 @@ inserting the tuple:</p>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">Queue</span>
 
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">integrate.integrate</span> <span class="kn">import</span> <span class="n">integrate</span><span class="p">,</span> <span class="n">f</span>
 <span class="kn">from</span> <span class="nn">decorators.decorators</span> <span class="kn">import</span> <span class="n">timer</span>
 </pre></div>
@@ -648,7 +673,7 @@ inserting the tuple:</p>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">thread_count</span><span class="p">)</span> <span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;integrator&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
@@ -727,7 +752,7 @@ number running at one time</p>
 <div class="small highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,))</span>
@@ -757,7 +782,7 @@ number running at one time</p>
 </div>
 <div class="section" id="threading-versus-multiprocessing-networking-edition">
 <h3>Threading versus multiprocessing, networking edition<a class="headerlink" href="#threading-versus-multiprocessing-networking-edition" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;re going to test making concurrent connections to a web service in:</p>
+<p>We’re going to test making concurrent connections to a web service in:</p>
 <p><code class="docutils literal"><span class="pre">Examples/server/app.py</span></code></p>
 <p>It is a WSGI application which can be run with Green Unicorn or another
 WSGI server</p>
@@ -765,14 +790,14 @@ WSGI server</p>
 <p><code class="docutils literal"><span class="pre">client-threading.py</span></code> makes 100 threads to contact the web service</p>
 <p><code class="docutils literal"><span class="pre">client-mp.py</span></code> makes 100 processes to contact the web service</p>
 <p><code class="docutils literal"><span class="pre">client-pooled.py</span></code> creates a ThreadPool</p>
-<p><code class="docutils literal"><span class="pre">client-pooled.py</span></code> contains a results Queue, but doesn&#8217;t use it. Can you
+<p><code class="docutils literal"><span class="pre">client-pooled.py</span></code> contains a results Queue, but doesn’t use it. Can you
 collect all the output from the pool into a single data structure using
 this Queue?</p>
 </div>
 <div class="section" id="other-options">
 <h3>Other options<a class="headerlink" href="#other-options" title="Permalink to this headline">¶</a></h3>
 <p>Traditionally, concurency has been achieved through multiple process
-communication and in-process threads, as we&#8217;ve seen</p>
+communication and in-process threads, as we’ve seen</p>
 <p>Another strategy is through micro-threads, implemented via coroutines
 and a scheduler</p>
 <p>A coroutine is a generalization of a subroutine which allows multiple
@@ -814,7 +839,7 @@ model: <a class="reference external" href="http://en.wikipedia.org/wiki/Computer
 </div>
 <div class="section" id="packages-using-coroutines-for-micro-threads">
 <h3>Packages using coroutines for micro threads<a class="headerlink" href="#packages-using-coroutines-for-micro-threads" title="Permalink to this headline">¶</a></h3>
-<p>By &#8220;jumping&#8221; to parallel coroutines, our application can simulate true
+<p>By “jumping” to parallel coroutines, our application can simulate true
 threads.</p>
 <p>Creating the scheduler which does the jumping is an exercise for the
 reader, but look into these packages which handle the dirty work</p>
@@ -853,22 +878,22 @@ a portable event loop with strong OS support</li>
 <p>A distributed system is one in which components located on networked
 computers communicate and coordinate their actions by passing messages</p>
 <p>There are lots of ways to do this at different layers. MPI, *-RPC,
-Pyro, ...</p>
+Pyro, …</p>
 </div>
 <div class="section" id="celery">
 <h3>Celery<a class="headerlink" href="#celery" title="Permalink to this headline">¶</a></h3>
-<p>&#8220;Celery is an asynchronous task queue/job queue based on distributed
-message passing&#8221;</p>
+<p>“Celery is an asynchronous task queue/job queue based on distributed
+message passing”</p>
 <p>Provides an API for defining tasks, and retrieving results from those
 tasks</p>
-<p>Messages are passed via a &#8220;message broker&#8221;, of which Celery supports
+<p>Messages are passed via a “message broker”, of which Celery supports
 several:</p>
 <ul class="simple">
 <li>RabbitMQ (default)</li>
 <li>Redis</li>
 <li>MongoDB</li>
 <li>Amazon SQS</li>
-<li>...</li>
+<li>…</li>
 </ul>
 <p>Celery worker processes are run on compute nodes, while the main process
 farms jobs out to them:</p>
@@ -903,6 +928,9 @@ farms jobs out to them:</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -936,7 +964,8 @@ farms jobs out to them:</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

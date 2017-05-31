@@ -1,3 +1,5 @@
+:orphan:
+
 .. _installing_scipy:
 
 ==========================
@@ -13,7 +15,7 @@ Scipy
 
 "SciPy" is really two things:
 
-1) A particular package of modules useful for computational/scientific computing: what you get when you do::
+1) A particular package of modules useful for computational/scientific computing: what you get when you do:
 
 .. code-block:: python
 

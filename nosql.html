@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,10 +85,13 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">No SQL Databases</a><ul>
-<li><a class="reference internal" href="#no-sql">&#8220;No SQL&#8221;?</a><ul>
+<li><a class="reference internal" href="#no-sql">“No SQL”?</a><ul>
 <li><a class="reference internal" href="#what-is-a-database">What is a Database?</a></li>
 <li><a class="reference internal" href="#non-rdbms-options">Non RDBMS options:</a></li>
 <li><a class="reference internal" href="#database-schema">Database Schema</a></li>
@@ -122,8 +128,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -132,23 +140,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>No SQL Databases</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>No SQL Databases</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/nosql.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/nosql.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -157,23 +182,23 @@
   <div class="section" id="no-sql-databases">
 <span id="nosql"></span><h1>No SQL Databases<a class="headerlink" href="#no-sql-databases" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="no-sql">
-<h2>&#8220;No SQL&#8221;?<a class="headerlink" href="#no-sql" title="Permalink to this headline">¶</a></h2>
+<h2>“No SQL”?<a class="headerlink" href="#no-sql" title="Permalink to this headline">¶</a></h2>
 <p>An SQL system is not always the best way to store your data.</p>
 <div class="section" id="what-is-a-database">
 <h3>What is a Database?<a class="headerlink" href="#what-is-a-database" title="Permalink to this headline">¶</a></h3>
 <p>A database is an organized collection of data. The data are typically organized to model relevant aspects of reality in a way that supports processes requiring this information.</p>
 <p>Usually a way to persist and recover that organized data.</p>
-<p>These days, when you say &#8220;Database&#8221; almost everyone thinks &#8220;Relational Database&#8221;, and SQL is the standard way to do that.</p>
+<p>These days, when you say “Database” almost everyone thinks “Relational Database”, and SQL is the standard way to do that.</p>
 <p>SQL RDBMS systems are robust, powerful, scalable and very well optimized.</p>
 <p>But: They require you to adapt the relational data model.</p>
 </div>
 <div class="section" id="non-rdbms-options">
 <h3>Non RDBMS options:<a class="headerlink" href="#non-rdbms-options" title="Permalink to this headline">¶</a></h3>
-<p>A key buzzword these days is &#8220;NOSQL&#8221;</p>
-<p>OK: They don&#8217;t use SQL &#8211; but what are they?</p>
+<p>A key buzzword these days is “NOSQL”</p>
+<p>OK: They don’t use SQL – but what are they?</p>
 <p>Not one thing, but key features are mostly shared:</p>
 <ul class="simple">
-<li>&#8220;schema less&#8221;</li>
+<li>“schema less”</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -193,15 +218,15 @@
 <div class="section" id="database-schema">
 <h3>Database Schema<a class="headerlink" href="#database-schema" title="Permalink to this headline">¶</a></h3>
 <p><strong>Schema:</strong></p>
-<p>A database schema is the organization of data, and description of how a database is constructed: Divided into database tables, and relationships: foreign keys, etc...</p>
+<p>A database schema is the organization of data, and description of how a database is constructed: Divided into database tables, and relationships: foreign keys, etc…</p>
 <p>Includes what fields in what tables, what data types each field is, normalization of shared data, etc.</p>
 <p>This requires a fair bit of work up-front, and can be hard to adapt as the system requirements change.</p>
 <p>It also can be a bit ugly to map your programming data model to the schema.</p>
 </div>
 <div class="section" id="schemaless">
 <h3>Schemaless<a class="headerlink" href="#schemaless" title="Permalink to this headline">¶</a></h3>
-<p>Schemaless databases generally follow a &#8220;document model&#8221;.</p>
-<p>Each entry in the database is a &#8220;document&#8221;:</p>
+<p>Schemaless databases generally follow a “document model”.</p>
+<p>Each entry in the database is a “document”:</p>
 <ul class="simple">
 <li>essentially an arbitrary collection of fields.</li>
 <li>often looks like a Python dict.</li>
@@ -228,19 +253,19 @@
 <ul>
 <li><p class="first">Python bindings to external NoSQL system</p>
 </li>
-<li><p class="first">Doesn&#8217;t store full Python objects</p>
+<li><p class="first">Doesn’t store full Python objects</p>
 </li>
 <li><p class="first">Generally stores arbitrary collections of data (but not classes)</p>
 </li>
 <li><p class="first">Can be simple key-value stores</p>
 <ul class="simple">
-<li>Redis, etc...</li>
+<li>Redis, etc…</li>
 </ul>
 </li>
 <li><p class="first">Or a more full featured document database:</p>
 <ul class="simple">
 <li>in-database searching, etc.</li>
-<li>mongoDB, etc...</li>
+<li>mongoDB, etc…</li>
 </ul>
 </li>
 <li><p class="first">Or a Map/Reduce engine:</p>
@@ -256,11 +281,11 @@
 <h3>3. Python object database:<a class="headerlink" href="#python-object-database" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Stores and retrieves arbitrary Python objects.<ul>
-<li>Don&#8217;t need to adapt your data model at all.</li>
+<li>Don’t need to adapt your data model at all.</li>
 </ul>
 </li>
 <li>ZODB is the only robust maintained system (I know of)</li>
-<li>ZODB is as close a match as you can get between the store and your code &#8211; references and everything.</li>
+<li>ZODB is as close a match as you can get between the store and your code – references and everything.</li>
 </ul>
 <p><a class="reference external" href="http://blog.startifact.com/posts/older/a-misconception-about-the-zodb.html">http://blog.startifact.com/posts/older/a-misconception-about-the-zodb.html</a></p>
 </div>
@@ -271,7 +296,7 @@
 <li>Need to persist the data your application uses</li>
 <li>May need to store more data than you can hold in memory</li>
 <li>May need to have multiple apps (or multiple instances) accessing the same data</li>
-<li>May need to scale &#8211; have the DB running on a separate server(s)</li>
+<li>May need to scale – have the DB running on a separate server(s)</li>
 <li>May need to access data from systems written in different languages.</li>
 </ul>
 </div>
@@ -298,7 +323,7 @@
 </dd>
 <dt>Full Index Support</dt>
 <dd><ul class="first last simple">
-<li>Index on any attribute, just like you&#8217;re used to.</li>
+<li>Index on any attribute, just like you’re used to.</li>
 </ul>
 </dd>
 <dt>Replication &amp; High Availability</dt>
@@ -332,7 +357,7 @@
 <li><a class="reference external" href="http://docs.basho.com/riak/latest/dev/taste-of-riak/python/">http://docs.basho.com/riak/latest/dev/taste-of-riak/python/</a></li>
 </ul>
 </dd>
-<dt>HyperDex: &#8220;Next generation key-value store&#8221;</dt>
+<dt>HyperDex: “Next generation key-value store”</dt>
 <dd><ul class="first last simple">
 <li><a class="reference external" href="http://hyperdex.org/">http://hyperdex.org/</a></li>
 </ul>
@@ -385,11 +410,11 @@
 <p><code class="docutils literal"><span class="pre">Something.this</span> <span class="pre">=</span> <span class="pre">that</span></code> will trigger a DB action</p>
 <p>But:</p>
 <p><code class="docutils literal"><span class="pre">Something.a_list.append</span></code> will not trigger anything.</p>
-<p>The DB doesn&#8217;t know that that the list has been altered.</p>
+<p>The DB doesn’t know that that the list has been altered.</p>
 <p>Solution:</p>
 <p><code class="docutils literal"><span class="pre">self.a_list</span> <span class="pre">=</span> <span class="pre">PersistentList()</span></code></p>
 <p>(also <code class="docutils literal"><span class="pre">PersistantDict()</span></code> )</p>
-<p>(or write getters and setters...)</p>
+<p>(or write getters and setters…)</p>
 <p><code class="docutils literal"><span class="pre">Examples/nosql/address_book_zodb.py</span></code></p>
 </div>
 <div class="section" id="id1">
@@ -409,7 +434,7 @@
 </div>
 <div class="section" id="mongodb-and-python">
 <h3>mongoDB and Python<a class="headerlink" href="#mongodb-and-python" title="Permalink to this headline">¶</a></h3>
-<p>mongoDB is written in C++ &#8211; can be accessed by various language drivers.</p>
+<p>mongoDB is written in C++ – can be accessed by various language drivers.</p>
 <p>( <a class="reference external" href="http://docs.mongodb.org/manual/applications/drivers/">http://docs.mongodb.org/manual/applications/drivers/</a> )</p>
 <p>For Python: <code class="docutils literal"><span class="pre">PyMongo</span></code></p>
 <p><a class="reference external" href="http://api.mongodb.org/python/current/tutorial.html">http://api.mongodb.org/python/current/tutorial.html</a></p>
@@ -420,7 +445,7 @@
 <li>mongodb_beaker</li>
 <li>MongoLog: Python logging handler</li>
 <li>Flask-PyMongo</li>
-<li>others...</li>
+<li>others…</li>
 </ul>
 </div>
 <div class="section" id="getting-started-with-mongodb">
@@ -444,7 +469,7 @@
 <span class="n">people</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">people</span> <span class="c1"># creates a collection</span>
 </pre></div>
 </div>
-<p>mongo will link to the given database ans collection, or create new ones if they don&#8217;t exist.</p>
+<p>mongo will link to the given database ans collection, or create new ones if they don’t exist.</p>
 <p>Adding some stuff:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">people</span><span class="o">.</span><span class="n">insert</span><span class="p">({</span><span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fred&#39;</span><span class="p">,</span>
              <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Jones&#39;</span><span class="p">})</span>
@@ -456,9 +481,9 @@
 <p>And reading it back:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">people</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s2">&quot;Fred&quot;</span><span class="p">})</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span>
-  <span class="p">{</span><span class="s1">u&#39;_id&#39;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s1">&#39;534dcdcb5c84d28b596ad15e&#39;</span><span class="p">),</span>
-   <span class="s1">u&#39;first_name&#39;</span><span class="p">:</span> <span class="s1">u&#39;Fred&#39;</span><span class="p">,</span>
-   <span class="s1">u&#39;last_name&#39;</span><span class="p">:</span> <span class="s1">u&#39;Jones&#39;</span><span class="p">}</span>
+  <span class="p">{</span><span class="sa">u</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s1">&#39;534dcdcb5c84d28b596ad15e&#39;</span><span class="p">),</span>
+   <span class="sa">u</span><span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Fred&#39;</span><span class="p">,</span>
+   <span class="sa">u</span><span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Jones&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that it adds an ObjectID for you.</p>
@@ -468,6 +493,9 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -502,7 +530,8 @@
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -42,6 +44,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,13 +85,16 @@
           
             
             
-                <!-- Local TOC -->
-                <div class="local-toc"><ul>
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Intro to Numpy / Scipy</a><ul>
 <li><a class="reference internal" href="#id1">Scipy</a><ul>
-<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What&#8217;s in the scipy stack?</a></li>
+<li><a class="reference internal" href="#what-s-in-the-scipy-stack">What’s in the scipy stack?</a></li>
 <li><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
-<li><a class="reference internal" href="#the-jupyter-notebook">The Jupyter &#8220;notebook&#8221;</a></li>
+<li><a class="reference internal" href="#the-jupyter-notebook">The Jupyter “notebook”</a></li>
 <li><a class="reference internal" href="#jupyter">Jupyter</a></li>
 </ul>
 </li>
@@ -119,7 +125,7 @@
 <li><a class="reference internal" href="#matplotlib">matplotlib</a><ul>
 <li><a class="reference internal" href="#matplotlib-apis">matplotlib APIs</a></li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a></li>
-<li><a class="reference internal" href="#using-numpy-arrays-when-computation-isn-t-critical">Using numpy arrays when computation isn&#8217;t critical</a></li>
+<li><a class="reference internal" href="#using-numpy-arrays-when-computation-isn-t-critical">Using numpy arrays when computation isn’t critical</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#pandas">Pandas</a><ul>
@@ -141,8 +147,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Py300</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Py300</a>
+        
       </nav>
 
 
@@ -151,23 +159,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Intro to Numpy / Scipy</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Intro to Numpy / Scipy</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/scipy.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/scipy.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -177,11 +202,11 @@
 <span id="scipy"></span><h1>Intro to Numpy / Scipy<a class="headerlink" href="#intro-to-numpy-scipy" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>Scipy<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p class="left">The scipy &#8220;Stack&#8221; is a collection of core packages used for scientific / numerical computing.</p>
+<p class="left">The scipy “Stack” is a collection of core packages used for scientific / numerical computing.</p>
 <p class="left"><a class="reference external" href="http://www.scipy.org/stackspec.html">http://www.scipy.org/stackspec.html</a></p>
-<p class="left">Many other domain-specific packages area available: The core &#8220;stack&#8221; is what most people will want, regardless of domain.</p>
+<p class="left">Many other domain-specific packages area available: The core “stack” is what most people will want, regardless of domain.</p>
 <div class="section" id="what-s-in-the-scipy-stack">
-<h3>What&#8217;s in the scipy stack?<a class="headerlink" href="#what-s-in-the-scipy-stack" title="Permalink to this headline">¶</a></h3>
+<h3>What’s in the scipy stack?<a class="headerlink" href="#what-s-in-the-scipy-stack" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Python (<a class="reference external" href="http://www.python.org">http://www.python.org</a>)</li>
 <li>NumPy (<a class="reference external" href="http://www.numpy.org">http://www.numpy.org</a>)</li>
@@ -201,33 +226,33 @@
 </div>
 <div class="section" id="learning-resources">
 <h3>Learning Resources<a class="headerlink" href="#learning-resources" title="Permalink to this headline">¶</a></h3>
-<p>There are a lot of tutorials, documentation, etc. out there. In this class, we only have a couple hours, so won&#8217;t get that far. Here are some nice options:</p>
+<p>There are a lot of tutorials, documentation, etc. out there. In this class, we only have a couple hours, so won’t get that far. Here are some nice options:</p>
 <p><a class="reference external" href="http://scipy-lectures.github.io/">http://scipy-lectures.github.io/</a></p>
 <p><a class="reference external" href="https://github.com/SciTools/courses/blob/master/README.md">https://github.com/SciTools/courses/blob/master/README.md</a></p>
 <p><a class="reference external" href="https://github.com/jrjohansson/scientific-python-lectures">https://github.com/jrjohansson/scientific-python-lectures</a></p>
-<p>(note: this one does <code class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></code> &#8211; don&#8217;t do that!)</p>
+<p>(note: this one does <code class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></code> – don’t do that!)</p>
 <p><a class="reference external" href="https://github.com/WeatherGod/AnatomyOfMatplotlib">https://github.com/WeatherGod/AnatomyOfMatplotlib</a></p>
 <p><a class="reference external" href="http://wiki.scipy.org/Tentative_NumPy_Tutorial">http://wiki.scipy.org/Tentative_NumPy_Tutorial</a></p>
 <p>For those familiar with MATLAB:</p>
 <p><a class="reference external" href="http://wiki.scipy.org/NumPy_for_Matlab_Users">http://wiki.scipy.org/NumPy_for_Matlab_Users</a></p>
 </div>
 <div class="section" id="the-jupyter-notebook">
-<h3>The Jupyter &#8220;notebook&#8221;<a class="headerlink" href="#the-jupyter-notebook" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;ve been using iPython a lot in this class (at least I have)</p>
+<h3>The Jupyter “notebook”<a class="headerlink" href="#the-jupyter-notebook" title="Permalink to this headline">¶</a></h3>
+<p>We’ve been using iPython a lot in this class (at least I have)</p>
 <p>It provides a great interactive environment for testing and running
 Python code.</p>
-<p>It turns out it has antoher interface: the &#8220;notebook&#8221;</p>
-<p>The notebook provides a way to intersperse little chunks of code, and text, and images, etc...</p>
+<p>It turns out it has antoher interface: the “notebook”</p>
+<p>The notebook provides a way to intersperse little chunks of code, and text, and images, etc…</p>
 <p>It runs in a browser, you start it up with:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter notebook
 </pre></div>
 </div>
 <p>It should start your browser, and show you the notebooks in the dir you started it up in.</p>
-<p>I&#8217;ll be using it for lots of demos in this class.</p>
+<p>I’ll be using it for lots of demos in this class.</p>
 </div>
 <div class="section" id="jupyter">
 <h3>Jupyter<a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s get the Jupyter notebook installed and running.</p>
+<p>Let’s get the Jupyter notebook installed and running.</p>
 <p>Hopefully:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyter</span>
 </pre></div>
@@ -244,11 +269,11 @@ Python code.</p>
 <h2>numpy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h2>
 <p class="left">numpy is the core package that the rest of the scipy stack is built on.
 numpy is really the core of everything.</p>
-<p class="left">All the rest requires an understanding good understanding of what a numpy array is &#8211; so that&#8217;s mostly what I&#8217;ll talk about today.</p>
+<p class="left">All the rest requires an understanding good understanding of what a numpy array is – so that’s mostly what I’ll talk about today.</p>
 <div class="section" id="so-what-is-numpy">
 <h3>So what is numpy?<a class="headerlink" href="#so-what-is-numpy" title="Permalink to this headline">¶</a></h3>
 <p>Not just for lots of numbers!
-(but it&#8217;s great for that!)</p>
+(but it’s great for that!)</p>
 <p><a class="reference external" href="http://www.numpy.org/">http://www.numpy.org/</a></p>
 <ol class="arabic simple">
 <li>An N-Dimensional array object</li>
@@ -272,7 +297,7 @@ numpy is really the core of everything.</p>
 <li>More data types</li>
 </ul>
 </div></blockquote>
-<p>Even if you don&#8217;t have lot of numbers:</p>
+<p>Even if you don’t have lot of numbers:</p>
 <blockquote>
 <div><ul class="simple">
 <li>N-d array slicing</li>
@@ -305,11 +330,11 @@ numpy is really the core of everything.</p>
 <div class="section" id="this-talk">
 <h3>This Talk<a class="headerlink" href="#this-talk" title="Permalink to this headline">¶</a></h3>
 <p>There are a lot of tutorials and documentation out there.</p>
-<p>So I&#8217;m going to spend about an hour or so on the regular old &#8220;how do you use it&#8221; stuff.</p>
-<p>Then, I&#8217;m going to cover a bit about the guts and some advanced issues.</p>
-<p>This is harder to find explanations for &#8211; and will help you understand what&#8217;s really going on under the hood.</p>
-<p>NOTE: I&#8217;ve been using numpy and its predecessors for long time &#8211;</p>
-<p>so have kind of forgotten what is obvious and what is not &#8211; so:</p>
+<p>So I’m going to spend about an hour or so on the regular old “how do you use it” stuff.</p>
+<p>Then, I’m going to cover a bit about the guts and some advanced issues.</p>
+<p>This is harder to find explanations for – and will help you understand what’s really going on under the hood.</p>
+<p>NOTE: I’ve been using numpy and its predecessors for long time –</p>
+<p>so have kind of forgotten what is obvious and what is not – so:</p>
 <p><strong>Ask questions</strong> as we go!</p>
 </div>
 </div>
@@ -335,14 +360,14 @@ numpy is really the core of everything.</p>
 <h3>Indexing and slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">¶</a></h3>
 <p>How do you get parts of the array out?</p>
 <p>Indexing and slicing much like regular python sequences, but extended to multi-dimensions.</p>
-<p>However: a slice is a &#8220;view&#8221; on the array &#8211; new object, but shares memory:</p>
+<p>However: a slice is a “view” on the array – new object, but shares memory:</p>
 <p>demo: <code class="docutils literal"><span class="pre">slice.ipynb</span></code></p>
 </div>
 <div class="section" id="reshaping">
 <h3>Reshaping:<a class="headerlink" href="#reshaping" title="Permalink to this headline">¶</a></h3>
 <p>numpy arrays have a particular shape.</p>
 <p>But they are really wrappers around a block of data</p>
-<p>So they can be re-shaped &#8211; same data, arranged differently</p>
+<p>So they can be re-shaped – same data, arranged differently</p>
 <p>demo: <code class="docutils literal"><span class="pre">reshaping.ipynb</span></code></p>
 </div>
 <div class="section" id="broadcasting">
@@ -362,10 +387,10 @@ numpy is really the core of everything.</p>
 </div>
 <div class="section" id="fancy-indexing">
 <h3>Fancy Indexing<a class="headerlink" href="#fancy-indexing" title="Permalink to this headline">¶</a></h3>
-<p>As we&#8217;ve seen, you can slice and dice ndarrays much like regular python sequences.</p>
+<p>As we’ve seen, you can slice and dice ndarrays much like regular python sequences.</p>
 <p>This model is extended to multiple dimensions.</p>
 <p>But it still only lets you extract rectangular blocks of elements.</p>
-<p>For more complex sub-selection: we use &#8220;fancy indexing&#8221;:</p>
+<p>For more complex sub-selection: we use “fancy indexing”:</p>
 <p>demo: <code class="docutils literal"><span class="pre">fancy_indexing.ipynb</span></code></p>
 </div>
 <div class="section" id="what-is-an-nd-array-under-the-hood">
@@ -379,16 +404,16 @@ numpy is really the core of everything.</p>
 <li><p class="first">Every element is the same type</p>
 <p>(but that type can be a pyObject)</p>
 </li>
-<li><p class="first">Int, float, char &#8211; more exotic types</p>
+<li><p class="first">Int, float, char – more exotic types</p>
 </li>
-<li><p class="first">&#8220;rank&#8221; – number of dimensions</p>
+<li><p class="first">“rank” – number of dimensions</p>
 </li>
 </ul>
 </li>
 <li><p class="first">Strided data:</p>
 <ul class="simple">
 <li>Describes how to index into block of memory</li>
-<li>PEP 3118 &#8211; Revising the buffer protocol</li>
+<li>PEP 3118 – Revising the buffer protocol</li>
 </ul>
 </li>
 </ul>
@@ -414,7 +439,7 @@ numpy is really the core of everything.</p>
 <li>Static length</li>
 </ul>
 </li>
-<li>Bool &#8211;  8 bit</li>
+<li>Bool –  8 bit</li>
 <li>Python Object<ul>
 <li>Really a pointer</li>
 </ul>
@@ -456,7 +481,7 @@ numpy is really the core of everything.</p>
 </ul>
 </li>
 <li><code class="docutils literal"><span class="pre">pickle</span></code></li>
-<li><code class="docutils literal"><span class="pre">np.savez()</span></code>  &#8211; numpy zip format<ul>
+<li><code class="docutils literal"><span class="pre">np.savez()</span></code>  – numpy zip format<ul>
 <li>Compact: binary dump plus metadata</li>
 </ul>
 </li>
@@ -474,26 +499,26 @@ numpy is really the core of everything.</p>
 </div>
 <div class="section" id="stride-tricks">
 <h3>Stride Tricks<a class="headerlink" href="#stride-tricks" title="Permalink to this headline">¶</a></h3>
-<p>numpy arrays are really wrappers about &#8220;strided data&#8221;</p>
+<p>numpy arrays are really wrappers about “strided data”</p>
 <p>This means that there is a single linear block of memory with the
 values in it.</p>
-<p>The &#8220;strides&#8221; describe how that data is arranged to look like an array of more dimensions: 2D, 3D, 4D etc.</p>
+<p>The “strides” describe how that data is arranged to look like an array of more dimensions: 2D, 3D, 4D etc.</p>
 <p>Mostly, numpy handles all this under the hood for you, so you can logically work with the data as though it were multi-dimensional.</p>
-<p>But you can actually manipulate the description of the data, so that it &#8220;acts&#8221; like it is arranged differently than it is:</p>
+<p>But you can actually manipulate the description of the data, so that it “acts” like it is arranged differently than it is:</p>
 <p><code class="docutils literal"><span class="pre">stride_tricks.ipynb</span></code></p>
 </div>
 <div class="section" id="working-with-compiled-code">
 <h3>Working with compiled code<a class="headerlink" href="#working-with-compiled-code" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ul class="simple">
-<li>Some code can&#8217;t be vectorized</li>
+<li>Some code can’t be vectorized</li>
 <li>Interface with existing libraries</li>
 </ul>
 </div></blockquote>
-<p>numpy arrays are essentially a wrapper around a C pointer to a block of data &#8211; some tools:</p>
+<p>numpy arrays are essentially a wrapper around a C pointer to a block of data – some tools:</p>
 <blockquote>
 <div><ul class="simple">
-<li>C API: you don&#8217;t want to do that!</li>
+<li>C API: you don’t want to do that!</li>
 <li>Cython: typed arrays</li>
 <li>Ctypes</li>
 <li>SWIG: numpy.i</li>
@@ -501,7 +526,7 @@ values in it.</p>
 <li>f2py</li>
 </ul>
 </div></blockquote>
-<p>We&#8217;ll get into this more in a later class...</p>
+<p>We’ll get into this more in a later class…</p>
 <p>Example of numpy+cython: <a class="reference external" href="https://github.com/cython/cython/wiki/examples-mandelbrot">https://github.com/cython/cython/wiki/examples-mandelbrot</a></p>
 </div>
 <div class="section" id="other-stuff">
@@ -540,9 +565,9 @@ values in it.</p>
 <li><a class="reference external" href="http://www.scipy.org/Cookbook">http://www.scipy.org/Cookbook</a></li>
 </ul>
 </div></blockquote>
-<p>&#8220;The Numpy Book&#8221;</p>
+<p>“The Numpy Book”</p>
 <p><a class="reference external" href="http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf">http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf</a></p>
-<p>(old, but written by the primary author &#8211; key stuff in there)</p>
+<p>(old, but written by the primary author – key stuff in there)</p>
 </div>
 </div>
 <div class="section" id="matplotlib">
@@ -559,7 +584,7 @@ values in it.</p>
 <div class="section" id="matplotlib-apis">
 <h3>matplotlib APIs<a class="headerlink" href="#matplotlib-apis" title="Permalink to this headline">¶</a></h3>
 <p>Matplotlib has essentially 2 different (but related) APIs:</p>
-<p>The &#8220;pylab&#8221; API:</p>
+<p>The “pylab” API:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Derived from the MATLAB API, and most suitable for interactive use</li>
@@ -569,25 +594,25 @@ values in it.</p>
 <blockquote>
 <div><ul class="simple">
 <li>reflects the underlying OO structure of matplolib</li>
-<li>more &#8220;pythonic&#8221;</li>
+<li>more “pythonic”</li>
 <li>much better suited to embedding plotting in applications</li>
 <li>better suited to re-using code</li>
 </ul>
 </div></blockquote>
-<p>I&#8217;ll introduce the OO API, but you will see a LOT of example code using the interactive &#8220;pylab&#8221; interface.</p>
+<p>I’ll introduce the OO API, but you will see a LOT of example code using the interactive “pylab” interface.</p>
 <p>Fortunately, the concepts and most of the commands are the same.</p>
 </div>
 <div class="section" id="tutorial">
 <h3>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;ll run through a simple tutorial in class:</p>
+<p>We’ll run through a simple tutorial in class:</p>
 <p><code class="docutils literal"><span class="pre">SystemDevelopment2015/Examples/week-05-matplotlib</span></code></p>
-<p>There are &#8220;learner&#8221; and instructor notebooks in there. They are identical, but if you use the learner one you can mess with it and not mess up the main one...</p>
+<p>There are “learner” and instructor notebooks in there. They are identical, but if you use the learner one you can mess with it and not mess up the main one…</p>
 <p>If you really want to use MPL, I suggest you run through a more thorough one to really get an idea how it all works:</p>
 <p><a class="reference external" href="https://github.com/WeatherGod/AnatomyOfMatplotlib">https://github.com/WeatherGod/AnatomyOfMatplotlib</a></p>
-<p>This one is pretty nice &#8211; but would take the entire class...</p>
+<p>This one is pretty nice – but would take the entire class…</p>
 </div>
 <div class="section" id="using-numpy-arrays-when-computation-isn-t-critical">
-<h3>Using numpy arrays when computation isn&#8217;t critical<a class="headerlink" href="#using-numpy-arrays-when-computation-isn-t-critical" title="Permalink to this headline">¶</a></h3>
+<h3>Using numpy arrays when computation isn’t critical<a class="headerlink" href="#using-numpy-arrays-when-computation-isn-t-critical" title="Permalink to this headline">¶</a></h3>
 <p>numpy arrays are mostly about performance and memory use.</p>
 <p>But you still may want to use them for toher reasons.</p>
 <p>some data naturally is in 2-d or 3-d arrays.</p>
@@ -607,8 +632,8 @@ values in it.</p>
 <h2>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h2>
 <p class="left">Python Data Analysis Library</p>
 <p class="left">Pandas provides high-performance, easy-to-use data structures and data analysis tools for the Python programming language.</p>
-<p class="left">Modeled after R&#8217;s dataframe concept, it provides some pretty neat tools for doing simple statistical analysis and plotting of larg-ish data sets.</p>
-<p class="left">It&#8217;s particularly powerful for time series.</p>
+<p class="left">Modeled after R’s dataframe concept, it provides some pretty neat tools for doing simple statistical analysis and plotting of larg-ish data sets.</p>
+<p class="left">It’s particularly powerful for time series.</p>
 <p class="left"><code class="docutils literal"><span class="pre">http://pandas.pydata.org/</span></code></p>
 <div class="section" id="learning-pandas">
 <h3>Learning Pandas<a class="headerlink" href="#learning-pandas" title="Permalink to this headline">¶</a></h3>
@@ -621,13 +646,13 @@ values in it.</p>
 <p><a class="reference external" href="http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/">http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/</a></p>
 <p>And this is a good one to get started quick:</p>
 <p><a class="reference external" href="http://synesthesiam.com/posts/an-introduction-to-pandas.html">http://synesthesiam.com/posts/an-introduction-to-pandas.html</a></p>
-<p>We&#8217;ll give that one a shot in class now...</p>
+<p>We’ll give that one a shot in class now…</p>
 </div>
 </div>
 <div class="section" id="id3">
 <h2>Scipy<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p class="left">The scipy package itself is a large collection of cool stuff for scientific computing. ( <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/">http://docs.scipy.org/doc/scipy/reference/</a> )</p>
-<p class="left">You&#8217;ll see there lots of stuff! If it&#8217;s at all general purpose for computation, you&#8217;re likely to find it there.</p>
+<p class="left">You’ll see there lots of stuff! If it’s at all general purpose for computation, you’re likely to find it there.</p>
 <p class="left">Some of the most common sub-packages:</p>
 <blockquote class="left">
 <div><ul class="simple">
@@ -647,6 +672,9 @@ values in it.</p>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -681,7 +709,8 @@ values in it.</p>
             VERSION:'3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

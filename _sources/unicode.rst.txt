@@ -1,15 +1,16 @@
+:orphan:
 
 .. _unicode:
 
-===================
-Unicode in Python 2
-===================
+=================
+Unicode in Python
+=================
 
 .. rst-class:: medium
 
   A quick run-down of Unicode,
 
-  its use in Python 2,
+  Its use in Python 2 and 3,
 
   and some of the gotchas that arise.
 
@@ -59,7 +60,10 @@ But how do you express that in bytes?
 Enter "encodings":
   * An encoding is a way to map specific bytes to a code point.
 
-  * Each code point can have one or more bytes.
+  * Each code point can be represented by one or more bytes.
+
+  * each encoding is different -- if you don'tknow the encoding, you don't
+    know how to interpret the bytes!
 
 
 Unicode

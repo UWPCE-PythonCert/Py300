@@ -55,9 +55,9 @@ Lots of different packages both in the standard library and 3rd party libaries.
 
 How to know what to choose?
 
-- IO bound vs. CPU bound
-- event driven cooperative multitasking vs preemptive multitasking
--callbacks vs coroutines + scheduler/event loop
+ - IO bound vs. CPU bound
+ - event driven cooperative multitasking vs preemptive multitasking
+ - callbacks vs coroutines + scheduler/event loop
 
 
 Concurrency in the standard library:
@@ -231,6 +231,7 @@ Condition (threading.Condition)
  - combination of locking/signaling
  - lock protects code that establishes a "condition" (e.g., data available)
  - signal notifies threads that "condition" has changed
+
 Common use: producer/consumer patterns
 
 
@@ -240,6 +241,7 @@ Queues (Queue)
  - easier to use than many of above
  - do not need locks
  - has signaling
+
 Common use: producer/consumer patterns
 
 

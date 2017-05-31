@@ -492,9 +492,6 @@ Remember that they are now run in arbitrary order.
 ``Examples/async/gather.py``
 
 
-
-
-
 Doing real work with async
 ==========================
 
@@ -568,19 +565,17 @@ http://stats.nba.com/
 
 It's kinda slow, but has a lot of great data.
 
-Using the trusty old requests library, this is how you access it:
+Turns out that it's a picky API -- and I can't get the async version to work!!
 
+But I made a similar example here:
 
+``Examples/async/get_news_sync.py``
 
+and
 
+``Examples/async/get_news_async.py``
 
-
-
-
-
-
-``requests`` is teh go-to package for making
-
+Let's take a look.
 
 References:
 ===========

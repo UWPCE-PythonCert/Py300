@@ -178,17 +178,17 @@ The "root" logger has no name, but is the root of all created loggers
 
 The logging module keeps track of all the loggers you create, so you can reference them by name.
 
-``logging.get_logger()``
+``logging.getLogger()``
 ------------------------
 
-The ``logging.get_logger()`` function returns the logger you ask for:
+The ``logging.getLogger()`` function returns the logger you ask for:
 
 .. code-block:: python
 
-  the_root_logger = logging.get_logger()
-  another_logger = logging.get_logger("name")
+  the_root_logger = logging.getLogger()
+  another_logger = logging.getLogger("name")
 
-If the logger you ask for doesn't exist, ``get_logger`` will create a new one for you by that name. (It won't be configured, though...)
+If the logger you ask for doesn't exist, ``getLogger()`` will create a new one for you by that name. (It won't be configured, though...)
 
 This whole system allows you to have multiple loggers without having to pass logging instances around.
 

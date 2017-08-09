@@ -2,6 +2,7 @@
 
 import time
 
+
 def timer(func):
     def timer(*args, **kwargs):
         t1 = time.time()
@@ -10,12 +11,14 @@ def timer(func):
         return result
     return timer
 
+
 def logger(func):
     def logger(*args, **kwargs):
         print "\n\n-- calling function\n\n"
         func(*args, **kwargs)
         print "\n\n-- function call succeeded\n\n"
     return logger
+
 
 def exception_handler(func):
     def handle_exceptions(*args, **kwargs):

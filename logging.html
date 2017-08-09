@@ -93,7 +93,7 @@
 <li><a class="reference internal" href="#logging-levels">Logging &#8220;levels&#8221;</a></li>
 <li><a class="reference internal" href="#the-logging-classes">The logging classes</a></li>
 <li><a class="reference internal" href="#the-logger-class">The <code class="docutils literal"><span class="pre">Logger</span></code> class</a></li>
-<li><a class="reference internal" href="#logging-get-logger"><code class="docutils literal"><span class="pre">logging.get_logger()</span></code></a></li>
+<li><a class="reference internal" href="#logging-getlogger"><code class="docutils literal"><span class="pre">logging.getLogger()</span></code></a></li>
 <li><a class="reference internal" href="#the-handler-classes">The <code class="docutils literal"><span class="pre">Handler</span></code> classes</a></li>
 <li><a class="reference internal" href="#the-formatter-classes">The <code class="docutils literal"><span class="pre">Formatter</span></code> classes</a></li>
 <li><a class="reference internal" href="#the-filter-classes">The Filter classes</a></li>
@@ -259,14 +259,14 @@ as your code.</p>
 <p>The &#8220;root&#8221; logger has no name, but is the root of all created loggers</p>
 <p>The logging module keeps track of all the loggers you create, so you can reference them by name.</p>
 </div>
-<div class="section" id="logging-get-logger">
-<h3><code class="docutils literal"><span class="pre">logging.get_logger()</span></code><a class="headerlink" href="#logging-get-logger" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">logging.get_logger()</span></code> function returns the logger you ask for:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">the_root_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
-<span class="n">another_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+<div class="section" id="logging-getlogger">
+<h3><code class="docutils literal"><span class="pre">logging.getLogger()</span></code><a class="headerlink" href="#logging-getlogger" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">logging.getLogger()</span></code> function returns the logger you ask for:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">the_root_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">another_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If the logger you ask for doesn&#8217;t exist, <code class="docutils literal"><span class="pre">get_logger</span></code> will create a new one for you by that name. (It won&#8217;t be configured, though...)</p>
+<p>If the logger you ask for doesn&#8217;t exist, <code class="docutils literal"><span class="pre">getLogger()</span></code> will create a new one for you by that name. (It won&#8217;t be configured, though...)</p>
 <p>This whole system allows you to have multiple loggers without having to pass logging instances around.</p>
 </div>
 <div class="section" id="the-handler-classes">

@@ -93,7 +93,6 @@ module https://docs.python.org/3/library/inspect.html
 
 more on recursion http://www.mariakathryn.net/Blog/60
 
-.. nextslide::
 
 Exceptions
 ----------
@@ -115,10 +114,9 @@ At each level in the stack, a handler can either:
 -  catch the exception and raise it again
 -  catch the exception and raise a new one
 
-.. nextslide::
 
-.. rubric:: Handling exceptions
-   :name: handling-exceptions
+Handling exceptions
+-------------------
 
 The most basic form uses the builtins try and except
 
@@ -133,25 +131,27 @@ The most basic form uses the builtins try and except
 
 .. nextslide::
 
-.. rubric:: A few more builtins for exception handling: finally, else,
-   and raise
-   :name: a-few-more-builtins-for-exception-handling-finally-else-and-raise
+A few more builtins for exception handling: finally, else, and raise
+--------------------------------------------------------------------
 
-::
+.. code-block:: python
+
+    x = 5
+    y = "this"
 
     try:
         result = x / y
     except (ZeroDivisionError, ValueError) as e:
         print("caught division error or maybe a value error:\n", e)
     except Exception as e:  # only do this if absolutely necessary, or if planning to re-raise
-        errno, strerror = e.args
-        print("I/O error({0}): {1}".format(errno,strerror))
-	# or you can just print e
+        errors = e.args
+        print("Error({0})".format(errors))
+    # or you can just print e
         print("unhandled, unexpected exception:\n", e)
         raise
     else:
         print("do this if there is code you want to run only if no exceptions, caught or not")
-	print("errors here will not be caught by above excepts")
+        print("errors here will not be caught by above excepts")
     finally:
         print("this is executed no matter what")
     print('this is only printed if there is no uncaught exception')

@@ -8,67 +8,73 @@ Concurrent Programing
 
 What does it mean to do something in parallel?
 
- - Parallelism is about doing things at the same time; 
- - Concurrency is about dealing with mulitple things at the same time.
+ - Parallelism is about doing things at the same time;
+ - Concurrency is about dealing with multiple things at the same time.
  - Parallelism needs concurrency, but concurrency need not be in parallel.
 
 
 Whirlwind Tour of Concurrency
-==============================
+=============================
 
-Concurrency:
+**Concurrency:**
 
 Having different code running at the same time, or kind of the same time.
 
-Asynchrony:
+**Asynchrony:**
 
 The occurrence of events independent of the main program flow and ways to deal with such events.
 
-Asynchrony and Concurrency are really two different things -- you can do either
-one without the other -- but they are closely related, and often used together.
-They solve different problems, but the problems and the solutions overlap.
+Asynchrony and Concurrency are really two different things -- you can do either one without the other -- but they are closely related, and often used together. They solve different problems, but the problems and the solutions overlap.
 
+"Concurrency is not parallelism" -- Rob Pike:  https://vimeo.com/49718712
 
-https://vimeo.com/49718712
-
-Despite Rob Pike using an example about burning books, I recommend listening to
-at least the first half of his talk.
+Despite Rob Pike using an example about burning books, I recommend listening to at least the first half of his talk.
 
 In "Concurrency is not parallelism" Rob Pike makes a key point:
 Breaking down tasks into concurrent subtasks only allows parallelism,
 it’s the scheduling of these subtasks that creates it.
 
+And, indeed, once you have a set of subtasks, they can be scheduled in a truly parallel fashion, or managed asynchronously in a single thread.
+
 
 Types of Concurrency
 --------------------
 
-Multithreading:
+**Multithreading:**
 
-what is a thread?
+  Multiple code paths sharing memory
 
-Multiprocessing:
+**Multiprocessing:**
 
-what is a process?
+  Multiple code paths with separate memory space.
 
+**Asyncronous programming:**
 
-Lots of different packages both in the standard library and 3rd party libaries.
+  multiple "jobs" run at "arbitrary" times.
+
+Lots of different packages for both in the standard library and 3rd party libraries.
 
 How to know what to choose?
 
  - IO bound vs. CPU bound
- - event driven cooperative multitasking vs preemptive multitasking
+ - Event driven cooperative multitasking vs preemptive multitasking
  - callbacks vs coroutines + scheduler/event loop
 
 
 Concurrency in the standard library:
 ------------------------------------
 
- - threading: processing is interweaved to get more done (doing dishes while taking a break from cooking)
-   - sched: Scheduler, safe in mulit-threaded enivoronments
-   - queue: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads. 
- - multiprocessing: processing is parallel (someone else does the dishes while you cook)
-   - subprocess: (replaces os.system, os.spawn) allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.  parallel, hands to OS
- - concurrent.futures: https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/ This is also in the asyncio package, and we go into it in more depth there)
+ - ``threading``: processing is interleaved to get more done (doing dishes while taking a break from cooking)
+
+   - ``sched``: Scheduler, safe in multi-threaded environments
+
+   - ``queue``: The queue module implements multi-producer, multi-consumer queues. It is especially useful in threaded programming when information must be exchanged safely between multiple threads.
+
+ - ``multiprocessing``: processing is parallel (someone else does the dishes while you cook). Duplicates the current Python process and runs code in it.
+
+ - ``subprocess``: allows you to spawn new processes (entirely different programs), connect to their input/output/error pipes, and obtain their return codes.  Parallel, hands to OS (usually running command line programs)
+
+ - ``concurrent.futures``: https://www.blog.pythonlibrary.org/2016/08/03/python-3-concurrency-the-concurrent-futures-module/ This is also in the ``asyncio`` package, and we go into it in more depth there)
 
 
 Concurrency outside the standard library:
@@ -79,17 +85,23 @@ Concurrency outside the standard library:
 
 
 Advantages / Disadvantages of Threads
---------------------------------------
+-------------------------------------
 
 Advantages:
+...........
+
 They share memory space:
 
- - Threads are light-weight, shared memory means can be created fairly quickly without much memory use. 
- - Easy and cheap to pass data around.
+ - Threads are light-weight, shared memory means they can be created fairly quickly without much memory use.
+
+ - Easy and cheap to pass data around (you are only passing a reference)
 
 Disadvantages:
+..............
+
 They share memory space:
 
+ - Each thread is working with the *same* python objects.
  - Operations often take several steps and may be interrupted mid-stream
  - Thus, access to shared data is also non-deterministic
 
@@ -108,9 +120,7 @@ A: to To other side. get the
 
 (**GIL**)
 
-The GIL locks the interpreter so that only a single thread can run at once,
-assuring that one thread doesn't make a mess of the python objects that
-another thread needs. The upshot:
+The GIL locks the interpreter so that only a single thread can run at once, assuring that one thread doesn't make a mess of the python objects that another thread needs. The upshot:
 
 Python threads do not work well for computationally intensive work.
 
@@ -124,9 +134,14 @@ More on the GIL:
 
 https://emptysqua.re/blog/grok-the-gil-fast-thread-safe-python/
 
-If you really want to understand the GIL -- and get blow away -- watch this one:
+If you really want to understand the GIL -- and get blown away -- watch this one:
 
 http://pyvideo.org/pycon-us-2010/pycon-2010--understanding-the-python-gil---82.html
+
+**NOTE:** The GIL *seems* like such an obvious limitation that you've got to wonder why it's there. And there have been multiple efforts to remove it. But it turns out that Python's design makes that very hard (impossible?) without severely reducing performance on single threaded programs.
+
+Personal Opinion: Python is not really (directly) suited to the kind of computationally intensive work that the GIL really hampers. And extension modules (i.e. numpy) can release the GIL!
+
 
 Advantages / Disadvantages of Processes
 ---------------------------------------
@@ -137,11 +152,13 @@ You need to copy the data you need back and forth between processes.
 
 Slower to start, slower to use, more memory.
 
+But as the entire python process is copied, each subprocess is working with the different objects -- they can't step on each other. So there is:
+
  **no GIL**
 
 Multiprocessing is suitable for computationally intensive work.
 
-Works best for "large" problems with not much data:
+Works best for "large" problems with not much data
 
 
 The mechanics: how do you use threads and/or processes
@@ -153,19 +170,22 @@ They have similar APIs -- so you can use them in similar ways.
 
 Key points:
 
- - There is no Python thread scheduler, it is up to the host OS
+ - There is no Python thread scheduler, it is up to the host OS. yes these are "true" threads.
  - Works well for I/O bound problems, can use literally thousands of threads
  - Limit CPU-bound processing to C extensions (that release the GIL)
- - Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!!
+ - Do not use for CPU bound problems, will go slower than no threads, especially on multiple cores!!! (see David Beazley's talk referenced above)
 
 Starting threads is relatively simple, but there are many potential issues.
 
-We already talked about shared data, this can lead to a race condition.
+We already talked about shared data, this can lead to a "race condition".
 
- - may produce sligthly different results every run
- - may just flake out mysteriously every once in a while
- - Thus must synchronize threads!
-
+ - May produce slightly different results every run
+ - May just flake out mysteriously every once in a while
+ - May run finie when testing, but fail when run on:
+   - a slower system
+   - a heavily loaded system
+   - a larger dataset
+ - Thus you *must* synchronize threads!
 
 Synchronization options:
 
@@ -177,14 +197,14 @@ Synchronization options:
  - Queues
 
 
-Mutex locks (threading.Lock)
-----------------------------
+Mutex locks (``threading.Lock``)
+--------------------------------
 
- - probably most common
- - only one thread can modify shared data a any given time
- - thread determines when unlocked
- - must put lock/unlock around critical code in ALL threads
- - difficult to manage
+ - Probably most common
+ - Only one thread can modify shared data a any given time
+ - Thread determines when unlocked
+ - Must put lock/unlock around critical code in ALL threads
+ - Difficult to manage
 
 Easiest with context manager:
 
@@ -203,43 +223,43 @@ Only one lock per thread! (or risk mysterious deadlocks)
 Or use RLock for code-based locking (locking function/method execution rather than data access)
 
 
-Semaphores (threading.Semaphore)
---------------------------------
+Semaphores (``threading.Semaphore``)
+------------------------------------
 
  - Counter-based synchronization primitive
-    - when acquire called, wait if count is zero, otherwise decrement 
+    - when acquire called, wait if count is zero, otherwise decrement
     - when release called, increment count, signal any waiting threads
  - Can be called in any order by any thread
- - more tunable than locks
+ - More tunable than locks
     - Can limit number of threads performing certain operations
     - Can signal between threads
 
 
-Events (threading.Event)
-------------------------
+Events (``threading.Event``)
+----------------------------
 
- - threads can wait for particular event
- - setting an event unblocks all waiting threads
+ - Threads can wait for particular event
+ - Setting an event unblocks all waiting threads
 
 Common use: barriers, notification
 
 
-Condition (threading.Condition)
--------------------------------
+Condition (``threading.Condition``)
+-----------------------------------
 
- - combination of locking/signaling
+ - Combination of locking/signaling
  - lock protects code that establishes a "condition" (e.g., data available)
  - signal notifies threads that "condition" has changed
 
 Common use: producer/consumer patterns
 
 
-Queues (Queue)
---------------
+Queues (``queue``)
+------------------
 
- - easier to use than many of above
- - do not need locks
- - has signaling
+ - Easier to use than many of above
+ - Do not need locks
+ - Has signaling
 
 Common use: producer/consumer patterns
 
@@ -260,57 +280,112 @@ Common use: producer/consumer patterns
         consume_item(item)
 
 
-Scheduling (sched)
-------------------
+Scheduling (``sched``)
+----------------------
 
  - Schedules based on time, either absolute or delay
- - Low level, so has many of the traps of the threading synchromization primitives.
+ - Low level, so has many of the traps of the threading synchronization primitives.
+
+Timed events (``threading.timer``)
+----------------------------------
+
+Run a function at some time in the future:
+
+.. code-block:: python
+
+    import threading
+
+    def called_once():
+        """
+        this function is designed to be be called once in the future
+        """
+        print("I just got called! It's now: {}".format(time.asctime()))
+
+    # setting it up to be called
+    t = Timer(interval=3, function=called_once)
+    t.start()
+
+    # you can cancel it if you want:
+    t.cancel()
+
+demo: ``Examples/condensed_concurrency/simple_timer.py``
 
 
-Multiprocessing
----------------
+Subprocesses (``subprocess``)
+-----------------------------
 
-For this to work, want to send messages, as each process runs its own
-independent Python interpreter.
+Subprocesses are completely separate processes invoked from a master process (your python program).
+
+Usually used to call non-python programs (shell commands). But of course, a Python program can be a command line program as well, so you can call either your or other python programs this way.
+
+Easy invocation:
+
+.. code-block:: python
+
+    import subprocess
+
+    subprocess.run('ls')
+
+The program halts while waiting for the subprocess to finish. (unless you call it from a thread!)
+
+You can control communication with the subprocess via:
+
+``stdout``, ``stdin``, ``stderr`` with:
+
+``subprocess.Popen``
+
+Lots of options there!
 
 
-Pipes and Pickle and Subprocess
--------------------------------
+Pipes and ``pickle`` and ``subprocess``
+.......................................
 
  - Very low level, for the brave of heart
  - Can send just about any Python object
 
+For this to work, you need to send messages, as each process runs its own independent Python interpreter.
 
-Multiprocessing (multiprocessing)
----------------------------------
+
+Multiprocessing (``multiprocessing``)
+-------------------------------------
 
  - processes are completely isolated
- - no locking :)
- - instead messaging
+ - no locking :) (and no GIL!)
+ - instead of locking: messaging
 
+Provides a similar API as ``threading`` -- in the simple case, you can switch between them easily.
 
 Messaging
 ---------
 
-Pipes (multiprocessing.Pipe):
+Pipes (``multiprocessing.Pipe``)
+................................
 
- - Returns a pair of coneected objects
+ - Returns a pair of connected objects
  - Largely mimics Unix pipes, but higher level
- - send picked objects or buffers
+ - send pickled objects or buffers
 
 
-Queues (multiprocessing.Queue):
+Queues (``multiprocessing.Queue``)
+..................................
 
- - same interface as Queue
+ - same interface as ``queue.Queue``
  - implemented on top of pipes
- - means you can pretty easily port threaded programs using queues to mutiprocessing
-   - queue is only shared data
+ - means you can pretty easily port threaded programs using queues to multiprocessing
+   - queue is the only shared data
+   - data is all pickled and unpickled to pass between processes -- significant overhead.
 
 
-Other features of Multiprocessing
+Other features of the multiprocessing package
+.............................................
 
  - Pools
  - Shared objects and arrays
  - Synchronization primitives
  - Managed objects
  - Connections
+
+Add references!
+
+
+

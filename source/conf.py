@@ -186,23 +186,23 @@ epub_copyright = copyright
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-# -- Hieroglyph Slide Configuration ------------
+# # -- Hieroglyph Slide Configuration ------------
 
-extensions += [
-    'hieroglyph',
-]
+# extensions += [
+#     'hieroglyph',
+# ]
 
-slide_title = "Intro to Python"
-slide_theme = 'slides2'
-slide_levels = 3
-slide_numbers = False
+# slide_title = "Intro to Python"
+# slide_theme = 'slides2'
+# slide_levels = 3
+# slide_numbers = False
 
 
-# Place custom static assets in the _static directory and uncomment
-# the following lines to include them
+# # Place custom static assets in the _static directory and uncomment
+# # the following lines to include them
 
-slide_theme_options = {
-    'subtitle': 'Py100',
-    'custom_css': 'custom.css',
-    # 'custom_js': 'custom.js',
-}
+# slide_theme_options = {
+#     'subtitle': 'Py300',
+#     'custom_css': 'custom.css',
+#     # 'custom_js': 'custom.js',
+# }

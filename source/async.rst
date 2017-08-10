@@ -6,7 +6,7 @@
 Asychronous Programing
 ######################
 
-Async: Not knowing what is happening when...
+**Async:** Not knowing what is happening when...
 
 
 Asynchronous Programming
@@ -33,10 +33,10 @@ In: "A Web Crawler With asyncio Coroutines", Guido himself writes:
 
 http://www.aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
-So my take:
-...........
+My take:
+........
 
-Async is the good approach to support many connections that are spending a lot of time waiting, and doing short tasks when they do do something.
+Async is the good approach to support many connections that are spending a lot of time waiting, and doing short tasks when they do have something to do.
 
 **NOTE:** the backbone of the web is HTTP -- which is a "stateless" protocol. That is, each request is independent (state is "faked" with sessions via cookies). So "classic" web apps are NOT keeping many connections alive, there may be many clients at once, but each request is still independent. And often there is substantial work do be done with each one. A multi-threaded or multi-processes web server works fine for this.
 
@@ -61,7 +61,7 @@ WebSocket gives the advantage of "pushing" -- the server can push information to
 
 Either HTTP or WebSocket can generate many small requests to the server, which async is good for, but WebSocket pretty much requires an async server if you want it to scale well, as each active client is keeping a connection open.
 
-Also: often a web service is depending on other web services to do it's task. Kind of nice if your web server can do other things while waiting on a third-party service.
+Also: often a web service is depending on other web services to do its task. Kind of nice if your web server can do other things while waiting on a third-party service.
 
 Client-side HTTP
 ----------------
@@ -70,9 +70,9 @@ Another nice use for async is client side HTTP:
 
 When you make an http request, there is often a substantial lag time between making the request and getting the response.
 
-the server receives the request, and it may have to do a fair bit of processing before it can return something -- and it takes time for the response to travel over the wire.
+The server receives the request, and it may have to do a fair bit of processing before it can return something -- and it takes time for the response to travel over the wire.
 
-with "regular" requests -- the program is halted while its waiting for the server to do its thing. ("Blocking" -- see below)
+with "regular" requests -- the program is halted while it's waiting for the server to do its thing. ("Blocking" -- see below)
 
 With async, the program can do other things while the request is waiting for the server to respond.
 
@@ -85,7 +85,7 @@ A "Blocking" call means a function call that does not return until it is complet
 
   call_a_func()
 
-The program will stop there and wait until the function returns before moving on. Nothing else can happen. Usually this is fine, the program may not be able to do anything else until it gets the result of that function.
+The program will stop there and wait until the function returns before moving on. Nothing else can happen. Usually this is fine, the program may not be able to do anything else until it gets the result of that function anyway.
 
 But what if:
 
@@ -104,7 +104,7 @@ You write "event handlers" that respond to particular events in the GUI: moving 
 
 The trick is that you don't know in what order anything might happen -- there are multiple GUI objects on the screen at a given time, and users could click on any of them in any order.
 
-This is all handled by and "event loop", essentially code like this:
+This is all handled by an "event loop", essentially code like this:
 
 .. code-block:: python
 
@@ -113,7 +113,7 @@ This is all handled by and "event loop", essentially code like this:
      if evt:
          evt.call_handler()
 
-That's it -- it is an infinite loop that continually looks to see if there are any events to handle, and if there are, it calls the event handler for that event. Meanwhile, the system is putting events on the event queue as they occur: someone moving the mouse, typing in control, etc.
+That's it -- it is an infinite loop that continually looks to see if there are any events to handle, and if there are, it calls the event handler for that event. Meanwhile, the system is putting events on the event queue as they occur: someone moving the mouse, typing in a control, etc.
 
 It's important is that event handlers run quickly -- if they take a long time to run, then the GUI is "locked up", or not responsive to user input.
 
@@ -173,12 +173,19 @@ In fact, you can use generators and yield to make coroutines, and that was done 
 
 .. image:: images/coroutines_plot.png
 
-(from: http://www.dabeaz.com/coroutines/Coroutines.pdf)
+(from: http://www.dabeaz.com/coroutines/Coroutines.pdf -- which is a pretty good talk to read if you want to understand this stuff)
 
 ``async`` / ``await``
 ---------------------
 
 In Python 3.5, the ``async`` and ``await`` keywords were added to make coroutines "native" and more clear.
+
+**NOTE:** ``async`` and ``await`` are still pretty new to Python. So if you look for tutorials, blog posts, etc. about asynchronous programming, they mostly either use or refer to the "old" way to do it (Including David Beazley's talk above). In this presentation, I am ONLY talking about the new way. I hope that's less confusing. But it can be confusing to read older materials.
+
+**NOTE2:** IN addition to older documentation, the ``asyncio`` package in the standard library pre-dates ``async`` and ``await`` -- so it supports the older style as well as the new style -- antoher source of confusion.  The Trio project:  https://github.com/python-trio/trio is worth a look for a cleaner API.
+
+Using ``async/await``
+---------------------
 
 You define a coroutine with the ``async`` keyword:
 
@@ -187,7 +194,7 @@ You define a coroutine with the ``async`` keyword:
    async def ping_server(ip):
         pass
 
-When you call ``ping_server``, it doesn't run the code. what it does is return a coroutine, all set up and ready to go.
+When you call ``ping_server()``, it doesn't run the code. What it does is return a coroutine, all set up and ready to go.
 
 .. code-block:: ipython
 
@@ -223,10 +230,10 @@ or
 ``event_loop.create_task()``
 
 
-Think of async/await as an API for asynchronous programming
------------------------------------------------------------
+Think of ``async/await`` as an API for asynchronous programming
+-------------------------------------------------------------------
 
-async/await is really an API for asynchronous programming: People shouldn't think that async/await as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the async/await API for asynchronous programming.
+``async/await`` is really an API for asynchronous programming: People shouldn't think that ``async/await`` as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the ``async/await`` API for asynchronous programming.
 
 
 Future object
@@ -248,7 +255,6 @@ It also contains methods like:
 
   Return the result this future represents.
 
-
 * add_done_callback(fn)
 
   Add a callback to be run when the future becomes done.
@@ -260,6 +266,8 @@ It also contains methods like:
 A coroutine isn't a future, but they can be wrapped in one by the event loop.
 
 For the most part, you don't need to work directly with futures.
+
+**NOTE:** there is also the ``concurrent.futures`` module, which provides "future" objects that work with threads or processes, rather than an async event loop.
 
 The Event Loop
 --------------
@@ -397,20 +405,20 @@ If you need to put an event on the loop from a separate thread, you can use:
 Giving up control
 -----------------
 
-``await`` passes control back to the event loop -- cooperaive multitasking!
+``await`` passes control back to the event loop -- cooperative multitasking!
 
 Usually, you actually need to wait for a task of some sort. but if not, and you still need to give up control, you can use:
 
 ``await asyncio.sleep(0)``
 
-You can, of course, actually have to pause for a period of time, but other than demos, I'm not sure why you'd want to do that.
+You can, of course, pause for a period of time (greater than zero), but other than demos, I'm not sure why you'd want to do that.
 
 Running Blocking Code
 ---------------------
 
 Sometimes you really do need to run "blocking" code -- maybe a long computation, or reading a big file, or.....
 
-In that case, if yo don't want your app locked up -- you need to put it in a separate thread (or process). Use:
+In that case, if you don't want your app locked up -- you need to put it in a separate thread (or process). Use:
 
 result = await loop.run_in_executor(Executor, function)
 

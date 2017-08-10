@@ -310,6 +310,19 @@ Run a function at some time in the future:
 
 demo: ``Examples/condensed_concurrency/simple_timer.py``
 
+Race condition:
+---------------
+
+A "race condition" is when the code expects things to happen in a certain order.
+
+But with threading, multiple threads can touch the same data, and they may not do it in the order the code expects.
+
+trival example in:
+
+``Examples/condensed_concurrenc``
+
+That also serves as an example of creating and using threads.
+
 
 Subprocesses (``subprocess``)
 -----------------------------

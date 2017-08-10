@@ -46,14 +46,14 @@ def called_later(count):
 if __name__ == "__main__":
     # use the timer...
 
-    threading.Timer(interval=3, function=called_once).start()
-    print("After starting the timer")
-    print("it's now: {}".format(time.asctime()))
+    # threading.Timer(interval=3, function=called_once).start()
+    # print("After starting the timer")
+    # print("it's now: {}".format(time.asctime()))
 
-    # called_later(0)
+    called_later(0)
 
     # do some stuff:
-    for i in range(10):
+    for i in range(100):
         print("{}: nothing important...".format(i))
         time.sleep(0.5)
 

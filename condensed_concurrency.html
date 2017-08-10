@@ -101,6 +101,7 @@
 <li><a class="reference internal" href="#queues-queue">Queues (<code class="docutils literal"><span class="pre">queue</span></code>)</a></li>
 <li><a class="reference internal" href="#scheduling-sched">Scheduling (<code class="docutils literal"><span class="pre">sched</span></code>)</a></li>
 <li><a class="reference internal" href="#timed-events-threading-timer">Timed events (<code class="docutils literal"><span class="pre">threading.timer</span></code>)</a></li>
+<li><a class="reference internal" href="#race-condition">Race condition:</a></li>
 <li><a class="reference internal" href="#subprocesses-subprocess">Subprocesses (<code class="docutils literal"><span class="pre">subprocess</span></code>)</a><ul>
 <li><a class="reference internal" href="#pipes-and-pickle-and-subprocess">Pipes and <code class="docutils literal"><span class="pre">pickle</span></code> and <code class="docutils literal"><span class="pre">subprocess</span></code></a></li>
 </ul>
@@ -446,6 +447,14 @@ it’s the scheduling of these subtasks that creates it.</p>
 </pre></div>
 </div>
 <p>demo: <code class="docutils literal"><span class="pre">Examples/condensed_concurrency/simple_timer.py</span></code></p>
+</div>
+<div class="section" id="race-condition">
+<h3>Race condition:<a class="headerlink" href="#race-condition" title="Permalink to this headline">¶</a></h3>
+<p>A &#8220;race condition&#8221; is when the code expects things to happen in a certain order.</p>
+<p>But with threading, multiple threads can touch the same data, and they may not do it in the order the code expects.</p>
+<p>trival example in:</p>
+<p><code class="docutils literal"><span class="pre">Examples/condensed_concurrenc</span></code></p>
+<p>That also serves as an example of creating and using threads.</p>
 </div>
 <div class="section" id="subprocesses-subprocess">
 <h3>Subprocesses (<code class="docutils literal"><span class="pre">subprocess</span></code>)<a class="headerlink" href="#subprocesses-subprocess" title="Permalink to this headline">¶</a></h3>

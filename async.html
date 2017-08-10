@@ -84,7 +84,7 @@
 <li><a class="reference internal" href="#">Asychronous Programing</a><ul>
 <li><a class="reference internal" href="#asynchronous-programming">Asynchronous Programming</a><ul>
 <li><a class="reference internal" href="#why-async">Why Async?</a><ul>
-<li><a class="reference internal" href="#so-my-take">So my take:</a></li>
+<li><a class="reference internal" href="#my-take">My take:</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#single-page-apps-and-websockets">Single Page Apps and WebSockets</a></li>
@@ -93,12 +93,13 @@
 <li><a class="reference internal" href="#event-loops">Event Loops</a></li>
 <li><a class="reference internal" href="#callbacks">Callbacks</a></li>
 <li><a class="reference internal" href="#coroutines">Coroutines</a></li>
-<li><a class="reference internal" href="#async-await"><code class="docutils literal"><span class="pre">async</span></code> / <code class="docutils literal"><span class="pre">await</span></code></a><ul>
+<li><a class="reference internal" href="#async-await"><code class="docutils literal"><span class="pre">async</span></code> / <code class="docutils literal"><span class="pre">await</span></code></a></li>
+<li><a class="reference internal" href="#using-async-await">Using <code class="docutils literal"><span class="pre">async/await</span></code></a><ul>
 <li><a class="reference internal" href="#running-a-coroutine">Running a Coroutine</a></li>
 <li><a class="reference internal" href="#scheduling-it-to-run">Scheduling it to run</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#think-of-async-await-as-an-api-for-asynchronous-programming">Think of async/await as an API for asynchronous programming</a></li>
+<li><a class="reference internal" href="#think-of-async-await-as-an-api-for-asynchronous-programming">Think of <code class="docutils literal"><span class="pre">async/await</span></code> as an API for asynchronous programming</a></li>
 <li><a class="reference internal" href="#future-object">Future object</a></li>
 <li><a class="reference internal" href="#the-event-loop">The Event Loop</a></li>
 <li><a class="reference internal" href="#calling-a-regular-function">Calling a regular function</a></li>
@@ -165,7 +166,7 @@
             
   <div class="section" id="asychronous-programing">
 <span id="async"></span><h1>Asychronous Programing<a class="headerlink" href="#asychronous-programing" title="Permalink to this headline">¶</a></h1>
-<p>Async: Not knowing what is happening when...</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Async: ** Not knowing what is happening when...</p>
 <div class="section" id="asynchronous-programming">
 <h2>Asynchronous Programming<a class="headerlink" href="#asynchronous-programming" title="Permalink to this headline">¶</a></h2>
 <p>Another way to achieve concurrency</p>
@@ -183,9 +184,9 @@
 <blockquote>
 <div>Many networked programs spend their time not computing, but holding open many connections that are slow, or have infrequent events. These programs present a very different challenge: to wait for a huge number of network events efficiently. A contemporary approach to this problem is asynchronous I/O, or &#8220;async&#8221;.</div></blockquote>
 <p><a class="reference external" href="http://www.aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html">http://www.aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html</a></p>
-<div class="section" id="so-my-take">
-<h4>So my take:<a class="headerlink" href="#so-my-take" title="Permalink to this headline">¶</a></h4>
-<p>Async is the good approach to support many connections that are spending a lot of time waiting, and doing short tasks when they do do something.</p>
+<div class="section" id="my-take">
+<h4>My take:<a class="headerlink" href="#my-take" title="Permalink to this headline">¶</a></h4>
+<p>Async is the good approach to support many connections that are spending a lot of time waiting, and doing short tasks when they do have something to do.</p>
 <p><strong>NOTE:</strong> the backbone of the web is HTTP &#8211; which is a &#8220;stateless&#8221; protocol. That is, each request is independent (state is &#8220;faked&#8221; with sessions via cookies). So &#8220;classic&#8221; web apps are NOT keeping many connections alive, there may be many clients at once, but each request is still independent. And often there is substantial work do be done with each one. A multi-threaded or multi-processes web server works fine for this.</p>
 </div>
 </div>
@@ -204,14 +205,14 @@
 </div></blockquote>
 <p>WebSocket gives the advantage of &#8220;pushing&#8221; &#8211; the server can push information to the client, rather than the client having to poll the server to see if anything needs to be updated.</p>
 <p>Either HTTP or WebSocket can generate many small requests to the server, which async is good for, but WebSocket pretty much requires an async server if you want it to scale well, as each active client is keeping a connection open.</p>
-<p>Also: often a web service is depending on other web services to do it&#8217;s task. Kind of nice if your web server can do other things while waiting on a third-party service.</p>
+<p>Also: often a web service is depending on other web services to do its task. Kind of nice if your web server can do other things while waiting on a third-party service.</p>
 </div>
 <div class="section" id="client-side-http">
 <h3>Client-side HTTP<a class="headerlink" href="#client-side-http" title="Permalink to this headline">¶</a></h3>
 <p>Another nice use for async is client side HTTP:</p>
 <p>When you make an http request, there is often a substantial lag time between making the request and getting the response.</p>
-<p>the server receives the request, and it may have to do a fair bit of processing before it can return something &#8211; and it takes time for the response to travel over the wire.</p>
-<p>with &#8220;regular&#8221; requests &#8211; the program is halted while its waiting for the server to do its thing. (&#8220;Blocking&#8221; &#8211; see below)</p>
+<p>The server receives the request, and it may have to do a fair bit of processing before it can return something &#8211; and it takes time for the response to travel over the wire.</p>
+<p>with &#8220;regular&#8221; requests &#8211; the program is halted while it&#8217;s waiting for the server to do its thing. (&#8220;Blocking&#8221; &#8211; see below)</p>
 <p>With async, the program can do other things while the request is waiting for the server to respond.</p>
 </div>
 <div class="section" id="blocking">
@@ -220,7 +221,7 @@
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">call_a_func</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The program will stop there and wait until the function returns before moving on. Nothing else can happen. Usually this is fine, the program may not be able to do anything else until it gets the result of that function.</p>
+<p>The program will stop there and wait until the function returns before moving on. Nothing else can happen. Usually this is fine, the program may not be able to do anything else until it gets the result of that function anyway.</p>
 <p>But what if:</p>
 <ul class="simple">
 <li>That function will take a while?</li>
@@ -234,14 +235,14 @@ work while that function is working. How do you deal with that?</p>
 <p>Asynchronous programming is not new &#8211; it is the key component of traditional desktop Graphical User Interface Programs. The GUI version is often referred to as &#8220;event-driven&#8221; development:</p>
 <p>You write &#8220;event handlers&#8221; that respond to particular events in the GUI: moving the mouse, clicking on a button, etc.</p>
 <p>The trick is that you don&#8217;t know in what order anything might happen &#8211; there are multiple GUI objects on the screen at a given time, and users could click on any of them in any order.</p>
-<p>This is all handled by and &#8220;event loop&#8221;, essentially code like this:</p>
+<p>This is all handled by an &#8220;event loop&#8221;, essentially code like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
    <span class="n">evt</span> <span class="o">=</span> <span class="n">event_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
    <span class="k">if</span> <span class="n">evt</span><span class="p">:</span>
        <span class="n">evt</span><span class="o">.</span><span class="n">call_handler</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>That&#8217;s it &#8211; it is an infinite loop that continually looks to see if there are any events to handle, and if there are, it calls the event handler for that event. Meanwhile, the system is putting events on the event queue as they occur: someone moving the mouse, typing in control, etc.</p>
+<p>That&#8217;s it &#8211; it is an infinite loop that continually looks to see if there are any events to handle, and if there are, it calls the event handler for that event. Meanwhile, the system is putting events on the event queue as they occur: someone moving the mouse, typing in a control, etc.</p>
 <p>It&#8217;s important is that event handlers run quickly &#8211; if they take a long time to run, then the GUI is &#8220;locked up&#8221;, or not responsive to user input.</p>
 <p>If the program does need to do some work that takes time, it needs to do that work in another thread or processes, and then put an event on the event queue when it is done.</p>
 <p>For some examples of this, see:</p>
@@ -280,17 +281,22 @@ work while that function is working. How do you deal with that?</p>
 <p>In fact, you can use generators and yield to make coroutines, and that was done in Python before version 3.5 added new features to directly support coroutines.</p>
 <p><strong>Warning:</strong> This is really hard stuff to wrap your head around!</p>
 <img alt="_images/coroutines_plot.png" src="_images/coroutines_plot.png" />
-<p>(from: <a class="reference external" href="http://www.dabeaz.com/coroutines/Coroutines.pdf">http://www.dabeaz.com/coroutines/Coroutines.pdf</a>)</p>
+<p>(from: <a class="reference external" href="http://www.dabeaz.com/coroutines/Coroutines.pdf">http://www.dabeaz.com/coroutines/Coroutines.pdf</a> &#8211; which is a pretty good talk to read if you want to understand this stuff)</p>
 </div>
 <div class="section" id="async-await">
 <h3><code class="docutils literal"><span class="pre">async</span></code> / <code class="docutils literal"><span class="pre">await</span></code><a class="headerlink" href="#async-await" title="Permalink to this headline">¶</a></h3>
 <p>In Python 3.5, the <code class="docutils literal"><span class="pre">async</span></code> and <code class="docutils literal"><span class="pre">await</span></code> keywords were added to make coroutines &#8220;native&#8221; and more clear.</p>
+<p><strong>NOTE:</strong> <code class="docutils literal"><span class="pre">async</span></code> and <code class="docutils literal"><span class="pre">await</span></code> are still pretty new to Python. So if you look for tutorials, blog posts, etc. about asynchronous programming, they mostly either use or refer to the &#8220;old&#8221; way to do it (Including David Beazley&#8217;s talk above). In this presentation, I am ONLY talking about the new way. I hope that&#8217;s less confusing. But it can be confusing to read older materials.</p>
+<p><strong>NOTE2:</strong> IN addition to older documentation, the <code class="docutils literal"><span class="pre">asyncio</span></code> package in the standard library pre-dates <code class="docutils literal"><span class="pre">async</span></code> and <code class="docutils literal"><span class="pre">await</span></code> &#8211; so it supports the older style as well as the new style &#8211; antoher source of confusion.  The Trio project:  <a class="reference external" href="https://github.com/python-trio/trio">https://github.com/python-trio/trio</a> is worth a look for a cleaner API.</p>
+</div>
+<div class="section" id="using-async-await">
+<h3>Using <code class="docutils literal"><span class="pre">async/await</span></code><a class="headerlink" href="#using-async-await" title="Permalink to this headline">¶</a></h3>
 <p>You define a coroutine with the <code class="docutils literal"><span class="pre">async</span></code> keyword:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">ping_server</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
      <span class="k">pass</span>
 </pre></div>
 </div>
-<p>When you call <code class="docutils literal"><span class="pre">ping_server</span></code>, it doesn&#8217;t run the code. what it does is return a coroutine, all set up and ready to go.</p>
+<p>When you call <code class="docutils literal"><span class="pre">ping_server()</span></code>, it doesn&#8217;t run the code. What it does is return a coroutine, all set up and ready to go.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">cr</span> <span class="o">=</span> <span class="n">ping_server</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="gp">In [13]: </span><span class="n">cr</span>
@@ -315,8 +321,8 @@ work while that function is working. How do you deal with that?</p>
 </div>
 </div>
 <div class="section" id="think-of-async-await-as-an-api-for-asynchronous-programming">
-<h3>Think of async/await as an API for asynchronous programming<a class="headerlink" href="#think-of-async-await-as-an-api-for-asynchronous-programming" title="Permalink to this headline">¶</a></h3>
-<p>async/await is really an API for asynchronous programming: People shouldn&#8217;t think that async/await as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the async/await API for asynchronous programming.</p>
+<h3>Think of <code class="docutils literal"><span class="pre">async/await</span></code> as an API for asynchronous programming<a class="headerlink" href="#think-of-async-await-as-an-api-for-asynchronous-programming" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">async/await</span></code> is really an API for asynchronous programming: People shouldn&#8217;t think that <code class="docutils literal"><span class="pre">async/await</span></code> as synonymous with asyncio, but instead think that asyncio is a framework that can utilize the <code class="docutils literal"><span class="pre">async/await</span></code> API for asynchronous programming.</p>
 </div>
 <div class="section" id="future-object">
 <h3>Future object<a class="headerlink" href="#future-object" title="Permalink to this headline">¶</a></h3>
@@ -345,6 +351,7 @@ work while that function is working. How do you deal with that?</p>
 </div></blockquote>
 <p>A coroutine isn&#8217;t a future, but they can be wrapped in one by the event loop.</p>
 <p>For the most part, you don&#8217;t need to work directly with futures.</p>
+<p><strong>NOTE:</strong> there is also the <code class="docutils literal"><span class="pre">concurrent.futures</span></code> module, which provides &#8220;future&#8221; objects that work with threads or processes, rather than an async event loop.</p>
 </div>
 <div class="section" id="the-event-loop">
 <h3>The Event Loop<a class="headerlink" href="#the-event-loop" title="Permalink to this headline">¶</a></h3>
@@ -456,10 +463,10 @@ work while that function is working. How do you deal with that?</p>
 </div>
 <div class="section" id="giving-up-control">
 <h3>Giving up control<a class="headerlink" href="#giving-up-control" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">await</span></code> passes control back to the event loop &#8211; cooperaive multitasking!</p>
+<p><code class="docutils literal"><span class="pre">await</span></code> passes control back to the event loop &#8211; cooperative multitasking!</p>
 <p>Usually, you actually need to wait for a task of some sort. but if not, and you still need to give up control, you can use:</p>
 <p><code class="docutils literal"><span class="pre">await</span> <span class="pre">asyncio.sleep(0)</span></code></p>
-<p>You can, of course, actually have to pause for a period of time, but other than demos, I&#8217;m not sure why you&#8217;d want to do that.</p>
+<p>You can, of course, pause for a period of time (greater than zero), but other than demos, I&#8217;m not sure why you&#8217;d want to do that.</p>
 </div>
 <div class="section" id="running-blocking-code">
 <h3>Running Blocking Code<a class="headerlink" href="#running-blocking-code" title="Permalink to this headline">¶</a></h3>

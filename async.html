@@ -166,7 +166,7 @@
             
   <div class="section" id="asychronous-programing">
 <span id="async"></span><h1>Asychronous Programing<a class="headerlink" href="#asychronous-programing" title="Permalink to this headline">¶</a></h1>
-<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Async: ** Not knowing what is happening when...</p>
+<p><strong>Async:</strong> Not knowing what is happening when...</p>
 <div class="section" id="asynchronous-programming">
 <h2>Asynchronous Programming<a class="headerlink" href="#asynchronous-programming" title="Permalink to this headline">¶</a></h2>
 <p>Another way to achieve concurrency</p>
@@ -471,7 +471,7 @@ work while that function is working. How do you deal with that?</p>
 <div class="section" id="running-blocking-code">
 <h3>Running Blocking Code<a class="headerlink" href="#running-blocking-code" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you really do need to run &#8220;blocking&#8221; code &#8211; maybe a long computation, or reading a big file, or.....</p>
-<p>In that case, if yo don&#8217;t want your app locked up &#8211; you need to put it in a separate thread (or process). Use:</p>
+<p>In that case, if you don&#8217;t want your app locked up &#8211; you need to put it in a separate thread (or process). Use:</p>
 <p>result = await loop.run_in_executor(Executor, function)</p>
 <p>This will run the function in the specified Executor:</p>
 <p><a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor">https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Executor</a></p>

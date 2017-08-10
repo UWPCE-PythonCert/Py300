@@ -6,7 +6,7 @@
 Asychronous Programing
 ######################
 
-**Async: ** Not knowing what is happening when...
+**Async:** Not knowing what is happening when...
 
 
 Asynchronous Programming
@@ -418,7 +418,7 @@ Running Blocking Code
 
 Sometimes you really do need to run "blocking" code -- maybe a long computation, or reading a big file, or.....
 
-In that case, if yo don't want your app locked up -- you need to put it in a separate thread (or process). Use:
+In that case, if you don't want your app locked up -- you need to put it in a separate thread (or process). Use:
 
 result = await loop.run_in_executor(Executor, function)
 

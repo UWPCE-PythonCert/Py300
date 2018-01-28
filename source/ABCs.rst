@@ -61,6 +61,7 @@ interfaces are talked about in (at least) for ways:
 - -like -- as in "file-like"
 - generic name -- like "sequence"
 
+
 Abstract Base Classes
 ---------------------
 
@@ -119,9 +120,8 @@ But what if it needs to mutable?
     In [125]: isinstance((1,2,3,4), MutableSequence)
     Out[125]: False
 
-So Python
 
-gotcha!
+Gotcha!
 -------
 
 One of the most common type errors seen in Python is the "sequence of
@@ -177,13 +177,13 @@ Why?
 
 Well, the function is expecting an iterable of strings that it can loop over.
 
-But a string IS an iterable of strings! It iterates over the string,
+But a string *IS* an iterable of strings! It iterates over the string,
 yielding each letter. And a letter is simply a string that happens to
 be of length-one.
 
 So plain old duck-typing and EAFP doesn't work.
 
-what about checking for a Sequence?
+What about checking for a Sequence?
 
 .. code-block:: python
 
@@ -260,7 +260,7 @@ Things you might do with ABCs
 Using isinstance with standard ABCs
 -----------------------------------
 
-This you would do at the top of a funciton to make sure you are working
+This you would do at the top of a function to make sure you are working
 with what you think you are.
 
 Remember that most of the time you can simply use EAFP instead.
@@ -301,6 +301,7 @@ Most of the build-in ones are in the ``collections.abc`` module:
     Set
     Sized
     ValuesView
+
 
 Creating an object that matches an interface
 ---------------------------------------------
@@ -353,14 +354,12 @@ This was brought up on SO:
 
 http://stackoverflow.com/questions/3450857/python-determining-if-an-object-is-file-like
 
-Alex Martelli's answer:
+Alex Martelli's answer::
 
-"""
-... you need to determine which methods you need. To check for them, I
-recommended defining your own FileLikeEnoughForMe abstract base class
-with ``abstractmethod`` decorators, and checking the object with
-``isinstance`` for that class.
-"""
+    ... you need to determine which methods you need. To check for them, I
+    recommended defining your own FileLikeEnoughForMe abstract base class
+    with ``abstractmethod`` decorators, and checking the object with
+    ``isinstance`` for that class.
 
 **Note** You could use ``isinstance(obj, io.FileIO)``, but then you
 would only be able to use object that conformed to the full File interface.

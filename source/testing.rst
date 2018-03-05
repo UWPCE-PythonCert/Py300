@@ -1,6 +1,6 @@
 :orphan:
 
-.. _testing:
+.. _advanced_testing:
 
 *******
 Testing

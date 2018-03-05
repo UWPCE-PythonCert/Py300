@@ -3,14 +3,14 @@
 """
 sample data for NOSQL examples
 
-This version has a non-trival data model
-
+This version has a not completely-trival data model
 """
 
 class Person(object):
     """
     class to represent an individual person
     """
+
     def __init__(self,
                  last_name,
                  first_name='',
@@ -20,7 +20,7 @@ class Person(object):
                  ):
         """
         initialize a Person object:
-        """ 
+        """
         self.first_name = first_name.strip()
         self.last_name = last_name.strip()
         self.middle_name = middle_name.strip()
@@ -34,6 +34,7 @@ class Person(object):
     def __str__(self):
         msg = '{first_name} {middle_name} {last_name}'.format(**self.__dict__)
         return msg
+
     def __repr__(self):
         """
         not a good ___repr__, but want to have something here
@@ -45,6 +46,7 @@ class Address(object):
     """
     class that represents an address
     """
+
     def __init__(self,
                  line_1='',
                  line_2='',
@@ -157,7 +159,7 @@ def create_sample():
     """
     Create a sample Address Book
     """
-    
+
     chris = Person(last_name = 'Barker',
                    first_name='Chris',
                    middle_name='H',
@@ -247,7 +249,7 @@ def create_sample():
     return address_book
 
 if __name__ == "__main__":
-    address_book = create_sample() 
+    address_book = create_sample()
 
     print("Here is the address book")
     print(address_book)

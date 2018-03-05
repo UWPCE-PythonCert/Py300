@@ -591,6 +591,18 @@ In ``conf.py``::
 
  html_theme = "default"
 
+
+
+Other Resources
+===============
+
 Of course, this is the primary source of how to use Sphinx itself:
 
 http://sphinx-doc.org/
+
+
+Brandon Rhodes has put together a nice tutorial that he's done at PyCon a couple times:
+
+http://brandons-sphinx-tutorial.readthedocs.io/en/latest/
+
+

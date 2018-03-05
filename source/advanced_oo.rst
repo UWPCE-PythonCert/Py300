@@ -16,8 +16,8 @@ Class
 #####
 
 
-Like 'def', class is used to define something. 
-A class is a logical grouping of data and functions (methods). 
+Like 'def', class is used to define something.
+A class is a logical grouping of data and functions (methods).
 Often based on the real world, like 'Customer' or 'Product'
 
 Can be thought of as 'blueprints for creating objects'
@@ -39,7 +39,7 @@ Create a Vehicle class, and subclasses.
    class Vehicle():
       def __init__(self, something):
       	  self.something = something
- 
+
 
    class Car(Vehicle):
       def __init__(self, something):

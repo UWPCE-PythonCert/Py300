@@ -10,11 +10,9 @@ Performance and Profiling
 Today's topics
 ==============
 
-.. rst-class:: left medium
-
-  -  Determining performance objectives
-  -  Measuring performance a.k.a. profiling
-  -  Performance optimizations
+-  Determining performance objectives
+-  Measuring performance a.k.a. profiling
+-  Performance optimizations
 
 What is Software Profiling
 --------------------------
@@ -46,8 +44,6 @@ An optimization strategy
 #. Else optimize the most expensive parts based on profiling data
 #. Repeat from 2)
 
-
-.. nextslide::
 
 Programmers waste enormous amounts of time thinking about, or
 worrying about, the speed of noncritical parts of their programs,
@@ -88,7 +84,6 @@ referred to as Order of the function
 It describes how an algorithm behaves in terms of resource use as a
 function of amount of input data
 
-.. nextslide::
 
 O(1) - (Constant performance) Execution time stays constant regardless of how much data is supplied
 

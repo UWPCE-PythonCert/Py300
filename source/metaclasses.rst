@@ -1,6 +1,56 @@
 :orphan:
 
-.. _metaclasses:
+.. _metaprogramming:
+
+Notes from python-ideas:
+
+"""
+I think you may have misunderstood the purpose of vars(). It isn't to be
+a slightly different version of dir(), instead vars() should return the
+object's namespace. Not a copy of the namespace, but the actual
+namespace used by the object.
+
+This is how vars() currently works:
+
+py> class X:
+...     pass
+...
+py> obj = X()
+py> ns = vars(obj)
+py> ns['spam'] = 999
+py> obj.spam
+999
+
+
+If vars() can return a modified copy of the namespace, that will break
+this functionality.
+
+
+This is not always true, e.g. for classes vars() returns a mappingproxy.
+
+From Doc:
+
+"Objects such as modules and instances have an updateable __dict__ attribute; however, other objects may have write restrictions on their __dict__ attributes (for example, classes use a types.MappingProxyType to prevent direct dictionary updates)."
+
+https://docs.python.org/3.6/library/functions.html#vars
+
+But you're right: it's misleading to return a RW mapping wich is a fake namespace...
+In the above examples you could just return a mappingproxy.
+
+
+If you want to support this feature you could use composition:
+
+
+class C:
+   def __init__(self):
+       self.publicns = {}  # or: self.proxyattr = MyProxyClass()
+   def __vars__(self):
+       return self.publicns  # or: return self.proxyattr.__dict__
+
+
+This namespace will be updateable, and it let you distinguish between the namespace you want to expose to your clients without compromosing the real one.
+Of course, the real one could always be accessible via __dict__ (if present).
+"""
 
 ################
 Metaprogramming
